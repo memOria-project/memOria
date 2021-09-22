@@ -1,10 +1,11 @@
 const {Router} = require("express");
+const deckController= require("./controllers/deckController")
 
 const router = Router()
 
 
 //Routes protégés (SPRINT 1)
-router.get("/decks", deckController.decks); // Afficher tous les paquet
+router.get("/decks", deckController.getDecks); // Afficher tous les paquet
 router.get("/deck/:id", );	// Afficher un paquet par son id
 router.get("/deck/:id/cartes/", ) ;	// Afficher toutes les cartes d’un  paquet
 	
@@ -28,3 +29,6 @@ router.post("/signup", );		        // Création ou modification de compte utilis
 router.get("/login"	, );		        // Connection de l’utilisateur
 router.get("/logout" , );		        // Déconnection de l’utilisateur
 router.delete("/user/:id", );    // Suppression d’un compte utilisateur
+
+
+module.exports= router;
