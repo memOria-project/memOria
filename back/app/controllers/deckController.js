@@ -1,5 +1,17 @@
-module.exports= {
+
+const Deck= require("../models/deck");
+
+const deckController= {
     getDecks: async function (request, response) {
-        return response.json({"deck 1": "les variables"})
-         }
+        try {
+            const decks= await Deck.allDecks()
+            response.json(decks)
+        } catch (error) {
+            console.log(error)
+            response.status(500).json(error.message)
+        }
+
+    }
 }
+
+module.exports= deckController

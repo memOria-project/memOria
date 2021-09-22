@@ -5,10 +5,39 @@ const router = Router()
 
 
 //Routes protégés (SPRINT 1)
+
+/**
+ * Respond with all decks in database
+ * @route GET /decks
+ * @param{}
+ * @returns {Array<Deck>} 200 - An array of all decks
+ * @returns {string} 500 - Server error
+ */
 router.get("/decks", deckController.getDecks); // Afficher tous les paquet
+
+/**
+ * Respond with all decks in database
+ * @route GET /decks
+ * @param {number} id.path.required the deck id
+ * @returns {deck} 200 - A deck with this id
+ * @returns {string} 500 - Server error
+ */
 router.get("/deck/:id", );	// Afficher un paquet par son id
+
+
+/**
+ * Respond with all decks in database
+ * @route GET /decks
+ * @param {number}
+ * @returns {Array<Card>} 200 - An array of all cards
+ * @returns {string} 500 - Server error
+ */
 router.get("/deck/:id/cartes/", ) ;	// Afficher toutes les cartes d’un  paquet
 	
+
+
+
+
 
 //Routes  protégés (SPRINT 2)
 
