@@ -1,4 +1,5 @@
 import ListPaquets from '../ListPaquets'
+import './Home_Desktop.scss'
 
 const Home = ()=>{
 return (
