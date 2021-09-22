@@ -2,6 +2,9 @@
 
 BEGIN;
 
--- XXX Add DDLs here.
+DROP TABLE "delay";
+DROP TABLE "card";
+DROP TABLE "deck";
+DROP TABLE "user";
 
 COMMIT;
