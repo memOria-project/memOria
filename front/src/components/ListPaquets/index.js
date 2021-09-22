@@ -8,11 +8,11 @@ const ListPaquets = ()=>{
     ];
 
 return (
-        <ul> 
+        <div className="cards-container__card">
             {paquets.map((paquet) => {
-                return <li key={paquet.id}> <Paquet  paquet={paquet} /> </li>
+                return <div className="card__title" key={paquet.id}> <Paquet  paquet={paquet} /> </div>
             })}
-        </ul>
+        </div>
         )
 }
 export default ListPaquets

@@ -1,4 +1,22 @@
+import './nav_desktop.scss';
+import './nav.scss';
+
 const Nav = ()=>{
-return <p>Nav</p>
+return (
+    <header className="header">
+
+    <div className="header__title">memOria</div>
+
+    <nav className="header__nav">
+        <div className="header__nav__placeholder"> </div>
+        <div className="header__nav__current-page">Accueil</div>
+  
+        <div className="header__nav__connexion">
+            <div className="connexion__se-connecter">Se Connecter</div>
+            <div className="connexion__s-inscrire">S'inscrire</div>
+        </div>
+    </nav>
+    </header>
+    )
 }
 export default Nav
