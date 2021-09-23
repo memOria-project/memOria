@@ -1,5 +1,6 @@
 import ListDecks from '../ListDecks'
 import './Home_Desktop.scss'
+import './Home.scss'
 
 const Home = ()=>{
 return (
