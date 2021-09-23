@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GET_DECKS } from '../../actions';
 import ListDecks from '../ListDecks';
 import './Home_Desktop.scss';
+import './Home.scss'
+
 
 const Home = ()=>{
     const back = useSelector((state)=> state.back);
