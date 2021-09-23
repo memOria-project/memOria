@@ -32,7 +32,7 @@ router.get("/deck/:id", );	// Afficher un paquet par son id
  * @returns {Array<Card>} 200 - An array of all cards
  * @returns {string} 500 - Server error
  */
-router.get("/deck/:id/cartes/", ) ;	// Afficher toutes les cartes d’un  paquet
+router.get("/deck/:id/cards/", ) ;	// Afficher toutes les cartes d’un  paquet
 	
 
 
