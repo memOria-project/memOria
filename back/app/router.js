@@ -13,7 +13,7 @@ const router = Router()
  * @returns {Array<Deck>} 200 - An array of all decks
  * @returns {string} 500 - Server error
  */
-router.get("/decks", deckController.getDecks); // Afficher tous les paquet
+router.get("/decks", deckController.getAllDecks); // Afficher tous les paquet
 
 /**
  * Respond with all decks in database
