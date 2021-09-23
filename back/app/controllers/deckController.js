@@ -2,7 +2,7 @@
 const Deck= require("../models/deck");
 
 const deckController= {
-    getDecks: async function (request, response) {
+    getAllDecks: async function (request, response) {
         try {
             const decks= await Deck.allDecks()
             response.json(decks)
