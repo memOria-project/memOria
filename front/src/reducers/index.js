@@ -8,6 +8,8 @@ const rootReducer = combineReducers({
   // qui en aura la charge
   // on accède à cette tranche du state par state.decks
   decks: decksReducer,
+  back: "",
+  
 });
 
 export default rootReducer;
