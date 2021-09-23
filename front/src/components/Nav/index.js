@@ -1,6 +1,7 @@
 import './nav_desktop.scss';
 import './nav.scss';
 import { NavLink } from 'react-router-dom';
+
 const Nav = ()=>{
 return (
     <header className="header">
