@@ -15,8 +15,8 @@ return (
         </div>
   
         <div className="header__nav__connexion">
-            <div className="connexion__se-connecter">Se Connecter</div>
-            <div className="connexion__s-inscrire">S'inscrire</div>
+            <div className="login__signin">Se Connecter</div>
+            <div className="login__signup">S'inscrire</div>
         </div>
     </nav>
     </header>
