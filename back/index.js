@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
 
 const router = require('./app/router');
 
@@ -10,6 +11,8 @@ const port = process.env.PORT || 5500;
 
 app.use('/v1', router);
 
+const corsOption = { origin: process.env.ORIGIN_FRONT || "http://localhost:3000" };
+app.use(cors(corsOption));
 
 app.listen(port, () => {
     console.log(`Server started on http://localhost:${port}`);
