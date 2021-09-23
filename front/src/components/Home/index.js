@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { GET_DECKS } from '../../actions';
 import ListDecks from '../ListDecks';
 import './Home_Desktop.scss';
@@ -7,7 +7,6 @@ import './Home.scss'
 
 
 const Home = ()=>{
-    const back = useSelector((state)=> state.back);
     const dispatch = useDispatch();
     // On récupère les decks. Il suffit de les récupérer une fois au montage, donc on utilise useEffect sans dépendances ([])
 
