@@ -1,7 +1,19 @@
-import ListDecks from '../ListDecks'
-import './Home_Desktop.scss'
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { GET_DECKS } from '../../actions';
+import ListDecks from '../ListDecks';
+import './Home_Desktop.scss';
+import './Home.scss'
+
 
 const Home = ()=>{
+    const dispatch = useDispatch();
+    // On récupère les decks. Il suffit de les récupérer une fois au montage, donc on utilise useEffect sans dépendances ([])
+
+    useEffect(()=> {
+        dispatch({type: GET_DECKS})
+    }, [])
+
 return (
         <div> 
             <div className="main-content__presentation-container">
