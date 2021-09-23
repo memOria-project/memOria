@@ -1,28 +1,24 @@
+.header {
+  display: flex;
+  width: 100vw;
+  flex-flow: column nowrap;
+
+}
+
+.header__nav__current-page {
+  border-top: 2px solid grey;
+  border-bottom: 2px solid grey;
+
+}
+
+.login__signin {
+  border-top: 2px 0 2px 0 solid grey;
+  border-bottom: 2px solid grey;
+}
+
+.login__signup {
+  border-bottom: 2px solid grey;
+}
 
 
-    /* For mobile responsiveness testing */
-    .container {
-      color: red;
-    }
   
-    .container {
-      /* For stylesheet testing */
-      font-style: italic;
-    
-      width: 100vw;
-    
-      /* Column flexbox for main elements of the page */
-      display: flex;
-      flex-flow: column nowrap;
-    
-    }
-    
-    .header {
-      /* two lines in a column */
-      
-      background-color: #aaa;
-      display: flex;
-      flex-flow: column nowrap;
-      
-    
-    }

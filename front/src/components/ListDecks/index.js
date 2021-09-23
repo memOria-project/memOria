@@ -5,9 +5,9 @@ const ListDecks = ()=>{
     const decks = useSelector((state)=>(state.decks))
 
 return (
-        <div className="decks-container__deck">
+        <div className="decks-container">
             {decks.map((deck) => {
-                return <div className="deck__title" key={deck.id}> <Deck  deck={deck} /> </div>
+                return <div className="deck-container" key={deck.id}> <Deck  deck={deck} /> </div>
             })}
         </div>
         )
