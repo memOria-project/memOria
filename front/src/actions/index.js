@@ -1,6 +1,6 @@
 export const GET_DECKS = "GET_DECKS";
 
-export const GetAllDecks = (decks) => {
+export const getAllDecks = (decks) => {
     return {
     type: GET_DECKS,
     decks,

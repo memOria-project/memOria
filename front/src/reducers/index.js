@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
 
 import decksReducer from './decks';
+import backReducer from './back';
+
 
 const rootReducer = combineReducers({
   // ici, on indique que notre state aurra une tranche (slice) appelée
@@ -8,8 +10,7 @@ const rootReducer = combineReducers({
   // qui en aura la charge
   // on accède à cette tranche du state par state.decks
   decks: decksReducer,
-  back: "",
-  
+  back: backReducer
 });
 
 export default rootReducer;

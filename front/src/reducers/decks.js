@@ -1,4 +1,4 @@
-import { GET_DECKS } from '../../actions'
+import { GET_DECKS } from '../actions'
 
 export const initialState = [
     {id:1, title:"javascript", created_at:1632302004, tag:"React"}, 
@@ -11,10 +11,8 @@ const reducer = (state = initialState, action = {}) => {
   // dans un reducer qui a été combiné, on n'accède qu'à sa tranche de state
   switch (action.type) {
     case GET_DECKS:
-      return {
-        ...state,
-        decks: action.decks,
-      };
+      return [action.decks]
+    
 
     default:
       return state;
