@@ -1,0 +1,24 @@
+@baseUrl=http://localhost:3500/v1
+@host=http://localhost:3500
+
+### Get all decks
+
+GET {{baseUrl}}/decks
+
+
+### Add a card
+
+# POST {{baseUrl}}/card
+# Content-Type: application/json
+
+# {
+#     "recto": "Texte du recto",
+#     "verso": "Texte du verso",
+#     "deck_id": 1,
+# }
+
+# ### Tests benchmark Redis ...
+# GET {{host}}/redis
+
+# ### ... vs Postgres
+# GET {{host}}/pg
