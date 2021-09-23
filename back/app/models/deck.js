@@ -1,5 +1,4 @@
 const db= require("../database");
- const pool = require('../database');
  
  class Deck {
      constructor(obj = {}) {
