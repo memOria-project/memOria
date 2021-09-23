@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 const ListDecks = ()=>{
     const decks = useSelector((state)=>(state.decks))
-
+    console.log(decks);
 return (
         <div className="decks-container">
             {decks.map((deck) => {
