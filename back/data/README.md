@@ -1,0 +1,1 @@
+Folder data will contain data (ie sql scripts) for seeding database. 
