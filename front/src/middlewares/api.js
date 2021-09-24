@@ -10,7 +10,7 @@ const api = (store) => (next) => (action) => {
         console.log(back);
         const options = 
         {
-               method: 'GET',
+               method: 'GET', 
         }
         const getDecks = async () => {
             try{
