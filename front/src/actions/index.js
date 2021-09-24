@@ -8,3 +8,5 @@ export const getAllDecks = (decks) => {
     decks,
     }
 }
+
+export const AUTHENTIFY = "AUTHENTIFY";
