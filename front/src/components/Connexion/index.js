@@ -1,12 +1,15 @@
 import './Connexion.scss'
 import './Connexion-Desktop.scss'
-
+import { useSelector } from 'react-redux'
+import { NavLink } from 'react-router-dom';
 //Affiche l'état de connexion de l'utilisateur dans la page d'accueil
 const Connexion= () => { 
-
-  if (false) { return (
+  const authentification = useSelector((state)=>state.authentification)
+  
+  if (true) { 
+    return (
   <div className="header__nav__connexion--disconnected">
-    <div className="login__signin">Se Connecter</div>
+    <NavLink to="/signin"> <div className="login__signin">Se Connecter</div> </NavLink>
     <div className="login__signup">S'inscrire</div>
   </div>
   )
