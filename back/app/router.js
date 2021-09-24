@@ -1,6 +1,6 @@
 const {Router} = require("express");
 const deckController= require("./controllers/deckController")
-
+const checkJwt = require('./middlewares/checkJwt');
 const router = Router()
 
 
@@ -53,10 +53,12 @@ router.get("/deck/:id/carte/:id", )	// Afficher aléatoirement une à une les ca
 
 
 //Gestion du user (SPRINT 1 & 2)
-
-router.post("/signup", );		        // Création ou modification de compte utilisateur 
+// Sprint 1
 router.get("/login"	, );		        // Connection de l’utilisateur
+router.get('/infos', checkJwt, userController.getInfos); // récupère les informations personnelles de l'utilisateur
 router.get("/logout" , );		        // Déconnection de l’utilisateur
+// Sprint 2
+router.post("/signup", );		        // Création ou modification de compte utilisateur 
 router.delete("/user/:id", );    // Suppression d’un compte utilisateur
 
 
