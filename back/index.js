@@ -6,10 +6,10 @@ const router = require('./app/router');
 
 const app = express();
 
+const corsOption = { origin: process.env.ORIGIN_FRONT || "http://localhost:3000" }; // autorise seulement le domaine indiqué dans la variable ORIGIN_FRONT
+app.use(cors(corsOption));// A placer le plus tôt possible et surtout toujours avant app.use('/v1', router);
 
 const port = process.env.PORT || 5500;
-const corsOption = { origin: "https://memoria-oclock.netlify.app" };
-app.use(cors(corsOption));
 
 app.use('/v1', router);
 
