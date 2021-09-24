@@ -2,9 +2,19 @@
 @host=http://localhost:3500
 
 ### Get all decks
-
 GET {{baseUrl}}/decks
 
+### Get user infos
+GET {{baseUrl}}/user/1
+
+### login user
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+  "email" : "tutu@gmal.fr",
+  "password" : "azerty"
+}
 
 ### Add a card
 
