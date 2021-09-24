@@ -9,4 +9,5 @@ export const getAllDecks = (decks) => {
     }
 }
 
-export const AUTHENTIFY = "AUTHENTIFY";
+export const ADMIN = "ADMIN";
+export const DISCONNECT = "DISCONNECT";

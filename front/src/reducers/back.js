@@ -1,5 +1,6 @@
 
-const initialState="https://memoriapo.herokuapp.com/v1/"
+//const initialState="https://memoriapo.herokuapp.com/v1/"
+const initialState="http://localhost:5500"
 const reducer = (state = initialState, action = {}) => {
 
     switch (action.type) {

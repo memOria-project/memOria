@@ -1,17 +1,18 @@
 import './Connexion.scss'
 import './Connexion-Desktop.scss'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 //Display user connexion state and associated options
 const Connexion= () => { 
 
   const user = useSelector((state)=>(state.user))
   console.log(user);
+  const dispatch = useDispatch();
 
   if (user) { return (
     <div className="header__nav__connexion--connected">
       <div className="login__user-profile-link">{user} (profil)</div>
-      <div className="login__signout" >Se déconnecter</div>
+      <div className="login__signout" onClick={() => dispatch({type: "DISCONNECT"})}>Se déconnecter</div>
     </div> 
     
     )
@@ -19,8 +20,8 @@ const Connexion= () => {
   } else {
     return (
       <div className="header__nav__connexion--disconnected">
-        <div className="login__signin">Se Connecter</div>
-        <div className="login__signup">S'inscrire</div>
+        <a className="login__signin" onClick={() =>  dispatch({type: "ADMIN"})}>Se Connecter</a>
+        <div className="login__signup" >S'inscrire</div>
       </div>  
     )
   }
