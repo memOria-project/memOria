@@ -1,13 +1,16 @@
 import { combineReducers } from 'redux';
 
-import paquetsReducer from './paquets';
+import decksReducer from './decks';
+import backReducer from './back';
+
 
 const rootReducer = combineReducers({
   // ici, on indique que notre state aurra une tranche (slice) appelée
-  // recipes et que c'est le reducers recipesReducer (défini dans le module ./recipes)
+  // decks et que c'est le reducers decksReducer (défini dans le module ./decks)
   // qui en aura la charge
-  // on accède à cette tranche du state par state.recipes
-  paquets: paquetsReducer,
+  // on accède à cette tranche du state par state.decks
+  decks: decksReducer,
+  back: backReducer
 });
 
 export default rootReducer;

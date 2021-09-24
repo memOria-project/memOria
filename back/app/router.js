@@ -16,8 +16,8 @@ const router = Router()
 router.get("/decks", deckController.getAllDecks); // Afficher tous les paquet
 
 /**
- * Respond with all decks in database
- * @route GET /decks
+ * Respond with one deck with id
+ * @route GET /deck/:id
  * @param {number} id.path.required the deck id
  * @returns {deck} 200 - A deck with this id
  * @returns {string} 500 - Server error
@@ -26,9 +26,9 @@ router.get("/deck/:id", );	// Afficher un paquet par son id
 
 
 /**
- * Respond with all decks in database
- * @route GET /decks
- * @param {number}
+ * Respond with all cards from a deck specifie by each id
+ * @route GET /deck/id/cards
+ * @param {number} id.path.required the deck id
  * @returns {Array<Card>} 200 - An array of all cards
  * @returns {string} 500 - Server error
  */
