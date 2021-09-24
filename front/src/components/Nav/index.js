@@ -1,6 +1,7 @@
 import './nav_desktop.scss';
 import './nav.scss';
 import { NavLink } from 'react-router-dom';
+import Connexion from '../Connexion';
 
 const Nav = ()=>{
 return (
@@ -12,11 +13,8 @@ return (
           <div className="header__nav__current-page">
               <NavLink to="/">Accueil</NavLink>
           </div>
-    
-          <div className="header__nav__connexion">
-              <div className="login__signin">Se Connecter</div>
-              <div className="login__signup">S'inscrire</div>
-          </div>
+          <Connexion />
+          
       </nav>
     </header>
     )
