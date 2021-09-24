@@ -1,6 +1,6 @@
 export const GET_DECKS = "GET_DECKS";
 export const FETCH_DECKS = "FETCH_DECKS";
-
+export const LOG_IN = "LOG_IN";
 
 export const getAllDecks = (decks) => {
     return {
