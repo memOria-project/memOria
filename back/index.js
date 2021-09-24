@@ -8,11 +8,11 @@ const app = express();
 
 
 const port = process.env.PORT || 5500;
+const corsOption = { origin: "https://memoria-oclock.netlify.app" };
+app.use(cors(corsOption));
 
 app.use('/v1', router);
 
-const corsOption = { origin: "https://memoria-oclock.netlify.app" };
-app.use(cors(corsOption));
 
 app.listen(port, () => {
     console.log(`Server started on http://localhost:${port}`);
