@@ -12,9 +12,14 @@ class User {
     
     static async findOne(id) {
         try {
-            const {rows} = await db.query('SELECT * FROM "user" WHERE id=$1', [id]);
+            const {rows} = await db.query('SELECT id, name, email FROM "user" WHERE id=$1', [id]);
             if (rows[0]) {
-                return new User(rows[0]);
+                const  { id, name, email } = rows[0]
+                return new User({
+                    id, 
+                    name, 
+                    email
+                });
             }
             throw new Error("Cet utilisateur n'existe pas");
         } catch(error) {
