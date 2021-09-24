@@ -1,21 +1,24 @@
 import { ADMIN } from '../actions';
 import { DISCONNECT } from '../actions';
 
-const initialState = {name: false,
-                      token: false
+const initialState = {
+    isConnected: false,
+    name: "",
+    password:"",
 };
 
 //Handle actions on authentication
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case ADMIN:
-      return {name: "Administrateur",
-        token: false
+      return {...state,
+        isConnected: true,
+        name: "Administrateur",
       };
 
     case DISCONNECT:
-      return {name: false,
-      token: false
+      return {...state,
+        isConnected: false,
     };
 
     default:
