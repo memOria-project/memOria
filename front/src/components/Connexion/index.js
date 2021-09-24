@@ -9,10 +9,10 @@ const Connexion= () => {
   console.log(user);
   const dispatch = useDispatch();
 
-  if (user) { return (
+  if (user.name) { return (
     <div className="header__nav__connexion--connected">
-      <div className="login__user-profile-link">{user} (profil)</div>
-      <div className="login__signout" onClick={() => dispatch({type: "DISCONNECT"})}>Se déconnecter</div>
+      <div className="login__user-profile-link">{user.name} (profil)</div>
+      <a className="login__signout" onClick={() => dispatch({type: "DISCONNECT"})}>Se déconnecter</a>
     </div> 
     
     )
