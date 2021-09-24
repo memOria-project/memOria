@@ -6,7 +6,7 @@ const ListDecks = ()=>{
     console.log(decks);
 return (
         <div className="decks-container">
-            {decks.decks?decks.map((deck) => {
+            {decks.length>1?decks.map((deck) => {
                 return <div className="deck-container" key={deck.id}> <Deck  deck={deck} /> </div>
             }):<p>Loading</p>}
         </div>
