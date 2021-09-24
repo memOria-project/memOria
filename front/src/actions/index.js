@@ -8,3 +8,6 @@ export const getAllDecks = (decks) => {
     decks,
     }
 }
+
+export const ADMIN = "ADMIN";
+export const DISCONNECT = "DISCONNECT";
