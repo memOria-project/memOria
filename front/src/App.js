@@ -4,6 +4,7 @@ import './App.scss';
 import Nav from './components/Nav';
 import Home from './components/Home';
 import NoMatch from './components/NoMatch';
+import SignIn from './components/Signin';
 
 function App() {
   return (
@@ -16,9 +17,13 @@ function App() {
           <Home />
         </Route>
         {/* Route par défaut (404)  */}
+        <Route path="/signin">
+          <SignIn />
+        </Route>
         <Route path="*">
           <NoMatch />
         </Route>
+        
       </Switch>
 
     </div>
