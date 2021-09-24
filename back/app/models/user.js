@@ -35,19 +35,24 @@ class User {
 
     async Login() {
         try {
-            const {rows} = await db.query('SELECT * FROM "user" WHERE email=$1', [this.email]);
-
+            const query = {
+                text: 'SELECT * FROM "user" WHERE "email"=$1',
+                // text: 'SELECT "user".id, "name", email, "password",  array_agg(deck.id) AS decks FROM "user" JOIN "deck" ON "user_id" = "user".id WHERE "email"=$1 GROUP BY "user".id, "name", email',
+                values: [this.email],
+            }
+            const {rows} = await db.query(query);
             if (!rows[0]) {
-                throw new Error("Pas d'utilisateur trouvé ");
+                throw new Error("Identifiant ou mot de passe inconnu");
             }
             const isValid = await bcrypt.compare(this.password, rows[0].password);
 
             if (!isValid) {
-                throw new Error('Mot de passe invalide');
+                throw new Error('Identifiant ou mot de passe inconnu');
             }
             this.id = rows[0].id;
             this.name = rows[0].name;
-            return this;
+            this.email = rows[0].email;
+            return {id: this.id, name: this.name, email:this.email};
         } catch(error) {
             console.log(error);
             if (error.detail) {
