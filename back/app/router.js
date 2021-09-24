@@ -1,11 +1,12 @@
 const {Router} = require("express");
 const deckController= require("./controllers/deckController")
+const userController= require("./controllers/userController")
 
 const router = Router()
 
 
+// TODO ----------- Routes implementer ---------------
 //Routes protégés (SPRINT 1)
-
 /**
  * Respond with all decks in database
  * @route GET /decks
@@ -15,6 +16,21 @@ const router = Router()
  */
 router.get("/decks", deckController.getAllDecks); // Afficher tous les paquet
 
+
+
+// TODO ----------- Routes en cours implementation ---------------
+//Gestion du user (SPRINT 1 & 2)
+router.post("/signup", userController.subscribe); // Création ou modification de compte utilisateur 
+router.get("/login"	, );		        // Connection de l’utilisateur
+router.get("/logout" , );		        // Déconnection de l’utilisateur
+router.delete("/user/:id", );    // Suppression d’un compte utilisateur
+
+
+
+
+
+
+// TODO ----------- Routes non implementer ---------------
 /**
  * Respond with one deck with id
  * @route GET /deck/:id
@@ -52,12 +68,7 @@ router.get("/deck/query", ); 		// Récupérer un deck avec un critère particuli
 router.get("/deck/:id/carte/:id", )	// Afficher aléatoirement une à une les carte d’un - paquet  par leur id 
 
 
-//Gestion du user (SPRINT 1 & 2)
 
-router.post("/signup", );		        // Création ou modification de compte utilisateur 
-router.get("/login"	, );		        // Connection de l’utilisateur
-router.get("/logout" , );		        // Déconnection de l’utilisateur
-router.delete("/user/:id", );    // Suppression d’un compte utilisateur
 
 
 module.exports= router;
