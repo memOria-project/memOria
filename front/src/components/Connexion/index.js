@@ -1,6 +1,8 @@
 import './Connexion.scss'
 import './Connexion-Desktop.scss'
+
 import { useSelector, useDispatch } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 
 //Display user connexion state and associated options
 const Connexion= () => { 
@@ -11,11 +13,12 @@ const Connexion= () => {
 
   if (user) { return (
     <div className="header__nav__connexion--connected">
-      <div className="login__user-profile-link">{user} (profil)</div>
+       <NavLink to="/signin"><div className="login__user-profile-link">{user} (profil)</div></NavLink>
       <div className="login__signout" onClick={() => dispatch({type: "DISCONNECT"})}>Se déconnecter</div>
     </div> 
     
     )
+
 
   } else {
     return (
