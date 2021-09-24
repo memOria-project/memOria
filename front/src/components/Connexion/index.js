@@ -8,7 +8,8 @@ import { NavLink } from 'react-router-dom';
 const Connexion= () => { 
 
   const user = useSelector((state)=>(state.user))
-  console.log(user);
+
+  console.log(user.name);
   const dispatch = useDispatch();
 
 
@@ -19,7 +20,6 @@ const Connexion= () => {
     </div> 
     
     )
-
 
   } else {
     return (
