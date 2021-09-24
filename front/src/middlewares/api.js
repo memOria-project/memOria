@@ -1,11 +1,11 @@
 import {
-    getAllDecks, GET_DECKS,
+    getAllDecks, FETCH_DECKS, 
   } from '../actions';
   
   
 const api = (store) => (next) => (action) => {
     switch (action.type) {
-      case GET_DECKS:
+      case FETCH_DECKS:
         const back = store.getState().back;
         console.log(back);
         const options = 
@@ -17,7 +17,7 @@ const api = (store) => (next) => (action) => {
             const request = await fetch(`${back}/decks`, options)
             const response = await request.json()
             console.log(response);
-            store.dispatch(getAllDecks(response.data.decks))
+            store.dispatch(getAllDecks(response))
             } catch(error) { console.log(error)}
 
         }
