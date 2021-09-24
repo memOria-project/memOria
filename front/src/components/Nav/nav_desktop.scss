@@ -1,38 +1,19 @@
 @media (min-aspect-ratio: 4/3) {
 
   
-    .container {
-      color: blue;
-    }
+    
   
-    .container {
-      /* For stylesheet testing */
-      font-style: italic;
     
-      width: 100vw;
-    
-      /* Column flexbox for main elements of the page */
-      display: flex;
-      flex-flow: column nowrap;
-    
-    }
     
     .header {
       /* two lines in a column */
-      
-      background-color: #aaa;
       display: flex;
       flex-flow: column nowrap;
       
     
     }
   
-    .header__nav {
-  
-      /* blank current-page (se connecter s'inscrire) */
-      padding: 2em 1em;
-  
-    }
+    
     
     
     .header__nav__placeholder {
