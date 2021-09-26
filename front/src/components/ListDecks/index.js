@@ -1,5 +1,7 @@
 import Deck from '../Deck'
 import { useSelector } from 'react-redux';
+import './ListDecks.scss'
+import './ListDecks-Desktop.scss'
 
 const ListDecks = ()=>{
     const decks = useSelector((state)=>(state.decks))
