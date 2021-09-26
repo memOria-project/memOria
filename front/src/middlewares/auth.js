@@ -10,6 +10,7 @@ const auth = (store) => (next) => (action) => {
         console.log(back);
         const password = "123456";
         const username = "toto";
+        
         const login = {
             password,
             username

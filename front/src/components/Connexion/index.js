@@ -8,18 +8,18 @@ import { NavLink } from 'react-router-dom';
 const Connexion= () => { 
 
   const user = useSelector((state)=>(state.user))
-  console.log(user);
+
+  console.log(user.name);
   const dispatch = useDispatch();
 
-  if (user.name) { return (
-    <div className="header__nav__connexion--connected">
 
+  if (user.isConnected) { return (
+    <div className="header__nav__connexion--connected">
        <NavLink to="/signin"><div className="login__user-profile-link">{user.name} (profil)</div></NavLink>
       <div className="login__signout" onClick={() => dispatch({type: "DISCONNECT"})}>Se déconnecter</div>
     </div> 
     
     )
-
 
   } else {
     return (
