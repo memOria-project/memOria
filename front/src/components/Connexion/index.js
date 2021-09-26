@@ -12,7 +12,8 @@ const Connexion= () => {
   console.log(user.name);
   const dispatch = useDispatch();
 
-  if (user.name) { return (
+
+  if (user.isConnected) { return (
     <div className="header__nav__connexion--connected">
        <NavLink to="/signin"><div className="login__user-profile-link">{user.name} (profil)</div></NavLink>
       <div className="login__signout" onClick={() => dispatch({type: "DISCONNECT"})}>Se déconnecter</div>
