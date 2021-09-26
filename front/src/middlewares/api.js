@@ -4,6 +4,8 @@ import {
   
   
 const api = (store) => (next) => (action) => {
+    const token = localStorage.getItem("token");
+
     switch (action.type) {
       case FETCH_DECKS:
         const back = store.getState().back;
@@ -24,6 +26,7 @@ const api = (store) => (next) => (action) => {
         getDecks();
         next(action);
         break;
+
       default:
         next(action);
     }
