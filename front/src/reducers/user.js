@@ -1,4 +1,4 @@
-import { ADMIN, DISCONNECT, UPDATE_LOGIN } from '../actions';
+import { ADMIN, DISCONNECT, UPDATE_LOGIN, UPDATE_USER } from '../actions';
 
 const initialState = {
     isConnected: false,
@@ -24,6 +24,13 @@ const reducer = (state = initialState, action = {}) => {
       return {...state, 
       [action.field]: action.value
       }
+    case UPDATE_USER:
+      const {name, email} = action
+      return {...state,
+      name,
+      email
+
+    }
     default:
       return state;
   }

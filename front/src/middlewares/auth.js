@@ -1,5 +1,5 @@
 import {
-    LOG_IN
+    LOG_IN, UPDATE_USER, GET_USER
   } from '../actions';
 
   
@@ -9,6 +9,8 @@ const auth = (store) => (next) => (action) => {
     switch (action.type) {
       case LOG_IN:
         const back = store.getState().back;
+        const token = localStorage.getItem("token");
+
         console.log(back);
 
         const login = {
@@ -16,7 +18,7 @@ const auth = (store) => (next) => (action) => {
             email,
             name
         }
-        
+
         console.log(JSON.stringify(login));
         const options = 
         {
@@ -24,7 +26,7 @@ const auth = (store) => (next) => (action) => {
                body: JSON.stringify(login)
         }
 
-        const getUser = async () => {
+        const getToken = async () => {
             try{
             const request = await fetch(`${back}/login`, options)
             const response = await request.json()
@@ -37,9 +39,30 @@ const auth = (store) => (next) => (action) => {
             } catch(error) { console.log(error)}
 
         }
-        getUser();
+        getToken();
         next(action);
         break;
+
+      case GET_USER: 
+        const optionsGetUser = 
+        {
+          method: 'GET', 
+          header: {
+            Authorization: token 
+          }
+        }
+        const getUser = async () => {
+          try {
+            const request = await fetch(`${back}/user/info`, optionsGetUser)
+            const response = await request.json()
+            console.log(response);
+            const {name, email} = response;
+            store.dispatch({type: UPDATE_USER}, name, email)
+          }
+          catch(error) {console.log(`${error} | can't get user data :( `) }
+        }
+        getUser();
+        
       default:
         next(action);
     }
