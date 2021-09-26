@@ -1,19 +1,32 @@
-import { useDispatch } from 'react-redux'
-import { LOG_IN } from '../../actions';
+import { useDispatch, useSelector } from 'react-redux'
+import { LOG_IN, UPDATE_LOGIN } from '../../actions';
 const SignIn = ()=>{
-    const name="toto";
-    const password = "123456";
-const dispatch = useDispatch();
+    const {password, email, name} = useSelector((state)=> (state.user));
+    console.log({password, email,name})
 
-const handleSubmit = (event) => {
-    event.preventDefault();
-    dispatch({type:LOG_IN});
-}
+    const dispatch = useDispatch();
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        dispatch({type:LOG_IN});
+    }
+
+    const handleChange = (event, field) => {
+        dispatch({
+            type:UPDATE_LOGIN,
+            value: event.target.value,
+            field })
+        console.log({password, email,name})
+    }
 
 return (
     <form onSubmit={handleSubmit}>
-        <input type="login" defaultValue={name} />
-        <input type="password" defaultValue={password} />
+        <label htmlFor="login">Email
+            <input id="login" onChange={(event)=> handleChange(event, "email")} value={email}/>
+            </label>
+        <label htmlFor="password">Mot de passe
+            <input onChange={(event)=> handleChange(event, "password")} id="password" type="password" value={password} />
+        </label>
         <button type="submit">submit</button>
     </form>
     )

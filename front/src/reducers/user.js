@@ -1,8 +1,10 @@
-import { ADMIN } from '../actions';
-import { DISCONNECT } from '../actions';
+import { ADMIN, DISCONNECT, UPDATE_LOGIN } from '../actions';
 
-const initialState = {name: false,
-                      token: false
+const initialState = {
+    isConnected: false,
+    name: "toto",
+    email:"toto@s.fr",
+    password:"123456",
 };
 
 //Handle actions on authentication
@@ -18,6 +20,10 @@ const reducer = (state = initialState, action = {}) => {
       token: false
     };
 
+    case UPDATE_LOGIN:
+      return {...state, 
+      [action.field]: action.value
+      }
     default:
       return state;
   }

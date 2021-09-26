@@ -1,21 +1,23 @@
 import {
     LOG_IN
   } from '../actions';
-  
+
   
 const auth = (store) => (next) => (action) => {
+    const { email, name, password } = store.getState().user
+
     switch (action.type) {
       case LOG_IN:
         const back = store.getState().back;
         console.log(back);
-        const password = "123456";
-        const username = "toto";
-        
+
         const login = {
             password,
-            username
+            email,
+            name
         }
-
+        
+        console.log(JSON.stringify(login));
         const options = 
         {
                method: 'POST',
