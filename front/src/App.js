@@ -1,11 +1,13 @@
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom'
 
 import './App.scss';
+
 import Nav from './components/Nav';
 import Home from './components/Home';
 import NoMatch from './components/NoMatch';
 import SignIn from './components/Signin';
 import CardDisplay from './components/CardDisplay';
+
 
 function App() {
   return (
@@ -27,7 +29,6 @@ function App() {
         <Route path="*">
           <NoMatch />
         </Route>
-        
       </Switch>
 
     </div>
