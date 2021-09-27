@@ -24,15 +24,15 @@ const auth = (store) => (next) => (action) => {
         try {
           const request = await fetch(`${back}/login`, options)
           const response = await request.json()
-          console.log(response)
           const { name, email } = response
-          console.log(request.headers.get('Authorization'))
-          for (var pair of request.headers.entries()) {
-            console.log(pair[0]+ ': '+ pair[1]);
-         }
+          const token = request.headers.get('Authorization')
+        //   for (var pair of request.headers.entries()) {
+        //     console.log(pair[0]+ ': '+ pair[1]);
+        //  }
           // // Le token est inscrit dans le local storage
-          localStorage.setItem('token', response.token)
+          localStorage.setItem('token', token)
           store.dispatch({type:UPDATE_USER, email, name })
+
           // // Les infos sont enregistrés dans le profil utilisateur
         } catch (error) { console.log(error) }
 
@@ -42,20 +42,23 @@ const auth = (store) => (next) => (action) => {
       break;
     }
     case GET_USER: {
+      console.log(token)
       const optionsGetUser =
       {
         method: 'GET',
-        header: {
-          Authorization: token
-        }
+        headers: {
+          'Authorization': token
+        },
       }
       const getUser = async () => {
         try {
-          const request = await fetch(`${back}/user/info`, optionsGetUser)
+          const request = await fetch(`${back}/user/infos`, optionsGetUser)
           const response = await request.json()
           console.log(response)
           const { name, email } = response
-          store.dispatch({ type: UPDATE_USER , name, email})
+          store.dispatch({ type: UPDATE_USER, name, email})
+          // dispatch({type:GET_USER})
+
         }
         catch(error) {console.log(`${error} | can't get user data :( `) }
       }
