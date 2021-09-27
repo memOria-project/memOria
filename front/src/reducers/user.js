@@ -2,8 +2,8 @@ import { ADMIN, DISCONNECT, UPDATE_LOGIN, UPDATE_USER } from '../actions';
 
 const initialState = {
     isConnected: false,
-    name: "toto",
-    email:"toto@s.fr",
+    name: "",
+    email:"toti@s.fr",
     password:"123456",
 };
 
