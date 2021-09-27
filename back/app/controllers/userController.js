@@ -1,4 +1,5 @@
 const User= require("../models/user")
+const Deck= require("../models/deck")
 const jwt = require('../services/jwt')
 const userController= {
 
@@ -6,6 +7,13 @@ const userController= {
 
         try {
             const user= await User.findOne(request.userId);
+            
+            // récupère la liste des deck appartenant à user
+            // get decks list owned by user
+            if (user.id){
+                user.decks = await Deck.decksByUserId(user.id);
+            }
+
             response.status(200).json(user)
         } catch (error) {
             console.log(error);
@@ -17,6 +25,12 @@ const userController= {
 
         try {
             const user = await new User(request.body).Login();
+
+            // récupère la liste des deck appartenant à user
+            // get decks list owned by user
+            if (user.id){
+                user.decks = await Deck.decksByUserId(user.id);
+            }
 
              // this header gives access to following header Authorization
             response.setHeader("Access-Control-Expose-Headers","Authorization")
