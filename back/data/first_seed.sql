@@ -1,5 +1,4 @@
 -- Add to database 'memoria' some items
-
 BEGIN;
 
 INSERT INTO "user" ("name", "email", "password") VALUES 

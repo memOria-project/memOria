@@ -18,6 +18,21 @@ const db= require("../database");
                  throw error
              }
          }
+     }
+
+     static async findAllcardsFromDeck(deckId) {
+         try {
+             const {rows} = await db.query('SELECT id, recto, verso FROM card WHERE deck_id =$1', [deckId]);
+             return rows.map(row => new Deck(row));
+     
+         } catch(error) {
+             console.log(error);
+             if (error.detail) {
+             // Erreur venant de postgresql
+             throw new Error(error.detail);
+             }
+             throw error;
+         }
      } 
 
      static async decksByUserId(userId) {
@@ -31,6 +46,7 @@ const db= require("../database");
                 throw error
             }
         }
-     }
+
+
  }
  module.exports = Deck;

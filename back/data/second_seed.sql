@@ -11,6 +11,5 @@ INSERT INTO deck (title, user_id) VALUES
 ('Tuti Paquet 1', 3),
 ('Tuti Paquet 2', 3),
 ('Tuti Paquet 3', 3),
-('Tuti Paquet 4', 3),
-;
+('Tuti Paquet 4', 3);
 COMMIT;

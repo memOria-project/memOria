@@ -4,6 +4,10 @@
 ### Get all decks
 GET {{baseUrl}}/decks
 
+
+### Get all cards from deck
+GET {{baseUrl}}/deck/4/cards
+
 ### Get user infos
 GET {{baseUrl}}/user/infos
 # coller Authorization + token généré et founi par le serveur
@@ -20,7 +24,7 @@ Content-Type: application/json
 ### Add a card
 
 # POST {{baseUrl}}/card
-# Content-Type: application/json
+# Content-Type: application/json 
 
 # {
 #     "recto": "Texte du recto",
