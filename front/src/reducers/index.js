@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import decksReducer from './decks';
 import backReducer from './back';
 import userReducer from './user';
+import cardReducer from './card';
 
 const rootReducer = combineReducers({
   // ici, on indique que notre state aurra une tranche (slice) appelée
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   decks: decksReducer,
   back: backReducer,
   user: userReducer,
+  card: cardReducer
 });
 
 export default rootReducer;

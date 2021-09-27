@@ -3,14 +3,17 @@ import "./CardDisplay-Desktop.scss";
 import { useParams } from "react-router-dom"
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { RETURN_CARD, RESET_CARD } from '../../actions';
+import RectoVerso  from '../RectoVerso';
 // import jsonTestDatabase from '../../assets/jsonTestDatabase';
 
 //Display zone for cards. Cards from a Deck are displayed one by one.
 //User can choose to switch to card verso and vice versa.
 const CardDisplay = () =>  {
-   const [isRecto, setIsRecto] = useState(true);
-
+  const {defaultView, currentView} = useSelector((state)=>state.card)
+//   const [isRecto, setIsRecto ] = useState(true)
+  const dispatch= useDispatch()
   console.log("test");
   //use URl parameters to determine the card to display from deck and card id
   let { deckId, cardId } = useParams();
@@ -72,19 +75,28 @@ const CardDisplay = () =>  {
   console.log("next card id", randomNextCardId);
   const nextCardURL = `/deck/${deckId}/${randomNextCardId}` 
 
-   const handleClick = () => {
-      setIsRecto((state)=>!state);
+   const handleClickReturn = () => {
+      dispatch({type:RETURN_CARD, isRecto: currentView.isRecto})
    }
-
+   const handleClickNext = () => {
+      dispatch({type:RESET_CARD, isRecto: defaultView.isRecto})
+      console.log("reset")
+   }
   return (<>
-            <p className="card">paquet :{database[deckId]["name"]} </p>
-            {isRecto?
-            <p>recto de la carte: {database[deckId][cardId]["recto"]}</p>
+   
+            <p className="deck__title">{database[deckId]["name"]} </p>
+            <div style={{margin:"2em"}}> <h1>Je veux voir en premier </h1>
+            <RectoVerso />
+            </div>
+            <p style={{fontSize: "1.5em"}}> Card #{cardId} / {cardsNumberInDeck}</p>
+            <p className="card">
+            {currentView.isRecto?
+            <> {database[deckId][cardId]["recto"]}</>
             :  
-            <p>verso de la carte: {database[deckId][cardId]["verso"]}</p>
-            }
-            <button onClick={handleClick}>Retourner</button>
-            <button> <NavLink to={nextCardURL}> Carte suivante au hasard dans le paquet </NavLink> </button>
+            <>{database[deckId][cardId]["verso"]}</>
+            }</p>
+            <button onClick={handleClickReturn}>Retourner</button>
+            <button onClick={()=>handleClickNext()}> <NavLink to={nextCardURL} > Carte suivante au hasard dans le paquet </NavLink> </button>
           </>
           )
 }

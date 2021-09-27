@@ -24,6 +24,7 @@ const auth = (store) => (next) => (action) => {
           const response = await request.json()
           const { name, email } = response
           const token = request.headers.get('Authorization')
+          console.log(response);
           //   for (var pair of request.headers.entries()) {
           //     console.log(pair[0]+ ': '+ pair[1]);
           //  }
