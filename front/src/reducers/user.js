@@ -1,4 +1,4 @@
-import { ADMIN, DISCONNECT, UPDATE_LOGIN, UPDATE_USER } from '../actions'
+import { DISCONNECT, UPDATE_LOGIN, UPDATE_USER } from '../actions'
 
 const initialState = {
   isConnected: false,
