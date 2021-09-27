@@ -4,3 +4,4 @@ sqitch.conf
 back/package-lock.json
 back/node_modules
 back/.env
+.eslintrc.json

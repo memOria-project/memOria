@@ -5,7 +5,9 @@ export const UPDATE_LOGIN = 'UPDATE_LOGIN'
 export const UPDATE_USER = 'UPDATE_USER'
 export const GET_USER = 'GET_USER'
 export const DELETE_TOKEN = 'DELETE_TOKEN'
-
+export const PICK_ORDER = 'PICK_ORDER'
+export const RETURN_CARD = 'RETURN_CARD'
+export const RESET_CARD= 'RESET_CARD'
 export const getAllDecks = (decks) => {
   return {
     type: GET_DECKS,
