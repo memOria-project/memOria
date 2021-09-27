@@ -1,5 +1,6 @@
 const {Router} = require("express");
 const deckController= require("./controllers/deckController")
+const checkJwt = require('./middlewares/checkJwt');
 const userController= require("./controllers/userController")
 
 const router = Router()
@@ -16,7 +17,10 @@ const router = Router()
 router.get("/decks", deckController.getAllDecks); // Afficher tous les paquet
 
 router.post("/login", userController.login); // Connection de l’utilisateur
-router.get("/user/:id", userController.getOneUser);
+router.get("/user/infos", checkJwt, userController.getOneUser);
+
+// Displays cards of a deck
+router.get("/Deck/:idDeck/:idCard", deckController.getCardsFromDeck);
 
 
 

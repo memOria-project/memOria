@@ -5,8 +5,9 @@
 GET {{baseUrl}}/decks
 
 ### Get user infos
-GET {{baseUrl}}/user/1
-
+GET {{baseUrl}}/user/infos
+# coller Authorization + token généré et founi par le serveur
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsImlhdCI6MTYzMjUyNTIxNCwiZXhwIjoxNjMyNTI1MjQ0fQ.qvca96lHpiahlZNgSoxsiFNmMdm3L8yUggy8IIXco34
 ### login user
 POST {{baseUrl}}/login
 Content-Type: application/json
