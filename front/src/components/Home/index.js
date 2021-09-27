@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { FETCH_DECKS } from '../../actions';
+import { FETCH_DECKS, GET_USER } from '../../actions';
 import ListDecks from '../ListDecks';
 import './Home_Desktop.scss';
 import './Home.scss'
@@ -12,6 +12,7 @@ const Home = ()=>{
     const hello = 1;
     useEffect(()=> {
         dispatch({type: FETCH_DECKS})
+
     }, [ ])
 
 return (

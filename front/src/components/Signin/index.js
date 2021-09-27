@@ -1,9 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { LOG_IN, UPDATE_LOGIN } from '../../actions';
 const SignIn = ()=>{
-    const {password, email, name} = useSelector((state)=> (state.user));
-    console.log({password, email,name})
-
+    const {password, email, name, isConnected} = useSelector((state)=> (state.user));
     const dispatch = useDispatch();
 
     const handleSubmit = (event) => {
@@ -16,11 +14,13 @@ const SignIn = ()=>{
             type:UPDATE_LOGIN,
             value: event.target.value,
             field })
-        console.log({password, email,name})
     }
 
-return (
-    <form onSubmit={handleSubmit}>
+return (<div> 
+    {isConnected?
+    (<p>Bienvenue, {name} </p>)
+    :
+    (<form onSubmit={handleSubmit}>
         <label htmlFor="login">Email
             <input id="login" onChange={(event)=> handleChange(event, "email")} value={email}/>
             </label>
@@ -28,7 +28,9 @@ return (
             <input onChange={(event)=> handleChange(event, "password")} id="password" type="password" value={password} />
         </label>
         <button type="submit">submit</button>
-    </form>
-    )
+    </form>)
+    
+    }
+    </div>)
 }
 export default SignIn
