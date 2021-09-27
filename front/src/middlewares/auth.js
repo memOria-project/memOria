@@ -1,46 +1,64 @@
-import {
-    LOG_IN
-  } from '../actions';
-  
-  
+import { LOG_IN, UPDATE_USER, GET_USER } from '../actions'
+
 const auth = (store) => (next) => (action) => {
-    switch (action.type) {
-      case LOG_IN:
-        const back = store.getState().back;
-        console.log(back);
-        const password = "123456";
-        const username = "toto";
-        
-        const login = {
-            password,
-            username
-        }
+  const { email, name, password } = store.getState().user
+  const back = store.getState().back;
+  const token = localStorage.getItem('token');
+  switch (action.type) {
+    case LOG_IN: {
+      console.log(back)
+      const login = {
+        password,
+        email,
+        name
+      }
 
-        const options = 
-        {
-               method: 'POST',
-               body: JSON.stringify(login)
-        }
+      console.log(JSON.stringify(login));
+      const options = {
+        method: 'POST',
+        body: JSON.stringify(login)
+      }
 
-        const getUser = async () => {
-            try{
-            const request = await fetch(`${back}/login`, options)
-            const response = await request.json()
-            console.log(response)
-            console.log(response.token);
-            // Le token est inscrit dans le local storage
-            localStorage.setItem("token", response.token)
-            // Les infos sont enregistrés dans le profil utilisateur
-            
-            } catch(error) { console.log(error)}
-
-        }
-        getUser();
-        next(action);
-        break;
-      default:
-        next(action);
+      const getToken = async () => {
+        try {
+          const request = await fetch(`${back}/login`, options)
+          const response = await request.json()
+          console.log(response)
+          console.log(response.token);
+          // Le token est inscrit dans le local storage
+          localStorage.setItem('token', response.token)
+          // Les infos sont enregistrés dans le profil utilisateur
+        } catch (error) { console.log(error) }
+      }
+      getToken();
+      next(action);
+      break;
     }
-  };
+    case GET_USER: {
+      const optionsGetUser =
+      {
+        method: 'GET',
+        header: {
+          Authorization: token
+        }
+      }
+      const getUser = async () => {
+        try {
+          const request = await fetch(`${back}/user/info`, optionsGetUser)
+          const response = await request.json()
+          console.log(response)
+          const { name, email } = response
+          store.dispatch({ type: UPDATE_USER }, name, email)
+        }
+        catch(error) {console.log(`${error} | can't get user data :( `) }
+      }
+      getUser();
+      next(action);
+      break;
+    }
+    default:
+      next(action);
+  }
+}
 
-  export default auth; 
+export default auth;
