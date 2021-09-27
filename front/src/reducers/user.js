@@ -4,10 +4,11 @@ const initialState = {
   isConnected: false,
   name: '',
   email: '',
-  password: ''
+  password: '',
+  decks: []
 }
 
-//Handle actions on authentication
+// Handle actions on authentication
 
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
@@ -20,27 +21,30 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         isConnected: false,
-        name:'',
-        email:''
+        name: '',
+        email: ''
       }
 
     case UPDATE_LOGIN:
-      return {...state,
-      [action.field]: action.value
+      return {
+        ...state,
+        [action.field]: action.value
       }
 
-    case UPDATE_USER:
-      const {name, email} = action
+    case UPDATE_USER: {
+      const {name, email, decks } = action
       return {...state,
-      password:'',
-      name,
-      email,
-      isConnected:true
+        password: '',
+        name,
+        email,
+        decks,
+        isConnected: true
 
+      }
     }
     default:
-      return state;
+      return state
   }
-};
+}
 
-export default reducer;
+export default reducer
