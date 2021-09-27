@@ -1,10 +1,11 @@
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, useParams } from 'react-router-dom';
 
 import './App.scss';
 import Nav from './components/Nav';
 import Home from './components/Home';
 import NoMatch from './components/NoMatch';
 import SignIn from './components/Signin';
+import CardsDisplay from './components/CardDisplay';
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
         {/* Route par défaut (404)  */}
         <Route path="/signin">
           <SignIn />
+        <Route path="deck/:deckId/cardId">
+          <CardDisplay/>
         </Route>
         <Route path="*">
           <NoMatch />
