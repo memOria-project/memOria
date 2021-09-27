@@ -2,8 +2,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { LOG_IN, UPDATE_LOGIN } from '../../actions';
 const SignIn = ()=>{
     const {password, email, name, isConnected} = useSelector((state)=> (state.user));
-    console.log({password, email,name})
-
     const dispatch = useDispatch();
 
     const handleSubmit = (event) => {
@@ -16,9 +14,7 @@ const SignIn = ()=>{
             type:UPDATE_LOGIN,
             value: event.target.value,
             field })
-        console.log({password, email,name})
     }
-    console.log(isConnected);
 
 return (<div> 
     {isConnected?

@@ -32,6 +32,7 @@ const reducer = (state = initialState, action = {}) => {
     case UPDATE_USER:
       const {name, email} = action
       return {...state,
+      password:'',
       name,
       email,
       isConnected:true

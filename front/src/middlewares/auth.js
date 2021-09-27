@@ -7,13 +7,11 @@ const auth = (store) => (next) => (action) => {
 
   switch (action.type) {
     case LOG_IN: {
-      console.log(back)
       const login = {
         password,
         email,
       }
 
-      console.log(JSON.stringify(login));
       const options = {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -42,7 +40,6 @@ const auth = (store) => (next) => (action) => {
       break;
     }
     case GET_USER: {
-      console.log(token)
       const optionsGetUser =
       {
         method: 'GET',
@@ -54,7 +51,6 @@ const auth = (store) => (next) => (action) => {
         try {
           const request = await fetch(`${back}/user/infos`, optionsGetUser)
           const response = await request.json()
-          console.log(response)
           const { name, email } = response
           store.dispatch({ type: UPDATE_USER, name, email})
           // dispatch({type:GET_USER})

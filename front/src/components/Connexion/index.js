@@ -8,8 +8,6 @@ import { DELETE_TOKEN } from '../../actions';
 const Connexion= () => { 
 
   const user = useSelector((state)=>(state.user))
-
-  console.log(user.name);
   const dispatch = useDispatch();
 
 
