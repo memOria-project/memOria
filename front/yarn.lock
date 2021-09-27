@@ -4848,6 +4848,11 @@
     "resolve" "^1.10.1"
     "semver" "^6.1.0"
 
+"eslint-plugin-only-warn@^1.0.3":
+  "integrity" "sha512-XQOX/TfLoLw6h8ky51d29uUjXRTQHqBGXPylDEmy5fe/w7LIOnp8MA24b1OSMEn9BQoKow1q3g1kLe5/9uBTvw=="
+  "resolved" "https://registry.npmjs.org/eslint-plugin-only-warn/-/eslint-plugin-only-warn-1.0.3.tgz"
+  "version" "1.0.3"
+
 "eslint-plugin-promise@^4.2.1 || ^5.0.0", "eslint-plugin-promise@^5.1.0":
   "integrity" "sha512-NGmI6BH5L12pl7ScQHbg7tvtk4wPxxj8yPHH47NvSmMtFneC077PSeY3huFj06ZWZvtbfxSPt3RuOQD5XcR4ng=="
   "resolved" "https://registry.npmjs.org/eslint-plugin-promise/-/eslint-plugin-promise-5.1.0.tgz"
