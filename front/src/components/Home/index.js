@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { FETCH_DECKS } from '../../actions';
 import ListDecks from '../ListDecks';
+import { NavLink } from 'react-router-dom';
 import './Home_Desktop.scss';
 import './Home.scss'
 
@@ -21,7 +22,7 @@ return (
                 <div className="presentation-container__content">Lorem ipsum...</div>
             </div>
             <div className="main-content__deck-display">
-                <h1 className="deck-display__title">Les decks memOria</h1>
+                <h1 href="/deck/1/1" className="deck-display__title">Les decks memOria (<NavLink to="/deck/1/1">Parcourez le paquet test</NavLink>)</h1>
                 <ListDecks />
             </div>
         </div>
