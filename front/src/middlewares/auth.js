@@ -50,8 +50,8 @@ const auth = (store) => (next) => (action) => {
         try {
           const request = await fetch(`${back}/user/infos`, optionsGetUser)
           const response = await request.json()
-          const { name, email } = response
-          store.dispatch({ type: UPDATE_USER, name, email })
+          const { name, email, decks } = response
+          store.dispatch({ type: UPDATE_USER, name, email, decks })
           // dispatch({type:GET_USER})
         } catch (error) { console.log(`${error} | can't get user data :( `) }
       }

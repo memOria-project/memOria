@@ -2,12 +2,14 @@ import "./CardDisplay.scss";
 import "./CardDisplay-Desktop.scss";
 import { useParams } from "react-router-dom"
 import { NavLink } from 'react-router-dom';
+import { useState } from 'react';
 
 // import jsonTestDatabase from '../../assets/jsonTestDatabase';
 
 //Display zone for cards. Cards from a Deck are displayed one by one.
 //User can choose to switch to card verso and vice versa.
 const CardDisplay = () =>  {
+   const [isRecto, setIsRecto] = useState(true);
 
   console.log("test");
   //use URl parameters to determine the card to display from deck and card id
@@ -70,13 +72,19 @@ const CardDisplay = () =>  {
   console.log("next card id", randomNextCardId);
   const nextCardURL = `/deck/${deckId}/${randomNextCardId}` 
 
+   const handleClick = () => {
+      setIsRecto((state)=>!state);
+   }
 
   return (<>
             <p className="card">paquet :{database[deckId]["name"]} </p>
-            <p>recto de la carte: {database[deckId][cardId]["recto"]}</p>  
+            {isRecto?
+            <p>recto de la carte: {database[deckId][cardId]["recto"]}</p>
+            :  
             <p>verso de la carte: {database[deckId][cardId]["verso"]}</p>
-
-            <NavLink to={nextCardURL}> Carte suivante au hasard dans le paquet </NavLink>
+            }
+            <button onClick={handleClick}>Retourner</button>
+            <button> <NavLink to={nextCardURL}> Carte suivante au hasard dans le paquet </NavLink> </button>
           </>
           )
 }

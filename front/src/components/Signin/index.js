@@ -1,5 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { LOG_IN, UPDATE_LOGIN } from '../../actions';
+import { LOG_IN, UPDATE_LOGIN } from '../../actions'
+import Profile from '../Profile'
+
 const SignIn = ()=>{
     const {password, email, name, isConnected} = useSelector((state)=> (state.user));
     const dispatch = useDispatch();
@@ -18,7 +20,7 @@ const SignIn = ()=>{
 
 return (<div> 
     {isConnected?
-    (<p>Bienvenue, {name} </p>)
+    <Profile /> 
     :
     (<form onSubmit={handleSubmit}>
         <label htmlFor="login">Email
