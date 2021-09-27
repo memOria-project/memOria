@@ -18,6 +18,23 @@ const db= require("../database");
                  throw error
              }
          }
+     };
+
+     static async findAllcardsFromDeck(deckId) {
+         try {
+             const {row} = await db.query('SELECT AllcardsFromDeck(deckId=$1)', [deckId]);
+             return rows.map(row => new Deck(row));
+     
+         } catch(error) {
+             console.log(error);
+             if (error.detail) {
+             // Erreur venant de postgresql
+             throw new Error(error.detail);
+             }
+             throw error;
+         }
      }
+
+
  }
  module.exports = Deck;

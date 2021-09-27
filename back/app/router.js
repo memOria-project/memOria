@@ -18,7 +18,7 @@ router.get("/decks", deckController.getAllDecks); // Afficher tous les paquet
 
 router.post("/login", userController.login); // Connection de l’utilisateur
 router.get("/user/infos", checkJwt, userController.getOneUser);
-
+router.get("/deck/:id/cards", deckController.getCardsFromDeck);
 
 
 module.exports= router;
