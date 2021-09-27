@@ -5,19 +5,21 @@ const initialState = {
     name: "",
     email:"toti@s.fr",
     password:"123456",
+
 };
 
 //Handle actions on authentication
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case ADMIN:
-      return {name: "Administrateur",
-        token: false
+      return {...state,
+        isConnected: true,
+        name: "Administrateur",
       };
 
     case DISCONNECT:
-      return {name: false,
-      token: false
+      return {...state,
+        isConnected: false,
     };
 
     case UPDATE_LOGIN:

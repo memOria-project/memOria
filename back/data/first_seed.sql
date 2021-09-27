@@ -3,9 +3,9 @@
 BEGIN;
 
 INSERT INTO "user" ("name", "email", "password") VALUES 
-('toto', 'toto@s.fr', '123456'),
-('tata', 'tata@s.fr', 'tata'),
-('tutu', 'tutu@gmal.fr', 'azerty');
+('toti', 'toti@s.fr', '$2a$12$qI2JwszTvHE5MQ/bGJjLsu.7ggBc4Y/0fPSCapW9Kl4BiPKhaCQei'),
+('tati', 'tati@s.fr', '$2a$12$941i1iAD0f1wi4uFCIJEW.6vRPaaewEqWrcP/db.MGyd99IQj3yAC'),
+('tuti', 'tuti@gmal.fr', '$2a$12$TR6HsCh.675u7woRZelZFOntwmv6ZDy1lVAQJDgt9hIqHAiu48zqK');
 
 INSERT INTO deck (title, user_id, tag) VALUES 
 ('Un gros paquet', 1, '{"Javascript", "Saison 0"}'),
