@@ -22,5 +22,4 @@ router.get("/user/infos", checkJwt, userController.getOneUser);
 // Displays cards of a deck
 router.get("/deck/:id/cards", deckController.getCardsFromDeck);
 
-
 module.exports= router;

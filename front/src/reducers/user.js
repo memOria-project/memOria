@@ -1,41 +1,50 @@
-import { ADMIN, DISCONNECT, UPDATE_LOGIN, UPDATE_USER } from '../actions';
+import { DISCONNECT, UPDATE_LOGIN, UPDATE_USER } from '../actions'
 
 const initialState = {
-    isConnected: false,
-    name: "toto",
-    email:"toto@s.fr",
-    password:"123456",
+  isConnected: false,
+  name: '',
+  email: '',
+  password: '',
+  decks: []
+}
 
-};
+// Handle actions on authentication
 
-//Handle actions on authentication
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    case ADMIN:
-      return {...state,
-        isConnected: true,
-        name: "Administrateur",
-      };
+    // case ADMIN:
+    //   return {name: 'Administrateur',
+    //     token: false
+    //   }
 
     case DISCONNECT:
-      return {...state,
+      return {
+        ...state,
         isConnected: false,
-    };
+        name: '',
+        email: ''
+      }
 
     case UPDATE_LOGIN:
-      return {...state, 
-      [action.field]: action.value
+      return {
+        ...state,
+        [action.field]: action.value
       }
-    case UPDATE_USER:
-      const {name, email} = action
-      return {...state,
-      name,
-      email
 
+    case UPDATE_USER: {
+      const {name, email, decks } = action
+      return {...state,
+        password: '',
+        name,
+        email,
+        decks,
+        isConnected: true
+
+      }
     }
     default:
-      return state;
+      return state
   }
-};
+}
 
-export default reducer;
+export default reducer

@@ -10,7 +10,7 @@ return (
       <div className="header__title">memOria</div>
 
       <nav className="header__nav">
-          <div className="header__nav__current-page">
+          <div className="header__nav__home-page">
               <NavLink to="/">Accueil</NavLink>
           </div>
           <Connexion />
