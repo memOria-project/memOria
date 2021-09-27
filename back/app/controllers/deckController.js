@@ -13,10 +13,11 @@ const deckController= {
 
     },
 
-    getCardsFromDeck: async function (request, response) {
+    getCardsFromDeck: async (request, response) => {
         try {
-            const data = await Deck.findAllcardsFromDeck(request.params.id);
-            response.status(200).json(data);
+            const deck = await Deck.oneDeck(request.params.id);
+            deck.cards = await Deck.findAllcardsFromDeck(deck.id);
+            response.status(200).json(deck);
     
         } catch(error) {
             console.log(error);
