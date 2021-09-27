@@ -1,4 +1,4 @@
-import { LOG_IN, UPDATE_USER, GET_USER } from '../actions'
+import { LOG_IN, UPDATE_USER, GET_USER, DELETE_TOKEN, DISCONNECT } from '../actions'
 
 const auth = (store) => (next) => (action) => {
   const { email, name, password } = store.getState().user
@@ -65,6 +65,11 @@ const auth = (store) => (next) => (action) => {
       getUser();
       next(action);
       break;
+    }
+    case DELETE_TOKEN: {
+      localStorage.removeItem("token")
+      store.dispatch({type:DISCONNECT})
+      next(action)
     }
     default:
       next(action);

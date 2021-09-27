@@ -4,6 +4,7 @@ export const LOG_IN = "LOG_IN";
 export const UPDATE_LOGIN = "UPDATE_LOGIN";
 export const UPDATE_USER = "UPDATE_USER";
 export const GET_USER = "GET_USER";
+export const DELETE_TOKEN = "DELETE_TOKEN";
 
 export const getAllDecks = (decks) => {
     return {
