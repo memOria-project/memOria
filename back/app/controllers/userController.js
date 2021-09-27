@@ -17,6 +17,11 @@ const userController= {
 
         try {
             const user = await new User(request.body).Login();
+
+             // this header gives access to following header Authorization
+            response.setHeader("Access-Control-Expose-Headers","Authorization")
+            
+            // Send token in header
             response.setHeader('Authorization', jwt.makeToken(user.id));
             response.status(200).json(user);
         } catch(error) {
