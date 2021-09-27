@@ -18,6 +18,19 @@ const db= require("../database");
                  throw error
              }
          }
+     } 
+
+     static async decksByUserId(userId) {
+        try {
+            const {rows} = await db.query('SELECT id, title, tag FROM deck WHERE user_id=$1', [userId]);
+            return rows.map(row => new Deck(row));
+        } catch (error) {
+            if (error.detail) {
+                throw new Error(error.detail)
+            } else {
+                throw error
+            }
+        }
      }
  }
  module.exports = Deck;
