@@ -1,17 +1,26 @@
 .login__signin {
-  border-top: 2px 0 2px 0 solid grey;
+  border-top: 2px  solid grey;
   border-bottom: 2px solid grey;
+
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
 }
 
 .login__signup {
   border-bottom: 2px solid grey;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
 }
 
 .login__user-profile-link {
   border-top: 2px 0 2px 0 solid grey;
   border-bottom: 2px solid grey;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
 }
 
 .login__signout {
   border-bottom: 2px solid grey;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
 }
