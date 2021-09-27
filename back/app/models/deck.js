@@ -22,7 +22,7 @@ const db= require("../database");
 
      static async findAllcardsFromDeck(deckId) {
          try {
-             const {row} = await db.query('SELECT AllcardsFromDeck(deckId=$1)', [deckId]);
+             const {rows} = await db.query('SELECT id, recto, verso FROM card WHERE deck_id =$1', [deckId]);
              return rows.map(row => new Deck(row));
      
          } catch(error) {
