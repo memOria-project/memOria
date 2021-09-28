@@ -8,6 +8,9 @@ export const DELETE_TOKEN = 'DELETE_TOKEN'
 export const PICK_ORDER = 'PICK_ORDER'
 export const RETURN_CARD = 'RETURN_CARD'
 export const RESET_CARD= 'RESET_CARD'
+export const CHECK_TOKEN = 'CHECK_TOKEN'
+export const UPDATE_SESSION = 'UPDATE_SESSION'
+
 export const getAllDecks = (decks) => {
   return {
     type: GET_DECKS,
