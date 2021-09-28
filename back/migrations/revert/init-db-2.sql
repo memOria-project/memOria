@@ -1,4 +1,4 @@
--- Revert memoria:init-db from pg
+-- Revert memoria:init-db-2 from pg
 
 BEGIN;
 

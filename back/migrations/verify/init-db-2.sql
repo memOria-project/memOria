@@ -1,4 +1,4 @@
--- Verify memoria:init-db on pg
+-- Verify memoria:init-db-2 on pg
 
 BEGIN;
 

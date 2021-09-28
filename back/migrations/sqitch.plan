@@ -1,5 +1,5 @@
 %syntax-version=1.0.0
 %project=memoria
-%uri=https://github.com/O-clock-Uther/projet-22-memoria
 
-init-db 2021-09-22T12:18:21Z vmingam <vmingam@gmail.com> # Setup tables
+init-db-2 2021-09-28T15:29:41Z Coulibaly <s.coulibaly@outlook.com> # Ajout des tables
+all-Cards-Deck 2021-09-28T15:35:16Z Coulibaly <s.coulibaly@outlook.com> # Ajout de la fonction des cartes liées à un paquet

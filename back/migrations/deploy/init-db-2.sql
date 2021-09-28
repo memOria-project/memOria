@@ -1,4 +1,4 @@
--- Deploy memoria:init-db to pg
+-- Deploy memoria:init-db-2 to pg
 
 BEGIN;
 
@@ -31,6 +31,5 @@ CREATE TABLE "delay" (
     "user_id" INT REFERENCES "user"(id) NOT NULL,
     "card_id" INT REFERENCES "card"(id) NOT NULL
 );
-
 
 COMMIT;
