@@ -24,45 +24,45 @@ const CardDisplay = () =>  {
    "1":{
     "name":"TestDeck",
     "1":{
-       "recto":"recto1",
-       "verso":"verso1"
+       "recto":"1515",
+       "verso":"Marignan"
     },
     "2":{
-       "recto":"recto2",
-       "verso":"verso2"
+       "recto":"1492",
+       "verso":"Découverte de l'Amérique"
     },
     "3":{
-       "recto":"recto3",
-       "verso":"verso3"
+       "recto":"1789",
+       "verso":"Chute de la Bastille"
     },
     "4":{
-       "recto":"recto4",
-       "verso":"verso4"
+       "recto":"1815",
+       "verso":"Waterloo"
     },
     "5":{
-       "recto":"recto5",
-       "verso":"verso5"
+       "recto":"1914",
+       "verso":"Guerre mondiale"
     },
-    "6":{
-       "recto":"recto6",
-       "verso":"verso6"
-    },
-    "7":{
-       "recto":"recto7",
-       "verso":"verso7"
-    },
-    "8":{
-       "recto":"recto8",
-       "verso":"verso8"
-    },
-    "9":{
-       "recto":"recto9",
-       "verso":"verso9"
-    },
-    "10":{
-       "recto":"recto10",
-       "verso":"verso10"
-    }
+   //  "6":{
+   //     "recto":"recto6",
+   //     "verso":"verso6"
+   //  },
+   //  "7":{
+   //     "recto":"recto7",
+   //     "verso":"verso7"
+   //  },
+   //  "8":{
+   //     "recto":"recto8",
+   //     "verso":"verso8"
+   //  },
+   //  "9":{
+   //     "recto":"recto9",
+   //     "verso":"verso9"
+   //  },
+   //  "10":{
+   //     "recto":"recto10",
+   //     "verso":"verso10"
+   //  }
  }
 }
 
