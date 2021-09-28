@@ -127,9 +127,9 @@ const CardDisplay = () =>  {
             <p style={{fontSize: "1.5em"}}> Card #{cardId} / {cardsNumberInDeck}</p>
             <p className="card">
             {currentView.isRecto?
-            <> {database["cards"].find((card) => { return (card.id == cardId)})["recto"]}</>
-            :  
-            <>{database["cards"].find((card) => { return (card.id == cardId) })["verso"]}</>
+            <> {database["cards"][cardId - 1]["recto"]}</>
+            :
+            <>{database["cards"][cardId - 1]["verso"]}</>
             }</p>
             <button onClick={handleClickReturn}>Retourner</button>
             <button onClick={()=>handleClickNext()}> <NavLink to={nextCardURL} > Carte suivante au hasard dans le paquet </NavLink> </button>
