@@ -1,10 +1,10 @@
+
+import {SET_CURRENT_DECK_ID, GET_CURRENT_DECK_CONTENT} from '../actions'
+
 //no current deck at the start of the app
-import {SET_CURRENT_DECK_ID, SET_CURRENT_DECK_CONTENT} from '../actions'
-
-
 export const initialState = {
-                              currentDeckId : null,
-                              currentDeckContent: null
+                              currentDeckId : false,
+                              currentDeckContent: false
                             }
 
 
@@ -12,10 +12,10 @@ export const initialState = {
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case SET_CURRENT_DECK_ID:
-      return {...state, currentDeckId: action.current_deck_id};
+      return {...state, currentDeckId: action.currentDeckId};
       break;
 
-    case SET_CURRENT_DECK_CONTENT:
+    case GET_CURRENT_DECK_CONTENT:
       return {...state, currentDeckContent: action.currentDeckContent};
       break;
     

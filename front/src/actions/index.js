@@ -20,10 +20,10 @@ export const ADMIN = 'ADMIN'
 export const DISCONNECT = 'DISCONNECT'
 
 export const SET_CURRENT_DECK_ID = 'SET_CURRENT_DECK_ID'
-export const SET_CURRENT_DECK_CONTENT = 'SET_CURRENT_DECK_CONTENT'
-export const setCurrentDeckContent = (currentDeckContent) => {
+export const GET_CURRENT_DECK_CONTENT = 'GET_CURRENT_DECK_CONTENT'
+export const getCurrentDeckContent = (currentDeckContent) => {
   return {
-   type: SET_CURRENT_DECK_CONTENT,
+   type: GET_CURRENT_DECK_CONTENT,
     currentDeckContent
   }
 }

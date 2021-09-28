@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom"
 import { NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { RETURN_CARD, RESET_CARD, SET_CURRENT_DECK_ID } from '../../actions';
+import { RETURN_CARD, RESET_CARD, SET_CURRENT_DECK_ID, FETCH_CARDS } from '../../actions';
 import RectoVerso  from '../RectoVerso';
 // import jsonTestDatabase from '../../assets/jsonTestDatabase';
 
@@ -19,39 +19,57 @@ const CardDisplay = () =>  {
   let { deckId, cardId } = useParams();
   console.log("deckId", deckId);
 
-  //Sets the current_deck_id property in store to the id 
+  //If deck id has changed in the URl, 
+  //sets the current_deck_id property in store to the id 
   //of the deck currently displayed.
-  useEffect(() => {dispatch({ type: SET_CURRENT_DECK_ID, currentDeckId})}, [])
+  const previousDeckId = useSelector(state => state.currentDeck)
+  
+  console.log("previousDeckId", previousDeckId);
+  
+  //Set the current deck id in the state
+  useEffect(() => {
+    dispatch({ type: SET_CURRENT_DECK_ID, currentDeckId: deckId })
+    }, [])
+    
+  console.log("currentDeckId", useSelector(state => state.currentDeck).currentDeckId);
 
-  const currentDeckId  = useSelector(state => state.currentDeck).currentDeckId;
-  console.log("currentDeckId", currentDeckId);
-
+  //Fetch the current deck content from the database
+  useEffect(() => {
+    dispatch({ type: FETCH_CARDS })
+  }, [])
 
   
+  
+
+  //with the real database :
+ let database = useSelector(state => state.currentDeck).currentDeckContent
+
+ console.log("database", database);
+  
   //with a testing fake database
-  let database = {
-   "1":{
-    "name":"TestDeck",
-    "1":{
-       "recto":"1515",
-       "verso":"Marignan"
-    },
-    "2":{
-       "recto":"1492",
-       "verso":"Découverte de l'Amérique"
-    },
-    "3":{
-       "recto":"1789",
-       "verso":"Chute de la Bastille"
-    },
-    "4":{
-       "recto":"1815",
-       "verso":"Waterloo"
-    },
-    "5":{
-       "recto":"1914",
-       "verso":"Guerre mondiale"
-    },
+  // let database = {
+  //  "1":{
+  //   "name":"TestDeck",
+  //   "1":{
+  //      "recto":"1515",
+  //      "verso":"Marignan"
+  //   },
+  //   "2":{
+  //      "recto":"1492",
+  //      "verso":"Découverte de l'Amérique"
+  //   },
+  //   "3":{
+  //      "recto":"1789",
+  //      "verso":"Chute de la Bastille"
+  //   },
+  //   "4":{
+  //      "recto":"1815",
+  //      "verso":"Waterloo"
+  //   },
+  //   "5":{
+  //      "recto":"1914",
+  //      "verso":"Guerre mondiale"
+  //   },
    //  "6":{
    //     "recto":"recto6",
    //     "verso":"verso6"
@@ -72,17 +90,23 @@ const CardDisplay = () =>  {
    //     "recto":"recto10",
    //     "verso":"verso10"
    //  }
- }
-}
+//  }
+// }
 
-  //number of properties in deck 1 minus name property : number of cards 
-  let cardsNumberInDeck= Object.keys(database[deckId]).length - 1;
-  
-
+  // number of cards in deck  
+  let cardsNumberInDeck;
+  let nextCardURL;
+  if(database){
+  cardsNumberInDeck = database["cards"].length;
   let randomNextCardId = Math.floor(cardsNumberInDeck*Math.random() + 1);
 
   console.log("next card id", randomNextCardId);
-  const nextCardURL = `/deck/${deckId}/${randomNextCardId}` 
+  nextCardURL = `/deck/${deckId}/${randomNextCardId}` 
+
+
+  console.log("database[cards][0])", database["cards"][0]);
+  console.log("cardId",cardId);
+  } 
 
    const handleClickReturn = () => {
       dispatch({type:RETURN_CARD, isRecto: currentView.isRecto})
@@ -90,29 +114,31 @@ const CardDisplay = () =>  {
    const handleClickNext = () => {
       dispatch({type:RESET_CARD, isRecto: defaultView.isRecto})
       console.log("reset")
-   }
+   } 
 
-
-   
-
-
-  return (<>
-   
-            <p className="deck__title">{database[deckId]["name"]} </p>
+ 
+  
+  return (database?
+                <>
+            <p className="deck__title">{database["title"]} </p>
             <div style={{margin:"2em"}}> <h1>Je veux voir en premier </h1>
             <RectoVerso />
             </div>
             <p style={{fontSize: "1.5em"}}> Card #{cardId} / {cardsNumberInDeck}</p>
             <p className="card">
             {currentView.isRecto?
-            <> {database[deckId][cardId]["recto"]}</>
+            <> {database["cards"].find((card) => { return (card.id == cardId)})["recto"]}</>
             :  
-            <>{database[deckId][cardId]["verso"]}</>
+            <>{database["cards"].find((card) => { return (card.id == cardId) })["verso"]}</>
             }</p>
             <button onClick={handleClickReturn}>Retourner</button>
             <button onClick={()=>handleClickNext()}> <NavLink to={nextCardURL} > Carte suivante au hasard dans le paquet </NavLink> </button>
-          </>
-          )
+            </>
+            :<p>Loading</p>)
+          
+
+            
+          
 }
 
 export default CardDisplay;

@@ -1,5 +1,5 @@
 import {
-    getAllDecks, FETCH_DECKS, FETCH_CARDS, setCurrentDeckContent
+    getAllDecks, FETCH_DECKS, FETCH_CARDS, getCurrentDeckContent
   } from '../actions';
   
   
@@ -8,6 +8,7 @@ const api = (store) => (next) => (action) => {
 
     switch (action.type) {
       case FETCH_DECKS:
+        {
         const back = store.getState().back;
         const options = 
         {
@@ -24,9 +25,11 @@ const api = (store) => (next) => (action) => {
         getDecks();
         next(action);
         break;
+        }
 
       case FETCH_CARDS:
-        //const back = store.getState().back;
+        {
+        const back = store.getState().back;
         const { currentDeckId } = store.getState().currentDeck;
         const fetchCardsOptions = 
         {
@@ -36,12 +39,14 @@ const api = (store) => (next) => (action) => {
           try{
           const request = await fetch(`${back}/deck/${currentDeckId}/cards`, fetchCardsOptions)
           const response = await request.json()
-          store.dispatch(setCurrentDeckContent(response))
+          store.dispatch(getCurrentDeckContent(response))
           } catch(error) { console.log(error)}
 
       }
-        
+        getCurrentDeck(); 
+        next(action);
         break;
+      }
 
       default:
         next(action);
