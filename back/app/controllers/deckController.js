@@ -14,8 +14,9 @@ const deckController= {
     },
 
     getCardsFromDeck: async function (request, response) {
+
         try {
-            const data = await Deck.findAllcardsFromDeck(request.params.id);
+            const data = await Deck.findAllcardsFromDeck(parseInt(request.params.id, 10));
             response.status(200).json(data);
     
         } catch(error) {

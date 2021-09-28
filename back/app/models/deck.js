@@ -20,15 +20,16 @@ const db= require("../database");
          }
      };
 
-     static async findAllcardsFromDeck(deckId) {
+     static async findAllcardsFromDeck(id) {
          try {
-             const {row} = await db.query('SELECT AllcardsFromDeck(deckId=$1)', [deckId]);
+             const {rows} = await db.query('SELECT * FROM allcardsFromDeck($1)', [id]);
+             console.log(rows)
+             
              return rows.map(row => new Deck(row));
      
          } catch(error) {
              console.log(error);
              if (error.detail) {
-             // Erreur venant de postgresql
              throw new Error(error.detail);
              }
              throw error;
