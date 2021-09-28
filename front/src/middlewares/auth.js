@@ -1,4 +1,4 @@
-import { LOG_IN, UPDATE_USER, GET_USER, DELETE_TOKEN, DISCONNECT } from '../actions'
+import { LOG_IN, UPDATE_USER, GET_USER, DELETE_TOKEN, DISCONNECT, UPDATE_SESSION, CHECK_TOKEN } from '../actions'
 
 const auth = (store) => (next) => (action) => {
   const { email, password } = store.getState().user
@@ -65,6 +65,30 @@ const auth = (store) => (next) => (action) => {
       store.dispatch({ type: DISCONNECT })
       next(action)
       break
+    }
+    case CHECK_TOKEN: {
+      const optionsGetUser =
+      {
+        method: 'GET',
+        headers: {
+          'Authorization': token
+        }
+      }
+      const checkToken = async () => {
+      try {
+        const request = await fetch(`${back}/user/infos`, optionsGetUser)
+        const response = await request.json()
+        if(response.name) {
+        store.dispatch({ type: UPDATE_SESSION, isConnected:true })
+        }
+        else {
+        store.dispatch({ type: UPDATE_SESSION, isConnected:false })
+
+        }
+        // dispatch({type:GET_USER})
+      } catch (error) { console.log(`${error} | can't get user data :( `) }
+    }
+    checkToken();
     }
     default:
       next(action)
