@@ -1,5 +1,5 @@
 import {
-    getAllDecks, FETCH_DECKS, 
+    getAllDecks, FETCH_DECKS, FETCH_CARDS, setCurrentDeckContent
   } from '../actions';
   
   
@@ -23,6 +23,24 @@ const api = (store) => (next) => (action) => {
         }
         getDecks();
         next(action);
+        break;
+
+      case FETCH_CARDS:
+        //const back = store.getState().back;
+        const { currentDeckId } = store.getState().currentDeck;
+        const fetchCardsOptions = 
+        {
+               method: 'GET', 
+        }
+        const getCurrentDeck = async () => {
+          try{
+          const request = await fetch(`${back}/deck/${currentDeckId}/cards`, fetchCardsOptions)
+          const response = await request.json()
+          store.dispatch(setCurrentDeckContent(response))
+          } catch(error) { console.log(error)}
+
+      }
+        
         break;
 
       default:

@@ -2,9 +2,9 @@ import "./CardDisplay.scss";
 import "./CardDisplay-Desktop.scss";
 import { useParams } from "react-router-dom"
 import { NavLink } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { RETURN_CARD, RESET_CARD } from '../../actions';
+import { RETURN_CARD, RESET_CARD, SET_CURRENT_DECK_ID } from '../../actions';
 import RectoVerso  from '../RectoVerso';
 // import jsonTestDatabase from '../../assets/jsonTestDatabase';
 
@@ -18,6 +18,15 @@ const CardDisplay = () =>  {
   //use URl parameters to determine the card to display from deck and card id
   let { deckId, cardId } = useParams();
   console.log("deckId", deckId);
+
+  //Sets the current_deck_id property in store to the id 
+  //of the deck currently displayed.
+  useEffect(() => {dispatch({ type: SET_CURRENT_DECK_ID, currentDeckId})}, [])
+
+  const currentDeckId  = useSelector(state => state.currentDeck).currentDeckId;
+  console.log("currentDeckId", currentDeckId);
+
+
   
   //with a testing fake database
   let database = {
@@ -82,6 +91,11 @@ const CardDisplay = () =>  {
       dispatch({type:RESET_CARD, isRecto: defaultView.isRecto})
       console.log("reset")
    }
+
+
+   
+
+
   return (<>
    
             <p className="deck__title">{database[deckId]["name"]} </p>
