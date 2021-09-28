@@ -5,6 +5,7 @@ const RectoVerso = ()=>{
     const {defaultView, currentView } = useSelector((state)=>state.card);
     const dispatch = useDispatch();
     const handleClick = (event) => {
+      //id = recto button id and verso button id properties
         const userChoice = event.target.id;
         if(userChoice === "recto"){
             dispatch({type:PICK_ORDER, isRecto:true})

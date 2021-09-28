@@ -18,5 +18,17 @@ export const getAllDecks = (decks) => {
   }
 }
 
+
 export const ADMIN = 'ADMIN'
 export const DISCONNECT = 'DISCONNECT'
+
+export const SET_CURRENT_DECK_ID = 'SET_CURRENT_DECK_ID'
+export const GET_CURRENT_DECK_CONTENT = 'GET_CURRENT_DECK_CONTENT'
+export const getCurrentDeckContent = (currentDeckContent) => {
+  return {
+   type: GET_CURRENT_DECK_CONTENT,
+    currentDeckContent
+  }
+}
+
+export const FETCH_CARDS = "FETCH_CARDS"

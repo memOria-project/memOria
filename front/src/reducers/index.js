@@ -4,6 +4,7 @@ import decksReducer from './decks';
 import backReducer from './back';
 import userReducer from './user';
 import cardReducer from './card';
+import currentDeckReducer from './currentDeck';
 
 const rootReducer = combineReducers({
   // ici, on indique que notre state aurra une tranche (slice) appelée
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
   decks: decksReducer,
   back: backReducer,
   user: userReducer,
-  card: cardReducer
+  card: cardReducer,
+  currentDeck: currentDeckReducer
 });
 
 export default rootReducer;
