@@ -24,7 +24,7 @@ const CardEditor = ()=>{
 
 return (
     <div> 
-        <h1 class="title"> Créer /editer une carte </h1>
+        <h1 className="title"> Créer /editer une carte </h1>
         <form id="recto" onSubmit={handleSubmit}> 
             <label> Recto  
             <Form isRecto={true} preview={preview}/>
