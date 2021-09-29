@@ -31,6 +31,30 @@ class User {
         }
     };
 
+
+    async save() {
+        try {
+            if (this.id) {
+                const encriptedPassword = await bcrypt.hash(this.password, 15);
+                const {rows} = await db.query('SELECT update_user($1)', [this]);
+            } else {
+                const encriptedPassword = await bcrypt.hash(this.password, 15);
+                const {rows} = await db.query('SELECT new_user($1) AS id', [this]);
+                this.id = rows[0].id;
+                return this
+
+            }
+    
+        } catch(error) {
+            console.log(error);
+            if (error.detail) {
+            throw new Error(error.detail);
+            }
+            throw error;  sqitch add user_functions -m"Ajout des fonctions de gestion des users"
+            
+        }
+    }
+
    
 
     async Login() {
@@ -61,6 +85,22 @@ class User {
             throw error;
         }
     };
+
+
+
+    static async delete(user_id) {
+        try {
+            const {rows} = await db.query('SELECT del_user($1)', [user_id]);
+            return 
+    
+        } catch(error) {
+            console.log(error);
+            if (error.detail) {
+            throw new Error(error.detail);
+            }
+            throw error;
+        }
+    }
 
     
 }
