@@ -34,12 +34,9 @@ switch (action.type){
                 isRecto: action.isRecto
             }}
     }
-
-         
     
-    
-default:
-return state;
+  default:
+  return state;
 }
 }
 export default reducer
