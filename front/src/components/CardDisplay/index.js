@@ -49,6 +49,8 @@ const CardDisplay = () =>  {
   //with the real database :
  let database = useSelector(state => state.currentDeck).currentDeckContent
 
+ //fix temporaire tant que la réponse à FETCH_CARDS est un array
+ database = database[0];
  console.log("database", database);
   
   //with a testing fake database
@@ -102,6 +104,7 @@ const CardDisplay = () =>  {
   // number of cards in deck  
   let cardsNumberInDeck;
   let nextCardURL;
+
   if(database){
   cardsNumberInDeck = database["cards"].length;
   let randomNextCardId = Math.floor(cardsNumberInDeck*Math.random() + 1);
