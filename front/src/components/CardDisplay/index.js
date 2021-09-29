@@ -51,6 +51,7 @@ const CardDisplay = () =>  {
 
   //with the real database :
  let database = useSelector(state => state.currentDeck).currentDeckContent
+ database=database[0]
 
  console.log("database", database);
   

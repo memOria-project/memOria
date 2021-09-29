@@ -10,7 +10,7 @@ import CheckSession from './components/CheckSession';
 import Profile from './components/Profile';
 
 
-import TestEasyMDE from './components/TestEasyMDE'
+import CardEditor from './components/CardEditor'
 
 function App() {
 
@@ -33,9 +33,9 @@ function App() {
         {/* Route par défaut (404)  */}
         {/* A supprimer une fois le test fini */}
 
-        {/* <Route path="/test">
-          <TestEasyMDE />
-        </Route> */}
+        <Route path="/profile/:idDeck/:idCard">
+          <CardEditor />
+        </Route>
         <Route path="*">
           <NoMatch />
         </Route>

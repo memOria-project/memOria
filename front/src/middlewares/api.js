@@ -39,6 +39,7 @@ const api = (store) => (next) => (action) => {
           try{
           const request = await fetch(`${back}/deck/${currentDeckId}/cards`, fetchCardsOptions)
           const response = await request.json()
+          console.log(response)
           store.dispatch(getCurrentDeckContent(response))
           } catch(error) { console.log(error)}
 

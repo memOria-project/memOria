@@ -9,7 +9,9 @@ export const initialState = {
     },
     currentCard: {
       currentDeckId: false,
-      currentCardId: false
+      currentCardId: false,
+      recto: 'recto',
+      verso:'verso',
     }
 }
 const reducer = (state = initialState, action = {}) => {
