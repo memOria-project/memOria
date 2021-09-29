@@ -22,7 +22,7 @@ router.get("/deck/:id/cards", deckController.getCardsFromDeck);
 router.post("/login", userController.login); // Connection de l’utilisateur
 router.get("/user/infos", checkJwt, userController.getOneUser);
 
-// router.post("/signup", userController.subscribe); // Création ou modification de compte utilisateur
+ router.post("/signup", userController.subscribe); // Création ou modification de compte utilisateur
 // router.delete("/user/:id", userController.remove); // Suppression d’un compte utilisateur
 // router.get("/logout", userController.disconnecte); // Déconnection de l’utilisateur
 

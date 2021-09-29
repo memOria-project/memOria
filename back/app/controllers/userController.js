@@ -24,8 +24,8 @@ const userController= {
 
     subscribe: async function (request, response) {
         try {
-          const user = await new Deck(request.body).save();
-          response.status(200).json(data);
+          const user = await new User(request.body).save();
+          response.status(200).json(user);
         } catch (error) {
           console.log(error);
           response.status(500).json(error.message);

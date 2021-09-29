@@ -21,6 +21,16 @@ Content-Type: application/json
   "password" : "azerty"
 }
 
+### add/update user
+POST {{baseUrl}}/signup
+Content-Type: application/json
+
+{
+  "id": 3,
+  "email" : "tatoo@gmal.fr",
+  "password" : "azerty"
+}
+
 ### Add a card
 
 # POST {{baseUrl}}/card

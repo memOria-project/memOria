@@ -50,7 +50,7 @@ class User {
             if (error.detail) {
             throw new Error(error.detail);
             }
-            throw error;  sqitch add user_functions -m"Ajout des fonctions de gestion des users"
+            throw error;
             
         }
     }
