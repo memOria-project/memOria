@@ -4,3 +4,4 @@
 
 init-db 2021-09-22T12:18:21Z vmingam <vmingam@gmail.com> # Setup tables
 all-Cards-Deck 2021-09-29T09:21:26Z vmingam <vmingam@gmail.com> # Ajout de la fonction des cartes liées à un paquet
+func-cardsOfUser 2021-09-29T16:22:37Z vmingam <vmingam@gmail.com> # Ajoute une fonction SQL pour récupérer toutes les cartes d'un utilisateur
