@@ -30,15 +30,16 @@ function App() {
         <Route path="/deck/:deckId/:cardId">
           <CardDisplay />
         </Route>
+        <Route path="/profile/:idDeck/:idCard">
+          <CardEditor />
+        </Route>
         <Route path="/profile">
           <Profile />
         </Route>
         {/* Route par défaut (404)  */}
         {/* A supprimer une fois le test fini */}
 
-        <Route path="/profile/:idDeck/:idCard">
-          <CardEditor />
-        </Route>
+
         <Route path="*">
           <NoMatch />
         </Route>

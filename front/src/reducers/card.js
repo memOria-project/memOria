@@ -1,4 +1,4 @@
-import { PICK_ORDER, RETURN_CARD, RESET_CARD } from '../actions';
+import { PICK_ORDER, RETURN_CARD, RESET_CARD, EDIT_CARD } from '../actions';
 
 export const initialState = {
     defaultView:{
@@ -39,7 +39,15 @@ switch (action.type){
                 isRecto: action.isRecto
             }}
     }
+    case EDIT_CARD:{
 
+        return {...state,
+        currentCard:{
+            ...state.currentCard,
+            [action.field]: action.val,
+        }
+        }
+    }
     
   default:
   return state;

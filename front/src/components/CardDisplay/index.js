@@ -51,7 +51,6 @@ const CardDisplay = () =>  {
 
   //with the real database :
  let database = useSelector(state => state.currentDeck).currentDeckContent
- database=database[0]
 
  //fix temporaire tant que la réponse à FETCH_CARDS est un array
  database = database[0];
