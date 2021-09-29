@@ -11,7 +11,7 @@ const Connexion = () => {
   if (user.isConnected) {
     return (
     <div className="header__nav__connexion--connected">
-      <div className="login__user-profile-link">{user.name} (profil)</div>
+      <NavLink to="/profile" className="login__user-profile-link">{user.name} (profil)</NavLink>
       <div className="login__signout" onClick={() => dispatch({ type: DELETE_TOKEN })}>Se déconnecter</div>
     </div>
     )

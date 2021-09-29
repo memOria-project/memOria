@@ -7,6 +7,7 @@ import NoMatch from './components/NoMatch';
 import SignIn from './components/Signin';
 import CardDisplay from './components/CardDisplay';
 import CheckSession from './components/CheckSession';
+import Profile from './components/Profile';
 
 
 import TestEasyMDE from './components/TestEasyMDE'

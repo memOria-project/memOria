@@ -1,4 +1,15 @@
-.decks-container {
+.personalizedDecksDisplay {
+  margin:auto;
+  border:1px solid black;
+}
+
+.personalizedDecksDisplay__title {
+  margin-bottom: 0.5em;
+}
+
+
+
+.personalizedDecksDisplay__decks-container {
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-start;
@@ -11,5 +22,5 @@
   height: 5em;
   text-align: center;
   display: flex;
-  margin: auto
+  margin:auto;
 }
