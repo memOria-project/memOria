@@ -17,7 +17,7 @@ const Form = ({isRecto, preview})=>{
     }
 
 
-return   (<div class="form"> 
+return   (<div className="form"> 
 
         {preview?
             <MDEditor.Markdown source={isRecto?recto:verso} />

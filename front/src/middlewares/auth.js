@@ -80,6 +80,7 @@ const auth = (store) => (next) => (action) => {
         const request = await fetch(`${back}/user/infos`, optionsGetUser)
         const response = await request.json()
         const { name, email, decks } = response
+ 
         console.log("Token has been checked");
         if(response.name) {
         // store.dispatch({ type: UPDATE_SESSION, isConnected:true })
@@ -94,6 +95,7 @@ const auth = (store) => (next) => (action) => {
       } catch (error) { console.log(`${error} | can't get user data :( `) }
     }
     checkToken();
+    break;
     }
     default:
       next(action)
