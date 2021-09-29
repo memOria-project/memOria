@@ -6,19 +6,25 @@ GET {{baseUrl}}/decks
 
 
 ### Get all cards from deck
-GET {{baseUrl}}/deck/4/cards
+GET {{baseUrl}}/deck/1/cards
 
 ### Get user infos
 GET {{baseUrl}}/user/infos
 # coller Authorization + token généré et founi par le serveur
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsImlhdCI6MTYzMjUyNTIxNCwiZXhwIjoxNjMyNTI1MjQ0fQ.qvca96lHpiahlZNgSoxsiFNmMdm3L8yUggy8IIXco34
+
+### Get user cards
+GET {{baseUrl}}/user/cards
+# coller Authorization + token généré et founi par le serveur
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTYzMjkzNTk2NiwiZXhwIjoxNjMyOTM2MDg2fQ.4H-HuB_fUuwoQ-HqNXoLZiwqYDL-P1zGIEI9goJvHXw
+
 ### login user
 POST {{baseUrl}}/login
 Content-Type: application/json
 
 {
-  "email" : "tuti@gmal.fr",
-  "password" : "azerty"
+  "email" : "toti@s.fr",
+  "password" : "123456"
 }
 
 ### Add a card
