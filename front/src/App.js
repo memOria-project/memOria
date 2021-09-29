@@ -8,6 +8,7 @@ import SignIn from './components/Signin';
 import CardDisplay from './components/CardDisplay';
 import CheckSession from './components/CheckSession';
 import Profile from './components/Profile';
+import DeckEditor from './components/DeckEditor'
 
 function App() {
 
@@ -29,6 +30,9 @@ function App() {
         </Route>
         <Route path="/profile">
           <Profile />
+        </Route>
+        <Route path="/deckEditor/1">
+          <DeckEditor />
         </Route>
         {/* Route par défaut (404)  */}
         <Route path="*">
