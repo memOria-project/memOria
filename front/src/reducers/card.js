@@ -1,4 +1,4 @@
-import { PICK_ORDER, RETURN_CARD, RESET_CARD } from '../actions';
+import { PICK_ORDER, RETURN_CARD, RESET_CARD, SET_CURRENT_CARD } from '../actions';
 
 export const initialState = {
     defaultView:{
@@ -6,6 +6,10 @@ export const initialState = {
     },
     currentView:{
         isRecto:true
+    },
+    currentCard: {
+      currentDeckId: false,
+      currentCardId: false
     }
 }
 const reducer = (state = initialState, action = {}) => {
@@ -33,6 +37,15 @@ switch (action.type){
             currentView:{
                 isRecto: action.isRecto
             }}
+    }
+
+    case SET_CURRENT_CARD: {
+      return {...state,
+        currentCard: {  
+                        currentDeckId: action.currentDeckId, 
+                        currentCardId: action.currentCardId
+                      }
+      }      
     }
     
   default:
