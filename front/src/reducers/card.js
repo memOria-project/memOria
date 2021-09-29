@@ -1,4 +1,4 @@
-import { PICK_ORDER, RETURN_CARD, RESET_CARD, SET_CURRENT_CARD } from '../actions';
+import { PICK_ORDER, RETURN_CARD, RESET_CARD } from '../actions';
 
 export const initialState = {
     defaultView:{
@@ -39,14 +39,6 @@ switch (action.type){
             }}
     }
 
-    case SET_CURRENT_CARD: {
-      return {...state,
-        currentCard: {  
-                        currentDeckId: action.currentDeckId, 
-                        currentCardId: action.currentCardId
-                      }
-      }      
-    }
     
   default:
   return state;
