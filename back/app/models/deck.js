@@ -23,9 +23,9 @@ class Deck {
      static async findAllcardsFromDeck(id) {
          try {
              const {rows} = await db.query('SELECT * FROM allcardsFromDeck($1)', [id]);
-             console.log(rows)
-             
-             return rows.map(row => new Deck(row));
+            //  console.log(rows[0])
+             const deckWithItsCards = rows[0]
+             return deckWithItsCards;
      
          } catch(error) {
              console.log(error);
