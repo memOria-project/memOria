@@ -2,6 +2,6 @@
 
 BEGIN;
 
--- XXX Add verifications here.
+SELECT AllcardsFromDeck(1);
 
 ROLLBACK;
