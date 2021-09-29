@@ -21,6 +21,18 @@ const userController= {
         }
     },
 
+
+    subscribe: async function (request, response) {
+        try {
+            const user = await new Deck(request.body).save();
+            response.status(200).json(data);
+    
+        } catch(error) {
+            console.log(error);
+            response.status(500).json(error.message)
+        }
+    },
+
     login: async function(request, response) {
 
         try {
@@ -29,7 +41,7 @@ const userController= {
             // récupère la liste des deck appartenant à user
             // get decks list owned by user
             if (user.id){
-                user.decks = await Deck.decksByUserId(user.id);
+                user.decks = await User.decksByUserId(user.id);
             }
 
              // this header gives access to following header Authorization
@@ -43,6 +55,17 @@ const userController= {
             response.status(500).json(error.message);
         }
     },
+
+    remove: async function (request, response) {
+        try {
+            const data = await User.delete(parseInt(request.params.id, 10));
+            response.status(200).json(data);
+    
+        } catch(error) {
+            console.log(error);
+            response.status(500).json(error.message)
+        }
+    }
 
 
 }

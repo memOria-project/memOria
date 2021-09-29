@@ -31,13 +31,35 @@ class User {
         }
     };
 
+
+    async save() {
+        try {
+            if (this.id) {
+                const encriptedPassword = await bcrypt.hash(this.password, 15);
+                const {rows} = await db.query('SELECT update_user($1)', [this]);
+            } else {
+                const encriptedPassword = await bcrypt.hash(this.password, 15);
+                const {rows} = await db.query('SELECT new_user($1) AS id', [this]);
+                this.id = rows[0].id;
+                return this
+
+            }
+    
+        } catch(error) {
+            console.log(error);
+            if (error.detail) {
+            throw new Error(error.detail);
+            }
+            throw error;
+        }
+    }
+
    
 
     async Login() {
         try {
             const query = {
-                text: 'SELECT * FROM "user" WHERE "email"=$1',
-                // text: 'SELECT "user".id, "name", email, "password",  array_agg(deck.id) AS decks FROM "user" JOIN "deck" ON "user_id" = "user".id WHERE "email"=$1 GROUP BY "user".id, "name", email',
+                text: 'SELECT * FROM "user" WHERE "email"=$1', 
                 values: [this.email],
             }
             const {rows} = await db.query(query);
@@ -52,7 +74,9 @@ class User {
             this.id = rows[0].id;
             this.name = rows[0].name;
             this.email = rows[0].email;
+
             return {id: this.id, name: this.name, email:this.email};
+
         } catch(error) {
             console.log(error);
             if (error.detail) {
@@ -61,6 +85,25 @@ class User {
             throw error;
         }
     };
+
+
+
+
+
+
+    static async delete(user_id) {
+        try {
+            const {rows} = await db.query('SELECT del_user($1)', [user_id]);
+            return 
+    
+        } catch(error) {
+            console.log(error);
+            if (error.detail) {
+            throw new Error(error.detail);
+            }
+            throw error;
+        }
+    }
 
     
 }
