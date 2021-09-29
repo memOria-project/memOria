@@ -27,6 +27,9 @@ function App() {
         <Route path="/deck/:deckId/:cardId">
           <CardDisplay />
         </Route>
+        <Route path="/profile">
+          <Profile />
+        </Route>
         {/* Route par défaut (404)  */}
         <Route path="*">
           <NoMatch />

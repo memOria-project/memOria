@@ -2,8 +2,11 @@ import { useSelector } from 'react-redux'
 import Deck from '../Deck';
 import './Profile.scss';
 
+
+
 const Profile = ()=>{
-    const {name, decks, email} = useSelector((state)=> state.user);
+    
+const {name, email} = useSelector((state)=> state.user);
 
 const personalizedDecks = useSelector((state)=>(state.user.decks))
 console.log(personalizedDecks);
