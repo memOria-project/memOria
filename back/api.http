@@ -6,7 +6,7 @@ GET {{baseUrl}}/decks
 
 
 ### Get all cards from deck
-GET {{baseUrl}}/deck/4/cards
+GET {{baseUrl}}/deck/1/cards
 
 ### Get user infos
 GET {{baseUrl}}/user/infos
