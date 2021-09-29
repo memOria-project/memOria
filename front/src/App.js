@@ -7,6 +7,7 @@ import NoMatch from './components/NoMatch';
 import SignIn from './components/Signin';
 import CardDisplay from './components/CardDisplay';
 import CheckSession from './components/CheckSession';
+import Profile from './components/Profile';
 
 function App() {
 
@@ -25,6 +26,9 @@ function App() {
         </Route>
         <Route path="/deck/:deckId/:cardId">
           <CardDisplay />
+        </Route>
+        <Route path="/profile">
+          <Profile />
         </Route>
         {/* Route par défaut (404)  */}
         <Route path="*">

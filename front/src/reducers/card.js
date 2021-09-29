@@ -6,6 +6,10 @@ export const initialState = {
     },
     currentView:{
         isRecto:true
+    },
+    currentCard: {
+      currentDeckId: false,
+      currentCardId: false
     }
 }
 const reducer = (state = initialState, action = {}) => {
@@ -34,9 +38,10 @@ switch (action.type){
                 isRecto: action.isRecto
             }}
     }
+
     
-default:
-return state;
+  default:
+  return state;
 }
 }
 export default reducer
