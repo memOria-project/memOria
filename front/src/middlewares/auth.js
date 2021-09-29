@@ -22,7 +22,7 @@ const auth = (store) => (next) => (action) => {
         try {
           const request = await fetch(`${back}/login`, options)
           const response = await request.json()
-          const { name, email } = response
+          const { name, email, decks } = response
           const token = request.headers.get('Authorization')
           console.log(response);
           //   for (var pair of request.headers.entries()) {
@@ -30,7 +30,7 @@ const auth = (store) => (next) => (action) => {
           //  }
           // // Le token est inscrit dans le local storage
           localStorage.setItem('token', token)
-          store.dispatch({type: UPDATE_USER, email, name })
+          store.dispatch({type: UPDATE_USER, email, name, decks })
 
           // // Les infos sont enregistrés dans le profil utilisateur
         } catch (error) { console.log(error) }
@@ -52,7 +52,7 @@ const auth = (store) => (next) => (action) => {
           const request = await fetch(`${back}/user/infos`, optionsGetUser)
           const response = await request.json()
           const { name, email, decks } = response
-          store.dispatch({ type: UPDATE_USER, name, email, decks })
+          store.dispatch({ type: UPDATE_USER, name, email })
           // dispatch({type:GET_USER})
         } catch (error) { console.log(`${error} | can't get user data :( `) }
       }

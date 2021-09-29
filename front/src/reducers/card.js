@@ -22,9 +22,8 @@ switch (action.type){
             currentView: {
                 isRecto: action.isRecto
             }}
-        
-    }
-    
+           }
+   
     case RETURN_CARD:{
         return {...state,
             currentView:{

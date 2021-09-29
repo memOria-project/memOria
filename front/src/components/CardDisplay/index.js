@@ -6,6 +6,8 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RETURN_CARD, RESET_CARD, SET_CURRENT_DECK_ID, FETCH_CARDS, SET_CURRENT_CARD } from '../../actions';
 import RectoVerso  from '../RectoVerso';
+import MDEditor from '@uiw/react-md-editor';
+
 // import jsonTestDatabase from '../../assets/jsonTestDatabase';
 
 //Display zone for cards. Cards from a Deck are displayed one by one.
@@ -13,6 +15,7 @@ import RectoVerso  from '../RectoVerso';
 const CardDisplay = () =>  {
   const {defaultView, currentView} = useSelector((state)=>state.card)
 //   const [isRecto, setIsRecto ] = useState(true)
+
   const dispatch= useDispatch()
   console.log("test");
   //use URl parameters to determine the card to display from deck and card id
@@ -130,12 +133,12 @@ const CardDisplay = () =>  {
             <RectoVerso />
             </div>
             <p style={{fontSize: "1.5em"}}> Card #{cardId} / {cardsNumberInDeck}</p>
-            <p className="card">
+             <p className="card">
             {currentView.isRecto?
-            <> {database["cards"][cardId - 1]["recto"]}</>
+            <MDEditor.Markdown source={database["cards"][cardId - 1]["recto"]} />
             :
-            <>{database["cards"][cardId - 1]["verso"]}</>
-            }</p>
+            <MDEditor.Markdown source={database["cards"][cardId - 1]["verso"]} />
+            }</p> 
             <button onClick={handleClickReturn}>Retourner</button>
             <button onClick={()=>handleClickNext()}> <NavLink to={nextCardURL} > Carte suivante au hasard dans le paquet </NavLink> </button>
             </>

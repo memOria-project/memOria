@@ -8,6 +8,9 @@ import SignIn from './components/Signin';
 import CardDisplay from './components/CardDisplay';
 import CheckSession from './components/CheckSession';
 
+
+import TestEasyMDE from './components/TestEasyMDE'
+
 function App() {
 
   return (
@@ -27,9 +30,15 @@ function App() {
           <CardDisplay />
         </Route>
         {/* Route par défaut (404)  */}
+        {/* A supprimer une fois le test fini */}
+
+        {/* <Route path="/test">
+          <TestEasyMDE />
+        </Route> */}
         <Route path="*">
           <NoMatch />
         </Route>
+
       </Switch>
 
     </div>
