@@ -6,7 +6,6 @@ import './CardEditor.scss'
 const Form = ({isRecto, preview})=>{
     
     const { recto, verso } = useSelector((state)=>state.card.currentCard);
-    const [value, setValue] = useState(isRecto?recto:verso)
     const dispatch = useDispatch();
     // const value = isRecto?recto:verso
 
@@ -14,8 +13,9 @@ const Form = ({isRecto, preview})=>{
     const handleChange=(val) => {
         const field= isRecto?"recto":"verso";
         console.log(field)
-        dispatch({type:EDIT_CARD, field, val})        
+        dispatch({type:EDIT_CARD, field: [{"field": field, "value":val}, {"field":"test", "value":"value"}]})        
     }
+
 
 return   (<div class="form"> 
 

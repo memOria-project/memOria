@@ -30,7 +30,7 @@ function App() {
         <Route path="/deck/:deckId/:cardId">
           <CardDisplay />
         </Route>
-        <Route path="/profile/:idDeck/:idCard">
+        <Route path="/profile/:deckId/:cardId">
           <CardEditor />
         </Route>
         <Route path="/profile">

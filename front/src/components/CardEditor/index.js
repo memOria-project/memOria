@@ -1,19 +1,25 @@
 import MDEditor from "@uiw/react-md-editor"
 import { useDispatch, useSelector } from 'react-redux';
-import { useState, useParams } from 'react';
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Form from './Form.js'
 import './CardEditor.scss'
+import { EDIT_CARD, POST_CARD } from "../../actions/index.js";
 const CardEditor = ()=>{
-    // const { id } = useParams();
-    const id = 1;
+    let {deckId, cardId} = useParams();
+    deckId = parseInt(deckId, 10);
+    cardId = parseInt(cardId, 10);
     const [preview, setPreview] = useState(false)
+    const dispatch = useDispatch()
+    dispatch({type:EDIT_CARD, field:[{"field":"currentDeckId",
+        "value": deckId}, {"field":"currentCardId", "value":cardId}]})
 
     const handleClick = (event) => {
         event.preventDefault()
         setPreview((state)=> !state);
       }
     const handleSubmit = (event) => {
-
+        dispatch({type:POST_CARD})
     }
 
 return (

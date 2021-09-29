@@ -46,6 +46,7 @@ const reducer = (state = initialState, action = {}) => {
     case UPDATE_SESSION: {
       return {...state,
         isConnected: action.isConnected}
+        
     }
     default:
       return state

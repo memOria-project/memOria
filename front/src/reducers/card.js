@@ -40,13 +40,12 @@ switch (action.type){
             }}
     }
     case EDIT_CARD:{
+        // const reducer = (previousValue, currentValue)=>({[previousValue.field]:previousValue.value, [currentValue.field]: currentValue.value })
+        const reducer = (previousValue, currentValue)=>({...state, currentCard:{...state.currentCard, [currentValue.field]: currentValue.value, [previousValue.field]: previousValue.value }})
 
-        return {...state,
-        currentCard:{
-            ...state.currentCard,
-            [action.field]: action.val,
-        }
-        }
+        const fields = action.field.reduce(reducer)
+        console.log(fields);
+        return fields
     }
     
   default:
