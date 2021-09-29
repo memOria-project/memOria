@@ -1,4 +1,5 @@
 @baseUrl=http://localhost:3500/v1
+# @baseUrl=https://memoriapo.herokuapp.com/v1
 @host=http://localhost:3500
 
 ### Get all decks
@@ -11,12 +12,12 @@ GET {{baseUrl}}/deck/1/cards
 ### Get user infos
 GET {{baseUrl}}/user/infos
 # coller Authorization + token généré et founi par le serveur
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsImlhdCI6MTYzMjUyNTIxNCwiZXhwIjoxNjMyNTI1MjQ0fQ.qvca96lHpiahlZNgSoxsiFNmMdm3L8yUggy8IIXco34
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTYzMjk0NjE3NywiZXhwIjoxNjMyOTQ2Mjk3fQ.P2PJUAo_zgjds4chRBvKsWrtBmuINMIKHZEnEHE3upk
 
 ### Get user cards
 GET {{baseUrl}}/user/cards
 # coller Authorization + token généré et founi par le serveur
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTYzMjkzNTk2NiwiZXhwIjoxNjMyOTM2MDg2fQ.4H-HuB_fUuwoQ-HqNXoLZiwqYDL-P1zGIEI9goJvHXw
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTYzMjk0NjE3NywiZXhwIjoxNjMyOTQ2Mjk3fQ.P2PJUAo_zgjds4chRBvKsWrtBmuINMIKHZEnEHE3upk
 
 ### login user
 POST {{baseUrl}}/login
