@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom"
 import { NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { RETURN_CARD, RESET_CARD, SET_CURRENT_DECK_ID, FETCH_CARDS } from '../../actions';
+import { RETURN_CARD, RESET_CARD, SET_CURRENT_DECK_ID, FETCH_CARDS, SET_CURRENT_CARD } from '../../actions';
 import RectoVerso  from '../RectoVerso';
 // import jsonTestDatabase from '../../assets/jsonTestDatabase';
 
@@ -18,6 +18,11 @@ const CardDisplay = () =>  {
   //use URl parameters to determine the card to display from deck and card id
   let { deckId, cardId } = useParams();
   console.log("deckId", deckId);
+
+
+  
+
+  
 
   //If deck id has changed in the URl, 
   //sets the current_deck_id property in store to the id 
@@ -36,7 +41,7 @@ const CardDisplay = () =>  {
   //Fetch the current deck content from the database
   useEffect(() => {
     dispatch({ type: FETCH_CARDS })
-  }, [])
+  }, [ deckId ])
 
   
   
@@ -93,6 +98,7 @@ const CardDisplay = () =>  {
 //  }
 // }
 
+  
   // number of cards in deck  
   let cardsNumberInDeck;
   let nextCardURL;
@@ -102,7 +108,6 @@ const CardDisplay = () =>  {
 
   console.log("next card id", randomNextCardId);
   nextCardURL = `/deck/${deckId}/${randomNextCardId}` 
-
 
   console.log("database[cards][0])", database["cards"][0]);
   console.log("cardId",cardId);

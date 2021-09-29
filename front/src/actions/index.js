@@ -29,3 +29,5 @@ export const getCurrentDeckContent = (currentDeckContent) => {
 }
 
 export const FETCH_CARDS = "FETCH_CARDS"
+
+export const SET_CURRENT_CARD ="SET_CURRENT_CARD"
