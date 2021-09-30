@@ -8,6 +8,7 @@ import SignIn from './components/Signin';
 import CardDisplay from './components/CardDisplay';
 import CheckSession from './components/CheckSession';
 import Profile from './components/Profile';
+import DeckEditor from './components/DeckEditor'
 
 
 import CardEditor from './components/CardEditor'
@@ -30,11 +31,14 @@ function App() {
         <Route path="/deck/:deckId/:cardId">
           <CardDisplay />
         </Route>
-        <Route path="/profile/:deckId/:cardId">
+        <Route path="/cardEditor/:deckId/:cardId">
           <CardEditor />
         </Route>
         <Route path="/profile">
           <Profile />
+        </Route>
+        <Route path="/deckEditor/:deckEditorDeckId">
+          <DeckEditor />
         </Route>
         {/* Route par défaut (404)  */}
         {/* A supprimer une fois le test fini */}

@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux'
+import { NavLink } from 'react-router-dom'
 import Deck from '../Deck';
 import './Profile.scss';
 
@@ -50,7 +51,9 @@ return (<>
 
         <button type="submit">submit</button>
     </form> */}
-
+        
+        {/* lien vers l'éditeur de cartes */}
+        <NavLink to="/deckEditor/1">Éditeur de cartes</NavLink>
 
         {/* Personalized decks */}
         <div className="personalizedDecksDisplay">
