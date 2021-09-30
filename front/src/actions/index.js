@@ -12,6 +12,8 @@ export const CHECK_TOKEN = 'CHECK_TOKEN'
 export const UPDATE_SESSION = 'UPDATE_SESSION'
 export const EDIT_CARD = 'EDIT_CARD'
 export const POST_CARD = 'POST_CARD'
+export const SUBSCRIBE = 'SUBSCRIBE'
+
 export const getAllDecks = (decks) => {
   return {
     type: GET_DECKS,

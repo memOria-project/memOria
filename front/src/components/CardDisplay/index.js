@@ -22,11 +22,6 @@ const CardDisplay = () =>  {
   let { deckId, cardId } = useParams();
   console.log("deckId", deckId);
 
-
-  
-
-  
-
   //If deck id has changed in the URl, 
   //sets the current_deck_id property in store to the id 
   //of the deck currently displayed.
