@@ -6,30 +6,25 @@ import './DeckEditor.scss'
 
 const DeckEditor = () => {
 
-  
-
   // const personalizedDecks = useSelector((state)=>(state.user.decks));
   // console.log(personalizedDecks);
-
-
   const dispatch = useDispatch();
 
   //temporary: access to common deck for testing purpose
   const deckId = 1;
-    
-  dispatch({ type: SET_CURRENT_DECK_ID, currentDeckId: deckId});
-  dispatch({ type: FETCH_CARDS });
   
-  
-  
+  let commonDecks = useSelector(state => state.currentDeck).currentDeckContent.cards
 
+  useEffect(() => {
+    dispatch({ type: SET_CURRENT_DECK_ID, currentDeckId: deckId});
+    dispatch({ type: FETCH_CARDS });
+  }, [])
   
-
-  let commonDecks = useSelector((state)=>(state.currentDeck))
+  
+  
   console.log("commonDecks", commonDecks);
 
 
-  let firstCommonDeck;
 
   // if (commonDecks) {
   //   // firstCommonDeck = commonDecks[0]["cards"];
@@ -49,7 +44,7 @@ const DeckEditor = () => {
   return (
     <div>
       <p>Liste des cartes du deck :</p>
-      {commonDecks? firstCommonDeck["currentDeckContent"]["cards"].map((card) => {return (
+      {commonDecks? commonDecks.map((card) => {return (
         <p className="rectoVersoView">
           <p className="card">{card.recto}</p>
           <p className="card">{card.verso}</p>
