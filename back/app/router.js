@@ -30,6 +30,9 @@ router.get("/user/infos", checkJwt, userController.getOneUser);
 // Displays cards of a user
 router.get('/user/cards', checkJwt, cardController.getCardsFromUser);
 
+// Save or update card of a user
+router.post('/card', checkJwt, cardController.save)
+
 // Displays cards of a deck
 router.get("/deck/:id/cards", deckController.getCardsFromDeck);
 

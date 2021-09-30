@@ -17,7 +17,7 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTYz
 ### Get user cards
 GET {{baseUrl}}/user/cards
 # coller Authorization + token généré et founi par le serveur
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTYzMjk0NjE3NywiZXhwIjoxNjMyOTQ2Mjk3fQ.P2PJUAo_zgjds4chRBvKsWrtBmuINMIKHZEnEHE3upk
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTYzMjk5MzkxNywiZXhwIjoxNjMyOTk0MDM3fQ.rhEgHIP6TMASVGaggFfmp59QFCzqqrrG56Oa2EKF8K0
 
 ### login user
 POST {{baseUrl}}/login
@@ -29,15 +29,15 @@ Content-Type: application/json
 }
 
 ### Add a card
+POST {{baseUrl}}/card
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTYzMjk5MzkxNywiZXhwIjoxNjMyOTk0MDM3fQ.rhEgHIP6TMASVGaggFfmp59QFCzqqrrG56Oa2EKF8K0
+Content-Type: application/json
 
-# POST {{baseUrl}}/card
-# Content-Type: application/json 
-
-# {
-#     "recto": "Texte du recto",
-#     "verso": "Texte du verso",
-#     "deck_id": 1,
-# }
+{
+    "recto": "Recto Nouvelle Carte test Vince",
+    "verso": "Verso Nouvelle Carte test Vince",
+    "deckId": 5
+}
 
 # ### Tests benchmark Redis ...
 # GET {{host}}/redis
