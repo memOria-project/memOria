@@ -49,6 +49,6 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-only-warn": "^1.0.3",
     "eslint-plugin-promise": "^5.1.0",
-    "eslint-plugin-react": "^7.26.0"
+    "eslint-plugin-react": "^7.26.1"
   }
 }

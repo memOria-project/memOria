@@ -2,9 +2,9 @@ import "./CardDisplay.scss";
 import "./CardDisplay-Desktop.scss";
 import { useParams } from "react-router-dom"
 import { NavLink } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { RETURN_CARD, RESET_CARD, SET_CURRENT_DECK_ID, FETCH_CARDS, SET_CURRENT_CARD } from '../../actions';
+import { RETURN_CARD, RESET_CARD, SET_CURRENT_DECK_ID, FETCH_CARDS } from '../../actions';
 import RectoVerso  from '../RectoVerso';
 import MDEditor from '@uiw/react-md-editor';
 

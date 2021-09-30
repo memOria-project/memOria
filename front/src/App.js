@@ -21,9 +21,9 @@ function App() {
       <CheckSession />
       <Switch>
         {/* Route de l'accueil. Notez l'utilisation de "exact path" - sans lui, n'importe quel path commençant par "/" pourrait match!  */}
-        <Route exact path="/"> 
+        <Route exact path="/">
           <Home />
-        </Route>        
+        </Route>
         <Route path="/signin">
           <SignIn />
         </Route>
@@ -50,4 +50,4 @@ function App() {
   );
 }
 
-export default App;
+export default App
