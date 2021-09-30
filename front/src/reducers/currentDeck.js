@@ -13,11 +13,9 @@ const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case SET_CURRENT_DECK_ID:
       return {...state, currentDeckId: action.currentDeckId};
-      break;
 
     case GET_CURRENT_DECK_CONTENT:
       return {...state, currentDeckContent: action.currentDeckContent};
-      break;
     
     default:
       return state;

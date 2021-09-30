@@ -6,12 +6,13 @@ import './DeckEditor.scss'
 
 const DeckEditor = () => {
 
-  const dispatch = useDispatch();
+  
 
   // const personalizedDecks = useSelector((state)=>(state.user.decks));
   // console.log(personalizedDecks);
 
 
+  const dispatch = useDispatch();
 
   //temporary: access to common deck for testing purpose
   const deckId = 1;
