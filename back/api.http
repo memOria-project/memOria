@@ -27,10 +27,21 @@ Content-Type: application/json
 
 {
   "id": 3,
-  "email" : "tatoo@gmal.fr",
-  "password" : "azerty"
+  "name": "souley2",
+  "email" : "tatoo@gmail.fr",
+  "password" : "azertuty"
 }
 
+
+### add/update user
+POST {{baseUrl}}/signup
+Content-Type: application/json
+
+{
+  "name" : "Andrea",
+  "email" : "andrea@outlook.com",
+  "password" : "Myriam"
+}
 ### Add a card
 
 # POST {{baseUrl}}/card

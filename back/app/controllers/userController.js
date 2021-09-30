@@ -7,6 +7,9 @@ const userController= {
 
         try {
             const user= await User.findOne(request.userId);
+
+            response.setHeader("Access-Control-Expose-Headers","Authorization")
+            response.setHeader('Authorization', jwt.makeToken(user.id));
             
             // récupère la liste des deck appartenant à user
             // get decks list owned by user
@@ -24,7 +27,12 @@ const userController= {
 
     subscribe: async function (request, response) {
         try {
+
           const user = await new User(request.body).save();
+
+          response.setHeader("Access-Control-Expose-Headers","Authorization")
+          response.setHeader('Authorization', jwt.makeToken(user.id));
+        
           response.status(200).json(user);
         } catch (error) {
           console.log(error);
