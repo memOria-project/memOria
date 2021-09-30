@@ -1,18 +1,17 @@
 import { useSelector, useDispatch } from 'react-redux'
-import Deck from '../Deck';
 import { FETCH_CARDS, SET_CURRENT_DECK_ID } from '../../actions'
 import { useEffect } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 import './DeckEditor.scss'
 
 const DeckEditor = () => {
 
-  // const personalizedDecks = useSelector((state)=>(state.user.decks));
-  // console.log(personalizedDecks);
+  //params from the URL
+  let { deckId } = useParams();
+  
+
   const dispatch = useDispatch();
 
-  //temporary: access to common deck for testing purpose
-  const deckId = 1;
   
   let commonDecks = useSelector(state => state.currentDeck).currentDeckContent.cards
 

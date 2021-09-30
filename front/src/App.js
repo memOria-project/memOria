@@ -37,7 +37,7 @@ function App() {
         <Route path="/profile">
           <Profile />
         </Route>
-        <Route path="/deckEditor/1">
+        <Route path="/profile/:deckId">
           <DeckEditor />
         </Route>
         {/* Route par défaut (404)  */}

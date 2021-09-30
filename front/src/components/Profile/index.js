@@ -53,7 +53,7 @@ return (<>
     </form> */}
         
         {/* lien vers l'éditeur de cartes */}
-        <NavLink to="/deckEditor/1">Éditeur de cartes</NavLink>
+        <NavLink to="/profile/1">Éditeur de cartes</NavLink>
 
         {/* Personalized decks */}
         <div className="personalizedDecksDisplay">
