@@ -30,12 +30,16 @@ function App () {
         <Route path="/deck/:deckId/:cardId">
           <CardDisplay />
         </Route>
-        <Route path="/cardEditor/:deckId/:cardId">
-          <CardEditor />
-        </Route>
         <Route path="/profile/:deckId/new">
           <CardEditor />
         </Route>
+        <Route path="/cardEditor/:deckId/new">
+          <CardEditor />
+        </Route>
+        <Route path="/cardEditor/:deckId/:cardId">
+          <CardEditor />
+        </Route>
+
         <Route path="/subscribe">
           <Subscribe />
         </Route>

@@ -47,21 +47,24 @@ const api = (store) => (next) => (action) => {
     case POST_CARD: {
       const { id } = store.getState().user
       const { currentCard } = store.getState().card
-      const { recto, verso, currentDeckId, currentCardId } = currentCard
+      let { recto, verso, currentDeckId, currentCardId } = currentCard
+      const deckId = currentDeckId
+
       const newCard = {
-        id,
         recto,
         verso,
-        currentDeckId,
-        currentCardId
+        deckId
+        // currentCardId
       }
       const options =
       {
         method: 'POST',
-        headers: { Authorization: token },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': token },
         body: JSON.stringify(newCard)
       }
-
+      console.log(JSON.stringify(newCard));
       const postCard = async () => {
         try {
           const request = await fetch(`${back}/card`, options)
