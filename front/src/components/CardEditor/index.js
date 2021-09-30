@@ -19,6 +19,7 @@ const CardEditor = ()=>{
         setPreview((state)=> !state);
       }
     const handleSubmit = (event) => {
+        event.preventDefault()
         dispatch({type:POST_CARD})
     }
 

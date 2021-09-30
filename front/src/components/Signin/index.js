@@ -3,7 +3,7 @@ import { LOG_IN, UPDATE_LOGIN } from '../../actions'
 import { Redirect } from 'react-router-dom'
 
 const SignIn = ()=>{
-    const {password, email, name, isConnected} = useSelector((state)=> (state.user));
+    const {password, email, isConnected} = useSelector((state)=> (state.user));
     const dispatch = useDispatch();
 
     const handleSubmit = (event) => {

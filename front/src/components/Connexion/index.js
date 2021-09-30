@@ -19,7 +19,7 @@ const Connexion = () => {
     return (
       <div className="header__nav__connexion--disconnected">
          <NavLink to="/signin" className="login__signin">Se Connecter </NavLink>
-        <div className="login__signup" > S'inscrire</div>
+         <NavLink to="/subscribe" className="login__signup">S'inscrire</NavLink>
       </div>
     )
   }
