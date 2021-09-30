@@ -7,17 +7,7 @@ GET {{baseUrl}}/decks
 
 
 ### Get all cards from deck
-GET {{baseUrl}}/deck/1/cards
-
-### Get user infos
-GET {{baseUrl}}/user/infos
-# coller Authorization + token généré et founi par le serveur
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTYzMjk0NjE3NywiZXhwIjoxNjMyOTQ2Mjk3fQ.P2PJUAo_zgjds4chRBvKsWrtBmuINMIKHZEnEHE3upk
-
-### Get user cards
-GET {{baseUrl}}/user/cards
-# coller Authorization + token généré et founi par le serveur
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTYzMjk5MzkxNywiZXhwIjoxNjMyOTk0MDM3fQ.rhEgHIP6TMASVGaggFfmp59QFCzqqrrG56Oa2EKF8K0
+GET {{baseUrl}}/deck/3/cards
 
 ### login user
 POST {{baseUrl}}/login
@@ -28,15 +18,27 @@ Content-Type: application/json
   "password" : "123456"
 }
 
+### Get user infos
+GET {{baseUrl}}/user/infos
+# coller Authorization + token généré et founi par le serveur
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTYzMjk5NzY5MywiZXhwIjoxNjMyOTk3ODEzfQ.TwKYccX2fWRLdiGqGqh2KRHKO2WsvpJyz33mhzsbXPo
+
+### Get user cards
+GET {{baseUrl}}/user/cards
+# coller Authorization + token généré et founi par le serveur
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTYzMjk5NzY5MywiZXhwIjoxNjMyOTk3ODEzfQ.TwKYccX2fWRLdiGqGqh2KRHKO2WsvpJyz33mhzsbXPo
+
+
 ### Add a card
 POST {{baseUrl}}/card
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTYzMjk5MzkxNywiZXhwIjoxNjMyOTk0MDM3fQ.rhEgHIP6TMASVGaggFfmp59QFCzqqrrG56Oa2EKF8K0
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTYzMjk5NzY5MywiZXhwIjoxNjMyOTk3ODEzfQ.TwKYccX2fWRLdiGqGqh2KRHKO2WsvpJyz33mhzsbXPo
 Content-Type: application/json
 
 {
-    "recto": "Recto Nouvelle Carte test Vince",
-    "verso": "Verso Nouvelle Carte test Vince",
-    "deckId": 5
+    "recto": "Recto Modif Carte test Vince crée par Toti",
+    "verso": "Verso Modif Carte test Vince crée par Toti",
+    "deckId": 3,
+    "id": 19
 }
 
 # ### Tests benchmark Redis ...
