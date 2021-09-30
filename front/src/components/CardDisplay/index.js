@@ -1,49 +1,41 @@
-import "./CardDisplay.scss";
-import "./CardDisplay-Desktop.scss";
-import { useParams } from "react-router-dom"
-import { NavLink } from 'react-router-dom';
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { RETURN_CARD, RESET_CARD, SET_CURRENT_DECK_ID, FETCH_CARDS } from '../../actions';
-import RectoVerso  from '../RectoVerso';
-import MDEditor from '@uiw/react-md-editor';
+import './CardDisplay.scss'
+import './CardDisplay-Desktop.scss'
+import { useParams, NavLink } from 'react-router-dom'
+import { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { RETURN_CARD, RESET_CARD, SET_CURRENT_DECK_ID, FETCH_CARDS } from '../../actions'
+import RectoVerso from '../RectoVerso'
+import MDEditor from '@uiw/react-md-editor'
 
 // import jsonTestDatabase from '../../assets/jsonTestDatabase';
 
-//Display zone for cards. Cards from a Deck are displayed one by one.
-//User can choose to switch to card verso and vice versa.
-const CardDisplay = () =>  {
-  const {defaultView, currentView} = useSelector((state)=>state.card)
-//   const [isRecto, setIsRecto ] = useState(true)
+// Display zone for cards. Cards from a Deck are displayed one by one.
+// User can choose to switch to card verso and vice versa.
+const CardDisplay = () => {
+  const { defaultView, currentView } = useSelector((state) => state.card)
+  //   const [isRecto, setIsRecto ] = useState(true)
 
-  const dispatch= useDispatch()
-  console.log("test");
-  //use URl parameters to determine the card to display from deck and card id
-  let { deckId, cardId } = useParams();
-  console.log("deckId", deckId);
+  const dispatch = useDispatch()
+  console.log('test')
+  // use URl parameters to determine the card to display from deck and card id
+  const { deckId, cardId } = useParams()
+  console.log('deckId', deckId)
 
-  //If deck id has changed in the URl, 
-  //sets the current_deck_id property in store to the id 
-  //of the deck currently displayed.
+  // If deck id has changed in the URl,
+  // sets the current_deck_id property in store to the id
+  // of the deck currently displayed.
   const previousDeckId = useSelector(state => state.currentDeck)
-  
-  console.log("previousDeckId", previousDeckId);
-  
-  //Set the current deck id in the state
+  console.log('previousDeckId', previousDeckId)
+  // Set the current deck id in the state
   useEffect(() => {
     dispatch({ type: SET_CURRENT_DECK_ID, currentDeckId: deckId })
-    }, [])
-    
-  console.log("currentDeckId", useSelector(state => state.currentDeck).currentDeckId);
+  }, [])
+  console.log('currentDeckId', useSelector(state => state.currentDeck).currentDeckId)
 
-  //Fetch the current deck content from the database
+  // Fetch the current deck content from the database
   useEffect(() => {
     dispatch({ type: FETCH_CARDS })
-  }, [ deckId ])
-
-  
-  
-
+  }, [deckId])
   //with the real database :
  let database = useSelector(state => state.currentDeck).currentDeckContent
 
