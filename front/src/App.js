@@ -31,13 +31,13 @@ function App() {
         <Route path="/deck/:deckId/:cardId">
           <CardDisplay />
         </Route>
-        <Route path="/profile/:deckId/:cardId">
+        <Route path="/cardEditor/:deckId/:cardId">
           <CardEditor />
         </Route>
         <Route path="/profile">
           <Profile />
         </Route>
-        <Route path="/profile/:deckId">
+        <Route path="/deckEditor/:deckEditorDeckId">
           <DeckEditor />
         </Route>
         {/* Route par défaut (404)  */}
