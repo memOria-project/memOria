@@ -1,15 +1,15 @@
 import {
-    getAllDecks, FETCH_DECKS, FETCH_CARDS, getCurrentDeckContent
+    getAllDecks, FETCH_DECKS, FETCH_CARDS, getCurrentDeckContent, POST_CARD
   } from '../actions';
   
   
 const api = (store) => (next) => (action) => {
     const token = localStorage.getItem("token");
+    const back = store.getState().back;
 
     switch (action.type) {
       case FETCH_DECKS:
         {
-        const back = store.getState().back;
         const options = 
         {
                method: 'GET', 
@@ -29,7 +29,6 @@ const api = (store) => (next) => (action) => {
 
       case FETCH_CARDS:
         {
-        const back = store.getState().back;
         const { currentDeckId } = store.getState().currentDeck;
         const fetchCardsOptions = 
         {
@@ -39,11 +38,41 @@ const api = (store) => (next) => (action) => {
           try{
           const request = await fetch(`${back}/deck/${currentDeckId}/cards`, fetchCardsOptions)
           const response = await request.json()
+          console.log(response)
           store.dispatch(getCurrentDeckContent(response))
           } catch(error) { console.log(error)}
 
       }
         getCurrentDeck(); 
+        next(action);
+        break;
+      }
+      case POST_CARD: {
+        const {id} = store.getState().user;
+        const {currentCard} = store.getState().currentDeck;
+        const {recto, verso, currentDeckId, currentCardId} = currentCard
+        const card = {
+            id,
+            recto,
+            verso,
+            currentDeckId,
+            currentCardId
+        }
+        const options = 
+        {
+          method:'POST',
+          headers: { 'Authorization': token },
+          body: JSON.stringify(card)
+        }
+
+        const postCard = async () => {
+          try{
+          const request = await fetch(`${back}/card`, options)
+          const response = await request.json()
+          console.log(response)
+          } catch(error) { console.log(error)}
+        }
+        postCard(); 
         next(action);
         break;
       }

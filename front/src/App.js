@@ -10,6 +10,9 @@ import CheckSession from './components/CheckSession';
 import Profile from './components/Profile';
 import DeckEditor from './components/DeckEditor'
 
+
+import CardEditor from './components/CardEditor'
+
 function App() {
 
   return (
@@ -28,6 +31,9 @@ function App() {
         <Route path="/deck/:deckId/:cardId">
           <CardDisplay />
         </Route>
+        <Route path="/profile/:deckId/:cardId">
+          <CardEditor />
+        </Route>
         <Route path="/profile">
           <Profile />
         </Route>
@@ -35,9 +41,13 @@ function App() {
           <DeckEditor />
         </Route>
         {/* Route par défaut (404)  */}
+        {/* A supprimer une fois le test fini */}
+
+
         <Route path="*">
           <NoMatch />
         </Route>
+
       </Switch>
 
     </div>
