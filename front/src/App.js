@@ -11,6 +11,7 @@ import Profile from './components/Profile';
 
 
 import CardEditor from './components/CardEditor'
+import Subscribe from './components/Subscribe';
 
 function App() {
 
@@ -35,6 +36,9 @@ function App() {
         </Route>
         <Route path="/profile">
           <Profile />
+        </Route>
+        <Route path="/subscribe">
+          <Subscribe />
         </Route>
         {/* Route par défaut (404)  */}
         {/* A supprimer une fois le test fini */}
