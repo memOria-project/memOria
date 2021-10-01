@@ -17,7 +17,7 @@ const Home = ()=>{
     }, [ ])
 
 return (
-        <div class="main-content"> 
+        <div className="main-content"> 
             <div className="main-content__presentation-container">
                 <h2 className="presentation-container__title">Présentation</h2>
                 <div className="presentation-container__content">Memoria est une plateforme mettant à disposition des apprenants O’Clock des paquets de cartes de révision, construit autour d’une thématique, consultable librement et gratuitement.

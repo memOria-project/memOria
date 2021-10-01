@@ -33,5 +33,3 @@ $$LANGUAGE SQL STRICT;
 
 COMMIT;
 
-
-

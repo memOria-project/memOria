@@ -32,9 +32,9 @@ const reducer = (state = initialState, action = {}) => {
       }
 
     case UPDATE_USER: {
-      const {name, email, decks } = action
+      const {name, email, decks, password } = action
       return {...state,
-        password: '',
+        password,
         name,
         email,
         decks,
@@ -46,6 +46,7 @@ const reducer = (state = initialState, action = {}) => {
     case UPDATE_SESSION: {
       return {...state,
         isConnected: action.isConnected}
+        
     }
     default:
       return state

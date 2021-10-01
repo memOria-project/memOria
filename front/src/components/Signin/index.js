@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { LOG_IN, UPDATE_LOGIN } from '../../actions'
-import Profile from '../Profile'
+import { Redirect } from 'react-router-dom'
 
 const SignIn = ()=>{
-    const {password, email, name, isConnected} = useSelector((state)=> (state.user));
+    const {password, email, isConnected} = useSelector((state)=> (state.user));
     const dispatch = useDispatch();
 
     const handleSubmit = (event) => {
@@ -20,7 +20,7 @@ const SignIn = ()=>{
 
 return (<div> 
     {isConnected?
-    <Profile /> 
+    <Redirect from="/signin" to="/profile" /> 
     :
     (<form onSubmit={handleSubmit}>
         <label htmlFor="login">Email

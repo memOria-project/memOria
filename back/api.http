@@ -1,4 +1,5 @@
 @baseUrl=http://localhost:3500/v1
+# @baseUrl=https://memoriapo.herokuapp.com/v1
 @host=http://localhost:3500
 
 ### Get all decks
@@ -8,17 +9,13 @@ GET {{baseUrl}}/decks
 ### Get all cards from deck
 GET {{baseUrl}}/deck/1/cards
 
-### Get user infos
-GET {{baseUrl}}/user/infos
-# coller Authorization + token généré et founi par le serveur
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsImlhdCI6MTYzMjUyNTIxNCwiZXhwIjoxNjMyNTI1MjQ0fQ.qvca96lHpiahlZNgSoxsiFNmMdm3L8yUggy8IIXco34
 ### login user
 POST {{baseUrl}}/login
 Content-Type: application/json
 
 {
-  "email" : "tuti@gmal.fr",
-  "password" : "azerty"
+  "email" : "toti@s.fr",
+  "password" : "123456"
 }
 
 ### add/update user
@@ -43,15 +40,28 @@ Content-Type: application/json
   "password" : "Myriam"
 }
 ### Add a card
+### Get user infos
+GET {{baseUrl}}/user/infos
+# coller Authorization + token généré et founi par le serveur
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTYzMjk5NzY5MywiZXhwIjoxNjMyOTk3ODEzfQ.TwKYccX2fWRLdiGqGqh2KRHKO2WsvpJyz33mhzsbXPo
 
-# POST {{baseUrl}}/card
-# Content-Type: application/json 
+### Get user cards
+GET {{baseUrl}}/user/cards
+# coller Authorization + token généré et founi par le serveur
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTYzMjk5NzY5MywiZXhwIjoxNjMyOTk3ODEzfQ.TwKYccX2fWRLdiGqGqh2KRHKO2WsvpJyz33mhzsbXPo
 
-# {
-#     "recto": "Texte du recto",
-#     "verso": "Texte du verso",
-#     "deck_id": 1,
-# }
+
+### Add a card
+POST {{baseUrl}}/card
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTYzMjk5NzY5MywiZXhwIjoxNjMyOTk3ODEzfQ.TwKYccX2fWRLdiGqGqh2KRHKO2WsvpJyz33mhzsbXPo
+Content-Type: application/json
+
+{
+    "recto": "Recto Modif Carte test Vince crée par Toti",
+    "verso": "Verso Modif Carte test Vince crée par Toti",
+    "deckId": 3,
+    "id": 19
+}
 
 # ### Tests benchmark Redis ...
 # GET {{host}}/redis
