@@ -2,10 +2,10 @@ import MDEditor, {
   commands,
   ICommand,
   TextState,
-  TextAreaTextApi,
-  selectWord
+  TextAreaTextApi
 }  from '@uiw/react-md-editor';
-// import {  } from '@uiw/react-md-editor/src/utils/markdownUtils';
+
+import { javaButton, htmlButton, CSSButton } from './buttons';
 
 // import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -55,27 +55,29 @@ return   (<div className="form">
                 commands={[
                           // Custom Toolbars
                           title3,
-                          commands.group(
-                            [
-                              commands.title1,
-                              commands.title2,
-                              commands.title3,
-                              commands.title4,
-                              commands.title5,
-                              commands.title6,
-                            ],
-                            {
-                              name: "title",
-                              groupName: "title",
-                              buttonProps: { "aria-label": "Insert title" }
-                            }
-                          ),
+                          // Toutes les options de titre. Je les commente car je crois qu'elles sont superflues.
+                          // commands.group(
+                          //   [
+                          //     commands.title1,
+                          //     commands.title2,
+                          //     commands.title3,
+                          //     commands.title4,
+                          //     commands.title5,
+                          //     commands.title6,
+                          //   ],
+                          //   {
+                          //     name: "title",
+                          //     groupName: "title",
+                          //     buttonProps: { "aria-label": "Insert title" }
+                          //   }
+                          // ),
                           commands.bold,
                           commands.strikethrough,
                           commands.orderedListCommand,
+                          commands.unorderedListCommand,
                           commands.quote,
                           commands.code,
-                          commands.unorderedListCommand,
+                          commands.divider,
                           commands.group([], {
                             name: "JS",
                             groupName: "JS",
@@ -84,51 +86,56 @@ return   (<div className="form">
                             ),
                             children: (handle: any) => {
                               return (
-                                  <button
-                                    type="button"
-                                    onClick={
-                                        (state: TextState, api: TextAreaTextApi) => {
-                                        // Adjust the selection to encompass the whole word if the caret is inside one
-                                        const newSelectionRange = selectWord({ text: state.text, selection: state.selection });
-                                        const state1 = api.setSelectionRange(newSelectionRange);
-                                        // Replaces the current selection with the bold mark up
-                                        const state2 = api.replaceSelection(`**${state1.selectedText}**`);
-                                        // Adjust the selection to not contain the **
-                                        api.setSelectionRange({
-                                          start: state2.selection.end - 2 - state1.selectedText.length,
-                                          end: state2.selection.end - 2,
-                                        })
-                                        }
-                                    }
-                                  >
+                                  <button type="button">
                                     Javascript
                                   </button>
-
                               );
                             },
-                            execute: (
-                              state: commands.TextState,
-                              api: commands.TextAreaTextApi
-                            ) => {
-                              
-                                        // Adjust the selection to encompass the whole word if the caret is inside one
-                                        const newSelectionRange = selectWord({ text: state.text, selection: state.selection });
-                                        const state1 = api.setSelectionRange(newSelectionRange);
-                                        // Replaces the current selection with the bold mark up
-                                        const state2 = api.replaceSelection("```javascript"+'\n'+ state1.selectedText+"\n"+"```");
-                                        // Adjust the selection to not contain the **
-                                        api.setSelectionRange({
-                                          start: state2.selection.end - 2 - state1.selectedText.length,
-                                          end: state2.selection.end - 2,
-                                        })
-                                        
-
-
-
-                            },
+                            execute: javaButton
+                            ,
                             buttonProps: { "aria-label": "Insert title" }
-                          })
+                          },
+                          ),
+
+                          commands.group([], {
+                            name: "HTML",
+                            groupName: "HTML",
+                            icon: (
+                              <span> HTML </span>
+                            ),
+                            children: (handle: any) => {
+                              return (
+                                  <button type="button">
+                                    HTML
+                                  </button>
+                              );
+                            },
+                            execute: htmlButton
+                            ,
+                            buttonProps: { "aria-label": "Insert title" }
+                          },
+                          ),
+                          commands.group([], {
+                            name: "CSS",
+                            groupName: "CSS",
+                            icon: (
+                              <span> CSS </span>
+                            ),
+                            children: (handle: any) => {
+                              return (
+                                  <button type="button">
+                                    CSS
+                                  </button>
+                              );
+                            },
+                            execute: CSSButton
+                            ,
+                            buttonProps: { "aria-label": "Insert title" }
+                          },
+                          ),
+
                         ]}
+                        
             />
             }
         </div>
