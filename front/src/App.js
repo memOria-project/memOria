@@ -13,6 +13,8 @@ import Profile from './components/Profile'
 import CardEditor from './components/CardEditor'
 import Subscribe from './components/Subscribe'
 
+import DisconnectedRedirect from './components/DisconnectedRedirect'
+
 function App () {
   return (
     <div className="App">
@@ -48,6 +50,7 @@ function App () {
         </Route>
 
         <Route path="/deckEditor/:deckEditorDeckId">
+          <DisconnectedRedirect />
           <DeckEditor />
         </Route>
         {/* Route par défaut (404)  */}
