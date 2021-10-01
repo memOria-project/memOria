@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { FETCH_CARDS, SET_CURRENT_DECK_ID } from '../../actions'
+import { FETCH_CARDS, SET_CURRENT_DECK_ID, EDIT_CARD } from '../../actions'
 import { useEffect } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import './DeckEditor.scss'
@@ -24,7 +24,12 @@ const DeckEditor = () => {
   
   console.log("currentDeckInEditor", currentDeckInEditor);
 
-
+  const handleClick = (event) => {
+      const clickedCard = event.target.parentNode.id
+      const cardContent = currentDeckInEditor.find((card) => clickedCard == card.id);
+      dispatch({type:EDIT_CARD, field:[{"field":"recto",
+      "value": cardContent.recto}, {"field":"verso", "value":cardContent.verso}]})
+    }
 
   // if (currentDeckInEditor) {
   //   // firstCommonDeck = currentDeckInEditor[0]["cards"];
@@ -65,12 +70,12 @@ const DeckEditor = () => {
               <p>Carte n°{count++}/{currentDeckInEditor.length}</p>
               <p>Recto</p>
               <p className="card">{card.recto}</p>
-              <NavLink to={`/cardEditor/${deckId}/${card.id}`}>Éditer la carte</NavLink>
+              <button id={card.id} onClick={handleClick}> <NavLink to={`/cardEditor/${deckId}/${card.id}`}>Éditer la carte</NavLink>  </button> 
             </div>
             <div className="cardContainer">
               <p>Verso</p>
               <p className="card">{card.verso}</p>
-              <NavLink to={`/cardEditor/${deckId}/${card.id}`}>Éditer la carte</NavLink>
+              <button id={card.id} onClick={handleClick}> <NavLink to={`/cardEditor/${deckId}/${card.id}`}>Éditer la carte</NavLink> </button> 
             </div>
           </p>)}))
         : <p>Loading...</p>}
