@@ -30,7 +30,7 @@ router.get('/user/infos', checkJwt, userController.getOneUser)
 router.get('/user/cards', checkJwt, cardController.getCardsFromUser)
 
 // Save or update card of a user
-router.post('/card', checkJwt, cardController.save)
+router.post('/card', checkJwt, cardController.save )
 
  router.post("/signup", userController.subscribe); // Création  de compte utilisateur
  router.post("/user/update", checkJwt, userController.update); //  modification de compte utilisateur
