@@ -1,38 +1,65 @@
 import { Switch, Route } from 'react-router-dom'
+import './App.scss'
 
-import './App.scss';
+import Nav from './components/Nav'
+import Home from './components/Home'
+import NoMatch from './components/NoMatch'
+import SignIn from './components/Signin'
+import CardDisplay from './components/CardDisplay'
+import CheckSession from './components/CheckSession'
+import DeckEditor from './components/DeckEditor'
+import Profile from './components/Profile'
 
-import Nav from './components/Nav';
-import Home from './components/Home';
-import NoMatch from './components/NoMatch';
-import SignIn from './components/Signin';
-import CardDisplay from './components/CardDisplay';
+import CardEditor from './components/CardEditor'
+import Subscribe from './components/Subscribe'
 
-
-function App() {
+function App () {
   return (
     <div className="App">
       <Nav />
       {/* Switch permet d'afficher une seule des 'Routes' qui suit. Sans Switch, plusieurs routes pourraient être affichées */}
+      <CheckSession />
       <Switch>
         {/* Route de l'accueil. Notez l'utilisation de "exact path" - sans lui, n'importe quel path commençant par "/" pourrait match!  */}
-        <Route exact path="/"> 
+        <Route exact path="/">
           <Home />
-        </Route>        
+        </Route>
         <Route path="/signin">
           <SignIn />
         </Route>
         <Route path="/deck/:deckId/:cardId">
           <CardDisplay />
         </Route>
+        <Route path="/profile/:deckId/new">
+          <CardEditor />
+        </Route>
+        <Route path="/cardEditor/:deckId/new">
+          <CardEditor />
+        </Route>
+        <Route path="/cardEditor/:deckId/:cardId">
+          <CardEditor />
+        </Route>
+
+        <Route path="/subscribe">
+          <Subscribe />
+        </Route>
+        <Route path="/profile">
+          <Profile />
+        </Route>
+
+        <Route path="/deckEditor/:deckEditorDeckId">
+          <DeckEditor />
+        </Route>
         {/* Route par défaut (404)  */}
+        {/* A supprimer une fois le test fini */}
         <Route path="*">
           <NoMatch />
         </Route>
+
       </Switch>
 
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

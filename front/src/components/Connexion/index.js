@@ -11,7 +11,7 @@ const Connexion = () => {
   if (user.isConnected) {
     return (
     <div className="header__nav__connexion--connected">
-      <div className="login__user-profile-link">{user.name} (profil)</div>
+      <NavLink to="/profile" className="login__user-profile-link">{user.name} (profil)</NavLink>
       <div className="login__signout" onClick={() => dispatch({ type: DELETE_TOKEN })}>Se déconnecter</div>
     </div>
     )
@@ -19,7 +19,7 @@ const Connexion = () => {
     return (
       <div className="header__nav__connexion--disconnected">
          <NavLink to="/signin" className="login__signin">Se Connecter </NavLink>
-        <div className="login__signup" > S'inscrire</div>
+         <NavLink to="/subscribe" className="login__signup">S'inscrire</NavLink>
       </div>
     )
   }
