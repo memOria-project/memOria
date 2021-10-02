@@ -116,22 +116,29 @@ const CardDisplay = () => {
  
   
   return (database?
-                <>
-            <p className="deck__title">{database["title"]} </p>
-            <div style={{margin:"2em"}}> <h1>Je veux voir en premier </h1>
-            <RectoVerso />
+          <>
+            <div className="cardDisplayContainer">
+              <p className="deck__title">{database["title"]} </p>
+              <div style={{margin:"2em"}}> <h1>Je veux voir en premier </h1>
+              <RectoVerso />
+              </div>
+              <p style={{fontSize: "1.5em"}}> Card #{cardId} / {cardsNumberInDeck}</p>
+              {/* Add fliCard 3D effect */}
+                <div className= "flipCard">
+                  <div className="flipCardInner">
+                    <div className="flipCardRecto" >
+                      <MDEditor.Markdown source={database["cards"][cardId - 1]["recto"]} />
+                    </div>
+                    <div className="flipCardVerso">
+                      <MDEditor.Markdown source={database["cards"][cardId - 1]["verso"]} />
+                    </div>
+                  </div>
+                </div>
+              <button onClick={handleClickReturn}>Retourner</button>
+              <button onClick={()=>handleClickNext()}> <NavLink to={nextCardURL} > Carte suivante au hasard dans le paquet </NavLink> </button>              
             </div>
-            <p style={{fontSize: "1.5em"}}> Card #{cardId} / {cardsNumberInDeck}</p>
-             <div className="card">
-            {currentView.isRecto?
-            <MDEditor.Markdown source={database["cards"][cardId - 1]["recto"]} />
-            :
-            <MDEditor.Markdown source={database["cards"][cardId - 1]["verso"]} />
-            }</div> 
-            <button onClick={handleClickReturn}>Retourner</button>
-            <button onClick={()=>handleClickNext()}> <NavLink to={nextCardURL} > Carte suivante au hasard dans le paquet </NavLink> </button>
-            </>
-            :<p>Loading</p>)
+          </>
+          :<p>Loading</p>)
           
 
             
