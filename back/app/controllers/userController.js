@@ -33,12 +33,30 @@ const userController= {
           response.setHeader("Access-Control-Expose-Headers","Authorization")
           response.setHeader('Authorization', jwt.makeToken(user.id));
         
-          response.status(200).json(user);
+          response.status(201);
         } catch (error) {
           console.log(error);
           response.status(500).json(error.message);
         }
       },
+
+
+    update: async function (request, response) {
+        try {
+
+          const user = await new User(request.body).change();
+
+          response.setHeader("Access-Control-Expose-Headers","Authorization")
+          response.setHeader('Authorization', jwt.makeToken(user.id));
+        
+          response.status(200);
+        } catch (error) {
+          console.log(error);
+          response.status(500).json(error.message);
+        }
+      },
+
+
 
     login: async function(request, response) {
 

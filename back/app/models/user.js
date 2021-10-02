@@ -34,16 +34,27 @@ class User {
 
     async save() {
         try {
-            if (this.id) {
-                const encriptedPassword = await bcrypt.hash(this.password, 15);
-                const {rows} = await db.query('SELECT update_user($1)', [this]);
-            } else {
-                const encriptedPassword = await bcrypt.hash(this.password, 15);
-                const {rows} = await db.query('SELECT new_user($1) AS id', [this]);
-                this.id = rows[0].id;
-                return this
+            const encriptedPassword = await bcrypt.hash(this.password, 15);
+            this.password= encriptedPassword;
+            const {rows} = await db.query('SELECT new_user($1) AS id', [this]);
 
+            return {id: rows[0].id};
+    
+        } catch(error) {
+            console.log(error);
+            if (error.detail) {
+            throw new Error(error.detail);
             }
+            throw error;
+            
+        }
+    };
+
+    async change() {
+        try {
+            const encriptedPassword = await bcrypt.hash(this.password, 15);
+            this.password= encriptedPassword;
+            const {rows} = await db.query('SELECT update_user($1)', [this]);
     
         } catch(error) {
             console.log(error);
@@ -54,6 +65,7 @@ class User {
             
         }
     }
+
 
    
 
