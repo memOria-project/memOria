@@ -7,7 +7,7 @@ GET {{baseUrl}}/decks
 
 
 ### Get all cards from deck
-GET {{baseUrl}}/deck/1/cards
+GET {{baseUrl}}/deck/3/cards
 
 #-----------  USERS CRUD -------------------------------
 
@@ -17,8 +17,8 @@ POST {{baseUrl}}/login
 Content-Type: application/json
 
 {
-  "email" : "tatoo-corrigé@gmail.fr",
-  "password" : "azertuti"
+  "email" : "toti@s.fr",
+  "password" : "123456"
 }
 
 ### Subscribe
@@ -35,7 +35,7 @@ Content-Type: application/json
 ### Update user info
 POST {{baseUrl}}/user/update
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImlhdCI6MTYzMzI3MDc3MywiZXhwIjoxNjMzMjcxMzczfQ.NMmaqEakG56gRjA0zUD87ZrgHoF2jkXAFAdhabx9WAE
+Authorization: 
 
 {
   "id" : 5,
@@ -48,25 +48,25 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImlhdCI6MTYz
 ### Get user infos
 GET {{baseUrl}}/user/infos
 # coller Authorization + token généré et founi par le serveur
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImlhdCI6MTYzMzI3MDc3MywiZXhwIjoxNjMzMjcxMzczfQ.NMmaqEakG56gRjA0zUD87ZrgHoF2jkXAFAdhabx9WAE
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTYzMzI5MzE4MywiZXhwIjoxNjMzMjkzNzgzfQ.1abg0AZEtw7zWszioo9HP91Vy4Tuf2mgNkztKPz5WP8
 
 ### Get user cards
 GET {{baseUrl}}/user/cards
 # coller Authorization + token généré et founi par le serveur
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImlhdCI6MTYzMzI3MDc3MywiZXhwIjoxNjMzMjcxMzczfQ.NMmaqEakG56gRjA0zUD87ZrgHoF2jkXAFAdhabx9WAE
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTYzMzI5MzE4MywiZXhwIjoxNjMzMjkzNzgzfQ.1abg0AZEtw7zWszioo9HP91Vy4Tuf2mgNkztKPz5WP8
 
 #-----------  CARDS CRUD -------------------------------
 
 ### Add a card
 POST {{baseUrl}}/card
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImlhdCI6MTYzMzI3MDc3MywiZXhwIjoxNjMzMjcxMzczfQ.NMmaqEakG56gRjA0zUD87ZrgHoF2jkXAFAdhabx9WAE
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTYzMzI5MzE4MywiZXhwIjoxNjMzMjkzNzgzfQ.1abg0AZEtw7zWszioo9HP91Vy4Tuf2mgNkztKPz5WP8
 Content-Type: application/json
 
 {
-    "recto": "Recto Modif Carte test Vince crée par Toti",
-    "verso": "Verso Modif Carte test Vince crée par Toti",
-    "deckId": 3,
-    "id": 19
+    "recto": "C'est pas un beau recto ?",
+    "verso": "Ah bah non",
+    "deckId" : 6,
+    "id" : 28
 }
 
 # ### Tests benchmark Redis ...

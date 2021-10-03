@@ -29,19 +29,37 @@ class Card {
   async save () {
     try {
       if (this.id) {
-        // il faudra mettre à jour l'enregistrement
-        // TODO : coder la mise à jour d'une carte existante
-        throw new Error('La fonction de mise à jour d\'une carte existante n\'est pas encore accessible')
+        // DONE : une alternative avec une fonction SQL maison
+        // TODO : tester si is_card_owner($1, $2), [this.id, this.userId]
+        const statusCard = await db.query('SELECT is_card_owner($1, $2)', [this.id, this.userId])
+        if (!statusCard.rows[0].is_card_owner) {
+          throw new Error('User is not allowed to update this card')
+        }
+        if (this.deckId) {
+          const statusDeck = await db.query('SELECT is_deck_owner($1, $2)', [this.deckId, this.userId])
+          if (!statusDeck.rows[0].is_deck_owner) {
+            throw new Error('User is not allowed to add any card in this deck')
+          }
+        }
+        const { rows } = await db.query('SELECT update_card($1)', [this])
+        if (rows[0]) {
+          return {
+            status: 'updated'
+          }
+        }
+
+        // throw new Error('La fonction de mise à jour d\'une carte existante n\'est pas encore accessible')
       } else {
-        const { rows } = await db.query('INSERT INTO card (recto, verso, deck_id) VALUES($1, $2, $3) RETURNING id', [
-          this.recto,
-          this.verso,
-          this.deckId
-        ])
-        this.id = rows[0].id
+        const status = await db.query('SELECT is_deck_owner($1, $2)', [this.deckId, this.userId])
+        if (!status.rows[0].is_deck_owner) {
+          throw new Error('User is not allowed to add any card in this deck')
+        }
+        const { rows } = await db.query('SELECT create_card($1) AS id', [this])
+        if (rows) {
+          return { id: rows[0].id }
+        }
       }
     } catch (error) {
-      console.log('Erreur SQL: ', error.detail)
       // on relance l'erreur pour le contrôleur puisse l'attraper et la retransférer au front
       throw new Error(error.detail ? error.detail : error.message)
     }
