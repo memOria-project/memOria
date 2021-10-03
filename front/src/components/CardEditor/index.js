@@ -30,7 +30,7 @@ return (
             <label> Recto  
             <Form isRecto={true} preview={preview}/>
             </label>
-            <label> Verso 
+            <label> Verso
             <Form isRecto={false} preview={preview}/>
             </label>
             <button onClick={handleClick}> Preview</button> 

@@ -14,6 +14,7 @@ const DeckEditor = () => {
 
   
   let currentDeckInEditor = useSelector(state => state.currentDeck).currentDeckContent.cards
+  const nameOfDeck = useSelector((state)=> state.currentDeck.currentDeckContent.title)
 
   useEffect(() => {
     dispatch({ type: SET_CURRENT_DECK_ID, currentDeckId: deckId});
@@ -49,33 +50,33 @@ const DeckEditor = () => {
 
   return (
     <div>
-      <p>Liste des cartes du deck :</p>
-      <p className="rectoVersoView">
-            <NavLink className="cardContainer" to={`/cardEditor/${deckId}/new`}>
-              <p>Créez une nouvelle carte dans ce paquet</p>
-              <p>Recto</p>
-              <p className="card">+</p>
-              <NavLink to={`/cardEditor/${deckId}/new`}>Nouvelle carte</NavLink>
-            </NavLink>
-            <NavLink className="cardContainer" to={`/cardEditor/${deckId}/new`}>
-              <p>Verso</p>
-              <p className="card">+</p>
-              <NavLink to={`/cardEditor/${deckId}/new}`}>Nouvelle Carte</NavLink>
-            </NavLink>
-          </p>
+      
+      <div className="cardEditor__header">
+        <div> 
+        <h2 className="header__title">{nameOfDeck}</h2>
+        {/* <h3>{currentDeckInEditor.length} cartes</h3> */}
+        <button>Editer le nom</button>
+        </div>
+        <div class="header__newCard">
+          <NavLink to={`/cardEditor/${deckId}/new`}>
+            <p>+ <br /> Nouvelle <br /> Carte</p>
+          </NavLink>
+        </div>
+      </div>
+       {/* <h2 className="header__undertitle">Cartes du paquet</h2>  */}
       {currentDeckInEditor? 
         (currentDeckInEditor.map((card) => {return (
           <p className="rectoVersoView">
             <div className="cardContainer">
-              <p>Carte n°{count++}/{currentDeckInEditor.length}</p>
-              <p>Recto</p>
               <p className="card">{card.recto}</p>
-              <button id={card.id} onClick={handleClick}> <NavLink to={`/cardEditor/${deckId}/${card.id}`}>Éditer la carte</NavLink>  </button> 
             </div>
             <div className="cardContainer">
-              <p>Verso</p>
               <p className="card">{card.verso}</p>
-              <button id={card.id} onClick={handleClick}> <NavLink to={`/cardEditor/${deckId}/${card.id}`}>Éditer la carte</NavLink> </button> 
+            </div>
+            <div className="card__title">
+              <p><strong>Carte n°{count++}/{currentDeckInEditor.length}</strong></p> 
+              <button id={card.id} onClick={handleClick}> <NavLink to={`/cardEditor/${deckId}/${card.id}`}>Éditer</NavLink> </button>
+              <button id={card.id} onClick={handleClick}> Supprimer </button> 
             </div>
           </p>)}))
         : <p>Loading...</p>}
