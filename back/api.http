@@ -9,51 +9,57 @@ GET {{baseUrl}}/decks
 ### Get all cards from deck
 GET {{baseUrl}}/deck/1/cards
 
-### login user
+#-----------  USERS CRUD -------------------------------
+
+
+### login
 POST {{baseUrl}}/login
 Content-Type: application/json
 
 {
-  "email" : "toti@s.fr",
-  "password" : "123456"
+  "email" : "tatoo-corrigé@gmail.fr",
+  "password" : "azertuti"
 }
 
-### add/update user
+### Subscribe
 POST {{baseUrl}}/signup
 Content-Type: application/json
 
 {
-  "id": 3,
   "name": "souley2",
   "email" : "tatoo@gmail.fr",
   "password" : "azertuty"
 }
 
 
-### add/update user
-POST {{baseUrl}}/signup
+### Update user info
+POST {{baseUrl}}/user/update
 Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImlhdCI6MTYzMzI3MDc3MywiZXhwIjoxNjMzMjcxMzczfQ.NMmaqEakG56gRjA0zUD87ZrgHoF2jkXAFAdhabx9WAE
 
 {
-  "name" : "Souleymane2",
-  "email" : "souley@outlook2.com",
-  "password" : "Myriam-A2"
+  "id" : 5,
+  "email" : "tatoo-corrigé@gmail.fr",
+  "name" : "souley2-REcorrigé",
+  "password" : "azertuti"
+
 }
-### Add a card
+
 ### Get user infos
 GET {{baseUrl}}/user/infos
 # coller Authorization + token généré et founi par le serveur
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTYzMjk5NzY5MywiZXhwIjoxNjMyOTk3ODEzfQ.TwKYccX2fWRLdiGqGqh2KRHKO2WsvpJyz33mhzsbXPo
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImlhdCI6MTYzMzI3MDc3MywiZXhwIjoxNjMzMjcxMzczfQ.NMmaqEakG56gRjA0zUD87ZrgHoF2jkXAFAdhabx9WAE
 
 ### Get user cards
 GET {{baseUrl}}/user/cards
 # coller Authorization + token généré et founi par le serveur
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTYzMjk5NzY5MywiZXhwIjoxNjMyOTk3ODEzfQ.TwKYccX2fWRLdiGqGqh2KRHKO2WsvpJyz33mhzsbXPo
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImlhdCI6MTYzMzI3MDc3MywiZXhwIjoxNjMzMjcxMzczfQ.NMmaqEakG56gRjA0zUD87ZrgHoF2jkXAFAdhabx9WAE
 
+#-----------  CARDS CRUD -------------------------------
 
 ### Add a card
 POST {{baseUrl}}/card
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTYzMjk5NzY5MywiZXhwIjoxNjMyOTk3ODEzfQ.TwKYccX2fWRLdiGqGqh2KRHKO2WsvpJyz33mhzsbXPo
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImlhdCI6MTYzMzI3MDc3MywiZXhwIjoxNjMzMjcxMzczfQ.NMmaqEakG56gRjA0zUD87ZrgHoF2jkXAFAdhabx9WAE
 Content-Type: application/json
 
 {
