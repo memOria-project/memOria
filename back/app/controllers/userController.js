@@ -7,6 +7,9 @@ const userController= {
 
         try {
             const user= await User.findOne(request.userId);
+
+            response.setHeader("Access-Control-Expose-Headers","Authorization")
+            response.setHeader('Authorization', jwt.makeToken(user.id));
             
             // récupère la liste des deck appartenant à user
             // get decks list owned by user
@@ -20,6 +23,40 @@ const userController= {
             response.status(500).json(error.message)
         }
     },
+
+
+    subscribe: async function (request, response) {
+        try {
+
+          const user = await new User(request.body).save();
+
+          response.setHeader("Access-Control-Expose-Headers","Authorization")
+          response.setHeader('Authorization', jwt.makeToken(user.id));
+        
+          response.status(201);
+        } catch (error) {
+          console.log(error);
+          response.status(500).json(error.message);
+        }
+      },
+
+
+    update: async function (request, response) {
+        try {
+
+          const user = await new User(request.body).change();
+
+          response.setHeader("Access-Control-Expose-Headers","Authorization")
+          response.setHeader('Authorization', jwt.makeToken(user.id));
+        
+          response.status(200);
+        } catch (error) {
+          console.log(error);
+          response.status(500).json(error.message);
+        }
+      },
+
+
 
     login: async function(request, response) {
 
@@ -43,6 +80,16 @@ const userController= {
             response.status(500).json(error.message);
         }
     },
+
+    remove: async function (request, response) {
+        try {
+          const data = await User.delete(parseInt(request.params.id, 10));
+          response.status(200).json(data);
+        } catch (error) {
+          console.log(error);
+          response.status(500).json(error.message);
+        }
+      },
 
 
 }

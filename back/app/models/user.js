@@ -31,6 +31,42 @@ class User {
         }
     };
 
+
+    async save() {
+        try {
+            const encriptedPassword = await bcrypt.hash(this.password, 15);
+            this.password= encriptedPassword;
+            const {rows} = await db.query('SELECT new_user($1) AS id', [this]);
+
+            return {id: rows[0].id};
+    
+        } catch(error) {
+            console.log(error);
+            if (error.detail) {
+            throw new Error(error.detail);
+            }
+            throw error;
+            
+        }
+    };
+
+    async change() {
+        try {
+            const encriptedPassword = await bcrypt.hash(this.password, 15);
+            this.password= encriptedPassword;
+            const {rows} = await db.query('SELECT update_user($1)', [this]);
+    
+        } catch(error) {
+            console.log(error);
+            if (error.detail) {
+            throw new Error(error.detail);
+            }
+            throw error;
+            
+        }
+    }
+
+
    
 
     async Login() {
@@ -61,6 +97,22 @@ class User {
             throw error;
         }
     };
+
+
+
+    static async delete(user_id) {
+        try {
+            const {rows} = await db.query('SELECT del_user($1)', [user_id]);
+            return 
+    
+        } catch(error) {
+            console.log(error);
+            if (error.detail) {
+            throw new Error(error.detail);
+            }
+            throw error;
+        }
+    }
 
     
 }

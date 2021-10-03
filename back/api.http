@@ -7,7 +7,7 @@ GET {{baseUrl}}/decks
 
 
 ### Get all cards from deck
-GET {{baseUrl}}/deck/3/cards
+GET {{baseUrl}}/deck/1/cards
 
 ### login user
 POST {{baseUrl}}/login
@@ -18,6 +18,28 @@ Content-Type: application/json
   "password" : "123456"
 }
 
+### add/update user
+POST {{baseUrl}}/signup
+Content-Type: application/json
+
+{
+  "id": 3,
+  "name": "souley2",
+  "email" : "tatoo@gmail.fr",
+  "password" : "azertuty"
+}
+
+
+### add/update user
+POST {{baseUrl}}/signup
+Content-Type: application/json
+
+{
+  "name" : "Souleymane2",
+  "email" : "souley@outlook2.com",
+  "password" : "Myriam-A2"
+}
+### Add a card
 ### Get user infos
 GET {{baseUrl}}/user/infos
 # coller Authorization + token généré et founi par le serveur
