@@ -32,8 +32,8 @@ router.get('/user/cards', checkJwt, cardController.getCardsFromUser)
 // Save or update card of a user
 router.post('/card', checkJwt, cardController.save )
 
- router.post("/signup", userController.subscribe); // Création  de compte utilisateur
- router.post("/user/update", checkJwt, userController.update); //  modification de compte utilisateur
+router.post('/signup', userController.subscribe) // Création  de compte utilisateur
+router.post('/user/update', checkJwt, userController.update) //  modification de compte utilisateur
 // router.delete("/user/:id", userController.remove); // Suppression d’un compte utilisateur
 // router.get("/logout", userController.disconnecte); // Déconnection de l’utilisateur
 
