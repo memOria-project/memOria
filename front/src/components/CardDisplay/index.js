@@ -14,18 +14,14 @@ import MDEditor from '@uiw/react-md-editor'
 const CardDisplay = () => {
   const { defaultView, currentView } = useSelector((state) => state.card)
   //   const [isRecto, setIsRecto ] = useState(true)
-
   const dispatch = useDispatch()
-  console.log('test')
   // use URl parameters to determine the card to display from deck and card id
   const { deckId, cardId } = useParams()
-  console.log('deckId', deckId)
 
   // If deck id has changed in the URl,
   // sets the current_deck_id property in store to the id
   // of the deck currently displayed.
   const previousDeckId = useSelector(state => state.currentDeck)
-  console.log('previousDeckId', previousDeckId)
   // Set the current deck id in the state
   useEffect(() => {
     dispatch({ type: SET_CURRENT_DECK_ID, currentDeckId: deckId })
@@ -36,12 +32,68 @@ const CardDisplay = () => {
   useEffect(() => {
     dispatch({ type: FETCH_CARDS })
   }, [deckId])
-  //with the real database :
  let database = useSelector(state => state.currentDeck).currentDeckContent
 
  //fix temporaire tant que la réponse à FETCH_CARDS est un array
- console.log("database", database);
+
+  // number of cards in deck  
+  let cardsNumberInDeck;
+  let nextCardURL
+  let cardContent
+
+    if(database) {
+    cardsNumberInDeck = database["cards"].length;
+    let randomNextCardId = Math.ceil(cardsNumberInDeck*Math.random());
+      if(cardsNumberInDeck===randomNextCardId){
+        cardsNumberInDeck = cardsNumberInDeck-1;
+      }
+    nextCardURL = `/deck/${deckId}/${randomNextCardId}` 
+    cardContent = database['cards'].find((card)=> card.id == cardId)
   
+    console.log({cardsNumberInDeck, randomNextCardId})
+    console.log({nextCardToBeDisplayed:database['cards'][randomNextCardId]})
+    }
+
+  const handleClickReturn = () => {
+  dispatch({type:RETURN_CARD, isRecto: currentView.isRecto})
+  }
+  const handleClickNext = () => {
+    dispatch({type:RESET_CARD, isRecto: defaultView.isRecto})
+    database['cards'].splice((cardId-1), 1)
+  } 
+
+ 
+  
+  return (database?
+                <>
+            <p className="deck__title">{database["title"]} </p>
+            <div style={{margin:"2em"}}> <h1>Je veux voir en premier </h1>
+            <RectoVerso />
+            </div>
+            <p style={{fontSize: "1.5em"}}> Card #{cardId} / {cardsNumberInDeck}</p>
+             <div className="card">
+
+            {currentView.isRecto?
+              <pre>
+            <MDEditor.Markdown source={database["cards"][cardId]["recto"]} />
+            </pre>
+            :
+            <pre> 
+            <MDEditor.Markdown source={database["cards"][cardId]["verso"]} />
+            </pre>
+            }</div>
+            <button onClick={handleClickReturn}>Retourner</button>
+            <button onClick={()=>handleClickNext()}> <NavLink to={nextCardURL} > Carte suivante au hasard dans le paquet </NavLink> </button>
+            </>
+            :<p>Loading</p>)
+          
+
+            
+          
+}
+
+export default CardDisplay
+
   //with a testing fake database
   // let database = {
   //  "1":{
@@ -88,58 +140,3 @@ const CardDisplay = () => {
    //  }
 //  }
 // }
-
-  
-  // number of cards in deck  
-  let cardsNumberInDeck;
-  let nextCardURL;
-
-  if(database){
-  cardsNumberInDeck = database["cards"].length;
-  let randomNextCardId = Math.floor(cardsNumberInDeck*Math.random() + 1);
-
-  console.log("next card id", randomNextCardId);
-  nextCardURL = `/deck/${deckId}/${randomNextCardId}` 
-
-  console.log("database[cards][0])", database["cards"][0]);
-  console.log("cardId",cardId);
-  } 
-
-   const handleClickReturn = () => {
-      dispatch({type:RETURN_CARD, isRecto: currentView.isRecto})
-   }
-   const handleClickNext = () => {
-      dispatch({type:RESET_CARD, isRecto: defaultView.isRecto})
-      console.log("reset")
-   } 
-
- 
-  
-  return (database?
-                <>
-            <p className="deck__title">{database["title"]} </p>
-            <div style={{margin:"2em"}}> <h1>Je veux voir en premier </h1>
-            <RectoVerso />
-            </div>
-            <p style={{fontSize: "1.5em"}}> Card #{cardId} / {cardsNumberInDeck}</p>
-             <div className="card">
-            {currentView.isRecto?
-              <pre>
-            <MDEditor.Markdown source={database["cards"][cardId - 1]["recto"]} />
-            </pre>
-            :
-            <pre> 
-            <MDEditor.Markdown source={database["cards"][cardId - 1]["verso"]} />
-            </pre>
-            }</div>
-            <button onClick={handleClickReturn}>Retourner</button>
-            <button onClick={()=>handleClickNext()}> <NavLink to={nextCardURL} > Carte suivante au hasard dans le paquet </NavLink> </button>
-            </>
-            :<p>Loading</p>)
-          
-
-            
-          
-}
-
-export default CardDisplay;

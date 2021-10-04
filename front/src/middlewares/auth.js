@@ -113,7 +113,7 @@ const auth = (store) => (next) => (action) => {
       }
       const postUser = async () => {
       try {
-        const request = await fetch(`${back}/user-manager`, options)
+        const request = await fetch(`${back}/signup`, options)
         const response = await request.json()
         if(response){
         store.dispatch({type:UPDATE_USER}, password, email, name)
