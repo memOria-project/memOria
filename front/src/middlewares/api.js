@@ -1,5 +1,5 @@
 import {
-  getAllDecks, FETCH_DECKS, FETCH_CARDS, getCurrentDeckContent, POST_CARD
+  getAllDecks, FETCH_DECKS, FETCH_CARDS, getCurrentDeckContent, POST_CARD, EDIT_CURRENT_DECK
 } from '../actions'
 
 const api = (store) => (next) => (action) => {
@@ -69,6 +69,12 @@ const api = (store) => (next) => (action) => {
         try {
           const request = await fetch(`${back}/card`, options)
           const response = await request.json()
+          if (response.id) {
+            store.dispatch({type:EDIT_CURRENT_DECK, isModified: true})
+          }
+          else {
+            store.dispatch({type:EDIT_CURRENT_DECK, isModified: false})
+          }
           console.log(response)
         } catch (error) { console.log(error) }
       }
