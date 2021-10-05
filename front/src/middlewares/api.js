@@ -1,5 +1,5 @@
 import {
-  getAllDecks, FETCH_DECKS, FETCH_CARDS, getCurrentDeckContent, POST_CARD
+  getAllDecks, FETCH_DECKS, FETCH_CARDS, getCurrentDeckContent, POST_CARD, EDIT_CURRENT_DECK
 } from '../actions'
 
 const api = (store) => (next) => (action) => {
@@ -37,7 +37,13 @@ const api = (store) => (next) => (action) => {
           const request = await fetch(`${back}/deck/${currentDeckId}/cards`, fetchCardsOptions)
           const response = await request.json()
           console.log(response)
+          if(response == 1) {
+            // store.dispatch(getCurrentDeckContent({ cards:false }))
+            console.log("no cards")
+          }
+          else{
           store.dispatch(getCurrentDeckContent(response))
+          }
         } catch (error) { console.log(error) }
       }
       getCurrentDeck()
@@ -45,16 +51,16 @@ const api = (store) => (next) => (action) => {
       break
     }
     case POST_CARD: {
-      const { id } = store.getState().user
+      // const { id } = store.getState().user
       const { currentCard } = store.getState().card
       let { recto, verso, currentDeckId, currentCardId } = currentCard
       const deckId = currentDeckId
-
+      // const id = currentCardId
       const newCard = {
         recto,
         verso,
-        deckId
-        // currentCardId
+        deckId,
+        id: action.cardId
       }
       const options =
       {
@@ -68,7 +74,14 @@ const api = (store) => (next) => (action) => {
       const postCard = async () => {
         try {
           const request = await fetch(`${back}/card`, options)
-          const response = await request.json()
+          const response = await request.status
+          console.log(response)
+          if (response === 204 || response === 201) {
+            store.dispatch({type:EDIT_CURRENT_DECK, isModified: true})
+          }
+          else {
+            store.dispatch({type:EDIT_CURRENT_DECK, isModified: false})
+          }
           console.log(response)
         } catch (error) { console.log(error) }
       }

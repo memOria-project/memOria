@@ -33,6 +33,7 @@ const reducer = (state = initialState, action = {}) => {
 
     case UPDATE_USER: {
       const {name, email, decks, password } = action
+      console.log("UPDATE_USER", action)
       return {...state,
         password,
         name,

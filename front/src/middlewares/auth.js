@@ -17,6 +17,7 @@ const auth = (store) => (next) => (action) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(login)
       }
+      console.log("LOGIN", JSON.stringify(login))
 
       const getToken = async () => {
         try {
@@ -113,10 +114,11 @@ const auth = (store) => (next) => (action) => {
       }
       const postUser = async () => {
       try {
-        const request = await fetch(`${back}/user-manager`, options)
+        const request = await fetch(`${back}/signup`, options)
         const response = await request.json()
         if(response){
-        store.dispatch({type:UPDATE_USER}, password, email, name)
+        store.dispatch({type:UPDATE_USER, password, email, name})
+        // supprimer LOG_IN si on souhaite éviter le login automatique après l'inscription pour raison de sécu
         store.dispatch({type:LOG_IN})
         }
         }

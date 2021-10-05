@@ -1,10 +1,11 @@
 
-import {SET_CURRENT_DECK_ID, GET_CURRENT_DECK_CONTENT} from '../actions'
+import {SET_CURRENT_DECK_ID, GET_CURRENT_DECK_CONTENT, EDIT_CARD, EDIT_CURRENT_DECK} from '../actions'
 
 //no current deck at the start of the app
 export const initialState = {
                               currentDeckId : false,
-                              currentDeckContent: false
+                              currentDeckContent: false,
+                              isModified: false
                             }
 
 
@@ -16,7 +17,11 @@ const reducer = (state = initialState, action = {}) => {
 
     case GET_CURRENT_DECK_CONTENT:
       return {...state, currentDeckContent: action.currentDeckContent};
-    
+
+    case EDIT_CURRENT_DECK:
+      return {...state,
+    isModified: action.isModified
+      }
     default:
       return state;
   }

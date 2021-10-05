@@ -8,9 +8,15 @@
 }
 
 .cardContainer {
-  border: 1px solid black;
+  // border: 1px solid black;
+
 }
 
+.card__title {
+  display:flex;
+  flex-direction:column;
+  justify-content:space-around;
+}
 .card {
   border:1px solid black;
   padding:2em 0.25em;
@@ -21,3 +27,33 @@
   width: 10em;
 }
 
+.cardEditor__header {
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  justify-content:center;
+}
+
+.header__newCard {
+  border:2px dotted black;
+  padding:1em;
+  margin:1em;
+}
+
+.header__title {
+  padding-right:1em;
+  border:none;
+  font-size:2em;
+
+}
+
+.header__undertitle {
+  text-align:start;
+  padding-left:8em;
+}
+
+.cardEditor_untertitle {
+  display:flex;
+  flex-direction:row;
+  flex-direction:space-between;
+}

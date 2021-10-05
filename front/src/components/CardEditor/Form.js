@@ -1,30 +1,118 @@
-import MDEditor from '@uiw/react-md-editor';
+import MDEditor, { commands} from '@uiw/react-md-editor';
+
+import { javaButton, htmlButton, CSSButton, title3 } from './buttons';
+
 // import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { EDIT_CARD } from '../../actions';
 import './CardEditor.scss'
+
 const Form = ({isRecto, preview})=>{
-    
-    const { recto, verso } = useSelector((state)=>state.card.currentCard);
-    const dispatch = useDispatch();
-    // const value = isRecto?recto:verso
 
+  const { recto, verso } = useSelector((state)=>state.card.currentCard);
+  const dispatch = useDispatch();
+  const handleChange=(val) => {
+      const field= isRecto?"recto":"verso";
+      console.log(field)
+      dispatch({type:EDIT_CARD, field: [{"field": field, "value":val}, {"field":"test", "value":"value"}]})        
+  }
 
-    const handleChange=(val) => {
-        const field= isRecto?"recto":"verso";
-        console.log(field)
-        dispatch({type:EDIT_CARD, field: [{"field": field, "value":val}, {"field":"test", "value":"value"}]})        
+  return (
+    <div className="form"> 
+    {preview?
+      <MDEditor.Markdown source={isRecto?recto:verso} />
+      :
+      <MDEditor
+        onChange={(val)=>handleChange(val)}
+        preview='edit'
+        // détermine ce que le formulaire va éditer: recto ou verso
+        value={isRecto?recto:verso} 
+        // liste tous les boutons devant apparaitre dans le toolbar
+        commands={[
+          title3, // bouton pour intégrer un titre
+          commands.bold,
+          commands.strikethrough,
+          commands.orderedListCommand,
+          commands.unorderedListCommand,
+          commands.quote,
+          commands.code,
+          commands.divider,// sépare les boutons d'édition texte de ceux d'édition code
+          commands.group([], { // je ne comprend pas .group, mais elle semble nécessaire pour construire des boutons personalisés. 
+            name: "JS",
+            groupName: "JS",
+            icon: (
+              <span> JS </span>
+            ),
+            children: (handle: any) => {
+              return (
+                  <button type="button">
+                    Javascript
+                  </button>
+              );
+            },
+            execute: javaButton
+            ,
+            buttonProps: { "aria-label": "Insert Javascript" }
+          },
+          ),
+
+          commands.group([], {
+            name: "HTML",
+            groupName: "HTML",
+            icon: (
+              <span> HTML </span>
+            ),
+            children: (handle: any) => {
+              return (
+                  <button type="button">
+                    HTML
+                  </button>
+              );
+            },
+            execute: htmlButton
+            ,
+            buttonProps: { "aria-label": "Insert HTML" }
+          },
+          ),
+          commands.group([], {
+            name: "CSS",
+            groupName: "CSS",
+            icon: (
+              <span> CSS </span>
+            ),
+            children: (handle: any) => {
+              return (
+                  <button type="button">
+                    CSS
+                  </button>
+              );
+            },
+            execute: CSSButton
+            ,
+            buttonProps: { "aria-label": "Insert CSS" }
+          },
+          ),
+                  // Toutes les options de titre. Je les commente car je crois qu'elles sont superflues.
+
+                    // commands.group(
+                    //   [
+                    //     commands.title1,
+                    //     commands.title2,
+                    //     commands.title3,
+                    //     commands.title4,
+                    //     commands.title5,
+                    //     commands.title6,
+                    //   ],
+                    //   {
+                    //     name: "title",
+                    //     groupName: "title",
+                    //     buttonProps: { "aria-label": "Insert title" }
+                    //   }
+                    // ),
+        ]}        
+      />
     }
-
-
-return   (<div className="form"> 
-
-        {preview?
-            <MDEditor.Markdown source={isRecto?recto:verso} />
-            :
-            <MDEditor onChange={(val)=>handleChange(val)}  preview='edit' value={isRecto?recto:verso} />
-            }
-        </div>
+  </div>
     )
 }
 export default Form

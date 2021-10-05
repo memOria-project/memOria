@@ -1,4 +1,4 @@
-import { PICK_ORDER, RETURN_CARD, RESET_CARD, EDIT_CARD } from '../actions';
+import { PICK_ORDER, RETURN_CARD, RESET_CARD, EDIT_CARD, EDIT_OPTIONS } from '../actions';
 
 export const initialState = {
     defaultView:{
@@ -7,6 +7,7 @@ export const initialState = {
     currentView:{
         isRecto:true
     },
+    isFailed: false,
     currentCard: {
       currentDeckId: false,
       currentCardId: false,
@@ -46,6 +47,11 @@ switch (action.type){
         const fields = action.field.reduce(reducer)
         console.log(fields);
         return fields
+    }
+
+    case EDIT_OPTIONS:{
+      return {...state,
+      isFailed: action.isFailed}
     }
     
   default:
