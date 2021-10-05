@@ -54,7 +54,7 @@ class User {
         try {
             const encriptedPassword = await bcrypt.hash(this.password, 15);
             this.password= encriptedPassword;
-            const {rows} = await db.query('SELECT update_user($1)', [this]);
+            const {rows} = await db.query('SELECT update_user2($1)', [this]);
     
         } catch(error) {
             console.log(error);

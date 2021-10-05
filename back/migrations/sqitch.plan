@@ -7,3 +7,4 @@ all-Cards-Deck 2021-09-29T09:21:26Z vmingam <vmingam@gmail.com> # Ajout de la fo
 func-cardsOfUser 2021-09-29T16:22:37Z vmingam <vmingam@gmail.com> # Ajoute une fonction SQL pour récupérer toutes les cartes d'un utilisateur
 user_functions 2021-09-30T13:07:47Z vmingam <vmingam@gmail.com> # Ajout des fonctions d'inscription, de mise à jour et de suppression de user
 func-getOwnerIdOfCard 2021-09-30T13:21:12Z vmingam <vmingam@gmail.com> # Add function to get the id of owner of a specific card id
+update_user-secure 2021-10-04T15:15:17Z Coulibaly <s.coulibaly@outlook.com> # séurisation de la fonction de mise à jour d'un user
