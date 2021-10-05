@@ -10,7 +10,6 @@ const router = Router()
 /**
  * Respond with all decks in database
  * @route GET /decks
- * @param{}
  * @returns {Array<Deck>} 200 - An array of all decks
  * @returns {string} 500 - Server error
  */
@@ -23,7 +22,6 @@ router.get('/user/infos', checkJwt, userController.getOneUser)
 /**
  * Respond with all cards of the connected user
  * @route GET /user/cards
- * @param{}
  * @returns {Array<Deck>} 200 - An array of all cards
  * @returns {string} 500 - Server error
  */
@@ -33,7 +31,6 @@ router.get('/user/cards', checkJwt, cardController.getCardsFromUser)
 /**
  * Respond with all cards of the connected user
  * @route POST /cards
- * @param{}
  * @returns {integer<id>} 201 - An integer of card id
  * @returns {} 204 - Empty response
  * @returns {string} 500 - Server error
@@ -44,7 +41,6 @@ router.post('/card', checkJwt, cardController.save)
 /**
  * Respond with all cards of the connected user
  * @route POST /signup
- * @param{}
  * @returns {integer<id>} 201 - An integer of user id
  * @returns {string} 500 - Server error
  */
