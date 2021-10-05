@@ -12,7 +12,7 @@ class Card {
      */
   static async cardsByUserId (userId) {
     try {
-      const { rows } = await db.query('SELECT * FROM cards_of_user($1)', [userId])
+      const { rows } = await db.query('SELECT * FROM decks_of_user($1)', [userId])
       return rows.map(row => new Card(row))
     } catch (error) {
       if (error.detail) {

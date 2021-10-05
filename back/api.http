@@ -12,7 +12,7 @@ GET {{baseUrl}}/deck/3/cards
 #-----------  USERS CRUD -------------------------------
 
 
-### login
+### login Toti
 POST {{baseUrl}}/login
 Content-Type: application/json
 
@@ -21,14 +21,23 @@ Content-Type: application/json
   "password" : "123456"
 }
 
+### login Tuti
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+  "email" : "tuti@gmal.fr",
+  "password" : "azerty"
+}
+
 ### Subscribe
 POST {{baseUrl}}/signup
 Content-Type: application/json
 
 {
-  "name": "souley2",
-  "email" : "tatoo@gmail.fr",
-  "password" : "azertuty"
+  "name": "vince4",
+  "email" : "vini4@gmail.fr",
+  "password" : "azerty"
 }
 
 
@@ -48,25 +57,23 @@ Authorization:
 ### Get user infos
 GET {{baseUrl}}/user/infos
 # coller Authorization + token généré et founi par le serveur
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTYzMzI5MzE4MywiZXhwIjoxNjMzMjkzNzgzfQ.1abg0AZEtw7zWszioo9HP91Vy4Tuf2mgNkztKPz5WP8
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTYzMzM2OTQ0NywiZXhwIjoxNjMzMzcwMDQ3fQ.DdZtgC6kDmtLVnJyG1jCVVAF0fFd_6vTGOSS9CJBcfY
 
 ### Get user cards
 GET {{baseUrl}}/user/cards
 # coller Authorization + token généré et founi par le serveur
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTYzMzI5MzE4MywiZXhwIjoxNjMzMjkzNzgzfQ.1abg0AZEtw7zWszioo9HP91Vy4Tuf2mgNkztKPz5WP8
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTYzMzM2OTc4NCwiZXhwIjoxNjMzMzcwMzg0fQ.oGQaWDHZhioZOjYbKdvdoE560YdUt6NSrRyHsIIyqa4
 
 #-----------  CARDS CRUD -------------------------------
 
 ### Add a card
 POST {{baseUrl}}/card
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTYzMzI5MzE4MywiZXhwIjoxNjMzMjkzNzgzfQ.1abg0AZEtw7zWszioo9HP91Vy4Tuf2mgNkztKPz5WP8
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTYzMzM2OTc4NCwiZXhwIjoxNjMzMzcwMzg0fQ.oGQaWDHZhioZOjYbKdvdoE560YdUt6NSrRyHsIIyqa4
 Content-Type: application/json
 
 {
-    "recto": "C'est pas un beau recto ?",
-    "verso": "Ah bah non",
-    "deckId" : 6,
-    "id" : 28
+    "id" : 5,
+    "deck": 16
 }
 
 # ### Tests benchmark Redis ...
