@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import PersonalisedDeck from '../Deck/PersonalisedDeck';
+import Loading from '../Loading';
 import './Profile.scss';
 
 
@@ -59,9 +60,9 @@ return (<>
         <div className="personalizedDecksDisplay">
           <h1 className="personalizedDecksDisplay__title">Vos paquets personnalisés :</h1>
           <div className="personalizedDecksDisplay__decks-container">
-          {personalizedDecks&&personalizedDecks.length>1?personalizedDecks.map((deck) => {
+          {personalizedDecks&&personalizedDecks.length?personalizedDecks.map((deck) => {
                 return <div className="deck-container" key={deck.id}> <PersonalisedDeck  deck={deck} /> </div>
-            }):<p>Loading</p>}
+            }):<Loading />}
           </div>
         </div>
         </>

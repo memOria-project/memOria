@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import MDEditor from '@uiw/react-md-editor'
 import './DeckEditor.scss'
+import Loading from '../Loading'
 
 const DeckEditor = () => {
   const { deckEditorDeckId } = useParams()
@@ -64,7 +65,7 @@ const DeckEditor = () => {
               </div>
             </p>)
           }))
-        : <p>Loading...</p>}
+        : <Loading />}
     </div>
   )
 }

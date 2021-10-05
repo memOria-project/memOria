@@ -54,7 +54,7 @@ const CardEditor = ()=>{
       }
     const handleSubmit = (event) => {
         event.preventDefault()
-        dispatch({type:POST_CARD})
+        dispatch({type:POST_CARD, cardId})
         setIsSubmit(true)
     }
 

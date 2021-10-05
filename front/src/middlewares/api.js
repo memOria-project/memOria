@@ -51,16 +51,16 @@ const api = (store) => (next) => (action) => {
       break
     }
     case POST_CARD: {
-      const { id } = store.getState().user
+      // const { id } = store.getState().user
       const { currentCard } = store.getState().card
       let { recto, verso, currentDeckId, currentCardId } = currentCard
       const deckId = currentDeckId
-
+      const cardId = currentCardId
       const newCard = {
         recto,
         verso,
-        deckId
-        // currentCardId
+        deckId,
+        cardId
       }
       const options =
       {

@@ -5,7 +5,9 @@ import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { RETURN_CARD, RESET_CARD, SET_CURRENT_DECK_ID, FETCH_CARDS } from '../../actions'
 import ShowCards from './ShowCards'
+
 import { orderedListCommand } from '@uiw/react-md-editor'
+import Loading from '../Loading'
 
 // import jsonTestDatabase from '../../assets/jsonTestDatabase';
 // Display zone for cards. Cards from a Deck are displayed one by one.
@@ -33,14 +35,20 @@ const [failedCards, setFailedCards] = useState([])
     console.log("failedCards:", failedCards)
   }
 
-  return (database&&database['cards'].length>=1?
+  return (<div>
+
+          {database&&database['cards'].length>=1?
             (<>
             <p className="deck__title">{database["title"]} </p>
             <ShowCards database={database["cards"]} addFailedCards={addFailedCards} failedCards={failedCards} />
             </>)
             :isFailed?
-            <ShowCards database={failedCards} addFailedCards={addFailedCards} failedCards={failedCards}  />
-              :<p>Loading</p>)
+              (<> 
+              <p className="deck__title">{database["title"]} </p>
+              <ShowCards database={failedCards} addFailedCards={addFailedCards} failedCards={failedCards}  />
+              </>)
+            :(<Loading />)}
+            </div>)
   }
 
 export default CardDisplay
