@@ -9,15 +9,17 @@ import Loading from '../Loading'
 const DeckEditor = () => {
   const { deckEditorDeckId } = useParams()
   const deckId = deckEditorDeckId
-
-  const dispatch = useDispatch()
-  const currentDeckInEditor = useSelector(state => state.currentDeck).currentDeckContent.cards
-  const nameOfDeck = useSelector((state) => state.currentDeck.currentDeckContent.title)
-
   useEffect(() => {
     dispatch({ type: SET_CURRENT_DECK_ID, currentDeckId: deckId })
     dispatch({ type: FETCH_CARDS })
   }, [])
+  const dispatch = useDispatch()
+  const currentDeckInEditor = useSelector(state => state.currentDeck).currentDeckContent.cards
+  const nameOfDeck = useSelector((state) => state.currentDeck.currentDeckContent.title)
+
+  if(currentDeckInEditor){
+    currentDeckInEditor.sort(function (a, b) { return a.id - b.id})
+  }
   console.log('currentDeckInEditor', currentDeckInEditor);
 
   const handleClick = (event) => {
@@ -29,7 +31,7 @@ const DeckEditor = () => {
 
   //counter for cards
   let count = 1
-
+  // 
   return (
     <div>
       <div className="cardEditor__header">
@@ -45,7 +47,7 @@ const DeckEditor = () => {
         </div>
       </div>
        {/* <h2 className="header__undertitle">Cartes du paquet</h2>  */}
-      {currentDeckInEditor?
+      {currentDeckInEditor ?
           (currentDeckInEditor.map((card) => {return (
             <p key={card.id} className="rectoVersoView">
               <div className="cardContainer">
