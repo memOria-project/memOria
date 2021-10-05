@@ -53,7 +53,7 @@ return (<div>
                </button>
           {!isFailed?
             <button onClick={()=>handleClickFail()}> <NavLink to={nextCardURL} > J'ai eu faux!  </NavLink></button>
-            :console.log("checking out failed cards")}
+            : <button onClick={()=>handleClickNext()}> <NavLink to={nextCardURL} > Encore raté(sauvegarde serveur) </NavLink></button>}
           </>)
         :(<><button onClick={()=>handleClickRestart()}> Recommence </button>
           {check?
