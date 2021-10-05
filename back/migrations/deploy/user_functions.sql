@@ -16,9 +16,9 @@ $$LANGUAGE SQL STRICT;
 --- Mise à jour d'un user
 CREATE FUNCTION update_user(incoming_user json) RETURNS void AS $$
 UPDATE "user" SET 
-name= incoming_user->>'name',
-email= incoming_user->>'email',
-password= incoming_user->>'password'
+name= COALESCE((incoming_user->>'name')::TEXT, name),
+email= COALESCE((incoming_user->>'email')::TEXT, email),
+password= COALESCE((incoming_user->>'password')::TEXT, password)
 WHERE id= (incoming_user->>'id')::int;
 $$LANGUAGE SQL STRICT;
 
