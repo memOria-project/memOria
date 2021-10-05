@@ -3,14 +3,25 @@
 import { useForm } from 'react-hook-form'
 import { ErrorMessage } from '@hookform/error-message'
 import { SUBSCRIBE } from '../../actions'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import './subscribe.scss'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 const Subscribe = () => {
   const dispatch = useDispatch()
   const { register, handleSubmit, watch, getValues, formState: { errors, isValid } } = useForm({ mode: 'onChange' })
+  const isConnected = useSelector((state)=>state.user.isConnected)
+  // stope un utilisateur connecté de soumettre le formulaire
+
+  if(isConnected){
+    console.log("redirect")
+    return <Redirect to="/profile" />
+  }
+
   return <div className='formContainer'>
-  <form className='userForm' onSubmit = {handleSubmit((data) => dispatch({ type: SUBSCRIBE, data }))}>
+  <form className='userForm' onSubmit = {handleSubmit((data) => 
+    {dispatch({ type: SUBSCRIBE, data });
+      <Redirect to="/profile" />
+    })}>
     <label className='form__label'> Nom d'utilisateur
       <input
         {...register('name',
