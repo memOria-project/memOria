@@ -8,8 +8,8 @@ class Card {
   }
 
   /**
-     * Get all cards owned by user (through deck possession)
-     */
+   * Get all cards owned by user (through deck possession)
+   */
   static async cardsByUserId (userId) {
     try {
       const { rows } = await db.query('SELECT * FROM decks_of_user($1)', [userId])
@@ -24,8 +24,8 @@ class Card {
   }
 
   /**
-     * Add a card to the database
-     */
+   * Add a card to the database
+   */
   async save () {
     try {
       if (this.id) {
@@ -43,9 +43,7 @@ class Card {
         }
         const { rows } = await db.query('SELECT update_card($1)', [this])
         if (rows[0]) {
-          return {
-            status: 'updated'
-          }
+          return { id: this.id, status: 'updated' }
         }
 
         // throw new Error('La fonction de mise à jour d\'une carte existante n\'est pas encore accessible')
@@ -56,11 +54,30 @@ class Card {
         }
         const { rows } = await db.query('SELECT create_card($1) AS id', [this])
         if (rows) {
-          return { id: rows[0].id }
+          return { id: rows[0].id, status: 'saved' }
         }
       }
     } catch (error) {
       // on relance l'erreur pour le contrôleur puisse l'attraper et la retransférer au front
+      throw new Error(error.detail ? error.detail : error.message)
+    }
+  }
+
+  /**
+   * Add a card to the database
+   */
+  async delete () {
+    try {
+      const statusCard = await db.query('SELECT is_card_owner($1, $2)', [this.id, this.userId])
+      if (!statusCard.rows[0].is_card_owner) {
+        throw new Error('User is not allowed to delete this card')
+      }
+      const { rows } = await db.query('DELETE FROM card WHERE id=$1', [this.id])
+      if (rows) {
+        return { id: this.id, status: 'deleted' }
+      }
+    } catch (error) {
+      // on relance l'erreur pour que le contrôleur puisse l'attraper et la retransférer au front
       throw new Error(error.detail ? error.detail : error.message)
     }
   }

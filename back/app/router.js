@@ -37,6 +37,15 @@ router.get('/user/cards', checkJwt, cardController.getCardsFromUser)
  */
 router.post('/card', checkJwt, cardController.save)
 
+// Delete a card of a user
+/**
+ * Respond with all cards of the connected user
+ * @route DELETE /card
+ * @returns {} 204 - Empty response
+ * @returns {string} 500 - Server error
+ */
+router.delete('/card', checkJwt, cardController.delete)
+
 // Création  de compte utilisateur
 /**
  * Respond with all cards of the connected user
