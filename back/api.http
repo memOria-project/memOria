@@ -2,15 +2,16 @@
 # @baseUrl=https://memoriapo.herokuapp.com/v1
 @host=http://localhost:3500
 
+@auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTYzMzQ0MzQyMiwiZXhwIjoxNjMzNDQ0MDIyfQ.DlI0VH79RKTB9JXGo4Avx7V_rH3I0XZ1Bge8GdPOpXw
+
 ### Get all decks
 GET {{baseUrl}}/decks
 
 
 ### Get all cards from deck
-GET {{baseUrl}}/deck/3/cards
+GET {{baseUrl}}/deck/17/cards
 
 #-----------  USERS CRUD -------------------------------
-
 
 ### login Toti
 POST {{baseUrl}}/login
@@ -19,6 +20,15 @@ Content-Type: application/json
 {
   "email" : "toti@s.fr",
   "password" : "123456"
+}
+
+### login Tutu
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+  "email" : "tutu@gmal.fr",
+  "password" : "azerty"
 }
 
 ### login Tuti
@@ -30,50 +40,57 @@ Content-Type: application/json
   "password" : "azerty"
 }
 
+### login Nicoclock
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+  "email" : "nico@clo.ck",
+  "password" : "Nicocratie"
+}
+
 ### Subscribe
 POST {{baseUrl}}/signup
 Content-Type: application/json
 
 {
-  "name": "vince4",
-  "email" : "vini4@gmail.fr",
-  "password" : "azerty"
+  "name": "Nicoclock",
+  "email" : "nico@clo.ck",
+  "password" : "Nicocratie"
 }
 
 
 ### Update user info
 POST {{baseUrl}}/user/update
 Content-Type: application/json
-Authorization: 
+Authorization: {{auth}}
 
 {
-  "id" : 5,
-  "email" : "tatoo-corrigé@gmail.fr",
-  "name" : "souley2-REcorrigé",
-  "password" : "azertuti"
+  "name" : "TUTU du 69",
+  "password" : "azerty"
 
 }
 
 ### Get user infos
 GET {{baseUrl}}/user/infos
 # coller Authorization + token généré et founi par le serveur
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTYzMzM2OTQ0NywiZXhwIjoxNjMzMzcwMDQ3fQ.DdZtgC6kDmtLVnJyG1jCVVAF0fFd_6vTGOSS9CJBcfY
+Authorization: {{auth}}
 
 ### Get user cards
 GET {{baseUrl}}/user/cards
 # coller Authorization + token généré et founi par le serveur
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTYzMzM2OTc4NCwiZXhwIjoxNjMzMzcwMzg0fQ.oGQaWDHZhioZOjYbKdvdoE560YdUt6NSrRyHsIIyqa4
+Authorization: {{auth}}
 
 #-----------  CARDS CRUD -------------------------------
 
 ### Add a card
 POST {{baseUrl}}/card
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTYzMzM2OTc4NCwiZXhwIjoxNjMzMzcwMzg0fQ.oGQaWDHZhioZOjYbKdvdoE560YdUt6NSrRyHsIIyqa4
+Authorization: {{auth}}
 Content-Type: application/json
 
 {
     "id" : 5,
-    "deck": 16
+    "verso": "... c'est la vie\n![](http://www.onenagros.org/wordpress/wp-content/uploads/persos/Karadoc.jpg)"
 }
 
 # ### Tests benchmark Redis ...
