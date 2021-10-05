@@ -1,82 +1,82 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { FETCH_CARDS, SET_CURRENT_DECK_ID } from '../../actions'
+import { FETCH_CARDS, SET_CURRENT_DECK_ID, EDIT_CARD } from '../../actions'
 import { useEffect } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
+import MDEditor from '@uiw/react-md-editor'
 import './DeckEditor.scss'
 
 const DeckEditor = () => {
+  const { deckEditorDeckId } = useParams()
+  const deckId = deckEditorDeckId
 
-  //params from the URL
-  let { deckEditorDeckId } = useParams();
-  let deckId = deckEditorDeckId;
-
-  const dispatch = useDispatch();
-
-  
-  let currentDeckInEditor = useSelector(state => state.currentDeck).currentDeckContent.cards
+  const dispatch = useDispatch()
+  const currentDeckInEditor = useSelector(state => state.currentDeck).currentDeckContent.cards
+  const nameOfDeck = useSelector((state) => state.currentDeck.currentDeckContent.title)
 
   useEffect(() => {
-    dispatch({ type: SET_CURRENT_DECK_ID, currentDeckId: deckId});
-    dispatch({ type: FETCH_CARDS });
+    dispatch({ type: SET_CURRENT_DECK_ID, currentDeckId: deckId })
+    dispatch({ type: FETCH_CARDS })
   }, [])
-  
-  
-  
-  console.log("currentDeckInEditor", currentDeckInEditor);
+  console.log('currentDeckInEditor', currentDeckInEditor);
 
-
-
-  // if (currentDeckInEditor) {
-  //   // firstCommonDeck = currentDeckInEditor[0]["cards"];
-  //   //;
-
-  //   firstCommonDeck = currentDeckInEditor["currentDeckContent"]["cards"];
-
-
-  //   console.log("currentDeckInEditor['currentDeckContent']['cards']",currentDeckInEditor["currentDeckContent"]["cards"]);
-  //   console.log("firstCommonDeck", firstCommonDeck);
-  // }
-    
-  
+  const handleClick = (event) => {
+    const clickedCard = event.target.parentNode.id
+    const cardContent = currentDeckInEditor.find((card) => clickedCard == card.id)
+    dispatch({type:EDIT_CARD, field:[{"field":"recto",
+      "value": cardContent.recto}, {"field":"verso", "value":cardContent.verso}]})
+    }
 
   //counter for cards
-  let count = 1;
+  let count = 1
 
   return (
     <div>
-      <p>Liste des cartes du deck :</p>
-      <p className="rectoVersoView">
-            <NavLink className="cardContainer" to={`/cardEditor/${deckId}/new`}>
-              <p>Créez une nouvelle carte dans ce paquet</p>
-              <p>Recto</p>
-              <p className="card">+</p>
-              <NavLink to={`/cardEditor/${deckId}/new`}>Nouvelle carte</NavLink>
-            </NavLink>
-            <NavLink className="cardContainer" to={`/cardEditor/${deckId}/new`}>
-              <p>Verso</p>
-              <p className="card">+</p>
-              <NavLink to={`/cardEditor/${deckId}/new}`}>Nouvelle Carte</NavLink>
-            </NavLink>
-          </p>
-      {currentDeckInEditor? 
-        (currentDeckInEditor.map((card) => {return (
-          <p className="rectoVersoView">
-            <div className="cardContainer">
-              <p>Carte n°{count++}/{currentDeckInEditor.length}</p>
-              <p>Recto</p>
-              <p className="card">{card.recto}</p>
-              <NavLink to={`/cardEditor/${deckId}/${card.id}`}>Éditer la carte</NavLink>
-            </div>
-            <div className="cardContainer">
-              <p>Verso</p>
-              <p className="card">{card.verso}</p>
-              <NavLink to={`/cardEditor/${deckId}/${card.id}`}>Éditer la carte</NavLink>
-            </div>
-          </p>)}))
+      <div className="cardEditor__header">
+        <div> 
+        <h2 className="header__title">{nameOfDeck}</h2>
+        {/* <h3>{currentDeckInEditor.length} cartes</h3> */}
+        <button>Editer le nom</button>
+        </div>
+        <div className="header__newCard">
+          <NavLink to={`/cardEditor/${deckId}/new`}>
+            <p>+ <br /> Nouvelle <br /> Carte</p>
+          </NavLink>
+        </div>
+      </div>
+       {/* <h2 className="header__undertitle">Cartes du paquet</h2>  */}
+      {currentDeckInEditor?
+          (currentDeckInEditor.map((card) => {return (
+            <p key={card.id} className="rectoVersoView">
+              <div className="cardContainer">
+                <p className="card">
+                <MDEditor.Markdown source={card.recto} />
+                </p>
+              </div>
+              <div className="cardContainer">
+                <p className="card">
+                  <MDEditor.Markdown source={card.verso} />
+                </p>
+              </div>
+              <div className="card__title">
+                <p><strong>Carte n°{count++}/{currentDeckInEditor.length}</strong></p> 
+                <button id={card.id} onClick={handleClick}> <NavLink to={`/cardEditor/${deckId}/${card.id}`}>Éditer</NavLink> </button>
+                <button id={card.id} onClick={handleClick}> Supprimer </button> 
+              </div>
+            </p>)
+          }))
         : <p>Loading...</p>}
     </div>
-    )
-
+  )
 }
 
 export default DeckEditor
+
+// if (currentDeckInEditor) {
+//   // firstCommonDeck = currentDeckInEditor[0]["cards"];
+//   //;
+
+//   firstCommonDeck = currentDeckInEditor["currentDeckContent"]["cards"];
+
+//   console.log("currentDeckInEditor['currentDeckContent']['cards']",currentDeckInEditor["currentDeckContent"]["cards"]);
+//   console.log("firstCommonDeck", firstCommonDeck);
+// }

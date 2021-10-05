@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import Deck from '../Deck';
+import PersonalisedDeck from '../Deck/PersonalisedDeck';
 import './Profile.scss';
 
 
@@ -53,14 +53,14 @@ return (<>
     </form> */}
         
         {/* lien vers l'éditeur de cartes */}
-        <NavLink to="/deckEditor/1">Éditeur de cartes</NavLink>
+        {/* <NavLink to="/deckEditor/1">Éditeur de cartes</NavLink> */}
 
         {/* Personalized decks */}
         <div className="personalizedDecksDisplay">
           <h1 className="personalizedDecksDisplay__title">Vos paquets personnalisés :</h1>
           <div className="personalizedDecksDisplay__decks-container">
           {personalizedDecks&&personalizedDecks.length>1?personalizedDecks.map((deck) => {
-                return <div className="deck-container" key={deck.id}> <Deck  deck={deck} /> </div>
+                return <div className="deck-container" key={deck.id}> <PersonalisedDeck  deck={deck} /> </div>
             }):<p>Loading</p>}
           </div>
         </div>
