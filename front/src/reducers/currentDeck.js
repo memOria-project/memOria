@@ -21,7 +21,7 @@ const reducer = (state = initialState, action = {}) => {
     case EDIT_CURRENT_DECK:
       return {...state,
     isModified: action.isModified
-  }
+      }
     default:
       return state;
   }
