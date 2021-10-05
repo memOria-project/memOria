@@ -6,13 +6,14 @@ import { useEffect, useState, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import Next from './Next'
 
-const ShowCards = ({database}) => {
+const ShowCards = ({database, addFailedCards}) => {
   const { deckId, cardId } = useParams()
+  // console.log("database", database)
   const dispatch = useDispatch();
   const { defaultView, currentView } = useSelector((state) => state.card)
   const [nextCard, setNextCard] = useState("/");
-  let cardsNumberInDeck = database["cards"].length;
-  const allCards = database["cards"]
+  let cardsNumberInDeck = database.length;
+  const allCards = database
   console.log(allCards)
   let nextCardURL ="/"
   useEffect(()=> {
@@ -39,9 +40,9 @@ const ShowCards = ({database}) => {
   }
   const handleClickNext = () => {
     dispatch({type:RESET_CARD, isRecto: defaultView.isRecto})
-    database['cards'].splice(cardId, 1)
+    database.splice(cardId, 1)
   }
-
+  const showedCard = database[cardId]
 return  <>
   <p className="deck__title">{database["title"]} </p>
   <div style={{margin:"2em"}}> <h1>Je veux voir en premier </h1>
@@ -52,15 +53,15 @@ return  <>
 
   {currentView.isRecto?
     <pre>
-  <MDEditor.Markdown source={database["cards"][cardId]["recto"]} />
+  <MDEditor.Markdown source={database[cardId]["recto"]} />
   </pre>
   :
   <pre> 
-  <MDEditor.Markdown source={database["cards"][cardId]["verso"]} />
+  <MDEditor.Markdown source={database[cardId]["verso"]} />
   </pre>
   }</div>
   <button onClick={handleClickReturn}>Retourner</button>
-  <Next nextCard={nextCard} setNextCard={setNextCard} deckId={deckId} handleClickNext={handleClickNext} cardsNumberInDeck={cardsNumberInDeck} />
+  <Next database={database} showedCard={showedCard} nextCard={nextCard} setNextCard={setNextCard} deckId={deckId} handleClickNext={handleClickNext} cardsNumberInDeck={cardsNumberInDeck} addFailedCards={addFailedCards}/>
   </>
 }
 export default ShowCards

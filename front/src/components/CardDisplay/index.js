@@ -5,9 +5,9 @@ import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { RETURN_CARD, RESET_CARD, SET_CURRENT_DECK_ID, FETCH_CARDS } from '../../actions'
 import ShowCards from './ShowCards'
+import { orderedListCommand } from '@uiw/react-md-editor'
 
 // import jsonTestDatabase from '../../assets/jsonTestDatabase';
-
 // Display zone for cards. Cards from a Deck are displayed one by one.
 // User can choose to switch to card verso and vice versa.
 const CardDisplay = () => {
@@ -15,7 +15,6 @@ const CardDisplay = () => {
   // use URl parameters to determine the card to display from deck and card id
   const { deckId, cardId } = useParams()
   // const [nextCard, setNextCard] = useState();
-
   // Set the current deck id in the state
   useEffect(() => {
     dispatch({ type: SET_CURRENT_DECK_ID, currentDeckId: deckId })
@@ -25,20 +24,20 @@ const CardDisplay = () => {
     dispatch({ type: FETCH_CARDS })
   }, [deckId])
 
- let database = useSelector(state => state.currentDeck).currentDeckContent
+let database = useSelector(state => state.currentDeck).currentDeckContent
+const isFailed = useSelector(state=> state.card.isFailed)
 
- //fix temporaire tant que la réponse à FETCH_CARDS est un array
+const [failedCards, setFailedCards] = useState([])
+  const addFailedCards = (card) => {
+    setFailedCards((state) => [...state, card])
+    console.log("failedCards:", failedCards)
+  }
 
-  // number of cards in deck  
-  let cardsNumberInDeck;
-  let nextCardURL
-  let cardContent
-  let randomNextCardId
-
-  
-  return (database?
-            <ShowCards database={database}/>
-            :<p>Loading</p>)
+  return (database&&database['cards'].length>=1?
+            <ShowCards database={database["cards"]} addFailedCards={addFailedCards} />
+            :isFailed?
+            <ShowCards database={failedCards} addFailedCards={addFailedCards} />
+              :<p>Loading</p>)
   }
 
 export default CardDisplay
