@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import { NavLink } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import PersonalisedDeck from '../Deck/PersonalisedDeck';
 import Loading from '../Loading';
 import './Profile.scss';
@@ -9,11 +9,14 @@ import './Profile.scss';
 const Profile = ()=>{
     
 const {name, email} = useSelector((state)=> state.user);
-
+const isConnected = useSelector((state)=> state.user.isConnected)
 const personalizedDecks = useSelector((state)=>(state.user.decks))
 console.log(personalizedDecks);
 
-
+if(!isConnected){
+  console.log("redirect")
+  return <Redirect to="/signin" />
+}
 // const handleSubmit = (event) => {
 //   event.preventDefault();
 //   dispatch({type:CHANGE_PASSWORD});
