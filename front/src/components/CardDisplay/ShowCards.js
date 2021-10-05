@@ -6,7 +6,7 @@ import { useEffect, useState, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import Next from './Next'
 
-const ShowCards = ({database, addFailedCards}) => {
+const ShowCards = ({database, addFailedCards, failedCards }) => {
   const { deckId, cardId } = useParams()
   // console.log("database", database)
   const dispatch = useDispatch();
@@ -44,12 +44,10 @@ const ShowCards = ({database, addFailedCards}) => {
   }
   const showedCard = database[cardId]
 return  <>
-  <p className="deck__title">{database["title"]} </p>
   <div style={{margin:"2em"}}> <h1>Je veux voir en premier </h1>
   <RectoVerso />
   </div>
-  <p style={{fontSize: "1.5em"}}> Encore {cardsNumberInDeck} cartes</p>
-  <div className="card">
+  <div className="card" onClick={handleClickReturn}>
 
   {currentView.isRecto?
     <pre>
@@ -59,9 +57,10 @@ return  <>
   <pre> 
   <MDEditor.Markdown source={database[cardId]["verso"]} />
   </pre>
-  }</div>
-  <button onClick={handleClickReturn}>Retourner</button>
-  <Next database={database} showedCard={showedCard} nextCard={nextCard} setNextCard={setNextCard} deckId={deckId} handleClickNext={handleClickNext} cardsNumberInDeck={cardsNumberInDeck} addFailedCards={addFailedCards}/>
+  }
+  </div>
+  <p style={{fontSize: "1.5em"}}> Cartes restantes: {cardsNumberInDeck-1}</p>
+  <Next failedCards={failedCards} database={database} showedCard={showedCard} nextCard={nextCard} setNextCard={setNextCard} deckId={deckId} handleClickNext={handleClickNext} cardsNumberInDeck={cardsNumberInDeck} addFailedCards={addFailedCards}/>
   </>
 }
 export default ShowCards

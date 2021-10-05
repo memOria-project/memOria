@@ -34,9 +34,12 @@ const [failedCards, setFailedCards] = useState([])
   }
 
   return (database&&database['cards'].length>=1?
-            <ShowCards database={database["cards"]} addFailedCards={addFailedCards} />
+            (<>
+            <p className="deck__title">{database["title"]} </p>
+            <ShowCards database={database["cards"]} addFailedCards={addFailedCards} failedCards={failedCards} />
+            </>)
             :isFailed?
-            <ShowCards database={failedCards} addFailedCards={addFailedCards} />
+            <ShowCards database={failedCards} addFailedCards={addFailedCards} failedCards={failedCards}  />
               :<p>Loading</p>)
   }
 
