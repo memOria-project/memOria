@@ -55,12 +55,12 @@ const api = (store) => (next) => (action) => {
       const { currentCard } = store.getState().card
       let { recto, verso, currentDeckId, currentCardId } = currentCard
       const deckId = currentDeckId
-      const cardId = currentCardId
+      // const id = currentCardId
       const newCard = {
         recto,
         verso,
         deckId,
-        cardId
+        id: action.cardId
       }
       const options =
       {
@@ -74,8 +74,9 @@ const api = (store) => (next) => (action) => {
       const postCard = async () => {
         try {
           const request = await fetch(`${back}/card`, options)
-          const response = await request.json()
-          if (response.id) {
+          const response = await request.status
+          console.log(response)
+          if (response === 204 || response === 201) {
             store.dispatch({type:EDIT_CURRENT_DECK, isModified: true})
           }
           else {
