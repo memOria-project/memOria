@@ -11,3 +11,22 @@
   margin-top:1em;
   font-size:2em;
 }
+
+.cardDisplay__modal {
+  position:fixed;
+  height:100%;
+  width:100%;
+  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+    overflow:auto;
+  color:white;
+}
+
+.cardDisplay__modal h1 {
+  font-size:1.5em
+}
+
+.cardDisplay__modal h1,h2 {
+  margin-bottom:0.5em;
+  margin-top:0.5em;
+
+}

@@ -33,20 +33,18 @@ const ShowCards = ({database, addFailedCards, failedCards }) => {
 
     // cardContent = database['cards'].find((card)=> card.id == cardId)
 
+    const handleClickReturn = () => {
+      dispatch({type:RETURN_CARD, isRecto: currentView.isRecto})
+      }
+      const handleClickNext = () => {
+        dispatch({type:RESET_CARD, isRecto: defaultView.isRecto})
+        database.splice(cardId, 1)
+      }
 
 
-  const handleClickReturn = () => {
-  dispatch({type:RETURN_CARD, isRecto: currentView.isRecto})
-  }
-  const handleClickNext = () => {
-    dispatch({type:RESET_CARD, isRecto: defaultView.isRecto})
-    database.splice(cardId, 1)
-  }
   const showedCard = database[cardId]
 return  <>
-  <div style={{margin:"2em"}}> <h1>Je veux voir en premier </h1>
-  <RectoVerso />
-  </div>
+
   <div className="card" onClick={handleClickReturn}>
 
   {currentView.isRecto?

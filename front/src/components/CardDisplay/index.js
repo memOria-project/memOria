@@ -8,7 +8,7 @@ import ShowCards from './ShowCards'
 
 import { orderedListCommand } from '@uiw/react-md-editor'
 import Loading from '../Loading'
-
+import Options from './Options'
 // import jsonTestDatabase from '../../assets/jsonTestDatabase';
 // Display zone for cards. Cards from a Deck are displayed one by one.
 // User can choose to switch to card verso and vice versa.
@@ -30,13 +30,19 @@ let database = useSelector(state => state.currentDeck).currentDeckContent
 const isFailed = useSelector(state=> state.card.isFailed)
 
 const [failedCards, setFailedCards] = useState([])
-  const addFailedCards = (card) => {
+const [showOptions, setShowOptions] = useState(true)
+
+const addFailedCards = (card) => {
     setFailedCards((state) => [...state, card])
     console.log("failedCards:", failedCards)
   }
 
   return (<div>
-
+          {showOptions&&
+          <div className="cardDisplay__modal"> 
+            <Options setShowOptions={setShowOptions} />
+          </div>}
+          
           {database&&database['cards'].length>=1?
             (<>
             <p className="deck__title">{database["title"]} </p>

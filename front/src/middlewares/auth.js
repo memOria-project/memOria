@@ -116,7 +116,7 @@ const auth = (store) => (next) => (action) => {
       try {
         const request = await fetch(`${back}/signup`, options)
         const response = await request.json()
-        if(response){
+        if(response.status === 201){
         store.dispatch({type:UPDATE_USER, password, email, name})
         // supprimer LOG_IN si on souhaite éviter le login automatique après l'inscription pour raison de sécu
         store.dispatch({type:LOG_IN})

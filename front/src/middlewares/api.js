@@ -75,7 +75,7 @@ const api = (store) => (next) => (action) => {
           const request = await fetch(`${back}/card`, options)
           const response = await request.status
           console.log(response)
-          if (response === 204 || response === 201) {
+          if (response === 200 || response === 201) {
             store.dispatch({type:EDIT_CURRENT_DECK, isModified: true})
           }
           else {
