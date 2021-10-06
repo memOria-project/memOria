@@ -1,9 +1,25 @@
+const { request } = require('express')
 const db = require('../database')
 
 class Card {
   constructor (obj = {}) {
     for (const propName in obj) {
       this[propName] = obj[propName]
+    }
+  }
+
+  /**
+     * Get all cards owned by user (through deck possession)
+     */
+  static async doesExist (cardId) {
+    try {
+      await db.query('SELECT id FROM card WHERE id=$1', [cardId])
+    } catch (error) {
+      if (error.detail) {
+        throw new Error(error.detail)
+      } else {
+        throw error
+      }
     }
   }
 
@@ -87,10 +103,10 @@ class Card {
  */
   async addDelay (userId) {
     try {
-      const newDelay = await db.query('INSERT INTO delay (card_id, user_id) VALUES ($1, $2) RETURNING card_id, to_date', [this.id, userId])
+      const { rows } = await db.query('INSERT INTO delay (card_id, user_id) VALUES ($1, $2) RETURNING card_id, to_date', [this.id, userId])
       // const newDelay = await db.query('SELECT FROM delay_card(($1, $2)', [this.id, userId])
-      if (newDelay.rows[0]) {
-        return { cardId: this.card_id, toDate: this.to_date }
+      if (rows[0]) {
+        return { cardId: rows[0].card_id, toDate: rows[0].to_date }
       }
     } catch (error) {
       throw new Error(error.detail ? error.detail : error.message)

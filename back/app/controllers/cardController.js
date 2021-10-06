@@ -27,6 +27,7 @@ const cardController = {
   delay: async (request, response) => {
     try {
       const card = new Card(request.body) // on contruit la carte avec le Json envoyé par le Front
+      await card.doesExist
       const delayedCard = await card.addDelay(request.userId) // on reporte la carte pour le user dont on a extrait l'id du Payload depuis checkJwt.js
       response.status(201).json(delayedCard) // 201 => delay created
     } catch (error) {
