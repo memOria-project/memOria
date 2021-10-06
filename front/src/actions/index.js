@@ -14,7 +14,9 @@ export const EDIT_CARD = 'EDIT_CARD'
 export const POST_CARD = 'POST_CARD'
 export const SUBSCRIBE = 'SUBSCRIBE'
 export const EDIT_CURRENT_DECK='EDIT CURRENT DECK'
-export const EDIT_OPTIONS= 'EDIT_OPTIONS'
+export const EDIT_OPTIONS = 'EDIT_OPTIONS'
+export const DELETE_CARD = 'DELETE_CARD'
+
 export const getAllDecks = (decks) => {
   return {
     type: GET_DECKS,

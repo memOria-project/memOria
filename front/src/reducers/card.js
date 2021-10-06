@@ -8,6 +8,7 @@ export const initialState = {
         isRecto:true
     },
     isFailed: false,
+    isAlternateRequired:false,
     currentCard: {
       currentDeckId: false,
       currentCardId: false,
@@ -51,7 +52,7 @@ switch (action.type){
 
     case EDIT_OPTIONS:{
       return {...state,
-      isFailed: action.isFailed}
+      [action.field]: action.value}
     }
     
   default:

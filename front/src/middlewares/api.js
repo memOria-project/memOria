@@ -1,11 +1,10 @@
 import {
-  getAllDecks, FETCH_DECKS, FETCH_CARDS, getCurrentDeckContent, POST_CARD, EDIT_CURRENT_DECK
+  getAllDecks, FETCH_DECKS, FETCH_CARDS, getCurrentDeckContent, POST_CARD, EDIT_CURRENT_DECK, DELETE_CARD
 } from '../actions'
 
 const api = (store) => (next) => (action) => {
   const token = localStorage.getItem('token')
   const back = store.getState().back
-
   switch (action.type) {
     case FETCH_DECKS:
     {
@@ -37,13 +36,9 @@ const api = (store) => (next) => (action) => {
           const request = await fetch(`${back}/deck/${currentDeckId}/cards`, fetchCardsOptions)
           const response = await request.json()
           console.log(response)
-          if(response == 1) {
-            // store.dispatch(getCurrentDeckContent({ cards:false }))
-            console.log("no cards")
-          }
-          else{
+
           store.dispatch(getCurrentDeckContent(response))
-          }
+          
         } catch (error) { console.log(error) }
       }
       getCurrentDeck()
@@ -76,7 +71,7 @@ const api = (store) => (next) => (action) => {
           const request = await fetch(`${back}/card`, options)
           const response = await request.status
           console.log(response)
-          if (response === 204 || response === 201) {
+          if (response === 200 || response === 201) {
             store.dispatch({type:EDIT_CURRENT_DECK, isModified: true})
           }
           else {
@@ -89,7 +84,31 @@ const api = (store) => (next) => (action) => {
       next(action)
       break
     }
-
+    case DELETE_CARD: {
+      const cardToBeDeleted = {
+        id: action.cardId
+      }
+      const options =
+      {
+        method: 'DELETE',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': token },
+        body: JSON.stringify(cardToBeDeleted)
+      }
+      console.log(JSON.stringify(cardToBeDeleted))
+      const deleteCard = async() => {
+        try{
+          const request = await fetch(`${back}/card`, options)
+          const response = await request.status
+          if(response === 200){
+            console.log(`carte supprimée: ${response}`)
+          }
+          store.dispatch({type:FETCH_CARDS})
+        }catch(error) { console.log(error)}
+      }
+      deleteCard()
+    }
     default:
       next(action)
   }
