@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import {NavLink, useParams} from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 import { FETCH_CARDS, RESET_CARD, EDIT_OPTIONS } from '../../actions'
 
 const Next = ({ failedCards, database, nextCard, deckId, cardsNumberInDeck, setNextCard, showedCard, addFailedCards }) => {
