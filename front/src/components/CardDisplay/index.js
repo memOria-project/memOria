@@ -62,7 +62,7 @@ const CardDisplay = () => {
     }
   }
   selectFailedCards()
-
+  //  Triggers the modal offering the "next games" options: start again with all the cards, or check the missed ones
   const checkIfOver = () => {
     if (database?.length === 0) {
       return true
@@ -73,7 +73,7 @@ const CardDisplay = () => {
   }
 
   const isOver = checkIfOver()
-
+  // is called when a user clicks on "I missed"
   const addFailedCards = (card) => {
     if (isFailed) {
       setAlternateFailedCards((state) => [...state, card])
@@ -84,19 +84,23 @@ const CardDisplay = () => {
 
   return (<div>
           {showOptions &&
-          <div className="cardDisplay__modal">
-            <Options setShowOptions={setShowOptions} />
-          </div>}
+            <div className="cardDisplay__modal">
+              <Options setShowOptions={setShowOptions} />
+            </div>
+          }
 
           {database?.length >= 1 &&
             (<>
             <p className="deck__title">{deckTitle} </p>
             <ShowCards database={database} addFailedCards={addFailedCards} failedCards={databaseFailedCards} />
-            </>)}
+            </>)
+          }
           {isOver &&
             <NextGame isAlternateRequired={isAlternateRequired} isFailed={isFailed} failedCards={databaseFailedCards} alternateFailedCards={alternateFailedCards} />}
 
-          {loading && <Loading />}
+          {loading &&
+            <Loading />
+          }
 
            </div>)
 }

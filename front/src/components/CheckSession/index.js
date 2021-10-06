@@ -9,6 +9,6 @@ const CheckSession = ()=>{
         dispatch({ type:CHECK_TOKEN })
     })
 
-    return <p style={{visibility:"hidden"}}>token verifiée</p>
+    return <span style={{visibility:"hidden", position:"absolute"}}>token verifiée</span>
 }
 export default CheckSession

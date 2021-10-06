@@ -38,10 +38,10 @@ return (
     {cardsNumberInDeck>0&&
       (<>
         <button onClick={()=>handleClickNext()}>
-          <NavLink to={nextCardURL} > J'ai eu bon! </NavLink>
+          <NavLink to={nextCardURL} > J'ai eu bon!</NavLink>
         </button>
           <button onClick={()=>handleClickFail()}>
-            <NavLink to={nextCardURL} > J'ai eu faux!</NavLink>
+            <NavLink to={nextCardURL} > J'ai eu faux! ({failedCards.length})</NavLink>
           </button>
 
       </>)
