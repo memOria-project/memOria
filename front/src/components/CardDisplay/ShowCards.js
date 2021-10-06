@@ -38,11 +38,6 @@ const ShowCards = ({database, addFailedCards, failedCards }) => {
     const handleClickReturn = () => {
       dispatch({type:RETURN_CARD, isRecto: currentView.isRecto})
       }
-      const handleClickNext = () => {
-        dispatch({type:RESET_CARD, isRecto: defaultView.isRecto})
-        database.splice(cardId, 1)
-        console.log({failedCards})
-      }
 
 
   const showedCard = database[cardId]
@@ -61,7 +56,7 @@ return  <>
   }
   </div>
   <p style={{fontSize: "1.5em"}}> Cartes restantes: {cardsNumberInDeck-1}</p>
-  <Next failedCards={failedCards} database={database} showedCard={showedCard} nextCard={nextCard} setNextCard={setNextCard} deckId={deckId} handleClickNext={handleClickNext} cardsNumberInDeck={cardsNumberInDeck} addFailedCards={addFailedCards}/>
+  <Next failedCards={failedCards} database={database} showedCard={showedCard} nextCard={nextCard} setNextCard={setNextCard} deckId={deckId} cardsNumberInDeck={cardsNumberInDeck} addFailedCards={addFailedCards}/>
   </>
 }
 export default ShowCards

@@ -2,11 +2,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import {NavLink, useParams} from 'react-router-dom'
 import { FETCH_CARDS, RESET_CARD, EDIT_OPTIONS } from '../../actions'
 
-const Next = ({ failedCards, database, nextCard, deckId,  handleClickNext, cardsNumberInDeck, setNextCard, showedCard, addFailedCards }) => {
+const Next = ({ failedCards, database, nextCard, deckId, cardsNumberInDeck, setNextCard, showedCard, addFailedCards }) => {
   // if(nextCard >=cardsNumberInDeck-1) {
   //   setNextCard(cardsNumberInDeck-2)
   //   console.log("after modif", nextCard)
   // }
+  const dispatch = useDispatch()
   const { defaultView, currentView, isFailed } = useSelector((state) => state.card)
   const {cardId} = useParams()
   const nextCardURL = () => { if(nextCard >=cardsNumberInDeck || nextCard === 0) {
@@ -15,8 +16,16 @@ const Next = ({ failedCards, database, nextCard, deckId,  handleClickNext, cards
     return `/deck/${deckId}/${nextCard-1}`
   }
 }
+
+const handleClickNext = () => {
+  dispatch({type:RESET_CARD, isRecto: defaultView.isRecto})
+  database.splice(cardId, 1)
+  console.log({failedCards})
+}
+
   const handleClickFail = () => {
-    handleClickNext();
+    dispatch({type:RESET_CARD, isRecto: defaultView.isRecto})
+    database.splice(cardId, 1)
     addFailedCards(showedCard)
   }
 
@@ -31,15 +40,10 @@ return (
         <button onClick={()=>handleClickNext()}>
           <NavLink to={nextCardURL} > J'ai eu bon! </NavLink>
         </button>
-        {!isFailed?
           <button onClick={()=>handleClickFail()}>
             <NavLink to={nextCardURL} > J'ai eu faux!</NavLink>
           </button>
-        :
-        <button onClick={()=>handleClickNext()}>
-          <NavLink to={nextCardURL} > Encore raté(sauvegarde serveur) </NavLink>
-        </button>
-        }
+
       </>)
  }
   </div>

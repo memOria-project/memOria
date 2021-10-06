@@ -19,40 +19,67 @@ const CardDisplay = () => {
   const { deckId, cardId } = useParams()
   // const [nextCard, setNextCard] = useState();
   // Set the current deck id in the state
-  let database = useSelector(state => state.currentDeck).currentDeckContent 
+  const allCards = useSelector(state => state.currentDeck).currentDeckContent.cards 
+  const deckTitle = useSelector(state => state.currentDeck).currentDeckContent.title
+  
 
   useEffect(() => {
     dispatch({ type: SET_CURRENT_DECK_ID, currentDeckId: deckId })
     dispatch({ type: FETCH_CARDS })
   }, [])
   useEffect(()=> {
-    if(database && database["cards"].length){
+    if(allCards?.length){
       setLoading(false)
     }
-  }, [database])
+  }, [allCards])
+
 
 const isFailed = useSelector(state=> state.card.isFailed) 
-
-const [failedCards, setFailedCards] = useState([] ?? [{recto:"no more cards", verso: "no more cards"}])
+const isAlternateRequired = useSelector((state)=> state.card.isAlternateRequired)
+const [initialFailedCards, setInitialFailedCards] = useState([])
+const [alternateFailedCards, setAlternateFailedCards] = useState([])
 const [showOptions, setShowOptions] = useState(true)
 const [loading, setLoading] = useState(true)
 
+let database = [{recto: "recto", verso:"verso"}] ?? [{recto: "recto", verso:"verso"}] 
+const selectDatabase = () => {
+
+  if(isAlternateRequired) {
+    console.log({database, alternateFailedCards})
+
+    database= alternateFailedCards
+  }
+  else if(isFailed) {
+    database=initialFailedCards
+  }
+  else if(!isFailed) {
+    database= allCards
+  }
+}
+  selectDatabase()
+  let databaseFailedCards
+  const selectFailedCards = () => {
+    if (isAlternateRequired) {
+      databaseFailedCards = initialFailedCards
+    }
+    else if (isFailed) {
+      databaseFailedCards = alternateFailedCards
+    }
+    else if (!isFailed&&!isAlternateRequired) {
+      databaseFailedCards = initialFailedCards
+    }
+}
+selectFailedCards()
 
 const checkIfOver = () => {
-  if(database&&database['cards'].length === 0 && isFailed&&failedCards.length > 0) // si l'un ou l'autre des paquets est terminé... 
-  {
-    return false
-  }
-  else if(database&&database['cards'].length === 0 && isFailed&&failedCards.length === 0)
-  {
-    
-    return true
-  }
-  else if(database&&database['cards'].length === 0 && !isFailed)
+  // if(!isFailed&&database?.length === 0 || isFailed&&initialFailedCards.length === 0 || isAlternateRequired&&alternateFailedCards.length === 0)
+  if(database?.length === 0)
   {
     return true
   }
+
   else {
+    console.log({isFailed, databaseFailedCards})
     return false
   }
 }
@@ -60,8 +87,13 @@ const checkIfOver = () => {
 const isOver = checkIfOver()
 
 const addFailedCards = (card) => {
-    setFailedCards((state) => [...state, card])
-    console.log("failedCards:", failedCards)
+  if(isFailed) {
+    setAlternateFailedCards((state)=> [...state, card])
+  }
+
+  else{
+    setInitialFailedCards((state) => [...state, card])
+  }
   }
 
   return (<div>
@@ -69,20 +101,14 @@ const addFailedCards = (card) => {
           <div className="cardDisplay__modal"> 
             <Options setShowOptions={setShowOptions} />
           </div>}
-          
-          {database&&database['cards'].length>=1&&
+
+          {database?.length>=1&&
             (<>
-            <p className="deck__title">{database["title"]} </p>
-            <ShowCards database={database["cards"]} addFailedCards={addFailedCards} failedCards={failedCards} />
+            <p className="deck__title">{deckTitle} </p>
+            <ShowCards database={database} addFailedCards={addFailedCards} failedCards={databaseFailedCards} />
             </>)}
           {isOver && 
-            <NextGame isFailed={isFailed} failedCards={failedCards}/>}
-          {isFailed&&
-              (<> 
-              <p className="deck__title">{database["title"]} </p>
-              <ShowCards database={failedCards} addFailedCards={addFailedCards} failedCards={failedCards}  />
-              </>)
-          }
+            <NextGame isAlternateRequired={isAlternateRequired} isFailed={isFailed} failedCards={databaseFailedCards} alternateFailedCards={alternateFailedCards} />}
 
           {loading&&<Loading />}
 
