@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { FETCH_CARDS, SET_CURRENT_DECK_ID, EDIT_CARD } from '../../actions'
+import { FETCH_CARDS, SET_CURRENT_DECK_ID, EDIT_CARD, DELETE_CARD } from '../../actions'
 import { useEffect } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import MDEditor from '@uiw/react-md-editor'
@@ -23,12 +23,25 @@ const DeckEditor = () => {
   console.log('currentDeckInEditor', currentDeckInEditor);
 
   const handleClick = (event) => {
+    if(event.target.parentNode.id){
     const clickedCard = event.target.parentNode.id
     const cardContent = currentDeckInEditor.find((card) => clickedCard == card.id)
     dispatch({type:EDIT_CARD, field:[{"field":"recto",
       "value": cardContent.recto}, {"field":"verso", "value":cardContent.verso}]})
     }
+    else{
+      console.log(event)
+      const cardId = parseInt(event.target.id, 10)
+      dispatch({type:DELETE_CARD, cardId});
+    }
+    }
+  
+  const handleClickDelete = (event) => {
+    console.log(event)
+    const cardId = event.target.id
+    dispatch({type:DELETE_CARD, cardId});
 
+  }
   //counter for cards
   let count = 1
   // 
