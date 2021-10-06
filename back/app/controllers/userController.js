@@ -1,5 +1,6 @@
 const User = require('../models/user')
 const Deck = require('../models/deck')
+const Card = require('../models/card')
 const jwt = require('../services/jwt')
 const userController = {
 
@@ -10,10 +11,13 @@ const userController = {
       response.setHeader('Access-Control-Expose-Headers', 'Authorization')
       response.setHeader('Authorization', jwt.makeToken(user.id))
 
-      // récupère la liste des deck appartenant à user
-      // get decks list owned by user
       if (user.id) {
+        // récupère la liste des deck appartenant à user
+        // get decks list owned by user
         user.decks = await Deck.decksByUserId(user.id)
+        // récupère la liste des cartes reportées par l'utilisateur
+        // get cards array delayed by the user
+        user.delayedCards = await Card.hasBeenDelayedBy(user.id)
       }
 
       response.status(200).json(user)

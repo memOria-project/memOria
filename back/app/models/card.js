@@ -39,6 +39,26 @@ class Card {
   }
 
   /**
+ * Get all delayer cards by user
+ */
+  static async hasBeenDelayedBy (userId) {
+    try {
+      const { rows } = await db.query(`
+        SELECT array_agg(delay.card_id) as delayed_card
+        FROM delay
+        WHERE user_id=$1`,
+      [userId])
+      return [...new Set(rows[0].delayed_card)] // send a filtered arrays removing duplicated elm
+    } catch (error) {
+      if (error.detail) {
+        throw new Error(error.detail)
+      } else {
+        throw error
+      }
+    }
+  }
+
+  /**
    * Add a card to the database or update if it exists yet
    */
   async save () {
