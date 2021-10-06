@@ -122,11 +122,22 @@ class Card {
  */
   async addDelay (userId) {
     try {
-      const { rows } = await db.query('INSERT INTO delay (card_id, user_id) VALUES ($1, $2) RETURNING card_id, to_date', [this.id, userId])
-      // const newDelay = await db.query('SELECT FROM delay_card(($1, $2)', [this.id, userId])
-      if (rows[0]) {
-        return { cardId: rows[0].card_id, toDate: rows[0].to_date }
+      this.purgeDelay()
+      const { rows } = await db.query('UPDATE delay SET to_date=(now()+\'1 day\'::interval) WHERE card_id=$1 AND user_id=$2 RETURNING card_id, to_date', [this.id, userId])
+      console.log(!rows.length)
+      if (!rows.length) {
+        const newDelay = await db.query('INSERT INTO delay (card_id, user_id, to_date) VALUES ($1, $2, (now()+\'1 day\'::interval)) RETURNING card_id, to_date', [this.id, userId])
+        return { cardId: newDelay.rows[0].card_id, toDate: newDelay.rows[0].to_date }
       }
+      return { cardId: rows[0].card_id, toDate: rows[0].to_date }
+    } catch (error) {
+      throw new Error(error.detail ? error.detail : error.message)
+    }
+  }
+
+  async purgeDelay () {
+    try {
+      await db.query('DELETE FROM delay WHERE to_date < now()')
     } catch (error) {
       throw new Error(error.detail ? error.detail : error.message)
     }
