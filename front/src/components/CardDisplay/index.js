@@ -9,6 +9,7 @@ import ShowCards from './ShowCards'
 import { orderedListCommand } from '@uiw/react-md-editor'
 import Loading from '../Loading'
 import Options from './Options'
+import NextGame from './NextGame'
 // import jsonTestDatabase from '../../assets/jsonTestDatabase';
 // Display zone for cards. Cards from a Deck are displayed one by one.
 // User can choose to switch to card verso and vice versa.
@@ -18,19 +19,45 @@ const CardDisplay = () => {
   const { deckId, cardId } = useParams()
   // const [nextCard, setNextCard] = useState();
   // Set the current deck id in the state
+  let database = useSelector(state => state.currentDeck).currentDeckContent 
+
   useEffect(() => {
     dispatch({ type: SET_CURRENT_DECK_ID, currentDeckId: deckId })
-  }, [])
-
-  useEffect(() => {
     dispatch({ type: FETCH_CARDS })
-  }, [deckId])
+  }, [])
+  useEffect(()=> {
+    if(database && database["cards"].length){
+      setLoading(false)
+    }
+  }, [database])
 
-let database = useSelector(state => state.currentDeck).currentDeckContent
-const isFailed = useSelector(state=> state.card.isFailed)
+const isFailed = useSelector(state=> state.card.isFailed) 
 
-const [failedCards, setFailedCards] = useState([])
+const [failedCards, setFailedCards] = useState([] ?? [{recto:"no more cards", verso: "no more cards"}])
 const [showOptions, setShowOptions] = useState(true)
+const [loading, setLoading] = useState(true)
+
+
+const checkIfOver = () => {
+  if(database&&database['cards'].length === 0 && isFailed&&failedCards.length > 0) // si l'un ou l'autre des paquets est terminé... 
+  {
+    return false
+  }
+  else if(database&&database['cards'].length === 0 && isFailed&&failedCards.length === 0)
+  {
+    
+    return true
+  }
+  else if(database&&database['cards'].length === 0 && !isFailed)
+  {
+    return true
+  }
+  else {
+    return false
+  }
+}
+
+const isOver = checkIfOver()
 
 const addFailedCards = (card) => {
     setFailedCards((state) => [...state, card])
@@ -43,18 +70,23 @@ const addFailedCards = (card) => {
             <Options setShowOptions={setShowOptions} />
           </div>}
           
-          {database&&database['cards'].length>=1?
+          {database&&database['cards'].length>=1&&
             (<>
             <p className="deck__title">{database["title"]} </p>
             <ShowCards database={database["cards"]} addFailedCards={addFailedCards} failedCards={failedCards} />
-            </>)
-            :isFailed?
+            </>)}
+          {isOver && 
+            <NextGame isFailed={isFailed} failedCards={failedCards}/>}
+          {isFailed&&
               (<> 
               <p className="deck__title">{database["title"]} </p>
               <ShowCards database={failedCards} addFailedCards={addFailedCards} failedCards={failedCards}  />
               </>)
-            :(<Loading />)}
-            </div>)
+          }
+
+          {loading&&<Loading />}
+
+           </div>)
   }
 
 export default CardDisplay

@@ -14,6 +14,8 @@ const ShowCards = ({database, addFailedCards, failedCards }) => {
   const [nextCard, setNextCard] = useState("/");
   let cardsNumberInDeck = database.length;
   const allCards = database
+
+  const myCard = database[cardId] ?? [{recto:"recto", verso:"verso"}]
   console.log(allCards)
   let nextCardURL ="/"
   useEffect(()=> {
@@ -39,6 +41,7 @@ const ShowCards = ({database, addFailedCards, failedCards }) => {
       const handleClickNext = () => {
         dispatch({type:RESET_CARD, isRecto: defaultView.isRecto})
         database.splice(cardId, 1)
+        console.log({failedCards})
       }
 
 
@@ -49,11 +52,11 @@ return  <>
 
   {currentView.isRecto?
     <pre>
-  <MDEditor.Markdown source={database[cardId]["recto"]} />
+  <MDEditor.Markdown source={myCard["recto"]} />
   </pre>
   :
   <pre> 
-  <MDEditor.Markdown source={database[cardId]["verso"]} />
+  <MDEditor.Markdown source={myCard["verso"]} />
   </pre>
   }
   </div>
