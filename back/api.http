@@ -92,12 +92,20 @@ Content-Type: application/json
 {
     "deckId" : 7,
     "recto": "Une carte à faible durée de vie...",
-    "verso": "...est amenée à disparaître mais pas tout de suite",
-    "id": 80
+    "verso": "...est amenée à disparaître mais pas tout de suite"
 }
 
 ### Add a card
 DELETE {{baseUrl}}/card
+Authorization: {{auth}}
+Content-Type: application/json
+
+{
+    "id" : 80
+}
+
+### Delay a card
+POST {{baseUrl}}/card/delay
 Authorization: {{auth}}
 Content-Type: application/json
 
