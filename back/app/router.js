@@ -37,6 +37,15 @@ router.get('/user/cards', checkJwt, cardController.getCardsFromUser)
  */
 router.post('/card', checkJwt, cardController.save)
 
+// Delay a card for a specific user
+/**
+ * Respond with all cards of the connected user
+ * @route POST /card/delay
+ * @returns {integer<cardId>, timestamptz<toDate} 200 - The delayed card id as integer, a delaying date as TIMESTAMPTZ
+ * @returns {string} 500 - Server error
+ */
+router.post('/card/delay', checkJwt, cardController.delay)
+
 // Delete a card of a user
 /**
  * Respond with all cards of the connected user

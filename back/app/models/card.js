@@ -24,7 +24,7 @@ class Card {
   }
 
   /**
-   * Add a card to the database
+   * Add a card to the database or update if it exists yet
    */
   async save () {
     try {
@@ -64,7 +64,7 @@ class Card {
   }
 
   /**
-   * Add a card to the database
+   * Delete a card from the database
    */
   async delete () {
     try {
@@ -78,6 +78,21 @@ class Card {
       }
     } catch (error) {
       // on relance l'erreur pour que le contrôleur puisse l'attraper et la retransférer au front
+      throw new Error(error.detail ? error.detail : error.message)
+    }
+  }
+
+  /**
+ * Delay a card from the database
+ */
+  async addDelay (userId) {
+    try {
+      const newDelay = await db.query('INSERT INTO delay (card_id, user_id) VALUES ($1, $2) RETURNING card_id, to_date', [this.id, userId])
+      // const newDelay = await db.query('SELECT FROM delay_card(($1, $2)', [this.id, userId])
+      if (newDelay.rows[0]) {
+        return { cardId: this.card_id, toDate: this.to_date }
+      }
+    } catch (error) {
       throw new Error(error.detail ? error.detail : error.message)
     }
   }
