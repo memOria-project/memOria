@@ -2,7 +2,7 @@
 # @baseUrl=https://memoriapo.herokuapp.com/v1
 @host=http://localhost:3500
 
-@auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTYzMzQ0MzQyMiwiZXhwIjoxNjMzNDQ0MDIyfQ.DlI0VH79RKTB9JXGo4Avx7V_rH3I0XZ1Bge8GdPOpXw
+@auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTYzMzQ2OTQyMiwiZXhwIjoxNjMzNDcwMDIyfQ.hcHF1hiBROp7dh_DrQaAVsdO58vPr1h2qxs3rIObFiI
 
 ### Get all decks
 GET {{baseUrl}}/decks
@@ -76,12 +76,13 @@ GET {{baseUrl}}/user/infos
 # coller Authorization + token généré et founi par le serveur
 Authorization: {{auth}}
 
+
+#-----------  CARDS CRUD -------------------------------
+
 ### Get user cards
 GET {{baseUrl}}/user/cards
 # coller Authorization + token généré et founi par le serveur
 Authorization: {{auth}}
-
-#-----------  CARDS CRUD -------------------------------
 
 ### Add a card
 POST {{baseUrl}}/card
@@ -89,8 +90,19 @@ Authorization: {{auth}}
 Content-Type: application/json
 
 {
-    "id" : 5,
-    "verso": "... c'est la vie\n![](http://www.onenagros.org/wordpress/wp-content/uploads/persos/Karadoc.jpg)"
+    "deckId" : 7,
+    "recto": "Une carte à faible durée de vie...",
+    "verso": "...est amenée à disparaître mais pas tout de suite",
+    "id": 80
+}
+
+### Add a card
+DELETE {{baseUrl}}/card
+Authorization: {{auth}}
+Content-Type: application/json
+
+{
+    "id" : 80
 }
 
 # ### Tests benchmark Redis ...
