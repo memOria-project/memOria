@@ -72,17 +72,17 @@ const userController = {
       console.log(error)
       response.status(500).json(error.message)
     }
-  },
-
-  remove: async function (request, response) {
-    try {
-      const data = await User.delete(parseInt(request.params.id, 10))
-      response.status(200).json(data)
-    } catch (error) {
-      console.log(error)
-      response.status(500).json(error.message)
-    }
   }
+
+  // remove: async function (request, response) {
+  //   try {
+  //     const data = await User.delete(parseInt(request.params.id, 10))
+  //     response.status(200).json(data)
+  //   } catch (error) {
+  //     console.log(error)
+  //     response.status(500).json(error.message)
+  //   }
+  // }
 
 }
 

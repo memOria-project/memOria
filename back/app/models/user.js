@@ -37,9 +37,9 @@ class User {
 
       return { id: rows[0].id }
     } catch (error) {
-      console.log(error)
       if (error.detail) {
-        throw new Error(error.detail)
+        console.log(error.detail)
+        // throw new Error(error.detail)
       }
       throw error
     }
@@ -61,11 +61,14 @@ class User {
       if (!isValid) {
         throw new Error('Identifiant ou mot de passe incorrect')
       }
+      if (this.newPassword) {
+        const encriptedNewPassword = await bcrypt.hash(this.newPassword, 15)
+        this.newPassword = encriptedNewPassword
+      }
       await db.query('SELECT update_user($1)', [this])
     } catch (error) {
-      console.log(error)
       if (error.detail) {
-        throw new Error(error.detail)
+        console.log(error)
       }
       throw error
     }
