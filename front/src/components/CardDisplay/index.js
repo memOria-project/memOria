@@ -3,7 +3,7 @@ import './CardDisplay-Desktop.scss'
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { SET_CURRENT_DECK_ID, FETCH_CARDS } from '../../actions'
+import { SET_CURRENT_DECK_ID, FETCH_CARDS, CHECK_TOKEN } from '../../actions'
 
 import ShowCards from './ShowCards'
 import Loading from '../Loading'
@@ -22,6 +22,8 @@ const CardDisplay = () => {
   useEffect(() => {
     dispatch({ type: SET_CURRENT_DECK_ID, currentDeckId: deckId })
     dispatch({ type: FETCH_CARDS })
+    dispatch({ type: CHECK_TOKEN })
+
   }, [])
   // Trigger loading while the cards are not fetched
   useEffect(() => {
@@ -111,13 +113,13 @@ const CardDisplay = () => {
   return (<div>
           {showOptions &&
             <div className="cardDisplay__modal">
-              <Options setShowOptions={setShowOptions} />
+              <Options setShowOptions={setShowOptions} delayedCards={delayedCards} />
             </div>
           }
-
           {database?.length >= 1 &&
             (<>
             <p className="deck__title">{deckTitle} </p>
+            <button onClick={() => setShowOptions(true)}>Show Options</button>
             <ShowCards database={database} addFailedCards={addFailedCards} failedCards={databaseFailedCards} />
             </>)
           }
