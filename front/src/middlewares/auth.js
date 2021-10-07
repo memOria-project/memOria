@@ -1,4 +1,4 @@
-import { LOG_IN, UPDATE_USER, GET_USER, DELETE_TOKEN, DISCONNECT, UPDATE_SESSION, CHECK_TOKEN, SUBSCRIBE } from '../actions'
+import { LOG_IN, UPDATE_USER, GET_USER, DELETE_TOKEN, DISCONNECT, UPDATE_SESSION, CHECK_TOKEN, SUBSCRIBE, UPDATE_PROFILE } from '../actions'
 
 const auth = (store) => (next) => (action) => {
   const { email, password } = store.getState().user
@@ -129,6 +129,38 @@ const auth = (store) => (next) => (action) => {
       postUser()
       break
     
+    }
+    case UPDATE_PROFILE: {
+      const { name, email, password, oldpassword } = action.data;
+      const newPassword = password;
+      const form = {
+        name,
+        email,
+        newPassword,
+        oldpassword
+      }
+
+      const options = {
+        method:'POST',
+        headers: {
+         'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(form)
+      }
+      const updateUser = async () => {
+      try {
+        const request = await fetch(`${back}/user/update`, options)
+        const response = await request.json()
+        if(response.status === 201){
+        store.dispatch({type:UPDATE_USER, password, email, name})
+        // supprimer LOG_IN si on souhaite éviter le login automatique après l'inscription pour raison de sécu
+        store.dispatch({type:LOG_IN})
+        }
+        }
+        catch (error){console.log(error)}
+      }
+      updateUser()
+      break
     }
     default:
       next(action)

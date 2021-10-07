@@ -19,12 +19,8 @@ const reducer = (state = initialState, action = {}) => {
     //   }
 
     case DISCONNECT:
-      return {
-        ...state,
-        isConnected: false,
-        name: '',
-        email: ''
-      }
+      return initialState
+      
 
     case UPDATE_LOGIN:
       return {

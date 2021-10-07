@@ -1,19 +1,26 @@
 import { useForm } from 'react-hook-form'
 import { ErrorMessage } from '@hookform/error-message'
-import { SUBSCRIBE } from '../../actions'
+import { SUBSCRIBE, UPDATE_PROFILE } from '../../actions'
 import { Link, Redirect } from 'react-router-dom'
 import './subscribe.scss'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 
-const Form = () => {
-  const { register, handleSubmit, watch, getValues, formState: { errors, isValid, isSubmitted } } = useForm({ mode: 'onChange' })
+const Form = ({isInProfile}) => {
+  const {name, email} = useSelector((state)=>state.user)
+  const { register, handleSubmit, watch, getValues, formState: { errors, isValid, isSubmitted } } = useForm({ mode: 'onChange'})
   const dispatch = useDispatch();
+
   if(isSubmitted) {
     return <Redirect to="/profile" />
   }
-  return (<form className='userForm' onSubmit = {handleSubmit((data) => 
-    {dispatch({ type: SUBSCRIBE, data })
+  return (<form className='userForm' onSubmit = {handleSubmit((data) => {
+    if (isInProfile)
+      {
+    dispatch({ type: UPDATE_PROFILE, data })
+      } else {
+    dispatch({ type: SUBSCRIBE, data })
+      }
     })}>
     <label className='form__label'> Nom d'utilisateur
       <input
@@ -22,7 +29,9 @@ const Form = () => {
             required: 'Nom requis',
             minLength: { value: 4, message: '4 caractères minimum! ' },
             maxLength: { value: 15, message: '15 caractères maximum! ' }
-          })} />
+          })} 
+        defaultValue={name}
+          />
     </label>
     <ErrorMessage errors ={errors} render={({ message }) => <span className='label--error'>{message}</span>} name="name" />
 
@@ -38,6 +47,8 @@ const Form = () => {
             }
           })
         }
+        defaultValue={email}
+
           />
     </label>
     <ErrorMessage errors ={errors} render={({ message }) => <span className='label--error'>{message}</span>} name="email" />
@@ -80,10 +91,22 @@ const Form = () => {
         }
         />
     </label>
-    <ErrorMessage errors ={errors} render={({ message }) => <span className='label--error'>{message}</span>} name="confirmPassword" />
 
-    <Link to="/signin"><button>J'ai déjà un compte</button></Link>
+    <ErrorMessage errors ={errors} render={({ message }) => <span className='label--error'>{message}</span>} name="confirmPassword" />
+        <br />
+    {isInProfile&&
+      <label className='form__label'> <strong> Veuillez indiquer le Mot de passe actuel</strong>
+      <input
+        {...register('oldpassword')
+        }
+        />
+    </label>
+    }
+    {!isInProfile&&<Link to="/signin"><button>J'ai déjà un compte</button></Link>}
+    {isInProfile?<button type="submit" disabled={!isValid}>Mettre à jour</button>
+    :
     <button type="submit" disabled={!isValid}>S'inscrire</button>
+    }
   </form>)
 }
 export default Form
