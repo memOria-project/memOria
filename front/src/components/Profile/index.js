@@ -1,20 +1,18 @@
 import { useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import PersonalisedDeck from '../Deck/PersonalisedDeck'
 import Loading from '../Loading'
 import Form from '../Subscribe/Form'
 import './Profile.scss'
 
-
-
 const Profile = ()=>{
-    
+
 const {name, email} = useSelector((state)=> state.user);
 const isConnected = useSelector((state)=> state.user.isConnected)
-const personalizedDecks = useSelector((state)=>(state.user.decks))
+const personalizedDecks = useSelector((state) => (state.user.decks))
 const [showForm, setShowForm] = useState(false);
-
+const [loading, setLoading] = useState(true)
 console.log(personalizedDecks);
 const handleClick = () => {
   setShowForm((state)=> !state)
@@ -23,6 +21,12 @@ if(!isConnected){
   console.log("redirect")
   return <Redirect to="/signin" />
 }
+useEffect(()=> {
+if(personalizedDecks || personalizedDecks.length === 0)
+{
+  setLoading(false)
+}
+}, [personalizedDecks])
 
 return (<>
         <div> 
@@ -31,7 +35,7 @@ return (<>
 
         <div className="profileEdit">
           <p><strong>Adresse Email</strong>: {email}</p>
-          
+
           {showForm?
           <>
             <Form isInProfile={true} />
@@ -42,13 +46,21 @@ return (<>
           }
         </div>
         <div className="personalizedDecksDisplay">
-          <h1 className="personalizedDecksDisplay__title">Vos paquets personnalisés :</h1>
+          <h1 className="personalizedDecksDisplay__title">Vos paquets personnalisés</h1>
+
           <div className="personalizedDecksDisplay__decks-container">
-          {personalizedDecks&&personalizedDecks.length?personalizedDecks.map((deck) => {
-                return <div className="deck-container" key={deck.id}> <PersonalisedDeck  deck={deck} /> </div>
-            }):<Loading />}
+          <div className="personalDecks__new">
+            + <br/>
+            Nouveau paquet
           </div>
-        </div>
+          {personalizedDecks&&personalizedDecks.length&&personalizedDecks.map((deck) => {
+                return <div className="deck-container" key={deck.id}> <PersonalisedDeck  deck={deck} /> </div>
+            })}
+          {loading&&<Loading />}
+          </div>
+
+          </div>
+       
         </>
         )
         

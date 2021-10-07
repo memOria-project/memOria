@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { EDIT_OPTIONS } from '../../actions'
-import RectoVerso from '../RectoVerso'
+import RectoVerso from './RectoVerso'
 import DelayedCards from './DelayedCards'
 
 const Options = ({setShowOptions, delayedCards}) => {
@@ -28,7 +28,9 @@ const Options = ({setShowOptions, delayedCards}) => {
 
   return (
     <div style={{margin:"2em"}}>
-      <h1> Options       <button onClick={()=>setShowOptions(false)}>cacher</button> <br /></h1>
+      <h1> Options
+        {/* <button onClick={()=>setShowOptions(false)}>cacher</button> <br /> */}
+      </h1>
 
       <h2>Montrer en premier </h2>
         <RectoVerso />
@@ -38,7 +40,7 @@ const Options = ({setShowOptions, delayedCards}) => {
           <DelayedCards handleClick={handleClick} isActive={isActive} delayedCards={delayedCards} />
         </>
         }
-        <button className="btn__submit" onClick={handleClick} id="start" type="submit">Commencer</button>
+        <button className="btn__submit" onClick={handleClick} id="start" type="submit">Continuer</button>
 
      </div>
   )
