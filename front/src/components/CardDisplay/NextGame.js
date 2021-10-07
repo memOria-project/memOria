@@ -1,4 +1,4 @@
-import {FETCH_CARDS, EDIT_OPTIONS} from '../../actions'
+import {FETCH_CARDS, EDIT_OPTIONS, CHECK_TOKEN} from '../../actions'
 import {useDispatch} from 'react-redux'
 import { NavLink, useParams } from 'react-router-dom'
 
@@ -41,6 +41,7 @@ const NextGame = ({isFailed, failedCards, setIsAlternateRequired, alternateFaile
   const check = isRecheckAllowed();
   const firstCardURL = `/deck/${deckId}/0`
   const dispatch = useDispatch()
+  dispatch({type: CHECK_TOKEN })
 
   return (
   <div class="cardDisplay__modal">

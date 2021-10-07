@@ -111,7 +111,7 @@ const CardDisplay = () => {
   return (<div>
           {showOptions &&
             <div className="cardDisplay__modal">
-              <Options setShowOptions={setShowOptions} />
+              <Options setShowOptions={setShowOptions} delayedCards={delayedCards} />
             </div>
           }
 

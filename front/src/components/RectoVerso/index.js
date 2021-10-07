@@ -4,7 +4,7 @@ import { PICK_ORDER } from '../../actions'
 
 const RectoVerso = ()=>{
   const {defaultView, currentView } = useSelector((state)=>state.card);
-  const [isActive, setIsActive] = useState({recto: false, verso:false})
+  const [isActive, setIsActive] = useState({recto: true, verso:false})
 
   const dispatch = useDispatch();
   const handleClick = (event) => {
