@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { NavLink } from 'react-router-dom'
 import { EDIT_OPTIONS } from '../../actions'
 import RectoVerso from '../RectoVerso'
 import DelayedCards from './DelayedCards'
@@ -27,7 +28,7 @@ const Options = ({setShowOptions, delayedCards}) => {
 
   return (
     <div style={{margin:"2em"}}>
-      <h1> Options</h1>
+      <h1> Options       <button onClick={()=>setShowOptions(false)}>cacher</button> <br /></h1>
 
       <h2>Montrer en premier </h2>
         <RectoVerso />
