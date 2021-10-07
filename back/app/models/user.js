@@ -56,7 +56,7 @@ class User {
       if (!rows[0]) {
         throw new Error("Cet utilisateur n'existe pas")
       }
-      const isValid = await bcrypt.compare(this.password, rows[0].password)
+      const isValid = await bcrypt.compare(this.currentPassword, rows[0].password)
 
       if (!isValid) {
         throw new Error('Identifiant ou mot de passe incorrect')
