@@ -13,6 +13,7 @@ export const initialState = {
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case SET_CURRENT_DECK_ID:
+
       return {...state, currentDeckId: action.currentDeckId};
 
     case GET_CURRENT_DECK_CONTENT:

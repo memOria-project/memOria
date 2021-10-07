@@ -1,14 +1,23 @@
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { EDIT_OPTIONS } from '../../actions'
 import RectoVerso from '../RectoVerso'
-
+import DelayedCards from './DelayedCards'
 const Options = ({setShowOptions}) => {
-  let className = "btn__options"
-  let classNameActive = "btn__options--active"
-
+  const isConnected = useSelector((state) => state.user.isConnected)
+  const {isDelayedReviewOn} = useSelector((state) => state.card)
+  const dispatch = useDispatch()
   const [isActive, setIsActive] = useState({allCards: false, onlyFailed:false})
+
   const handleClick = (event) => {
     if (event.target.id === "start") {
       setShowOptions((state)=> !state)
+    }
+    else if (event.target.id === "allCards") {
+      dispatch({type:EDIT_OPTIONS, field: "isDelayedReviewOn", value: false})
+    }
+    else if (event.target.id === "onlyFailed") {
+      dispatch({type:EDIT_OPTIONS, field: "isDelayedReviewOn", value: true})
     }
     setIsActive((state)=>({...state, allCards: false, onlyFailed: false }))
     setIsActive((state) => ({...state, [event.target.id]:true}))
@@ -20,10 +29,14 @@ const Options = ({setShowOptions}) => {
 
       <h2>Montrer en premier </h2>
         <RectoVerso />
-      <h2>  Parcourir les cartes</h2>
-        <button id="allCards" onClick={handleClick} className={isActive.allCards?classNameActive:className}>apprises et non apprises</button>
-        <button id="onlyFailed" className={isActive.onlyFailed?classNameActive:className} onClick={handleClick}> non apprises</button> <br /> <br />
+      {isConnected&&
+        <>
+          <h2>  Parcourir les cartes</h2>
+          <DelayedCards handleClick={handleClick} isActive={isActive} />
+        </>
+        }
         <button className="btn__submit" onClick={handleClick} id="start" type="submit">Commencer</button>
+
      </div>
   )
 }

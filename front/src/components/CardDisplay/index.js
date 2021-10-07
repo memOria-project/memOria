@@ -14,7 +14,7 @@ const CardDisplay = () => {
   const dispatch = useDispatch()
   // use URl parameters to determine the card to display from deck and card id
   const { deckId } = useParams()
-
+  const delayedIds = useSelector((state) => state.user.delayedCards)
   const allCards = useSelector(state => state.currentDeck).currentDeckContent.cards
   const deckTitle = useSelector(state => state.currentDeck).currentDeckContent.title
 
@@ -28,24 +28,50 @@ const CardDisplay = () => {
     if (allCards?.length) {
       setLoading(false)
     }
-  }, [allCards])
+
+    if(allCards?.length&&delayedIds?.length) {
+      const delayedCardsWithNulls = allCards.map((card)=> {
+        const myCard = delayedIds.indexOf(card.id)
+        if(myCard != -1){
+          return card
+        }
+        else{
+          return null
+        }
+        })
+      const delayedCardsFinal = delayedCardsWithNulls.filter((value)=> value != null)
+      console.log({delayedCardsWithNulls, delayedCards})
+      setDelayedCards(delayedCardsFinal);
+  }
+  }, [allCards, delayedIds])
 
   const isFailed = useSelector((state) => state.card.isFailed)
-  const isAlternateRequired = useSelector((state) => state.card.isAlternateRequired)
+  const {isAlternateRequired, isDelayedReviewOn } = useSelector((state) => state.card)
   const [initialFailedCards, setInitialFailedCards] = useState([])
+  const [delayedCards, setDelayedCards] = useState([])
+
   const [alternateFailedCards, setAlternateFailedCards] = useState([])
   const [showOptions, setShowOptions] = useState(true)
   const [loading, setLoading] = useState(true)
 
   // "database" will be passed as props to the MD Editor and contains all the cards to be displayed
   let database = [{ recto: 'recto', verso: 'verso' }] ?? [{ recto: 'recto', verso: 'verso' }] // avoid undefined error when the user removed the last card from the deck while browsing
+  
+  
+
+
   const selectDatabase = () => {
     if (isAlternateRequired) {
       console.log({ database, alternateFailedCards })
       database = alternateFailedCards
     } else if (isFailed) {
       database = initialFailedCards
-    } else if (!isFailed) {
+    } 
+    else if (isDelayedReviewOn) {
+      database = delayedCards
+      console.log("delayedCards activated!")
+    } 
+    else if (!isFailed) {
       database = allCards
     }
   }

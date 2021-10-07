@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, useParams } from 'react-router-dom'
-import { FETCH_CARDS, RESET_CARD, EDIT_OPTIONS } from '../../actions'
+import { FETCH_CARDS, RESET_CARD, EDIT_OPTIONS, DELAY_CARD } from '../../actions'
 
 const Next = ({ failedCards, database, nextCard, deckId, cardsNumberInDeck, setNextCard, showedCard, addFailedCards }) => {
   // if(nextCard >=cardsNumberInDeck-1) {
@@ -9,6 +9,7 @@ const Next = ({ failedCards, database, nextCard, deckId, cardsNumberInDeck, setN
   // }
   const dispatch = useDispatch()
   const { defaultView, currentView, isFailed } = useSelector((state) => state.card)
+  const {isConnected} = useSelector((state)=>state.user)
   const {cardId} = useParams()
   const nextCardURL = () => { if(nextCard >=cardsNumberInDeck || nextCard === 0) {
     return `/deck/${deckId}/${nextCard}`
@@ -25,6 +26,10 @@ const handleClickNext = () => {
 
   const handleClickFail = () => {
     dispatch({type:RESET_CARD, isRecto: defaultView.isRecto})
+    if(isConnected)
+      {
+    dispatch({type: DELAY_CARD, id: showedCard.id })
+      }
     database.splice(cardId, 1)
     addFailedCards(showedCard)
   }

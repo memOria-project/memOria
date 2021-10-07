@@ -9,6 +9,7 @@ export const initialState = {
     },
     isFailed: false,
     isAlternateRequired:false,
+    isDelayedReviewOn: false,
     currentCard: {
       currentDeckId: false,
       currentCardId: false,

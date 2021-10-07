@@ -16,7 +16,7 @@ export const SUBSCRIBE = 'SUBSCRIBE'
 export const EDIT_CURRENT_DECK='EDIT CURRENT DECK'
 export const EDIT_OPTIONS = 'EDIT_OPTIONS'
 export const DELETE_CARD = 'DELETE_CARD'
-
+export const DELAY_CARD = 'DELAY_CARD'
 export const getAllDecks = (decks) => {
   return {
     type: GET_DECKS,
