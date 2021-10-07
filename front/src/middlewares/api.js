@@ -1,5 +1,5 @@
 import {
-  getAllDecks, FETCH_DECKS, FETCH_CARDS, getCurrentDeckContent, POST_CARD, EDIT_CURRENT_DECK, DELETE_CARD
+  getAllDecks, FETCH_DECKS, FETCH_CARDS, getCurrentDeckContent, POST_CARD, EDIT_CURRENT_DECK, DELETE_CARD, DELAY_CARD
 } from '../actions'
 
 const api = (store) => (next) => (action) => {
@@ -108,6 +108,29 @@ const api = (store) => (next) => (action) => {
         }catch(error) { console.log(error)}
       }
       deleteCard()
+      break
+    }
+    case DELAY_CARD: {
+      const cardToBeDelayed = {
+        id: action.id
+      }
+      const options = 
+      {
+          method: 'POST',
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': token },
+          body: JSON.stringify(cardToBeDelayed)
+      }
+      const delayCard = async () => {
+        try {
+          const request = await fetch(`${back}/card/delay`, options)
+          const response = await request.json()
+          console.log(response)
+        } catch (error) { console.log(error)}
+      }
+      delayCard();
+      break
     }
     default:
       next(action)
