@@ -4,16 +4,24 @@ import { SUBSCRIBE, UPDATE_PROFILE } from '../../actions'
 import { Link, Redirect } from 'react-router-dom'
 import './subscribe.scss'
 import { useDispatch, useSelector } from 'react-redux'
-
+import { useEffect, useState } from 'react'
 
 const Form = ({isInProfile}) => {
   const {name, email} = useSelector((state)=>state.user)
-  const { register, handleSubmit, watch, getValues, formState: { errors, isValid, isSubmitted } } = useForm({ mode: 'onChange'})
+  const { register, handleSubmit, watch, getValues, formState: { errors, isValid, isSubmitted, isSubmitSuccessful } } = useForm({ mode: 'onChange'})
   const dispatch = useDispatch();
-
+  const [Loading, setLoading] = useState(false)
+  useEffect(() => {
   if(isSubmitted) {
+    setLoading(true)
     return <Redirect to="/profile" />
   }
+  if(isSubmitSuccessful){
+    setLoading(false)
+
+  }
+}, [isSubmitted, isSubmitSuccessful])
+
   return (<form className='userForm' onSubmit = {handleSubmit((data) => {
     if (isInProfile)
       {
