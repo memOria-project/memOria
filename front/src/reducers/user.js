@@ -5,7 +5,8 @@ const initialState = {
   name: '',
   email: '',
   password: '',
-  decks: []
+  decks: [],
+  delayedCards: []
 }
 
 // Handle actions on authentication
@@ -32,13 +33,14 @@ const reducer = (state = initialState, action = {}) => {
       }
 
     case UPDATE_USER: {
-      const {name, email, decks, password } = action
+      const {name, email, decks, password, delayedCards } = action
       console.log("UPDATE_USER", action)
       return {...state,
         password,
         name,
         email,
         decks,
+        delayedCards,
         isConnected: true
 
       }

@@ -52,8 +52,9 @@ const auth = (store) => (next) => (action) => {
         try {
           const request = await fetch(`${back}/user/infos`, optionsGetUser)
           const response = await request.json()
-          const { name, email, decks } = response
-          store.dispatch({ type: UPDATE_USER, name, email, decks })
+          console.log("getUser", response)
+          const { name, email, decks, cardId } = response
+          store.dispatch({ type: UPDATE_USER, name, email, decks, cardId })
           // dispatch({type:GET_USER})
         } catch (error) { console.log(`${error} | can't get user data :( `) }
       }
@@ -79,12 +80,13 @@ const auth = (store) => (next) => (action) => {
       try {
         const request = await fetch(`${back}/user/infos`, optionsGetUser)
         const response = await request.json()
-        const { name, email, decks } = response
+        const { name, email, decks, delayedCards } = response
  
         console.log("Token has been checked");
+        console.log("CHECK_TOKEN", response)
         if(response.name) {
         // store.dispatch({ type: UPDATE_SESSION, isConnected:true })
-        store.dispatch({ type: UPDATE_USER, isConnected:true, name, email, decks })
+        store.dispatch({ type: UPDATE_USER, isConnected:true, name, email, decks, delayedCards })
 
         }
         else {
