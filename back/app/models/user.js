@@ -61,6 +61,10 @@ class User {
       if (!isValid) {
         throw new Error('Identifiant ou mot de passe incorrect')
       }
+      if (this.newPassword) {
+        const encriptedNewPassword = await bcrypt.hash(this.newPassword, 15)
+        this.newPassword = encriptedNewPassword
+      }
       await db.query('SELECT update_user($1)', [this])
     } catch (error) {
       console.log(error)
