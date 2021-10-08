@@ -18,6 +18,8 @@ export const EDIT_OPTIONS = 'EDIT_OPTIONS'
 export const DELETE_CARD = 'DELETE_CARD'
 export const DELAY_CARD = 'DELAY_CARD'
 export const UPDATE_PROFILE = 'UPDATE_PROFILE'
+export const CREATE_DECK = 'CREATE_DECK'
+
 export const getAllDecks = (decks) => {
   return {
     type: GET_DECKS,

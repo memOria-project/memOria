@@ -14,6 +14,9 @@ const Form = ({isInProfile}) => {
   useEffect(() => {
   if(isSubmitted) {
     setLoading(true)
+    // if(isInProfile){
+
+    // }
     return <Redirect to="/profile" />
   }
   if(isSubmitSuccessful){
