@@ -25,7 +25,7 @@ const CardDisplay = () => {
     dispatch({ type: CHECK_TOKEN })
 
   }, [])
-  // Trigger loading while the cards are not fetched
+  // filter data based on delayedIds! 
   useEffect(() => {
     if (allCards?.length) {
       setLoading(false)

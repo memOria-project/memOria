@@ -12,16 +12,6 @@ const CardEditor = ()=>{
     cardId = parseInt(cardId, 10)
 
     const isModified = useSelector((state) => state.currentDeck.isModified)
-
-    
-    // let initialDeckLength
-    // let deckLength
-    // if(deckCards) {
-    //   deckLength = deckCards.length
-    //   initialDeckLength = useRef(deckLength)
-    //   console.log({deckLength, initialDeckLength})
-    // }
-
     const [preview, setPreview] = useState(false)
     const [isSubmit, setIsSubmit] = useState(false)
     const [isSuccess, setIsSuccess] = useState(false)
@@ -35,15 +25,7 @@ const CardEditor = ()=>{
         setIsSuccess(false)
       }
       }, [isModified])
-    // useEffect(() => {
-    //   if(initialDeckLength?.current !== deckLength)
-    //   {
-    //     setIsSuccess(true)
-    //   }
-    //   else {
-    //     setIsSuccess(false)
-    //   }
-    // }, [deckLength])
+
 
     dispatch({type:EDIT_CARD, field:[{"field":"currentDeckId",
         "value": deckId}, {"field":"currentCardId", "value":cardId}]})

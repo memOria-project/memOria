@@ -1,5 +1,5 @@
 import { RETURN_CARD, RESET_CARD, SET_CURRENT_DECK_ID, FETCH_CARDS } from '../../actions'
-import RectoVerso from '../RectoVerso'
+import RectoVerso from './RectoVerso'
 import MDEditor from '@uiw/react-md-editor'
 import { useParams, NavLink } from 'react-router-dom'
 import { useEffect, useState, useRef } from 'react'

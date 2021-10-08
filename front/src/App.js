@@ -51,7 +51,6 @@ function App () {
           <DeckEditor />
         </Route>
         {/* Route par défaut (404)  */}
-        {/* A supprimer une fois le test fini */}
         <Route path="*">
           <NoMatch />
         </Route>

@@ -5,22 +5,28 @@
 
 .personalizedDecksDisplay__title {
   margin-bottom: 0.5em;
+  font-size:1.5em;
 }
 
 
 
 .personalizedDecksDisplay__decks-container {
   display: flex;
-  flex-flow: row wrap;
-  justify-content: flex-start;
+  // flex-flow: row wrap;
+  align-items:center;
+  justify-content: center;
 }
 
-.deck-container {
+.deck-container, .personalDecks__new {
   padding: 3em 1em;
   border: 2px solid grey;
   width: 5em;
   height: 5em;
   text-align: center;
-  display: flex;
   margin:auto;
+}
+
+.personalDecks__new {
+  border: 2px dotted black;
+
 }
