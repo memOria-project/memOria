@@ -17,16 +17,18 @@ console.log(personalizedDecks);
 const handleClick = () => {
   setShowForm((state)=> !state)
 }
-if(!isConnected){
-  console.log("redirect")
-  return <Redirect to="/signin" />
-}
+
 useEffect(()=> {
 if(personalizedDecks || personalizedDecks.length === 0)
 {
   setLoading(false)
 }
 }, [personalizedDecks])
+
+if(!isConnected){
+  console.log("redirect")
+  return <Redirect to="/signin" />
+}
 
 return (<>
         <div> 
