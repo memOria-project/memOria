@@ -51,20 +51,6 @@ const deckController= {
         }
       },
     
-      delete: async (request, response) => {
-        try {
-          request.body.userId = request.userId // on récupère le userId qu'on a extrait du Payload depuis checkJwt.js
-          const deck = new Deck(request.body) // on contruit la carte avec le Json envoyé par le Front
-          const data = await deck.delete() // on supprime la carte
-          console.log('in controller', data)
-    
-          response.status(200).json(data) // 200 => ok
-          // response.status(200).send(`deck #${deck.id} has been deleted`) // 200 => ok
-        } catch (error) {
-          console.log('deck controller error message:', error.message)
-          response.status(500).json(error.message)
-        }
-      }
 
 
 

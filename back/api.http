@@ -69,6 +69,18 @@ Content-Type: application/json
 }
 
 
+### Subscribe
+POST {{baseUrl}}/signup
+Content-Type: application/json
+
+{
+  "name": "SOULEY",
+  "email" : "s.coulibaly@gmail.com",
+  "password" : "souley92"
+}
+
+
+
 ### Update user info
 POST {{baseUrl}}/user/update
 Content-Type: application/json
@@ -118,15 +130,32 @@ Content-Type: application/json
 
 // GESTION DES DECKS
 
+### login Nicoclock
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+  "email" : "nico@clo.ck",
+  "password" : "Nicocratie"
+}
+
+
+### login Nicoclock
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+  "email" : "s.coulibaly@gmail.com",
+  "password" : "souley92"
+}
 ### Add a DECK
 POST {{baseUrl}}/deck
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE3LCJpYXQiOjE2MzM2MjE3NDMsImV4cCI6MTYzMzYyMjM0M30.FtvnjzpxxQ-JdUuFuvVw_bShdwg3sceEcRcfeMnBEwo
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE3LCJpYXQiOjE2MzM3MDQyOTEsImV4cCI6MTYzMzcwNDg5MX0.v9Cok-d1C052m8Zx6TFQxqZr50ueKxQ9fzi4KVeiJaQ
 
 {
-    "title" : "paquet-coolz77pua",
-    "tag": ["ReactJSt", "typpescript22ffa"],
-    "id" : 24
+    "title" : "paquet-front4",
+    "tag": ["ReactJSt", "php4"]
 }
 
 
