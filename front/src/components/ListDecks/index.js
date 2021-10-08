@@ -5,8 +5,11 @@ import './ListDecks-Desktop.scss'
 import Loading from '../Loading';
 
 const ListDecks = ()=>{
-    const decks = useSelector((state)=>(state.decks))
+    const allDecks = useSelector((state)=>(state.decks))
+    const decks = allDecks.filter((deck)=> deck.card_number > 0)
     console.log(decks);
+
+
 return (
         <div className="decks-container">
             {decks.length>1?decks.map((deck) => {

@@ -10,7 +10,20 @@ class Deck {
  
     static async allDecks() {
         try {
-            const {rows} = await db.query('SELECT * FROM deck');
+            const queryString = {
+                text: `
+                SELECT
+                    deck.id,
+                    title,
+                    deck.created_at, 
+                    tag, count(card.id) as card_number
+                FROM deck
+                LEFT JOIN card ON deck.id = deck_id
+                GROUP BY deck.id
+                ORDER BY deck.id
+                `
+            }
+            const {rows} = await db.query(queryString);
             return rows.map(row => new Deck(row));
         } catch (error) {
             if (error.detail) {

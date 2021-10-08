@@ -113,8 +113,7 @@ Content-Type: application/json
 {
     "deckId" : 7,
     "recto": "Une carte à faible durée de vie...",
-    "verso": "...est amenée à disparaître mais pas tout de suite",
-    "id": 80
+    "verso": "...est amenée à disparaître mais pas tout de suite"
 }
 
 ### Add a card
@@ -140,7 +139,7 @@ Content-Type: application/json
 }
 
 
-### login Nicoclock
+### login souleymane
 POST {{baseUrl}}/login
 Content-Type: application/json
 
@@ -158,6 +157,14 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE3LCJpYXQiOjE2
     "tag": ["ReactJSt", "php4"]
 }
 
+### Delay a card
+POST {{baseUrl}}/card/delay
+Authorization: {{auth}}
+Content-Type: application/json
+
+{
+    "id" : 80
+}
 
 # ### Tests benchmark Redis ...
 # GET {{host}}/redis

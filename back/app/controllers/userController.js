@@ -1,5 +1,6 @@
 const User = require('../models/user')
 const Deck = require('../models/deck')
+const Card = require('../models/card')
 const jwt = require('../services/jwt')
 const userController = {
 
@@ -10,10 +11,13 @@ const userController = {
       response.setHeader('Access-Control-Expose-Headers', 'Authorization')
       response.setHeader('Authorization', jwt.makeToken(user.id))
 
-      // récupère la liste des deck appartenant à user
-      // get decks list owned by user
       if (user.id) {
+        // récupère la liste des deck appartenant à user
+        // get decks list owned by user
         user.decks = await Deck.decksByUserId(user.id)
+        // récupère la liste des cartes reportées par l'utilisateur
+        // get cards array delayed by the user
+        user.delayedCards = await Card.hasBeenDelayedBy(user.id)
       }
 
       response.status(200).json(user)
@@ -70,17 +74,17 @@ const userController = {
       console.log(error)
       response.status(500).json(error.message)
     }
-  },
-
-  remove: async function (request, response) {
-    try {
-      const data = await User.delete(parseInt(request.params.id, 10))
-      response.status(200).json(data)
-    } catch (error) {
-      console.log(error)
-      response.status(500).json(error.message)
-    }
   }
+
+  // remove: async function (request, response) {
+  //   try {
+  //     const data = await User.delete(parseInt(request.params.id, 10))
+  //     response.status(200).json(data)
+  //   } catch (error) {
+  //     console.log(error)
+  //     response.status(500).json(error.message)
+  //   }
+  // }
 
 }
 

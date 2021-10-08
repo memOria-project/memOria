@@ -1,4 +1,4 @@
-import { LOG_IN, UPDATE_USER, GET_USER, DELETE_TOKEN, DISCONNECT, UPDATE_SESSION, CHECK_TOKEN, SUBSCRIBE } from '../actions'
+import { LOG_IN, UPDATE_USER, GET_USER, DELETE_TOKEN, DISCONNECT, UPDATE_SESSION, CHECK_TOKEN, SUBSCRIBE, UPDATE_PROFILE } from '../actions'
 
 const auth = (store) => (next) => (action) => {
   const { email, password } = store.getState().user
@@ -23,7 +23,7 @@ const auth = (store) => (next) => (action) => {
         try {
           const request = await fetch(`${back}/login`, options)
           const response = await request.json()
-          const { name, email, decks } = response
+          const { name, email, decks, delayedCards } = response
           const token = request.headers.get('Authorization')
           console.log(response);
           //   for (var pair of request.headers.entries()) {
@@ -31,7 +31,7 @@ const auth = (store) => (next) => (action) => {
           //  }
           // // Le token est inscrit dans le local storage
           localStorage.setItem('token', token)
-          store.dispatch({type: UPDATE_USER, email, name, decks })
+          store.dispatch({type: UPDATE_USER, email, name, decks, delayedCards })
 
           // // Les infos sont enregistrés dans le profil utilisateur
         } catch (error) { console.log(error) }
@@ -52,8 +52,9 @@ const auth = (store) => (next) => (action) => {
         try {
           const request = await fetch(`${back}/user/infos`, optionsGetUser)
           const response = await request.json()
-          const { name, email, decks } = response
-          store.dispatch({ type: UPDATE_USER, name, email, decks })
+          console.log("getUser", response)
+          const { name, email, decks, cardId } = response
+          store.dispatch({ type: UPDATE_USER, name, email, decks, cardId })
           // dispatch({type:GET_USER})
         } catch (error) { console.log(`${error} | can't get user data :( `) }
       }
@@ -79,12 +80,13 @@ const auth = (store) => (next) => (action) => {
       try {
         const request = await fetch(`${back}/user/infos`, optionsGetUser)
         const response = await request.json()
-        const { name, email, decks } = response
+        const { name, email, decks, delayedCards } = response
  
         console.log("Token has been checked");
+        console.log("CHECK_TOKEN", response)
         if(response.name) {
         // store.dispatch({ type: UPDATE_SESSION, isConnected:true })
-        store.dispatch({ type: UPDATE_USER, isConnected:true, name, email, decks })
+        store.dispatch({ type: UPDATE_USER, isConnected:true, name, email, decks, delayedCards })
 
         }
         else {
@@ -116,7 +118,7 @@ const auth = (store) => (next) => (action) => {
       try {
         const request = await fetch(`${back}/signup`, options)
         const response = await request.json()
-        if(response){
+        if(response.status === 201){
         store.dispatch({type:UPDATE_USER, password, email, name})
         // supprimer LOG_IN si on souhaite éviter le login automatique après l'inscription pour raison de sécu
         store.dispatch({type:LOG_IN})
@@ -127,6 +129,38 @@ const auth = (store) => (next) => (action) => {
       postUser()
       break
     
+    }
+    case UPDATE_PROFILE: {
+      const { name, email, password, oldpassword } = action.data;
+      const newPassword = password;
+      const form = {
+        name,
+        email,
+        newPassword,
+        oldpassword
+      }
+
+      const options = {
+        method:'POST',
+        headers: {
+         'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(form)
+      }
+      const updateUser = async () => {
+      try {
+        const request = await fetch(`${back}/user/update`, options)
+        const response = await request.json()
+        if(response.status === 201){
+        store.dispatch({type:UPDATE_USER, password, email, name})
+        // supprimer LOG_IN si on souhaite éviter le login automatique après l'inscription pour raison de sécu
+        store.dispatch({type:LOG_IN})
+        }
+        }
+        catch (error){console.log(error)}
+      }
+      updateUser()
+      break
     }
     default:
       next(action)

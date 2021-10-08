@@ -1,5 +1,5 @@
 import { RETURN_CARD, RESET_CARD, SET_CURRENT_DECK_ID, FETCH_CARDS } from '../../actions'
-import RectoVerso from '../RectoVerso'
+import RectoVerso from './RectoVerso'
 import MDEditor from '@uiw/react-md-editor'
 import { useParams, NavLink } from 'react-router-dom'
 import { useEffect, useState, useRef } from 'react'
@@ -14,6 +14,8 @@ const ShowCards = ({database, addFailedCards, failedCards }) => {
   const [nextCard, setNextCard] = useState("/");
   let cardsNumberInDeck = database.length;
   const allCards = database
+
+  const myCard = database[cardId] ?? [{recto:"recto", verso:"verso"}]
   console.log(allCards)
   let nextCardURL ="/"
   useEffect(()=> {
@@ -33,34 +35,28 @@ const ShowCards = ({database, addFailedCards, failedCards }) => {
 
     // cardContent = database['cards'].find((card)=> card.id == cardId)
 
+    const handleClickReturn = () => {
+      dispatch({type:RETURN_CARD, isRecto: currentView.isRecto})
+      }
 
 
-  const handleClickReturn = () => {
-  dispatch({type:RETURN_CARD, isRecto: currentView.isRecto})
-  }
-  const handleClickNext = () => {
-    dispatch({type:RESET_CARD, isRecto: defaultView.isRecto})
-    database.splice(cardId, 1)
-  }
   const showedCard = database[cardId]
 return  <>
-  <div style={{margin:"2em"}}> <h1>Je veux voir en premier </h1>
-  <RectoVerso />
-  </div>
+
   <div className="card" onClick={handleClickReturn}>
 
   {currentView.isRecto?
     <pre>
-  <MDEditor.Markdown source={database[cardId]["recto"]} />
+  <MDEditor.Markdown source={myCard["recto"]} />
   </pre>
   :
   <pre> 
-  <MDEditor.Markdown source={database[cardId]["verso"]} />
+  <MDEditor.Markdown source={myCard["verso"]} />
   </pre>
   }
   </div>
+  <Next failedCards={failedCards} database={database} showedCard={showedCard} nextCard={nextCard} setNextCard={setNextCard} deckId={deckId} cardsNumberInDeck={cardsNumberInDeck} addFailedCards={addFailedCards}/>
   <p style={{fontSize: "1.5em"}}> Cartes restantes: {cardsNumberInDeck-1}</p>
-  <Next failedCards={failedCards} database={database} showedCard={showedCard} nextCard={nextCard} setNextCard={setNextCard} deckId={deckId} handleClickNext={handleClickNext} cardsNumberInDeck={cardsNumberInDeck} addFailedCards={addFailedCards}/>
   </>
 }
 export default ShowCards

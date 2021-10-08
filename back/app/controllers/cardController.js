@@ -1,6 +1,7 @@
 const Card = require('../models/card')
 
 const cardController = {
+
   getCardsFromUser: async (request, response) => {
     try {
       const cards = await Card.cardsByUserId(request.userId)
@@ -17,6 +18,18 @@ const cardController = {
       card.userId = request.userId // on récupère le userId qu'on a extrait du Payload depuis checkJwt.js
       const data = await card.save() // on crée la carte ou, si elle existe déjà, on la met à jour
       response.status(request.body.id ? 200 : 201).json(data) // 201 => created ; 204 => ok !
+    } catch (error) {
+      console.log('Card controller error message:', error.message)
+      response.status(500).json(error.message)
+    }
+  },
+
+  delay: async (request, response) => {
+    try {
+      const card = new Card(request.body) // on contruit la carte avec le Json envoyé par le Front
+      await card.doesExist
+      const delayedCard = await card.addDelay(request.userId) // on reporte la carte pour le user dont on a extrait l'id du Payload depuis checkJwt.js
+      response.status(201).json(delayedCard) // 201 => delay created
     } catch (error) {
       console.log('Card controller error message:', error.message)
       response.status(500).json(error.message)
