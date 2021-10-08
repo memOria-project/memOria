@@ -5,12 +5,13 @@ import { Link, Redirect } from 'react-router-dom'
 import './subscribe.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
+import Loading from '../Loading'
 
 const Form = ({isInProfile}) => {
   const {name, email} = useSelector((state)=>state.user)
   const { register, handleSubmit, watch, getValues, formState: { errors, isValid, isSubmitted, isSubmitSuccessful } } = useForm({ mode: 'onChange'})
   const dispatch = useDispatch();
-  const [Loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false)
   useEffect(() => {
   if(isSubmitted) {
     setLoading(true)
@@ -25,7 +26,8 @@ const Form = ({isInProfile}) => {
   }
 }, [isSubmitted, isSubmitSuccessful])
 
-  return (<form className='userForm' onSubmit = {handleSubmit((data) => {
+  return (loading?<Loading />:
+  <form className='userForm' onSubmit = {handleSubmit((data) => {
     if (isInProfile)
       {
     dispatch({ type: UPDATE_PROFILE, data })

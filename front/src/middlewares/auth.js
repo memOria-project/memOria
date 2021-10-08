@@ -153,12 +153,14 @@ const auth = (store) => (next) => (action) => {
       const updateUser = async () => {
       try {
         const request = await fetch(`${back}/user/update`, options)
-        const response = await request.json()
+        const response = await request
         console.log()
-        if(response.status === 201){
+        if(response.status === 204 ||response.status === 201 ||response.status === 200){
           console.log("user mis à jour")
-        store.dispatch({type:UPDATE_USER, email, name})
+        store.dispatch({type:CHECK_TOKEN})
         // supprimer LOG_IN si on souhaite éviter le login automatique après l'inscription pour raison de sécu
+        } else {
+          console.log("erreur")
         }
         }
         catch (error){console.log(error)}

@@ -155,7 +155,7 @@ const api = (store) => (next) => (action) => {
           const response = await request
           console.log(response)
           if(response.status === 200){
-          dispatch({type:CHECK_TOKEN})
+          store.dispatch({type:CHECK_TOKEN})
           }
           else{
             console.log("no deck for you")
