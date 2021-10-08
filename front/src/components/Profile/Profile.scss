@@ -30,3 +30,29 @@
   border: 2px dotted black;
 
 }
+
+.personalDecks__new--modal {
+    position:fixed;
+    z-index:1;
+    height:100%;
+    width:100%;
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+    overflow:auto;
+    color:white;
+    margin:auto;
+}
+
+.modal__content {
+  height: 300px;
+  width: 300px;
+  position: absolute;
+  left: 50%;
+  margin-left: -150px;
+  top: 50%;
+  margin-top: -150px;
+}
+
+ h1,h2 .modal__content{
+  margin-bottom:30px;
+  font-size:2em;
+}

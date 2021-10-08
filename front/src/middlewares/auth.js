@@ -133,17 +133,20 @@ const auth = (store) => (next) => (action) => {
     case UPDATE_PROFILE: {
       const { name, email, password, oldpassword } = action.data;
       const newPassword = password;
+      const currentPassword = oldpassword
       const form = {
         name,
         email,
         newPassword,
-        oldpassword
+        currentPassword
       }
 
       const options = {
         method:'POST',
         headers: {
-         'Content-Type': 'application/json'
+         'Content-Type': 'application/json',
+         'Authorization': token
+
         },
         body: JSON.stringify(form)
       }
@@ -151,10 +154,11 @@ const auth = (store) => (next) => (action) => {
       try {
         const request = await fetch(`${back}/user/update`, options)
         const response = await request.json()
+        console.log()
         if(response.status === 201){
-        store.dispatch({type:UPDATE_USER, password, email, name})
+          console.log("user mis à jour")
+        store.dispatch({type:UPDATE_USER, email, name})
         // supprimer LOG_IN si on souhaite éviter le login automatique après l'inscription pour raison de sécu
-        store.dispatch({type:LOG_IN})
         }
         }
         catch (error){console.log(error)}

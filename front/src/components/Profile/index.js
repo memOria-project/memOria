@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import PersonalisedDeck from '../Deck/PersonalisedDeck'
 import Loading from '../Loading'
 import Form from '../Subscribe/Form'
+import NewDeckForm from './NewDeckForm'
 import './Profile.scss'
 
 const Profile = ()=>{
@@ -12,10 +13,18 @@ const {name, email} = useSelector((state)=> state.user);
 const isConnected = useSelector((state)=> state.user.isConnected)
 const personalizedDecks = useSelector((state) => (state.user.decks))
 const [showForm, setShowForm] = useState(false);
+const [showNewDeck, setShowNewDeck] = useState(false)
 const [loading, setLoading] = useState(true)
 console.log(personalizedDecks);
-const handleClick = () => {
+const handleClick = (event) => {
+  console.log(event)
+  if(event.target.name === "newDeck" || event.target?.attributes[0]?.value)
+  {
+    setShowNewDeck((state)=>!state)
+  }
+  else{
   setShowForm((state)=> !state)
+  }
 }
 
 useEffect(()=> {
@@ -51,12 +60,15 @@ return (<>
           <h1 className="personalizedDecksDisplay__title">Vos paquets personnalisés</h1>
 
           <div className="personalizedDecksDisplay__decks-container">
-          <div className="personalDecks__new">
+          <div name="newDeck" className="personalDecks__new" onClick={handleClick}>
             + <br/>
             Nouveau paquet
           </div>
+          {showNewDeck&&
+          <NewDeckForm handleClick={handleClick} setShowNewDeck={setShowNewDeck} />
+          }
           {personalizedDecks&&personalizedDecks.length&&personalizedDecks.map((deck) => {
-                return <div className="deck-container" key={deck.id}> <PersonalisedDeck  deck={deck} /> </div>
+                return <div className="deck-container" key={deck.id}> <PersonalisedDeck deck={deck} /> </div>
             })}
           {loading&&<Loading />}
           </div>

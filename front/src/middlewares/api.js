@@ -1,5 +1,5 @@
 import {
-  getAllDecks, FETCH_DECKS, FETCH_CARDS, getCurrentDeckContent, POST_CARD, EDIT_CURRENT_DECK, DELETE_CARD, DELAY_CARD
+  getAllDecks, FETCH_DECKS, FETCH_CARDS, getCurrentDeckContent, POST_CARD, EDIT_CURRENT_DECK, DELETE_CARD, DELAY_CARD, CREATE_DECK, CHECK_TOKEN
 } from '../actions'
 
 const api = (store) => (next) => (action) => {
@@ -131,6 +131,39 @@ const api = (store) => (next) => (action) => {
       }
       delayCard();
       break
+    }
+
+    case CREATE_DECK: {
+      const {name, tags} = action.data;
+      const newDeck = {
+        name,
+        tag: [tags]
+      }
+      const options = 
+      {
+        method:'POST', 
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token },
+        body: JSON.stringify(newDeck)
+        }
+        console.log(options.body)
+
+      const createDeck = async () => {
+        try {
+          const request = await fetch(`${back}/deck/new`, options)
+          const response = await request
+          console.log(response)
+          if(response.status === 200){
+          dispatch({type:CHECK_TOKEN})
+          }
+          else{
+            console.log("no deck for you")
+          }
+        } catch (error) { console.log(error)}
+      }
+      createDeck()
+
     }
     default:
       next(action)
