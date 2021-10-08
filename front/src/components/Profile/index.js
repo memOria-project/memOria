@@ -8,8 +8,8 @@ import NewDeckForm from './NewDeckForm'
 import './Profile.scss'
 
 const Profile = ()=>{
-
-const {name, email} = useSelector((state)=> state.user);
+const {user} = useSelector((state)=> state);
+const {name, email} = user
 const isConnected = useSelector((state)=> state.user.isConnected)
 const personalizedDecks = useSelector((state) => (state.user.decks))
 const [showForm, setShowForm] = useState(false);
@@ -28,11 +28,12 @@ const handleClick = (event) => {
 }
 
 useEffect(()=> {
-if(personalizedDecks || personalizedDecks.length === 0)
+if(personalizedDecks || personalizedDecks?.length === 0)
 {
   setLoading(false)
 }
-}, [personalizedDecks])
+setShowForm(false)
+}, [personalizedDecks, user])
 
 if(!isConnected){
   console.log("redirect")
