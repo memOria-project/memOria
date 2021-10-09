@@ -89,16 +89,22 @@ class Deck {
         const deckUserId = rows[0].user_id
 
         if (this.userId === deckUserId) {
-          const { rows } = await db.query('UPDATE "deck" SET title = $1, tag = $2, user_id = $3 WHERE id = $4 ;',
+          await db.query('UPDATE "deck" SET title = $1, tag = $2, user_id = $3 WHERE id = $4 ;',
             [this.title, this.tag, this.userId, this.id])
-          return this
+          return {
+            deckId: this.id,
+            status: 'updated'
+          }
         };
         throw new Error('User is not allowed to update this deck')
       } else {
         const { rows } = await db.query('INSERT INTO "deck" (title, tag, user_id) VALUES ($1, $2, $3) RETURNING id;',
           [this.title, this.tag, this.userId])
         this.id = rows[0].id
-        return this
+        return {
+          deckId: this.id,
+          status: 'saved'
+        }
       }
     } catch (error) {
       console.log(error)
