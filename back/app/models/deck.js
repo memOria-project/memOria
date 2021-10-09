@@ -1,17 +1,16 @@
-const userController = require("../controllers/userController");
-const db= require("../database");
- 
+const db = require('../database')
+
 class Deck {
-    constructor(obj = {}) {
-        for (const propName in obj) {
-            this[propName] = obj[propName];
-        }
+  constructor (obj = {}) {
+    for (const propName in obj) {
+      this[propName] = obj[propName]
     }
- 
-    static async allDecks() {
-        try {
-            const queryString = {
-                text: `
+  }
+
+  static async allDecks () {
+    try {
+      const queryString = {
+        text: `
                 SELECT
                     deck.id,
                     title,
@@ -22,61 +21,55 @@ class Deck {
                 GROUP BY deck.id
                 ORDER BY deck.id
                 `
-            }
-            const {rows} = await db.query(queryString);
-            return rows.map(row => new Deck(row));
-        } catch (error) {
-            if (error.detail) {
-                throw new Error(error.detail)
-            } else {
-                throw error
-            }
-        }
+      }
+      const { rows } = await db.query(queryString)
+      return rows.map(row => new Deck(row))
+    } catch (error) {
+      if (error.detail) {
+        throw new Error(error.detail)
+      } else {
+        throw error
+      }
     }
+  }
 
-     static async findAllcardsFromDeck(id) {
-         try {
-             const {rows} = await db.query('SELECT * FROM allcardsFromDeck($1)', [id]);
-            //  console.log(rows[0])
-             const deckWithItsCards = rows[0]
-             return deckWithItsCards;
-     
-         } catch(error) {
-             console.log(error);
-             if (error.detail) {
-             throw new Error(error.detail);
-             }
-             throw error;
-         }
-     }
+  static async findAllcardsFromDeck (id) {
+    try {
+      const { rows } = await db.query('SELECT * FROM allcardsFromDeck($1)', [id])
+      //  console.log(rows[0])
+      const deckWithItsCards = rows[0]
+      return deckWithItsCards
+    } catch (error) {
+      console.log(error)
+      if (error.detail) {
+        throw new Error(error.detail)
+      }
+      throw error
+    }
+  }
 
- 
+  static async decksByUserId (userId) {
+    try {
+      const { rows } = await db.query('SELECT id, title, tag FROM deck WHERE user_id=$1', [userId])
+      return rows.map(row => new Deck(row))
+    } catch (error) {
+      if (error.detail) {
+        throw new Error(error.detail)
+      } else {
+        throw error
+      }
+    }
+  };
 
-    static async decksByUserId(userId) {
-        try {
-            const {rows} = await db.query('SELECT id, title, tag FROM deck WHERE user_id=$1', [userId]);
-            return rows.map(row => new Deck(row));
-        } catch (error) {
-            if (error.detail) {
-                throw new Error(error.detail)
-            } else {
-                throw error
-            }
-        }
-    };
+  // ---------------------------------------------------------------
 
-
-    // ---------------------------------------------------------------
-
-
-
-    /**
+  /**
    * Get all decks owned by user (through deck possession)
    */
   static async decksByUserId (userId) {
     try {
       const { rows } = await db.query('SELECT * FROM decks_of_user($1)', [userId])
-      return rows.map(row => new deck(row))
+      return rows.map(row => new Deck(row))
     } catch (error) {
       if (error.detail) {
         throw new Error(error.detail)
@@ -92,36 +85,30 @@ class Deck {
   async save () {
     try {
       if (this.id) {
-
-        const {rows} = await db.query(`SELECT * FROM deck WHERE id=$1`, [this.id]);
-        const deckUserId= rows[0].user_id;
+        const { rows } = await db.query('SELECT * FROM deck WHERE id=$1', [this.id])
+        const deckUserId = rows[0].user_id
 
         if (this.userId === deckUserId) {
-          const { rows } = await db.query(`UPDATE "deck" SET title = $1, tag = $2, user_id = $3 WHERE id = $4 ;`, 
-          [this.title, this.tag, this.userId, this.id]);
+          const { rows } = await db.query('UPDATE "deck" SET title = $1, tag = $2, user_id = $3 WHERE id = $4 ;',
+            [this.title, this.tag, this.userId, this.id])
           return this
         };
-        throw new Error('User is not allowed to update this deck');
-
+        throw new Error('User is not allowed to update this deck')
       } else {
-        const { rows } = await db.query('INSERT INTO "deck" (title, tag, user_id) VALUES ($1, $2, $3) RETURNING id;', 
-        [this.title, this.tag, this.userId]);
-        this.id = rows[0].id;
-        return this;
-
+        const { rows } = await db.query('INSERT INTO "deck" (title, tag, user_id) VALUES ($1, $2, $3) RETURNING id;',
+          [this.title, this.tag, this.userId])
+        this.id = rows[0].id
+        return this
       }
     } catch (error) {
-        console.log(error);
-            if (error.detail) {
-                throw new Error(error.detail)
-            } else {
-                throw error;
+      console.log(error)
+      if (error.detail) {
+        throw new Error(error.detail)
+      } else {
+        throw error
+      }
     }
   }
-}; 
-
-
-
 
   /**
    * Add a deck to the database
@@ -141,13 +128,5 @@ class Deck {
       throw new Error(error.detail ? error.detail : error.message)
     }
   }
-
-
-
 }
-module.exports = Deck;
-
-
-
-
-
+module.exports = Deck
