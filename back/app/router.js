@@ -13,23 +13,22 @@ const router = Router()
  * @returns {Array<Deck>} 200 - An array of all decks
  * @returns {string} 500 - Server error
  */
-router.get('/decks', deckController.getAllDecks); // Afficher tous les paquet
-router.get('/deck/:id/cards', deckController.getCardsFromDeck); // Displays cards of a deck
+router.get('/decks', deckController.getAllDecks) // Afficher tous les paquet
+router.get('/deck/:id/cards', deckController.getCardsFromDeck) // Displays cards of a deck
 
-router.post('/deck', checkJwt, deckController.save);
+router.post('/deck', checkJwt, deckController.save)
 
- 
 /** Création  de compte utilisateur
  * Respond with all cards of the connected user
  * @route POST /signup
  * @returns {integer<id>} 201 - An integer of user id
  * @returns {string} 500 - Server error
  */
-router.post('/signup', userController.subscribe);
+router.post('/signup', userController.subscribe)
 
-router.post('/login', userController.login); // Connection de l’utilisateur
-router.get('/user/infos', checkJwt, userController.getOneUser);
-router.post('/user/update', checkJwt, userController.update); //  modification de compte utilisateur
+router.post('/login', userController.login) // Connection de l’utilisateur
+router.get('/user/infos', checkJwt, userController.getOneUser)
+router.post('/user/update', checkJwt, userController.update) //  modification de compte utilisateur
 
 // Displays cards of a user
 /**
@@ -38,7 +37,7 @@ router.post('/user/update', checkJwt, userController.update); //  modification d
  * @returns {Array<Deck>} 200 - An array of all cards
  * @returns {string} 500 - Server error
  */
-router.get('/user/cards', checkJwt, cardController.getCardsFromUser);
+router.get('/user/cards', checkJwt, cardController.getCardsFromUser)
 
 // Save or update card of a user
 /**
@@ -67,6 +66,5 @@ router.post('/card/delay', checkJwt, cardController.delay)
  * @returns {string} 500 - Server error
  */
 router.delete('/card', checkJwt, cardController.delete)
-
 
 module.exports = router
