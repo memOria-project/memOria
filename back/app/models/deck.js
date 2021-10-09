@@ -15,7 +15,8 @@ class Deck {
                     deck.id,
                     title,
                     deck.created_at, 
-                    tag, count(card.id) as card_number
+                    tag, 
+                    (count(card.id))::int as card_number
                 FROM deck
                 LEFT JOIN card ON deck.id = deck_id
                 GROUP BY deck.id
@@ -74,7 +75,8 @@ class Deck {
               deck.id,
               title,
               deck.created_at, 
-              tag, count(card.id) as card_number
+              tag, 
+              (count(card.id))::int as card_number
           FROM deck
           LEFT JOIN card ON deck.id = deck_id
           WHERE user_id = $1
