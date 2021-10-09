@@ -33,7 +33,7 @@ class Deck {
     }
   }
 
-  static async findAllcardsFromDeck (id) {
+  static async findAllCardsFromDeck (id) {
     try {
       const { rows } = await db.query('SELECT * FROM allcardsFromDeck($1)', [id])
       //  console.log(rows[0])
