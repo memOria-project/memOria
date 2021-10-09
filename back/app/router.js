@@ -17,8 +17,6 @@ router.get('/decks', deckController.getAllDecks); // Afficher tous les paquet
 router.get('/deck/:id/cards', deckController.getCardsFromDeck); // Displays cards of a deck
 
 router.post('/deck', checkJwt, deckController.save);
-router.delete('/deck', checkJwt, deckController.delete);
-//router.get('/user/decks', checkJwt, deckController.getdecksFromUser);
 
  
 /** Création  de compte utilisateur
@@ -32,8 +30,6 @@ router.post('/signup', userController.subscribe);
 router.post('/login', userController.login); // Connection de l’utilisateur
 router.get('/user/infos', checkJwt, userController.getOneUser);
 router.post('/user/update', checkJwt, userController.update); //  modification de compte utilisateur
-router.delete("/user/:id", userController.remove); // Suppression d’un compte utilisateur
-//router.get("/logout", userController.disconnecte); // Déconnection de l’utilisateur
 
 // Displays cards of a user
 /**
