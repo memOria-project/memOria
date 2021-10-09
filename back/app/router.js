@@ -6,7 +6,7 @@ const cardController = require('./controllers/cardController')
 
 const router = Router()
 
-// Routes protégés (SPRINT 1)
+// LES ROUTES DES DECKS
 /**
  * Respond with all decks in database
  * @route GET /decks
@@ -14,9 +14,21 @@ const router = Router()
  * @returns {string} 500 - Server error
  */
 router.get('/decks', deckController.getAllDecks) // Afficher tous les paquet
+router.get('/deck/:id/cards', deckController.getCardsFromDeck) // Displays cards of a deck
+
+router.post('/deck', checkJwt, deckController.save)
+
+/** Création  de compte utilisateur
+ * Respond with all cards of the connected user
+ * @route POST /signup
+ * @returns {integer<id>} 201 - An integer of user id
+ * @returns {string} 500 - Server error
+ */
+router.post('/signup', userController.subscribe)
 
 router.post('/login', userController.login) // Connection de l’utilisateur
 router.get('/user/infos', checkJwt, userController.getOneUser)
+router.post('/user/update', checkJwt, userController.update) //  modification de compte utilisateur
 
 // Displays cards of a user
 /**
@@ -54,20 +66,5 @@ router.post('/card/delay', checkJwt, cardController.delay)
  * @returns {string} 500 - Server error
  */
 router.delete('/card', checkJwt, cardController.delete)
-
-// Création  de compte utilisateur
-/**
- * Respond with all cards of the connected user
- * @route POST /signup
- * @returns {integer<id>} 201 - An integer of user id
- * @returns {string} 500 - Server error
- */
-router.post('/signup', userController.subscribe)
-router.post('/user/update', checkJwt, userController.update) //  modification de compte utilisateur
-// router.delete("/user/:id", userController.remove); // Suppression d’un compte utilisateur
-// router.get("/logout", userController.disconnecte); // Déconnection de l’utilisateur
-
-// Displays cards of a deck
-router.get('/deck/:id/cards', deckController.getCardsFromDeck)
 
 module.exports = router

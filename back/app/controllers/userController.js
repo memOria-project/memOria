@@ -58,9 +58,11 @@ const userController = {
 
       // récupère la liste des deck appartenant à user
       // get decks list owned by user
+      
       if (user.id) {
         user.decks = await Deck.decksByUserId(user.id)
       }
+      
 
       // this header gives access to following header Authorization
       response.setHeader('Access-Control-Expose-Headers', 'Authorization')
