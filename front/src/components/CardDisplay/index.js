@@ -1,5 +1,5 @@
 import './CardDisplay.scss'
-import './CardDisplay-Desktop.scss'
+import './CardDisplay_desktop.scss'
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'

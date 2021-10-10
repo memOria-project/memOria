@@ -5,12 +5,17 @@ import { useParams, NavLink } from 'react-router-dom'
 import { useEffect, useState, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import Next from './Next'
+import ReactCardFlip from 'react-card-flip'
+import { set } from 'react-hook-form'
+import { motion } from "framer-motion"
+import classNames from 'classnames'
 
 const ShowCards = ({database, addFailedCards, failedCards }) => {
   const { deckId, cardId } = useParams()
   // console.log("database", database)
   const dispatch = useDispatch();
   const { defaultView, currentView } = useSelector((state) => state.card)
+  const {isRecto, isVerso} = currentView
   const [nextCard, setNextCard] = useState("/");
   let cardsNumberInDeck = database.length;
   const allCards = database
@@ -37,24 +42,38 @@ const ShowCards = ({database, addFailedCards, failedCards }) => {
 
     const handleClickReturn = () => {
       dispatch({type:RETURN_CARD, isRecto: currentView.isRecto})
+      
       }
 
 
   const showedCard = database[cardId]
+
+  const cardClass= classNames({
+    card: true,
+    "card__recto": isRecto,
+    "card__verso": !isRecto
+  })
+
 return  <>
-
-  <div className="card" onClick={handleClickReturn}>
-
-  {currentView.isRecto?
-    <pre>
-  <MDEditor.Markdown source={myCard["recto"]} />
-  </pre>
-  :
-  <pre> 
-  <MDEditor.Markdown source={myCard["verso"]} />
-  </pre>
-  }
-  </div>
+{isRecto?
+  <motion.div 
+    className={cardClass}
+    onClick={handleClickReturn}>
+    <pre className="card__content">
+      <MDEditor.Markdown source={myCard["recto"]} />
+    </pre>
+  </motion.div>
+:
+  <motion.div
+  animate={{rotateY:180}}
+  className={cardClass} onClick={handleClickReturn}>
+    <motion.pre 
+    className="card__content"
+    animate={{rotateY:180}}>
+      <MDEditor.Markdown source={myCard["verso"]} />
+    </motion.pre>
+  </motion.div>
+}
   <Next failedCards={failedCards} database={database} showedCard={showedCard} nextCard={nextCard} setNextCard={setNextCard} deckId={deckId} cardsNumberInDeck={cardsNumberInDeck} addFailedCards={addFailedCards}/>
   <p style={{fontSize: "1.5em"}}> Cartes restantes: {cardsNumberInDeck-1}</p>
   </>
