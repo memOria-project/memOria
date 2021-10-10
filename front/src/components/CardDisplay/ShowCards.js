@@ -1,4 +1,4 @@
-import { RETURN_CARD, RESET_CARD, SET_CURRENT_DECK_ID, FETCH_CARDS } from '../../actions'
+import { RETURN_CARD, RESET_CARD, SET_CURRENT_DECK_ID, FETCH_CARDS, DELAY_CARD } from '../../actions'
 import RectoVerso from './RectoVerso'
 import MDEditor from '@uiw/react-md-editor'
 import { useParams, NavLink } from 'react-router-dom'
@@ -9,12 +9,15 @@ import ReactCardFlip from 'react-card-flip'
 import { set } from 'react-hook-form'
 import { motion } from "framer-motion"
 import classNames from 'classnames'
+import { useSwipeable } from 'react-swipeable';
 
 const ShowCards = ({database, addFailedCards, failedCards }) => {
   const { deckId, cardId } = useParams()
   // console.log("database", database)
   const dispatch = useDispatch();
   const { defaultView, currentView } = useSelector((state) => state.card)
+  const { isConnected } = useSelector((state) => state.user)
+
   const {isRecto, isVerso} = currentView
   const [nextCard, setNextCard] = useState("/");
   let cardsNumberInDeck = database.length;
@@ -45,6 +48,33 @@ const ShowCards = ({database, addFailedCards, failedCards }) => {
       
       }
 
+// Copier/Coller de Next.js, pour faire marcher le swipe. Idéalement, il faudrait avoir ces fonctions dans des modules séparés, ou au moins les supprimer de Next.js et les faire passer en props.
+
+  const handleClickNext = () => {
+        dispatch({type:RESET_CARD, isRecto: defaultView.isRecto})
+        database.splice(cardId, 1)
+        console.log({failedCards})
+      }
+      
+  const handleClickFail = () => {
+      dispatch({type:RESET_CARD, isRecto: defaultView.isRecto})
+      if(isConnected)
+        {
+      dispatch({type: DELAY_CARD, id: showedCard.id })
+        }
+      database.splice(cardId, 1)
+      addFailedCards(showedCard)
+        }
+
+
+
+
+  const handlers = useSwipeable({
+
+    onSwipedDown: handleClickFail,
+    onSwipedUp: handleClickNext,
+    trackMouse:true
+  })
 
   const showedCard = database[cardId]
 
@@ -54,17 +84,24 @@ const ShowCards = ({database, addFailedCards, failedCards }) => {
     "card__verso": !isRecto
   })
 
+
+
+
+
+
+
 return  <>
 {isRecto?
-  <motion.div 
+  <motion.div {...handlers}
     className={cardClass}
-    onClick={handleClickReturn}>
+    onClick={handleClickReturn}
+    >
     <pre className="card__content">
       <MDEditor.Markdown source={myCard["recto"]} />
     </pre>
   </motion.div>
 :
-  <motion.div
+  <motion.div {...handlers}
   animate={{rotateY:180}}
   className={cardClass} onClick={handleClickReturn}>
     <motion.pre 
