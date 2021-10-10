@@ -9,7 +9,7 @@ const Nav = ()=>{
 return (
     <header className="nav">
 
-      <div className="nav__logo">memOria</div>
+      <div className="nav__logo"><NavLink to="/">memOria</NavLink></div>
 
       <nav className="nav__items">
           <div className="nav__items__item nav__items__item--hidden">
