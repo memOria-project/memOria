@@ -1,6 +1,18 @@
 @use "../../styles/_vars";
 
 @media all and (min-width: 481px) {
-  body {
+  .nav__logo {
+    font-size: 2.2em;
   }
+  
+  .nav__items {
+    justify-content: space-evenly;
+    font-size: 1.2em;
+  }
+ 
+  .nav__items__item--hidden {
+    display:initial
+  }
+
+
 }

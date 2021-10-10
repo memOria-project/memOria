@@ -16,9 +16,9 @@ const Connexion = () => {
     return (
       <>
         <div className="nav__items__item">
-          <NavLink to="/profile" className="login__user-profile-link">{user.name} (profil)</NavLink>
+          <NavLink to="/profile" className="nav__items__item--profile">{user.name}</NavLink>
         </div>
-          <div className="login__signout" onClick={handleClick}><NavLink to="/signin">Se déconnecter </NavLink>
+          <div className="nav__items__item" onClick={handleClick}><NavLink to="/">Déconnexion </NavLink>
         </div>
       </>
     )
@@ -26,10 +26,10 @@ const Connexion = () => {
     return (
       <>
         <div className="nav__items__item">
-          <NavLink to="/signin" className="login__signin">Se Connecter </NavLink>
+          <NavLink to="/signin" >Se Connecter </NavLink>
         </div>
-        <div>
-          <NavLink to="/subscribe" className="login__signup">S'inscrire</NavLink>
+        <div className="nav__items__item">
+          <NavLink to="/subscribe" >S'inscrire</NavLink>
         </div>
       </>
     )
