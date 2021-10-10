@@ -59,7 +59,7 @@ return  <>
 {isRecto?
   <motion.div 
   className={cardClass} onClick={handleClickReturn}>
-    <pre>
+    <pre className="card__content">
       <MDEditor.Markdown source={myCard["recto"]} />
     </pre>
   </motion.div>
@@ -67,7 +67,9 @@ return  <>
   <motion.div
   animate={{rotateY:180}}
   className={cardClass} onClick={handleClickReturn}>
-    <motion.pre animate={{rotateY:180}}>
+    <motion.pre 
+    className="card__content"
+    animate={{rotateY:180}}>
       <MDEditor.Markdown source={myCard["verso"]} />
     </motion.pre>
   </motion.div>

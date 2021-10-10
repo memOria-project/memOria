@@ -1,0 +1,27 @@
+@use "../../styles/_vars";
+
+@media all and (min-width: 800px) {
+  .card {
+    min-width: 20em;
+    max-height: 8em;
+
+    &__content {
+      max-width: 20em;
+      max-height: 8em;
+    }
+  }
+  .wmde-markdown.wmde-markdown {
+    max-height: 8em;
+    font-size: 1.2em;
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow: auto;
+  }
+
+  .wmde-markdown.wmde-markdown img,
+  svg,
+  iframe {
+    max-width: 15em;
+    max-height: 6em;
+  }
+}
