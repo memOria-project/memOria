@@ -1,8 +1,8 @@
-@baseUrl=http://localhost:3500/v1
-# @baseUrl=https://memoriapo.herokuapp.com/v1
+# @baseUrl=http://localhost:3500/v1
+@baseUrl=https://memoriapo.herokuapp.com/v1
 @host=http://localhost:3500
 
-@auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTYzMzQ2OTQyMiwiZXhwIjoxNjMzNDcwMDIyfQ.hcHF1hiBROp7dh_DrQaAVsdO58vPr1h2qxs3rIObFiI
+@auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTYzMzc2MjE1OSwiZXhwIjoxNjMzNzYyNzU5fQ.Vhy4OMeEC_Z5rDj52V6gx0w4pDJiQ9gk65iJYzHibfQ
 
 ### Get all decks
 GET {{baseUrl}}/decks
@@ -19,7 +19,7 @@ Content-Type: application/json
 
 {
   "email" : "toti@s.fr",
-  "password" : "123456"
+  "password" : "memoria!"
 }
 
 ### login Tutu
@@ -56,6 +56,25 @@ Content-Type: application/json
 {
   "email" : "tati@s.fr",
   "password" : "tata"
+}
+
+### login Nicoclock
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+  "email" : "nico@clo.ck",
+  "password" : "Nicocratie"
+}
+
+
+### login souleymane
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+  "email" : "s.coulibaly@gmail.com",
+  "password" : "souley92"
 }
 
 ### Subscribe
@@ -126,37 +145,6 @@ Content-Type: application/json
 }
 
 
-
-// GESTION DES DECKS
-
-### login Nicoclock
-POST {{baseUrl}}/login
-Content-Type: application/json
-
-{
-  "email" : "nico@clo.ck",
-  "password" : "Nicocratie"
-}
-
-
-### login souleymane
-POST {{baseUrl}}/login
-Content-Type: application/json
-
-{
-  "email" : "s.coulibaly@gmail.com",
-  "password" : "souley92"
-}
-### Add a DECK
-POST {{baseUrl}}/deck
-Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE3LCJpYXQiOjE2MzM3MDQyOTEsImV4cCI6MTYzMzcwNDg5MX0.v9Cok-d1C052m8Zx6TFQxqZr50ueKxQ9fzi4KVeiJaQ
-
-{
-    "title" : "paquet-front4",
-    "tag": ["ReactJSt", "php4"]
-}
-
 ### Delay a card
 POST {{baseUrl}}/card/delay
 Authorization: {{auth}}
@@ -165,6 +153,20 @@ Content-Type: application/json
 {
     "id" : 80
 }
+
+// GESTION DES DECKS
+
+
+### Add a DECK
+POST {{baseUrl}}/deck
+Content-Type: application/json
+Authorization: {{auth}}
+
+{
+    "title" : "Nouveau Deck Test",
+    "tag": ["last chance", "test"]
+}
+
 
 # ### Tests benchmark Redis ...
 # GET {{host}}/redis
