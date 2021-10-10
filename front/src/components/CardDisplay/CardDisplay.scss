@@ -1,44 +1,54 @@
-.deck__title{
+@use "../../styles/_vars";
+
+.deck__title {
   text-align: center;
-  font-size:2em;
+  font-size: 2em;
 }
 .card {
-  border:1px solid black;
-  padding:2em 0.25em;
-  margin:auto;
-  margin-bottom:1em;
-  margin-top:1em;
-  font-size:2em;
+  border: 1px solid black;
+  padding: 2em 0.25em;
+  margin: auto;
+  margin-bottom: 1em;
+  margin-top: 1em;
+  font-size: 2em;
   width: 10em;
-  height:2.5em;
-  overflow:auto;
+  height: 2.5em;
+  overflow: auto;
+}
+
+.card__recto {
+  background-color: vars.$color-main;
+}
+
+.card__verso {
+  background-color: vars.$color-main-alt;
 }
 
 .cardDisplay__modal {
-  position:fixed;
-  z-index:1;
-  height:100%;
-  width:100%;
-  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
-  overflow:auto;
-  color:white;
+  position: fixed;
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
+  overflow: auto;
+  color: white;
 }
 
 .cardDisplay__modal h1 {
-  font-size:1.5em
+  font-size: 1.5em;
 }
 
-.cardDisplay__modal h1,h2 {
-  margin-bottom:0.5em;
-  margin-top:0.5em;
-
+.cardDisplay__modal h1,
+h2 {
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
 }
 
 .btn__submit {
   background-color: black;
-  outline:none;
-  color:white;
-  font-size:1.5em;
+  outline: none;
+  color: white;
+  font-size: 1.5em;
 }
 
 .btn__submit:hover {
@@ -48,7 +58,7 @@
   border: none;
 }
 .btn__options--active {
-  color:white;
-  background-color:black;
+  color: white;
+  background-color: black;
   border: 2px solid gold;
 }

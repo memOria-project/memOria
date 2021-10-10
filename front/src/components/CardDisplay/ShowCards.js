@@ -7,6 +7,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import Next from './Next'
 import ReactCardFlip from 'react-card-flip'
 import { set } from 'react-hook-form'
+import { motion } from "framer-motion"
+import classNames from 'classnames'
 
 const ShowCards = ({database, addFailedCards, failedCards }) => {
   const { deckId, cardId } = useParams()
@@ -46,21 +48,30 @@ const ShowCards = ({database, addFailedCards, failedCards }) => {
 
 
   const showedCard = database[cardId]
-return  <>
-  <ReactCardFlip isFlipped={cardFlip} flipDirection="horizontal">
 
-  <div className="card" onClick={handleClickReturn}>
-    <pre style={{hidden:!isRecto}}>
+  const cardClass= classNames({
+    card: true,
+    "card__recto": isRecto,
+    "card__verso": !isRecto
+  })
+
+return  <>
+{isRecto?
+  <motion.div 
+  className={cardClass} onClick={handleClickReturn}>
+    <pre>
       <MDEditor.Markdown source={myCard["recto"]} />
     </pre>
-  </div>
-  <div className="card" onClick={handleClickReturn}>
-    <pre style={{hidden:isRecto}}> 
+  </motion.div>
+:
+  <motion.div
+  animate={{rotateY:180}}
+  className={cardClass} onClick={handleClickReturn}>
+    <motion.pre animate={{rotateY:180}}>
       <MDEditor.Markdown source={myCard["verso"]} />
-    </pre>
-  </div>
-  </ReactCardFlip>
-
+    </motion.pre>
+  </motion.div>
+}
   <Next failedCards={failedCards} database={database} showedCard={showedCard} nextCard={nextCard} setNextCard={setNextCard} deckId={deckId} cardsNumberInDeck={cardsNumberInDeck} addFailedCards={addFailedCards}/>
   <p style={{fontSize: "1.5em"}}> Cartes restantes: {cardsNumberInDeck-1}</p>
   </>
