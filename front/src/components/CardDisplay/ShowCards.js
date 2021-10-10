@@ -5,13 +5,17 @@ import { useParams, NavLink } from 'react-router-dom'
 import { useEffect, useState, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import Next from './Next'
+import ReactCardFlip from 'react-card-flip'
+import { set } from 'react-hook-form'
 
 const ShowCards = ({database, addFailedCards, failedCards }) => {
   const { deckId, cardId } = useParams()
   // console.log("database", database)
   const dispatch = useDispatch();
   const { defaultView, currentView } = useSelector((state) => state.card)
+  const {isRecto, isVerso} = currentView
   const [nextCard, setNextCard] = useState("/");
+  const [cardFlip, setCardFlip] = useState(false)
   let cardsNumberInDeck = database.length;
   const allCards = database
 
@@ -36,25 +40,27 @@ const ShowCards = ({database, addFailedCards, failedCards }) => {
     // cardContent = database['cards'].find((card)=> card.id == cardId)
 
     const handleClickReturn = () => {
+      setCardFlip((state)=>!state);
       dispatch({type:RETURN_CARD, isRecto: currentView.isRecto})
       }
 
 
   const showedCard = database[cardId]
 return  <>
+  <ReactCardFlip isFlipped={cardFlip} flipDirection="horizontal">
 
   <div className="card" onClick={handleClickReturn}>
-
-  {currentView.isRecto?
-    <pre>
-  <MDEditor.Markdown source={myCard["recto"]} />
-  </pre>
-  :
-  <pre> 
-  <MDEditor.Markdown source={myCard["verso"]} />
-  </pre>
-  }
+    <pre style={{hidden:!isRecto}}>
+      <MDEditor.Markdown source={myCard["recto"]} />
+    </pre>
   </div>
+  <div className="card" onClick={handleClickReturn}>
+    <pre style={{hidden:isRecto}}> 
+      <MDEditor.Markdown source={myCard["verso"]} />
+    </pre>
+  </div>
+  </ReactCardFlip>
+
   <Next failedCards={failedCards} database={database} showedCard={showedCard} nextCard={nextCard} setNextCard={setNextCard} deckId={deckId} cardsNumberInDeck={cardsNumberInDeck} addFailedCards={addFailedCards}/>
   <p style={{fontSize: "1.5em"}}> Cartes restantes: {cardsNumberInDeck-1}</p>
   </>
