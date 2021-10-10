@@ -17,7 +17,6 @@ const ShowCards = ({database, addFailedCards, failedCards }) => {
   const { defaultView, currentView } = useSelector((state) => state.card)
   const {isRecto, isVerso} = currentView
   const [nextCard, setNextCard] = useState("/");
-  const [cardFlip, setCardFlip] = useState(false)
   let cardsNumberInDeck = database.length;
   const allCards = database
 
@@ -42,8 +41,8 @@ const ShowCards = ({database, addFailedCards, failedCards }) => {
     // cardContent = database['cards'].find((card)=> card.id == cardId)
 
     const handleClickReturn = () => {
-      setCardFlip((state)=>!state);
       dispatch({type:RETURN_CARD, isRecto: currentView.isRecto})
+      
       }
 
 
@@ -58,7 +57,8 @@ const ShowCards = ({database, addFailedCards, failedCards }) => {
 return  <>
 {isRecto?
   <motion.div 
-  className={cardClass} onClick={handleClickReturn}>
+    className={cardClass}
+    onClick={handleClickReturn}>
     <pre className="card__content">
       <MDEditor.Markdown source={myCard["recto"]} />
     </pre>
