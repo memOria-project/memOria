@@ -70,9 +70,10 @@ const ShowCards = ({database, addFailedCards, failedCards }) => {
 
 
   const handlers = useSwipeable({
-    onSwipedDown: () => handleClickFail(),
-    onSwipedRight: () => handleClickNext(),
-    trackMouse:true,
+
+    onSwipedDown: handleClickFail,
+    onSwipedUp: handleClickNext,
+    trackMouse:true
   })
 
   const showedCard = database[cardId]
