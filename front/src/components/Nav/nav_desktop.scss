@@ -1,0 +1,7 @@
+@use "../../styles/_vars";
+
+@media all and (min-width: 481px) {
+  body {
+    color: red;
+  }
+}

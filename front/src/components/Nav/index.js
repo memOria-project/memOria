@@ -1,16 +1,18 @@
-import './nav_desktop.scss';
-import './nav.scss';
+
 import { NavLink } from 'react-router-dom';
-import Connexion from '../Connexion';
+import Connexion from './Connexion';
+import './nav.scss';
+import './nav_desktop.scss';
+
 
 const Nav = ()=>{
 return (
-    <header className="header">
+    <header className="nav">
 
-      <div className="header__logo">memOria</div>
+      <div className="nav__logo">memOria</div>
 
-      <nav className="header__nav">
-          <div className="header__nav__home-page">
+      <nav className="nav__items">
+          <div className="nav__items__item">
               <NavLink to="/">Accueil</NavLink>
           </div>
           <Connexion />

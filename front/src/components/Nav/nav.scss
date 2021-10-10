@@ -1,9 +1,23 @@
-.header {
+@use "../../styles/_vars";
+
+.nav {
   display: flex;
   width: 100vw;
   flex-flow: column nowrap;
   padding-top: 0.5em;
+}
 
+.nav__logo {
+  font-size: 2em;
+  border-bottom: 2px solid vars.$color-main;
+  margin-bottom: vars.$margin-main;
+  padding-bottom: vars.$margin-main;
+  font-weight: 600;
+}
+
+.nav__items {
+  display: flex;
+  justify-content: space-around;
 }
 
 .header__nav__home-page {
@@ -12,13 +26,31 @@
 
   padding-top: 0.5em;
   padding-bottom: 0.5em;
-
 }
 
-.header__logo {
-font-size:2em;
-border-bottom:1px solid grey
+.login__signin {
+  // border-top: 2px  solid grey;
+  // border-bottom: 2px solid grey;
+
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
 }
 
+.login__signup {
+  border-bottom: 2px solid grey;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
 
-  
+.login__user-profile-link {
+  // border-top: 2px 0 2px 0 solid grey;
+  // border-bottom: 2px solid grey;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+.login__signout {
+  border-bottom: 2px solid grey;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}

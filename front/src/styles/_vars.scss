@@ -1,5 +1,20 @@
-$color-main: #13405D;
-$color-alt: #BDDCF0;
-$color-light: #ffffff;
-$color-text: #5698CC;
-$gutter: 1rem;
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,200;0,400;0,600;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Roboto+Mono:ital,wght@0,200;0,400;0,600;1,400&display=swap");
+$color-text-alt: #16a085;
+$color-main-alt: #bdc3c7;
+$color-main: #ecf0f1;
+$color-text: #2c3e50;
+$color-bg: white;
+
+$color-warning: #e67e22;
+$color-confirm: #27ae60;
+$color-information: #2980b9;
+$color-critic: #c0392b;
+
+$margin-main: 1rem;
+$margin-big: 1.5rem;
+$margin-small: 0.5rem;
+
+$font-main: "Roboto Mono", monospace;
+$font-alt: "Lora", serif;
+// $font-alt:

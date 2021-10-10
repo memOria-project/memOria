@@ -135,8 +135,9 @@ const api = (store) => (next) => (action) => {
 
     case CREATE_DECK: {
       const {name, tags} = action.data;
+      const title = name
       const newDeck = {
-        name,
+        title,
         tag: [tags]
       }
       const options = 
@@ -151,10 +152,10 @@ const api = (store) => (next) => (action) => {
 
       const createDeck = async () => {
         try {
-          const request = await fetch(`${back}/deck/new`, options)
+          const request = await fetch(`${back}/deck/`, options)
           const response = await request
           console.log(response)
-          if(response.status === 200){
+          if(response.status === 201){
           store.dispatch({type:CHECK_TOKEN})
           }
           else{
