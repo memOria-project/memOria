@@ -3,8 +3,8 @@ import { useDispatch } from 'react-redux';
 import { FETCH_DECKS, GET_USER } from '../../actions';
 import ListDecks from '../ListDecks';
 import { NavLink } from 'react-router-dom';
-import './Home_Desktop.scss';
 import './Home.scss'
+import './Home_Desktop.scss';
 
 
 const Home = ()=>{
