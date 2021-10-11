@@ -72,7 +72,7 @@ const Form = ({isInProfile}) => {
 
           <div className= 'form__email inputRow'>
             <label className='form__label inputName'> Email </label>
-              <input type="text" id="email" name="email"
+              <input type="email" id="email" name="email"
                 {...register('email',
                   {
                     required: 'Email requis',
