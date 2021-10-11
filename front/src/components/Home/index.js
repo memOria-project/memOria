@@ -84,7 +84,6 @@ return (
 
             </div>
             <div className="main-content__deck-display">
-                <h2 href="/deck/1/1" className="deck-display__title">Commençons ici</h2>
                 <ListDecks />
             </div>
         </div>
