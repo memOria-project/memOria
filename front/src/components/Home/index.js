@@ -27,7 +27,7 @@ const Home = ()=>{
     const handleClick = () => {
         setTurnCard((state)=> !state);
     }
-    const rectoPres = "**Ancrer le savoir dans la mémoire**";
+    const rectoPres = "# Ancrer le savoir dans la mémoire";
     const versoPres = "Avec **memOria**, partagez **librement** et **gratuitement** des **cartes de révisions**";
 
 return (
@@ -35,11 +35,14 @@ return (
             <div className="main-content__presentation-container">
             {!turnCard?
             <motion.div 
+
                 className="card card__recto"
                 onMouseEnter={handleClick}
                 onMouseLeave={handleClick}                
                 >
                 <motion.pre
+                // animate={{scale:[1, 1.1, 1]}}
+                // transition={{ease:"easeOut", duration:3, repeat: Infinity}}
                 className="card__content" style={{textAlign:"center"}}>
                 <MDEditor.Markdown source={rectoPres} />
                 </motion.pre>
@@ -50,7 +53,6 @@ return (
                 animate={{rotateY:180}}
                 className="card card__verso"
                 onHoverEnd={{rotateY:-180}}
-
                 onMouseEnter={handleClick}
                 onMouseLeave={handleClick}
                 >
