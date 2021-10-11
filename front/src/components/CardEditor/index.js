@@ -54,8 +54,8 @@ return (
             <label> Verso
             <Form isRecto={false} preview={preview}/>
             </label>
-            <button onClick={handleClick}> Preview</button> 
-            <button type="submit">Submit</button>
+            <button onClick={handleClick}> Aperçu</button> 
+            <button type="submit">Créer</button>
         </form>
     </div>
     )
