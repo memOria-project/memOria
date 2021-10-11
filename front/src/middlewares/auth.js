@@ -1,8 +1,8 @@
-import { LOG_IN, UPDATE_USER, GET_USER, DELETE_TOKEN, DISCONNECT, UPDATE_SESSION, CHECK_TOKEN, SUBSCRIBE, UPDATE_PROFILE } from '../actions'
+import { LOG_IN, UPDATE_USER, GET_USER, DELETE_TOKEN, DISCONNECT, UPDATE_SESSION, CHECK_TOKEN, SUBSCRIBE, UPDATE_PROFILE, REQUEST_SUCCESS } from '../actions'
 
 const auth = (store) => (next) => (action) => {
   const { email, password } = store.getState().user
-  const back = store.getState().back
+  const back = store.getState().back.url
   const token = localStorage.getItem('token')
 
   switch (action.type) {
@@ -117,9 +117,11 @@ const auth = (store) => (next) => (action) => {
       const postUser = async () => {
       try {
         const request = await fetch(`${back}/signup`, options)
-        const response = await request.json()
-        if(response.status === 201){
+        const response = await request
+        console.log(response)
+        if(response.status === 204 ||response.status === 201 ||response.status === 200){
         store.dispatch({type:UPDATE_USER, password, email, name})
+        store.dispatch({type:REQUEST_SUCCESS, isSuccessful:true})
         // supprimer LOG_IN si on souhaite éviter le login automatique après l'inscription pour raison de sécu
         store.dispatch({type:LOG_IN})
         }

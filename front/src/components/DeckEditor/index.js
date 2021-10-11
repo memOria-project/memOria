@@ -63,15 +63,15 @@ const DeckEditor = () => {
       {currentDeckInEditor ?
           (currentDeckInEditor.map((card) => {return (
             <p key={card.id} className="rectoVersoView">
-              <div className="cardContainer">
-                <p className="card">
+              <div className="card card__recto">
+              <pre className="card__content">
                 <MDEditor.Markdown source={card.recto} />
-                </p>
+                </pre>
               </div>
-              <div className="cardContainer">
-                <p className="card">
+              <div className="card card__verso">
+              <pre className="card__content">
                   <MDEditor.Markdown source={card.verso} />
-                </p>
+                  </pre>
               </div>
               <div className="card__title">
                 <p><strong>Carte n°{count++}/{currentDeckInEditor.length}</strong></p> 

@@ -19,6 +19,7 @@ export const DELETE_CARD = 'DELETE_CARD'
 export const DELAY_CARD = 'DELAY_CARD'
 export const UPDATE_PROFILE = 'UPDATE_PROFILE'
 export const CREATE_DECK = 'CREATE_DECK'
+export const REQUEST_SUCCESS = 'REQUEST_SUCCESS'
 
 export const getAllDecks = (decks) => {
   return {
