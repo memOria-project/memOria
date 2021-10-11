@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import './ListDecks.scss'
 import './ListDecks-Desktop.scss'
 import Loading from '../Loading';
+import { Fragment } from 'react';
 
 const ListDecks = ()=>{
     const allDecks = useSelector((state)=>(state.decks))
@@ -13,7 +14,7 @@ const ListDecks = ()=>{
 return (
         <div className="decks-container">
             {decks.length>1?decks.map((deck) => {
-                return <div className="deck-container" key={deck.id}> <Deck  deck={deck} /> </div>
+                return <Fragment key={deck.id}> <Deck  deck={deck} /> </Fragment>
             }):<Loading />}
         </div>
         )
