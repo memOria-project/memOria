@@ -19,13 +19,14 @@ const Home = ()=>{
 return (
         <div className="main-content"> 
             <div className="main-content__presentation-container">
-                <h2 className="presentation-container__title">Présentation</h2>
-                <div className="presentation-container__content">Memoria est une plateforme mettant à disposition des apprenants O’Clock des paquets de cartes de révision, construit autour d’une thématique, consultable librement et gratuitement.
-Memoria se démarque d’autres logiciels de flashcards en offrant des outils particuliers pour les développeurs, telle que l’intégration de snippets avec colorisation automatique de la syntaxe.
-</div>
+                <div className="presentation-container__content">
+                    <p>Memoria est une plateforme de partage de cartes de révision. L'accès est libre et gratuit. Les paquets regroupent des cartes autour d’un thème. </p>
+                    <p> </p>
+                <p>Connecte toi pour créer tes propres paquets et enregistrer la progression de ton apprentissage.</p>
+            </div>
             </div>
             <div className="main-content__deck-display">
-                <h2 href="/deck/1/1" className="deck-display__title">Les decks memOria </h2>
+                <h2 href="/deck/1/1" className="deck-display__title">Commençons ici</h2>
                 <ListDecks />
             </div>
         </div>
