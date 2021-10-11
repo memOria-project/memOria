@@ -1,0 +1,83 @@
+@use "./vars";
+
+@mixin cardMobile {
+  .card {
+    box-sizing: border-box;
+    padding: 2em 0.25em;
+    margin: auto;
+    margin-bottom: 1em;
+    margin-top: 1em;
+    border-radius: 25px;
+    width: 12.5em;
+    height: 15em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+
+    filter: drop-shadow(6px 6px 1px lighten(black, 30%));
+    font-size: 2em;
+
+    // box-shadow: inset 0 0 20px #000000;
+
+    &__recto {
+      background-color: vars.$color-main;
+    }
+
+    &__verso {
+      background-color: vars.$color-main-alt;
+    }
+
+    &__content {
+      max-width: 10em;
+      max-height: 11em;
+    }
+    .wmde-markdown.wmde-markdown {
+      font-size: 0.75em;
+      max-height: 11em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      overflow: auto;
+    }
+    .wmde-markdown.wmde-markdown pre code {
+      white-space: pre-wrap;
+      overflow: auto;
+    }
+
+    .wmde-markdown.wmde-markdown img,
+    svg,
+    iframe {
+      max-width: 9em;
+      max-height: 12em;
+    }
+  }
+}
+
+@mixin cardDesktop {
+  .card {
+    min-width: 20.5em;
+    max-height: 12em;
+
+    &__content {
+      max-width: 20em;
+      max-height: 8em;
+    }
+    .wmde-markdown.wmde-markdown {
+      max-height: 8em;
+      max-width: 20em;
+      font-size: 1.2em;
+      flex-direction: row;
+      flex-wrap: wrap;
+      overflow: auto;
+    }
+
+    .wmde-markdown.wmde-markdown img,
+    svg,
+    iframe {
+      max-width: 18em;
+      max-height: 7em;
+    }
+  }
+}
