@@ -33,12 +33,23 @@
     padding: 0.25rem 0.5rem;
 }
 
+.nav__items__item a:hover {
+  text-shadow: 0 0 10px vars.$color-text-alt;
+}
+
+
 .nav__items__item--profile {
   color: vars.$color-bg;
   text-shadow: none;
   border-radius: 0 10px 0 10px;
   background-color: vars.$color-text-alt;
+  border: 2px solid vars.$color-text-alt;
+  text-transform: capitalize;
+}
 
+.nav__items__item--profile:hover {
+  color: vars.$color-text-alt;
+  background-color: vars.$color-bg;
 }
 
 .nav__items__item--hidden {
