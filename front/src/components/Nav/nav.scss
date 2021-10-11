@@ -24,7 +24,7 @@
 .nav__items {
   font-size: 0.9em;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   padding: vars.$margin-main vars.$margin-small;
   text-transform: uppercase;
 }
@@ -53,6 +53,3 @@
   background-color: vars.$color-bg;
 }
 
-.nav__items__item--hidden {
-  display: none;
-}

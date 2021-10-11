@@ -1,4 +1,5 @@
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHome } from '@fortawesome/free-solid-svg-icons'
 import { NavLink } from 'react-router-dom';
 import Connexion from './Connexion';
 import './nav.scss';
@@ -13,7 +14,7 @@ return (
 
       <nav className="nav__items">
           <div className="nav__items__item nav__items__item--hidden">
-              <NavLink to="/">Accueil</NavLink>
+              <NavLink to="/"><FontAwesomeIcon icon={faHome}/></NavLink>
           </div>
           <Connexion />
           

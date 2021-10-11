@@ -6,10 +6,12 @@
   }
   
   .nav__items {
-    justify-content: space-evenly;
+    justify-content: center;
     font-size: 1.2em;
   }
- 
+  .nav__items a {
+    margin: 0 20px;
+  }
   .nav__items__item--hidden {
     display:initial
   }
