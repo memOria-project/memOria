@@ -42,21 +42,13 @@ if(!isConnected){
 
 return (<>
         <div> 
-          <h2>Bienvenue {name}</h2>
+          {/* <h2>Bienvenue {name}</h2> */}
         </div>
 
-        <div className="profileEdit">
+        {/* <div className="profileEdit">
           <p><strong>Adresse Email</strong>: {email}</p>
 
-          {showForm?
-          <>
-            <Form isInProfile={true} />
-            <button onClick={handleClick}>retour</button>
-          </>
-          :
-          <button onClick={handleClick}>Changer mes données/mot de passe</button>
-          }
-        </div>
+        </div> */}
         <div className="personalizedDecksDisplay">
           <h1 className="personalizedDecksDisplay__title">Vos paquets personnalisés</h1>
 
@@ -71,11 +63,22 @@ return (<>
           {personalizedDecks&&personalizedDecks.length&&personalizedDecks.map((deck) => {
                 return <div className="deck-container" key={deck.id}> <PersonalisedDeck deck={deck} /> </div>
             })}
+
+
           {loading&&<Loading />}
+
           </div>
 
           </div>
-       
+          {showForm?
+          <>
+            <Form isInProfile={true} />
+            <button onClick={handleClick}>retour</button>
+          </>
+          :
+          <button onClick={handleClick}>Changer mes données/mot de passe</button>
+          }
+          
         </>
         )
         
