@@ -1,3 +1,5 @@
+@use "../../styles/mixins";
+
 .rectoVersoView {
   display: flex;
   flex-flow: row wrap;
@@ -46,3 +48,5 @@
   flex-direction: row;
   flex-direction: space-between;
 }
+
+@include mixins.cardMobile;

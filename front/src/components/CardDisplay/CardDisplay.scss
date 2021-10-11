@@ -35,27 +35,28 @@
     max-width: 10em;
     max-height: 11em;
   }
-}
-.wmde-markdown.wmde-markdown {
-  font-size: 0.75em;
-  max-height: 11em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  overflow: auto;
-}
-.wmde-markdown.wmde-markdown pre code {
-  white-space: pre-wrap;
-  overflow: auto;
+  .wmde-markdown.wmde-markdown {
+    font-size: 0.75em;
+    max-height: 11em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow: auto;
+  }
+  .wmde-markdown.wmde-markdown pre code {
+    white-space: pre-wrap;
+    overflow: auto;
+  }
+
+  .wmde-markdown.wmde-markdown img,
+  svg,
+  iframe {
+    max-width: 9em;
+    max-height: 12em;
+  }
 }
 
-.wmde-markdown.wmde-markdown img,
-svg,
-iframe {
-  max-width: 9em;
-  max-height: 10em;
-}
 .cardDisplay__modal {
   position: fixed;
   z-index: 1;
