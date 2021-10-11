@@ -54,3 +54,30 @@
     }
   }
 }
+
+@mixin cardDesktop {
+  .card {
+    min-width: 20.5em;
+    max-height: 12em;
+
+    &__content {
+      max-width: 20em;
+      max-height: 8em;
+    }
+    .wmde-markdown.wmde-markdown {
+      max-height: 8em;
+      max-width: 20em;
+      font-size: 1.2em;
+      flex-direction: row;
+      flex-wrap: wrap;
+      overflow: auto;
+    }
+
+    .wmde-markdown.wmde-markdown img,
+    svg,
+    iframe {
+      max-width: 18em;
+      max-height: 7em;
+    }
+  }
+}

@@ -1,4 +1,4 @@
-@use "../../styles/mixins";
+@use "../../styles/mixinsCards";
 
 .rectoVersoView {
   display: flex;
@@ -7,10 +7,6 @@
   border: 3px solid black;
   align-items: center;
   justify-content: space-around;
-}
-
-.cardContainer {
-  // border: 1px solid black;
 }
 
 .card__title {
@@ -49,4 +45,4 @@
   flex-direction: space-between;
 }
 
-@include mixins.cardMobile;
+@include mixinsCards.cardMobile;
