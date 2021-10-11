@@ -6,6 +6,8 @@ import Loading from '../Loading'
 import Form from '../Subscribe/Form'
 import NewDeckForm from './NewDeckForm'
 import './Profile.scss'
+import { Fragment } from 'react';
+
 
 const Profile = ()=>{
 const {user} = useSelector((state)=> state);
@@ -50,18 +52,18 @@ return (<>
 
         </div> */}
         <div className="personalizedDecksDisplay">
-          <h1 className="personalizedDecksDisplay__title">Vos paquets personnalisés</h1>
+          <h1 className="personalizedDecksDisplay__title">Tes paquets</h1>  
 
           <div className="personalizedDecksDisplay__decks-container">
-          <div name="newDeck" className="personalDecks__new" onClick={handleClick}>
-            + <br/>
-            Nouveau paquet
+          <div name="newDeck" className="deck deck--new" onClick={handleClick}>
+            <p>+</p>
+            <p>Nouveau paquet</p>
           </div>
           {showNewDeck&&
           <NewDeckForm handleClick={handleClick} setShowNewDeck={setShowNewDeck} />
           }
           {personalizedDecks&&personalizedDecks.length&&personalizedDecks.map((deck) => {
-                return <div className="deck-container" key={deck.id}> <PersonalisedDeck deck={deck} /> </div>
+                return <Fragment key={deck.id}> <PersonalisedDeck deck={deck} /> </Fragment>
             })}
 
 
@@ -76,7 +78,7 @@ return (<>
             <button onClick={handleClick}>retour</button>
           </>
           :
-          <button onClick={handleClick}>Changer mes données/mot de passe</button>
+          <button class="information" onClick={handleClick}>Infos personnelles</button>
           }
           
         </>
