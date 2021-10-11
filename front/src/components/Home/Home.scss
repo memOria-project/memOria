@@ -1,14 +1,20 @@
+@use "../../styles/_vars";
+
 .main-content__presentation-container {
-  padding-top: 1em;
-  padding-bottom: 1em;
+  padding: 1em vars.$margin-big;
+  font-size: 0.8em;
+  line-height: 1.6em;
+  text-align: justify;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 .deck-display__title {
   margin-bottom: 1em;
 }
+
 .main-content__deck-display {
 margin:auto;
-border:1px solid black;
 }
 
 .main-content h2
