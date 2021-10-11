@@ -1,11 +1,17 @@
+@use "../../styles/vars";
+@use "../../styles/_mixinsDecks";
+@include mixinsDecks.deckMobile;
+
 .personalizedDecksDisplay {
   margin: auto;
   border: 1px solid black;
 }
 
 .personalizedDecksDisplay__title {
-  margin-bottom: 0.5em;
+  margin: vars.$margin-main;
   font-size: 1.5em;
+  color: vars.$color-text;
+  background-color: inherit;
 }
 
 .personalizedDecksDisplay__decks-container {
@@ -15,15 +21,15 @@
   justify-content: center;
 }
 
-.deck-container,
-.personalDecks__new {
-  padding: 3em 1em;
-  border: 2px solid grey;
-  width: 5em;
-  height: 5em;
-  text-align: center;
-  margin: auto;
-}
+// .deck-container,
+// .personalDecks__new {
+//   display: flex;
+//   flex-direction: column;
+//   padding: 3em 1em;
+//   width: 6em;
+//   height: 5em;
+//   text-align: center;
+// }
 
 .personalDecks__new {
   border: 2px dotted black;
