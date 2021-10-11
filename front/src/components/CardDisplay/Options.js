@@ -4,6 +4,11 @@ import { NavLink } from 'react-router-dom'
 import { EDIT_OPTIONS } from '../../actions'
 import RectoVerso from './RectoVerso'
 import DelayedCards from './DelayedCards'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { library } from '@fortawesome/fontawesome-svg-core'
+// import { fab } from '@fortawesome/free-brands-svg-icons'
+import { faCheck} from '@fortawesome/free-solid-svg-icons'
+
 
 const Options = ({setShowOptions, delayedCards}) => {
   const isConnected = useSelector((state) => state.user.isConnected)
@@ -37,11 +42,11 @@ const Options = ({setShowOptions, delayedCards}) => {
       {isConnected&&
         <>
           <h2>  Parcourir les cartes</h2>
-          <DelayedCards handleClick={handleClick} isActive={isActive} delayedCards={delayedCards} />
+          <DelayedCards onClick={handleClick} isActive={isActive} delayedCards={delayedCards} />
         </>
         }
-        <button className="btn__submit" onClick={handleClick} id="start" type="submit">Continuer</button>
-
+        <button className="btn__submit" id="start" type="submit" onClick={handleClick}>Continuer </button>
+        {/* <FontAwesomeIcon icon={faCheck} onClick={handleClick}/> */}
      </div>
   )
 }

@@ -1,5 +1,49 @@
 @use "./vars";
 
+@mixin basicCardMobile {
+  box-sizing: border-box;
+  padding: 2em 0.25em;
+  margin: auto;
+  margin-bottom: 1em;
+  margin-top: 1em;
+  border-radius: 25px;
+  width: 12.5em;
+  height: 15em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+
+  &__content {
+    max-width: 10em;
+    max-height: 11em;
+  }
+
+  &__recto {
+    background-color: vars.$color-main;
+    .wmde-markdown-color.wmde-markdown-color {
+      color: #e67e22;
+    }
+  }
+
+  &__verso {
+    background-color: vars.$color-main-alt;
+    .wmde-markdown-color.wmde-markdown-color {
+      color: vars.$color-text;
+    }
+  }
+}
+
+@mixin basicCardDesktop {
+  min-width: 20.5em;
+  max-height: 12em;
+
+  &__content {
+    max-width: 20em;
+    max-height: 8em;
+  }
+}
+
 @mixin cardMobile {
   .card {
     box-sizing: border-box;
@@ -22,10 +66,16 @@
 
     &__recto {
       background-color: vars.$color-main;
+      .wmde-markdown-color.wmde-markdown-color {
+        color: #e67e22;
+      }
     }
 
     &__verso {
       background-color: vars.$color-main-alt;
+      .wmde-markdown-color.wmde-markdown-color {
+        color: vars.$color-text;
+      }
     }
 
     &__content {
@@ -40,13 +90,13 @@
       align-items: center;
       flex-direction: column;
       overflow: auto;
-      color: vars.$color-text;
     }
     .wmde-markdown.wmde-markdown pre code {
       white-space: pre-wrap;
       overflow: auto;
     }
-
+    // .wmde-markdown-color.wmde-markdown-color {
+    // }
     .wmde-markdown.wmde-markdown img,
     svg,
     iframe {

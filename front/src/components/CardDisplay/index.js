@@ -113,7 +113,12 @@ const CardDisplay = () => {
   return (<div>
           {showOptions &&
             <div className="cardDisplay__modal">
+              <div class="modal__container modal__container__verso">
+
+              <div class="modal__container__content"> 
               <Options setShowOptions={setShowOptions} delayedCards={delayedCards} />
+              </div>
+              </div>
             </div>
           }
           {database?.length >= 1 &&
