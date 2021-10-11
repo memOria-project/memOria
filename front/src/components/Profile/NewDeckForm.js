@@ -21,7 +21,7 @@ return (
           {
             required: 'Nom requis',
             minLength: { value: 3, message: '4 caractères minimum! ' },
-            maxLength: { value: 15, message: '15 caractères maximum! ' }
+            maxLength: { value: 20, message: '20 caractères maximum! ' }
           })} />
       </label><br />
       <ErrorMessage errors ={errors} render={({ message }) => <span className='label--error'>{message}</span>} name="name" />
@@ -31,6 +31,7 @@ return (
             <option value="JS">JS</option>
             <option value="HTML">HTML</option> 
             <option value="HTML">CSS</option>
+            <option value="oclock">oClock</option>
         </select>
       </label> <br />
       <button name="newDeck" type="submit">Créer</button>

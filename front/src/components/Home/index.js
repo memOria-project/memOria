@@ -30,9 +30,10 @@ const Home = ()=>{
 
     const handleClick = () => {
         setTurnCard((state)=> !state);
+        setTimeout(()=>setTurnCard((state)=>!state), 30000)
     }
-    const rectoPres = "# Ancrer le savoir dans la mémoire";
-    const versoPres = "Avec **memOria**, partagez **librement** et **gratuitement** des **cartes de révisions**";
+    const rectoPres = "# C'est quoi memOria?";
+    const versoPres = "Une **app** pour partager des **cartes de révisions** librement et gratuitement, ```avec du code``` ou sans! \n **Cliquez sur un paquet pour commencer!**";
 
 return (
         <div className="main-content"> 
@@ -42,13 +43,13 @@ return (
 
                 className="card card__recto"
                 onMouseEnter={handleClick}
-                onMouseLeave={handleClick}                
+                // onMouseLeave={handleClick}                
                 >
                 <motion.pre
                 // animation de "pulse", mais fait bugger l'autre animation
                 // animate={{scale:[1, 1.1, 1]}}
                 // transition={{ease:"easeOut", duration:3, repeat: Infinity}}
-                className="card__content" style={{textAlign:"center"}}>
+                className="card__content" style={{textAlign:"center", backgroundColor:"lightgrey"}}>
                 <MDEditor.Markdown source={rectoPres} />
                 </motion.pre>
             </motion.div>
@@ -57,9 +58,9 @@ return (
             <motion.div 
                 animate={{rotateY:180}}
                 className="card card__verso"
-                onHoverEnd={{rotateY:-180}}
-                onMouseEnter={handleClick}
-                onMouseLeave={handleClick}
+                // onHoverEnd={{rotateY:-180}}
+                // onMouseEnter={handleClick}
+                // onMouseLeave={handleClick}
                 >
                 <motion.pre 
                                 animate={{rotateY:180}}
@@ -73,7 +74,7 @@ return (
                 transition={{ease:"easeOut", duration:0.8, repeat: Infinity}}
                 style={{textAlign:"center"}}
                 > 
-                <FontAwesomeIcon icon={faArrowCircleDown} size='10x' />
+                <FontAwesomeIcon icon={faArrowCircleDown} size='10x' style={{boxShadow: "1 10px 10px black"}}/>
             </motion.div>
             </>
 
