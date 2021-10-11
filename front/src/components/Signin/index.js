@@ -28,13 +28,17 @@ return (<div>
       <Loading />
       :
       (<form onSubmit={handleSubmit}>
-        <label htmlFor="login">Email
+          <div className= 'form__email inputRow'>
+            <label htmlFor="login" className='form__label inputName'> Email </label>
             <input id="login" onChange={(event)=> handleChange(event, "email")} value={email}/>
-            </label>
-        <label htmlFor="password">Mot de passe
+          </div>
+
+          <div className= 'form__password inputRow'>
+            <label htmlFor="password" className='form__label inputName'> Mot de passe </label>
             <input onChange={(event)=> handleChange(event, "password")} id="password" type="password" value={password} />
-        </label>
-        <button type="submit">submit</button>
+            
+            <button type="submit">submit</button>
+          </div>
       </form>) }   
     </div>)
 }
