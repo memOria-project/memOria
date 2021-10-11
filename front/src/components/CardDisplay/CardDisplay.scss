@@ -5,13 +5,14 @@
   font-size: 2em;
 }
 .card {
+  box-sizing: border-box;
   padding: 2em 0.25em;
   margin: auto;
   margin-bottom: 1em;
   margin-top: 1em;
   border-radius: 25px;
-  width: 10em;
-  height: 11em;
+  width: 12.5em;
+  height: 15em;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,8 +32,8 @@
   }
 
   &__content {
-    max-width: 8em;
-    min-height: 0;
+    max-width: 10em;
+    max-height: 11em;
   }
 }
 .wmde-markdown.wmde-markdown {
@@ -52,8 +53,8 @@
 .wmde-markdown.wmde-markdown img,
 svg,
 iframe {
-  max-width: 7em;
-  max-height: 8em;
+  max-width: 9em;
+  max-height: 10em;
 }
 .cardDisplay__modal {
   position: fixed;

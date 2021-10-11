@@ -4,7 +4,7 @@ import {
 
 const api = (store) => (next) => (action) => {
   const token = localStorage.getItem('token')
-  const back = store.getState().back
+  const back = store.getState().back.url
   switch (action.type) {
     case FETCH_DECKS:
     {

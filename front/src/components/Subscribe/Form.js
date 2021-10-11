@@ -9,22 +9,31 @@ import Loading from '../Loading'
 
 const Form = ({isInProfile}) => {
   const {name, email} = useSelector((state)=>state.user)
+  const {isSuccessful} = useSelector((state)=>state.back)
   const { register, handleSubmit, watch, getValues, formState: { errors, isValid, isSubmitted, isSubmitSuccessful } } = useForm({ mode: 'onChange'})
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false)
+
+  const redirect = () => {
+    if(isSubmitted) {
+      setLoading(true)
+      console.log("is Submitted")
+      return <span>argh</span>
+
+    }
+
+    else if(isSuccessful) {
+      setLoading(false)
+      return <Redirect to="/profile" />
+
+    }
+  }
+
+
   useEffect(() => {
-  if(isSubmitted) {
-    setLoading(true)
-    // if(isInProfile){
-
-    // }
-    return <Redirect to="/profile" />
-  }
-  if(isSubmitSuccessful){
-    setLoading(false)
-
-  }
-}, [isSubmitted, isSubmitSuccessful])
+    console.log(isSuccessful)
+    redirect();
+  }, [isSubmitted, isSuccessful])
 
   return (loading?<Loading />:
   <form className='userForm' onSubmit = {handleSubmit((data) => {
