@@ -32,10 +32,8 @@ const Options = ({setShowOptions, delayedCards}) => {
   }
 
   return (
-    <div style={{margin:"2em"}}>
-      <h1> Options
-        {/* <button onClick={()=>setShowOptions(false)}>cacher</button> <br /> */}
-      </h1>
+    <div>
+      <h1> Options</h1>
 
       <h2>Montrer en premier </h2>
         <RectoVerso />

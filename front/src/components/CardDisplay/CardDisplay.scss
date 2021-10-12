@@ -1,5 +1,6 @@
 @use "../../styles/_vars";
 @use "../../styles/_mixinsCards";
+@use "../../styles/_mixinsModal";
 
 .deck__title {
   text-align: center;
@@ -7,35 +8,7 @@
 }
 
 .cardDisplay__modal {
-  position: absolute;
-  z-index: 1;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.95); /* Black w/ opacity */
-  overflow: auto;
-  color: white;
-}
-
-.modal__container {
-  position: absolute;
-  width: 380px;
-  margin-left: -160px;
-  margin-top: -160px;
-  top: 25%;
-  left: 50%;
-  overflow: hidden;
-  align-items: center;
-}
-
-.cardDisplay__modal h1 {
-  font-size: 2em;
-}
-
-.cardDisplay__modal h1,
-h2 {
-  margin-bottom: 0.5em;
-  margin-top: 0.5em;
-  background-color: transparent;
+  @include mixinsModal.modal;
 }
 
 .btn__submit {
