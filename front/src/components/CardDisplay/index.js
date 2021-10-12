@@ -13,7 +13,7 @@ import NextGame from './NextGame'
 const CardDisplay = () => {
   const dispatch = useDispatch()
   // use URl parameters to determine the card to display from deck and card id
-  const { deckId } = useParams()
+  const { deckId, cardId } = useParams()
   const delayedIds = useSelector((state) => state.user.delayedCards)
   const allCards = useSelector(state => state.currentDeck).currentDeckContent.cards
   const deckTitle = useSelector(state => state.currentDeck).currentDeckContent.title
@@ -66,15 +66,18 @@ const CardDisplay = () => {
     if (isAlternateRequired) {
       console.log({ database, alternateFailedCards })
       database = alternateFailedCards
+      console.log({database})
     } else if (isFailed) {
       database = initialFailedCards
     } 
     else if (isDelayedReviewOn) {
       database = delayedCards
-      console.log("delayedCards activated!")
+      console.log({database})
     } 
     else if (!isFailed) {
       database = allCards
+      console.log({database})
+
     }
   }
   selectDatabase()
@@ -125,7 +128,7 @@ const CardDisplay = () => {
             (<>
             <p className="deck__title">{deckTitle} </p>
             <button onClick={() => setShowOptions(true)}>Show Options</button>
-            <ShowCards database={database} addFailedCards={addFailedCards} failedCards={databaseFailedCards} />
+            <ShowCards cardId={cardId} database={database} addFailedCards={addFailedCards} failedCards={databaseFailedCards} />
             </>)
           }
           {isOver &&
