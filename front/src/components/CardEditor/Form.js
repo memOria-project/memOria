@@ -6,6 +6,7 @@ import { javaButton, htmlButton, CSSButton, title3 } from './buttons';
 import { useDispatch, useSelector } from 'react-redux';
 import { EDIT_CARD } from '../../actions';
 import './CardEditor.scss'
+import classNames from 'classnames';
 
 const Form = ({isRecto, preview})=>{
 
@@ -17,10 +18,25 @@ const Form = ({isRecto, preview})=>{
       dispatch({type:EDIT_CARD, field: [{"field": field, "value":val}, {"field":"test", "value":"value"}]})        
   }
 
+  const cardClasses = classNames({
+    card: true,
+    card__recto: isRecto,
+    card__verso:!isRecto
+  })
+
   return (
     <div className="form"> 
     {preview?
+    <div 
+
+    className={cardClasses}              
+    >
+    <pre
+
+    className="card__content" style={{textAlign:"center"}}>
       <MDEditor.Markdown source={isRecto?recto:verso} />
+      </pre>
+    </div>
       :
       <MDEditor
         onChange={(val)=>handleChange(val)}
@@ -36,6 +52,7 @@ const Form = ({isRecto, preview})=>{
           commands.unorderedListCommand,
           commands.quote,
           commands.code,
+          commands.image,
           commands.divider,// sépare les boutons d'édition texte de ceux d'édition code
           commands.group([], { // je ne comprend pas .group, mais elle semble nécessaire pour construire des boutons personalisés. 
             name: "JS",

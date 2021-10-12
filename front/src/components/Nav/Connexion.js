@@ -2,6 +2,8 @@
 
 import { useSelector, useDispatch } from 'react-redux'
 import { NavLink, Redirect } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faDoorOpen } from '@fortawesome/free-solid-svg-icons'
 import { DELETE_TOKEN } from '../../actions'
 // Display user connexion state and associated options
 const Connexion = () => {
@@ -18,7 +20,7 @@ const Connexion = () => {
         <div className="nav__items__item">
           <NavLink to="/profile" className="nav__items__item--profile">{user.name}</NavLink>
         </div>
-          <div className="nav__items__item" onClick={handleClick}><NavLink to="/">Déconnexion </NavLink>
+          <div className="nav__items__item" onClick={handleClick}><NavLink to="/"><FontAwesomeIcon icon={faDoorOpen}/></NavLink>
         </div>
       </>
     )

@@ -6,6 +6,8 @@ import Loading from '../Loading'
 import Form from '../Subscribe/Form'
 import NewDeckForm from './NewDeckForm'
 import './Profile.scss'
+import { Fragment } from 'react';
+
 
 const Profile = ()=>{
 const {user} = useSelector((state)=> state);
@@ -42,40 +44,43 @@ if(!isConnected){
 
 return (<>
         <div> 
-          <h2>Bienvenue {name}</h2>
+          {/* <h2>Bienvenue {name}</h2> */}
         </div>
 
-        <div className="profileEdit">
+        {/* <div className="profileEdit">
           <p><strong>Adresse Email</strong>: {email}</p>
 
+        </div> */}
+        <div className="personalizedDecksDisplay">
+          <h1 className="personalizedDecksDisplay__title">Tes paquets</h1>  
+
+          <div className="personalizedDecksDisplay__decks-container">
+          <div name="newDeck" className="deck deck--new" onClick={handleClick}>
+            <p>+</p>
+            <p>Nouveau paquet</p>
+          </div>
+          {showNewDeck&&
+          <NewDeckForm handleClick={handleClick} setShowNewDeck={setShowNewDeck} />
+          }
+          {personalizedDecks&&personalizedDecks.length&&personalizedDecks.map((deck) => {
+                return <Fragment key={deck.id}> <PersonalisedDeck deck={deck} /> </Fragment>
+            })}
+
+
+          {loading&&<Loading />}
+
+          </div>
+
+          </div>
           {showForm?
           <>
             <Form isInProfile={true} />
             <button onClick={handleClick}>retour</button>
           </>
           :
-          <button onClick={handleClick}>Changer mes données/mot de passe</button>
+          <button class="information" onClick={handleClick}>Infos personnelles</button>
           }
-        </div>
-        <div className="personalizedDecksDisplay">
-          <h1 className="personalizedDecksDisplay__title">Vos paquets personnalisés</h1>
-
-          <div className="personalizedDecksDisplay__decks-container">
-          <div name="newDeck" className="personalDecks__new" onClick={handleClick}>
-            + <br/>
-            Nouveau paquet
-          </div>
-          {showNewDeck&&
-          <NewDeckForm handleClick={handleClick} setShowNewDeck={setShowNewDeck} />
-          }
-          {personalizedDecks&&personalizedDecks.length&&personalizedDecks.map((deck) => {
-                return <div className="deck-container" key={deck.id}> <PersonalisedDeck deck={deck} /> </div>
-            })}
-          {loading&&<Loading />}
-          </div>
-
-          </div>
-       
+          
         </>
         )
         

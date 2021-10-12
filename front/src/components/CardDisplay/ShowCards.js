@@ -73,7 +73,7 @@ const ShowCards = ({database, addFailedCards, failedCards }) => {
 
     onSwipedDown: handleClickFail,
     onSwipedUp: handleClickNext,
-    trackMouse:true
+    // trackMouse:true
   })
 
   const showedCard = database[cardId]

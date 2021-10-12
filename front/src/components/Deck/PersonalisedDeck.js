@@ -1,6 +1,8 @@
 import './Deck.scss'
 import PropTypes from 'prop-types'
 import {NavLink} from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEdit } from '@fortawesome/free-solid-svg-icons'
 
 const PersonalisedDeck = ({ deck }) => {
   const {id, title, created_at} = deck;
@@ -10,9 +12,9 @@ const PersonalisedDeck = ({ deck }) => {
   return (
     // je laisse ça ici au cas où on veut tester plus tard les autres données
     // <p className="deck"> id: {id} title: {title} created: {created_at} tag:{myTags}</p>
-  <p className="deck"> <NavLink to={viewPath}>{title}</NavLink> <br /> <br/>
-  <button><NavLink to={editPath}>editer</NavLink> </button>
-  </p>
+  <div className="deck"> <NavLink to={viewPath}>{title}</NavLink>
+    <NavLink to={editPath}><FontAwesomeIcon icon={faEdit}/></NavLink>
+  </div>
 
   )
 }
