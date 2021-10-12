@@ -48,8 +48,8 @@ const NextGame = ({isFailed, failedCards, setIsAlternateRequired, alternateFaile
     <h1>Paquet terminé ! Bravo!  </h1>
     <button onClick={()=>handleClickRestart()}> Revoir toutes les cartes </button> <br />
     {check&&
-    <button onClick={()=>handleClickCheckFail()}>
-      <NavLink to={firstCardURL}> Voir les {failedCards.length} cartes non apprises</NavLink>
+    <button onClick={()=>handleClickCheckFail()} style={{color:"black"}}>
+      <NavLink to={firstCardURL} style={{color:"black"}}> Voir les {failedCards.length} cartes non apprises</NavLink>
     </button>
     }
   </div>)

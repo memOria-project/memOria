@@ -1,23 +1,22 @@
+@use "../../styles/vars.scss";
+
 .formContainer {
-  margin:auto;
-  width:50%;
+  margin: auto;
+  width: 50%;
 }
 .userForm {
-  text-align:center;
+  text-align: center;
 }
 .form__label {
-  display:flex;
-  flex-direction:row;
-  justify-content: space-between; 
-  
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 .label--error {
-  display:block;
-  color:red;
-  text-align:right;
+  display: block;
+  color: red;
+  text-align: right;
 }
-
-
 
 :root {
   font-weight: 16px;
@@ -31,30 +30,31 @@ body {
   font-size: 0.8rem;
 
   font-family: "Roboto", sans-serif;
-  color: black;
+  color: vars.$color-text;
 }
 
-
-.container {
+.userForm .container {
   display: flex;
   width: 100%;
   height: 80vh;
-  padding-top: 10vh;
+  // padding-top: 10vh;
+  justify-content: center;
 }
 
-.infoPersoTitle {
-  color: black;
+.userForm .infoPersoTitle {
+  color: vars.$color-text;
   font-family: Arial;
   width: 100%;
   font-size: 25px;
   text-decoration: none;
   text-shadow: 0px 1px 0px white;
   text-align: center;
+  padding-top: 20px;
 }
 
 .imageSection {
   width: 35%;
-  border: 0.5px solid gray;
+  // border: 0.5px solid gray;
 }
 
 .imageSection img {
@@ -70,7 +70,7 @@ body {
   justify-content: center;
   width: 65%;
   height: 100%;
-  border: 0.5px solid gray;
+  // border: 0.5px solid gray;
   background-color: #f6f8fa;
 }
 
@@ -121,7 +121,7 @@ input[type="password"] {
   width: 100%;
 }
 
-button {
+.formbutton {
   background-color: #67c1b0;
   border-radius: 28px;
   border: 1px solid #18ab29;
@@ -134,17 +134,32 @@ button {
   text-decoration: none;
   text-shadow: 0px 1px 0px #2f6627;
 }
-button:hover {
+.userForm button:hover {
   background-color: #5cbf2a;
 }
-button:active {
+.userForm button:active {
   position: relative;
   top: 1px;
 }
-
+.valid {
+  background-color: #5cbf2a;
+  color: white;
+}
+.notValid {
+  background-color: grey;
+  color: darkgrey;
+  text-shadow: none;
+  border: none;
+  &:hover {
+    background-color: grey;
+    color: darkgrey;
+    text-shadow: none;
+    border: none;
+  }
+}
 /*---------Media Query----------*/
 @media all and (min-width: 481px) {
-  .container {
+  .userForm .container {
     display: flex;
     width: 50%;
     height: 50vh;
@@ -152,7 +167,7 @@ button:active {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -65%);
   }
 
   .infoPersoLeft {
@@ -162,7 +177,7 @@ button:active {
     width: 100%;
   }
 
-  button {
+  .userForm button {
     font-size: 17px;
     padding: 8px 20px;
   }

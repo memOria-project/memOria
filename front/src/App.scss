@@ -38,26 +38,31 @@ button {
 }
 
 button:hover {
-  transform: scale(0.95);}
+  transform: scale(0.95);
+}
 
-button>a {
+button > a {
   text-decoration: none;
   color: vars.$color-main;
 }
 
-.confirm, .confirm>a {
+.confirm,
+.confirm > a {
   background-color: vars.$color-confirm;
 }
 
-.information, .information>a {
+.information,
+.information > a {
   background-color: vars.$color-information;
 }
 
-.warning, .warning > a {
+.warning,
+.warning > a {
   background-color: vars.$color-warning;
 }
 
-.critic, .critic > a {
+.critic,
+.critic > a {
   background-color: vars.$color-critic;
 }
 

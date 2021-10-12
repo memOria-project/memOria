@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import Loading from '../Loading'
 import monimage from '../../assets/javascript.jpg'
+import classNames from 'classnames'
 
 const Form = ({isInProfile}) => {
   const {name, email} = useSelector((state)=>state.user)
@@ -29,7 +30,16 @@ const Form = ({isInProfile}) => {
 
     }
   }
+  const submitButton = classNames({
+    valid:  isValid,
+    notValid: !isValid
+  })
 
+  const loginButton = classNames({
+    information: true,
+    valid:  !isValid,
+    notValid: isValid
+  })
 
   useEffect(() => {
     console.log(isSuccessful)
@@ -144,10 +154,10 @@ const Form = ({isInProfile}) => {
           }
 
           <div className= 'login-button'>
-              {!isInProfile&&<Link to="/signin"><button>J'ai déjà un compte</button></Link>}
+              {!isInProfile&&<Link to="/signin"><button className={loginButton}>J'ai déjà un compte</button></Link>}
               {isInProfile?<button type="submit" disabled={!isValid}>Mettre à jour</button>
               :
-              <button type="submit" disabled={!isValid}>S'inscrire</button>
+              <button type="submit" disabled={!isValid} className={submitButton}>S'inscrire</button>
               }
           </div>
 
