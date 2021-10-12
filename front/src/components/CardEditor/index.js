@@ -6,6 +6,7 @@ import Form from './Form.js'
 import './CardEditor.scss'
 import { EDIT_CARD, FETCH_CARDS, getCurrentDeckContent, POST_CARD } from "../../actions/index.js";
 import Confirmation from "./Confirmation.js";
+
 const CardEditor = ()=>{
     let {deckId, cardId} = useParams()
     deckId = parseInt(deckId, 10)

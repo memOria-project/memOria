@@ -19,7 +19,9 @@ const Next = ({ failedCards, database, nextCard, deckId, cardsNumberInDeck, setN
     return `/deck/${deckId}/${nextCard-1}`
   }
 }
-
+const deckLength = useSelector(state => state.currentDeck).deck_length
+const goodCards = deckLength- failedCards.length
+console.log(goodCards)
 const handleClickNext = () => {
   dispatch({type:RESET_CARD, isRecto: defaultView.isRecto})
   database.splice(cardId, 1)
@@ -48,7 +50,7 @@ return (
           <NavLink to={nextCardURL} > <FontAwesomeIcon icon={faCalendarCheck}/> OK</NavLink>
         </button>
           <button className="warning" onClick={()=>handleClickFail()}>
-            <NavLink to={nextCardURL} > <FontAwesomeIcon icon={faTimesCircle}/>({failedCards.length})</NavLink>
+            <NavLink to={nextCardURL} > <FontAwesomeIcon icon={faTimesCircle}/> ({failedCards.length})</NavLink>
           </button>
 
       </>)

@@ -11,6 +11,8 @@ import NextGame from './NextGame'
 
 import './CardDisplay.scss'
 import './CardDisplay_desktop.scss'
+import { faCog } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const CardDisplay = () => {
   const dispatch = useDispatch()
@@ -19,7 +21,7 @@ const CardDisplay = () => {
   const delayedIds = useSelector((state) => state.user.delayedCards)
   const allCards = useSelector(state => state.currentDeck).currentDeckContent.cards
   const deckTitle = useSelector(state => state.currentDeck).currentDeckContent.title
-
+  const deckLength = useSelector(state => state.currentDeck).deck_length
   // Fetch all cards from the selected deck
   useEffect(() => {
     dispatch({ type: SET_CURRENT_DECK_ID, currentDeckId: deckId })
@@ -126,8 +128,7 @@ const CardDisplay = () => {
           }
           {database?.length >= 1 &&
             (<>
-            <p className="deck__title">{deckTitle} </p>
-            <button onClick={() => setShowOptions(true)}>Show Options</button>
+            <p className="deck__title">{deckTitle} <FontAwesomeIcon icon={faCog} onClick={()=> setShowOptions(true)} style={{cursor:"pointer"}}/> </p>
             <ShowCards cardId={cardId} database={database} addFailedCards={addFailedCards} failedCards={databaseFailedCards} />
             </>)
           }
