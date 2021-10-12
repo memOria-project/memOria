@@ -39,8 +39,7 @@
 
 .modal {
   @include mixinsModal.modal;
-  position: absolute;
-  height: 100vw;
+  height: 100vh;
 }
 
 .modal__content {

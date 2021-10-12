@@ -1,13 +1,16 @@
 @use "./vars.scss";
 
 @mixin modal {
-  position: absolute;
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
   z-index: 1;
   height: 100%;
   width: 100%;
   background-color: rgba(230, 230, 230, 0.8); /* Black w/ opacity */
   overflow: auto;
-  color: white;
+  //   color: white;
 
   &__container {
     position: absolute;
