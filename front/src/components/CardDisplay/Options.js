@@ -42,7 +42,7 @@ const Options = ({setShowOptions, delayedCards}) => {
       {isConnected&&
         <>
           <h2>  Parcourir les cartes</h2>
-          <DelayedCards onClick={handleClick} isActive={isActive} delayedCards={delayedCards} />
+          <DelayedCards handleClick={handleClick} isActive={isActive} delayedCards={delayedCards} />
         </>
         }
         <button className="btn__submit" id="start" type="submit" onClick={handleClick}>Continuer </button>
