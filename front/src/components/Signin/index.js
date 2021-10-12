@@ -3,6 +3,7 @@ import { LOG_IN, UPDATE_LOGIN } from '../../actions'
 import { Redirect } from 'react-router-dom'
 import { useState } from 'react';
 import Loading from '../Loading';
+import monimage2 from '../../assets/javascript.jpg'
 
 const SignIn = ()=>{
     const {password, email, isConnected} = useSelector((state)=> (state.user));
@@ -28,14 +29,33 @@ return (<div>
       <Loading />
       :
       (<form onSubmit={handleSubmit}>
-        <label htmlFor="login">Email
-            <input id="login" onChange={(event)=> handleChange(event, "email")} value={email}/>
-            </label>
-        <label htmlFor="password">Mot de passe
-            <input onChange={(event)=> handleChange(event, "password")} id="password" type="password" value={password} />
-        </label>
-        <button type="submit">submit</button>
-      </form>) }   
-    </div>)
+        <div className= 'form__container container'>
+          <div className= 'form__image-section imageSection'>
+            <img src={monimage2} alt="code expressjs" />
+          </div>
+
+          <div className= 'form__profil-section formSection'>
+            <h2 class="infoPersoTitle">Connexion</h2>
+
+            <div className='form__info-profil infoPersoLeft'>
+              <div className='form__email inputRow'>
+                  <label className='form__label inputName'> Email </label>
+                  <input id="login" onChange={(event)=> handleChange(event, "email")} id="email" type="email" value={email}/>
+              </div>
+
+              <div className='form__password inputRow'>
+                <label className='form__label inputName'> Mot de passe </label>
+                <input onChange={(event)=> handleChange(event, "password")} id="password" type="password" value={password} />
+              </div>
+
+              <button type="submit">Se Connecter</button>
+          
+            </div> 
+          </div>
+      </div> 
+
+      </form>) }
+    </div>
+)
 }
 export default SignIn
