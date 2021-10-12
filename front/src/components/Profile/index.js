@@ -78,7 +78,7 @@ return (<>
             <button onClick={handleClick}>retour</button>
           </>
           :
-          <button class="information" onClick={handleClick}>Infos personnelles</button>
+          <button class="btn__submit" onClick={handleClick}>Infos personnelles</button>
           }
           
         </>
