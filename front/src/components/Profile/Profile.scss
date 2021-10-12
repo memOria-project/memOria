@@ -1,5 +1,7 @@
 @use "../../styles/vars";
 @use "../../styles/_mixinsDecks";
+@use "../../styles/_mixinsModal";
+
 @include mixinsDecks.deckMobile;
 
 .personalizedDecksDisplay {
@@ -35,15 +37,10 @@
   border: 2px dotted black;
 }
 
-.personalDecks__new--modal {
-  position: fixed;
-  z-index: 1;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
-  overflow: auto;
-  color: white;
-  margin: auto;
+.modal {
+  @include mixinsModal.modal;
+  position: absolute;
+  height: 100vw;
 }
 
 .modal__content {

@@ -20,7 +20,7 @@ const [loading, setLoading] = useState(true)
 console.log(personalizedDecks);
 const handleClick = (event) => {
   console.log(event)
-  if(event.target.name === "newDeck" || event.target?.attributes[0]?.value)
+  if(event.target.name === "newDeck"||event.target.innerText === "Nouveau paquet" || event.target.textContent === "+Nouveau paquet" || event.target.textContent === "+")
   {
     setShowNewDeck((state)=>!state)
   }

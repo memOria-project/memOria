@@ -11,7 +11,7 @@ const NewDeckForm = ({ handleClick, setShowNewDeck }) => {
   }
   const dispatch = useDispatch()
 return (
-  <div className="personalDecks__new--modal">
+  <div className="modal">
   <div className="modal__content">
     <h1>Créer un nouveau paquet</h1>
     <form onSubmit={handleSubmit((data)=> dispatch({type:CREATE_DECK, data}))}>
@@ -37,7 +37,7 @@ return (
       <button name="newDeck" type="submit">Créer</button>
 
     </form> <br />
-    <button name="newDeck" onClick={handleClick}>retour</button>
+    <button name="newDeck" className="information" onClick={handleClick}>retour</button>
     </div>
   </div>
 )
