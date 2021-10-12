@@ -1,5 +1,4 @@
-import './CardDisplay.scss'
-import './CardDisplay_desktop.scss'
+
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
@@ -9,6 +8,9 @@ import ShowCards from './ShowCards'
 import Loading from '../Loading'
 import Options from './Options'
 import NextGame from './NextGame'
+
+import './CardDisplay.scss'
+import './CardDisplay_desktop.scss'
 
 const CardDisplay = () => {
   const dispatch = useDispatch()

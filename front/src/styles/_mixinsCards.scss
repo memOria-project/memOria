@@ -107,28 +107,40 @@
 }
 
 @mixin cardDesktop {
-  .card {
-    min-width: 20.5em;
-    max-height: 12em;
-
+  body .card {
+    padding: 1em 0.25em;
+    width: 20em;
+    height: 12em;
     &__content {
       max-width: 20em;
       max-height: 8em;
+      padding: 1em;
+      & h1,
+      h2,
+      h3 {
+        // padding: 0em;
+      }
     }
     .wmde-markdown.wmde-markdown {
       max-height: 8em;
       max-width: 20em;
-      font-size: 1.2em;
+      font-size: 1em;
       flex-direction: row;
       flex-wrap: wrap;
       overflow: auto;
+      flex: 1;
+    }
+    .wmde-markdown.wmde-markdown pre code {
+      // min-width: 18em;
+      padding: 0.2em;
+      margin: 0;
     }
 
     .wmde-markdown.wmde-markdown img,
     svg,
     iframe {
       max-width: 18em;
-      max-height: 7em;
+      max-height: 6em;
     }
   }
 }

@@ -7,8 +7,9 @@ const Team = ()=>{
    // n'utilise PAS les boutons OK et x, ça ne marchera pas. Utilise le bouton "au suivant"
 
    const database = [
-      {recto:"Souleymane", verso:"Le magnifique"},
-      {recto:"monrecto", verso:"monverso"}
+      {recto:"**Souleymane**", verso:'![](https://i.postimg.cc/1zSPg5C6/whatsapp.png)'},
+      {recto:"monrecto", verso:"monverso"},
+
    ]
    // tentative de disable les boutons. Mais ça ne marche pas, probablement car le DOM est impacté après.
    // il faudrait utiliser useRef, mais il faudrait alors intervenir dans ShowCards... pas la peine vu l'utilité de la page
