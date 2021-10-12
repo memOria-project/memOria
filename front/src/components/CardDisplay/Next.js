@@ -1,5 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, useParams } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTimesCircle, faCalendarCheck  } from '@fortawesome/free-solid-svg-icons'
 import { FETCH_CARDS, RESET_CARD, EDIT_OPTIONS, DELAY_CARD } from '../../actions'
 
 const Next = ({ failedCards, database, nextCard, deckId, cardsNumberInDeck, setNextCard, showedCard, addFailedCards }) => {
@@ -42,11 +44,11 @@ return (
   <div>
     {cardsNumberInDeck>0&&
       (<>
-        <button onClick={()=>handleClickNext()}>
-          <NavLink to={nextCardURL} > J'ai eu bon!</NavLink>
+        <button className="confirm" onClick={()=>handleClickNext()}>
+          <NavLink to={nextCardURL} > <FontAwesomeIcon icon={faCalendarCheck}/> OK</NavLink>
         </button>
-          <button onClick={()=>handleClickFail()}>
-            <NavLink to={nextCardURL} > J'ai eu faux! ({failedCards.length})</NavLink>
+          <button className="warning" onClick={()=>handleClickFail()}>
+            <NavLink to={nextCardURL} > <FontAwesomeIcon icon={faTimesCircle}/>({failedCards.length})</NavLink>
           </button>
 
       </>)
