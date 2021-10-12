@@ -1,6 +1,6 @@
 import MDEditor, { commands} from '@uiw/react-md-editor';
 
-import { javaButton, htmlButton, CSSButton, title3 } from './buttons';
+import { javaButton, htmlButton, CSSButton, title3, sqlButton } from './buttons';
 
 // import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -107,6 +107,24 @@ const Form = ({isRecto, preview})=>{
             execute: CSSButton
             ,
             buttonProps: { "aria-label": "Insert CSS" }
+          },
+          ),
+          commands.group([], {
+            name: "SQL",
+            groupName: "SQL",
+            icon: (
+              <span> SQL </span>
+            ),
+            children: (handle: any) => {
+              return (
+                  <button type="button">
+                    SQL
+                  </button>
+              );
+            },
+            execute: sqlButton
+            ,
+            buttonProps: { "aria-label": "Insert SQL" }
           },
           ),
                   // Toutes les options de titre. Je les commente car je crois qu'elles sont superflues.
