@@ -5,7 +5,7 @@
         display: flex;
         flex-flow: row wrap;
         justify-content: space-evenly;
-        padding: 0 10px;
+        padding: 1em 0.5em;
     }
       
     .deck {
@@ -46,11 +46,7 @@
 }
 
 @mixin deckDesktop {
-    .decks-container {
-        padding: 0 20px;
-        // width: 75%;
-        margin: 0 auto;
-    }
+
       
     .deck {
         display: inline;
