@@ -33,7 +33,7 @@ const Team = ()=>{
    }
 
 return <>
-         <h2> L'équipe memOria</h2>
+         <h1> L'équipe memOria</h1>
          <button onClick={handleClick}>Au suivant!</button>
          <ShowCards cardId={cardId} database={database} failedCards={failedCards} />
 
