@@ -7,7 +7,7 @@ import './DeckEditor.scss'
 import Loading from '../Loading'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons'
-
+{/* <FontAwesomeIcon icon="fa-solid fa-rectangle-vertical" /> */}
 
 const DeckEditor = () => {
   const [loading, setLoading] = useState(true);
