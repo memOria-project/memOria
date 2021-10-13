@@ -46,12 +46,12 @@ const NextGame = ({isFailed, failedCards, setIsAlternateRequired, alternateFaile
   return (
   <div class="cardDisplay__modal">
     <div class="cardDisplay__modal__container"> 
-    <h1>Paquet terminé ! </h1>
+    <h1>Paquet terminé!</h1>
     <h2>Bravo!</h2>
-    <button onClick={()=>handleClickRestart()}> Revoir toutes les cartes </button> <br />
+    <button className="confirm" onClick={()=>handleClickRestart()}>Revoir toutes les cartes</button> <br />
     {check&&
-    <button onClick={()=>handleClickCheckFail()} style={{color:"black"}}>
-      <NavLink to={firstCardURL} style={{color:"black"}}> Voir les {failedCards.length} cartes non apprises</NavLink>
+    <button className="warning" onClick={()=>handleClickCheckFail()} >
+      <NavLink to={firstCardURL} >Voir les {failedCards.length} cartes non apprises</NavLink>
     </button>
     }
     </div>

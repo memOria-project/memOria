@@ -5,6 +5,8 @@ import { NavLink, useParams } from 'react-router-dom'
 import MDEditor from '@uiw/react-md-editor'
 import './DeckEditor.scss'
 import Loading from '../Loading'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 const DeckEditor = () => {
   const { deckEditorDeckId } = useParams()
@@ -75,8 +77,8 @@ const DeckEditor = () => {
               </div>
               <div className="card__title">
                 <p><strong>Carte n°{count++}/{currentDeckInEditor.length}</strong></p> 
-                <button id={card.id} onClick={handleClick}> <NavLink to={`/cardEditor/${deckId}/${card.id}`}>Éditer</NavLink> </button>
-                <button id={card.id} onClick={handleClick}> Supprimer </button> 
+                <button className="information" id={card.id} onClick={handleClick}> <NavLink to={`/cardEditor/${deckId}/${card.id}`}><FontAwesomeIcon icon={faEdit} size="2x"/></NavLink> </button>
+                <button className="critic" id={card.id} onClick={handleClick}><FontAwesomeIcon icon={faTrash} size="2x"/></button> 
               </div>
             </p>)
           }))
