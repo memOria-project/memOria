@@ -1,10 +1,10 @@
 @use "../../styles/mixinsCards";
-
+@use "../../styles/vars";
 .rectoVersoView {
   display: flex;
   flex-flow: row wrap;
   padding: 0.5em;
-  border: 3px solid black;
+  border: 1px solid vars.$color-main;
   align-items: center;
   justify-content: space-around;
 }
@@ -24,7 +24,7 @@
 }
 
 .header__newCard {
-  border: 2px dotted black;
+  border: 1px solid vars.$color-main;
   padding: 1em;
   margin: 1em;
 }

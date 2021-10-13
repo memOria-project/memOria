@@ -45,7 +45,7 @@ const DeckEditor = () => {
   useEffect(()=> {
     dispatch({ type: FETCH_CARDS })
     if(!currentDeckContent&&!currentDeckInEditor||currentDeckInEditor){
-      setLoading(false);
+      setTimeout(()=>setLoading(false), 1000);
     }
   }, [currentDeckId])
 
@@ -54,18 +54,21 @@ const DeckEditor = () => {
   }
   console.log('currentDeckInEditor', currentDeckInEditor);
 
-  const handleClick = (event) => {
+  const handleClickEdit = (event) => {
     if(event.target.parentNode.id){
     const clickedCard = event.target.parentNode.id
     const cardContent = currentDeckInEditor.find((card) => clickedCard == card.id)
     dispatch({type:EDIT_CARD, field:[{"field":"recto",
       "value": cardContent.recto}, {"field":"verso", "value":cardContent.verso}]})
     }
-    else{
-      console.log(event)
-      const cardId = parseInt(event.target.id, 10)
+  }
+  const handleClickDelete = (event) => {
+
+      const idTakenFromIcon = event.target?.viewportElement?.parentElement?.id
+      const idTakenFromButton = event.target.id
+      const cardIdString = idTakenFromButton?idTakenFromButton:idTakenFromIcon 
+      const cardId = parseInt(cardIdString, 10)
       dispatch({type:DELETE_CARD, cardId});
-    }
     }
   
   // const handleClickDelete = (event) => {
@@ -107,13 +110,15 @@ const DeckEditor = () => {
               </div>
               <div className="card__title">
                 <p><strong>Carte n°{count++}/{currentDeckInEditor.length}</strong></p> 
-                <button className="information" id={card.id} onClick={handleClick}> <NavLink to={`/cardEditor/${deckId}/${card.id}`}><FontAwesomeIcon icon={faEdit} size="2x"/></NavLink> </button>
-                <button className="critic" id={card.id} onClick={handleClick}><FontAwesomeIcon icon={faTrash} size="2x"/></button> 
+                <button className="information" id={card.id} onClick={handleClickEdit}> <NavLink to={`/cardEditor/${deckId}/${card.id}`}><FontAwesomeIcon icon={faEdit} size="2x"/></NavLink> </button>
+                <button className="critic" id={card.id} onClick={handleClickDelete}>
+                  <FontAwesomeIcon cardId={card.id} icon={faTrash} size="2x" style={{cursor:"pointer"}} />
+                </button> 
               </div>
             </p>)
           }
         ))}
-        {!currentDeckContent&& <div style={{marginTop:"2em", fontSize:"2em", }}> Ce paquet est vide! Vite, <NavLink to={`/cardEditor/${deckId}/new`}> ajoutez une carte!</NavLink> </div>}
+        {!currentDeckContent&&!loading&& <div style={{marginTop:"2em", fontSize:"2em", }}> Ce paquet est vide! Vite, <NavLink to={`/cardEditor/${deckId}/new`}> ajoutez une carte!</NavLink> </div>}
         {loading&&<Loading />}
     </div>
   )
