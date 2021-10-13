@@ -10,7 +10,7 @@
 
 .label--error {
   display: block;
-  color: red;
+  color: vars.$color-critic;
   text-align: right;
 }
 
@@ -39,10 +39,7 @@
 
 
 .userForm .infoPersoTitle {
-  color: vars.$color-text;
-  font-family: Arial;
   width: 100%;
-  font-size: 25px;
   text-decoration: none;
   text-shadow: 0px 1px 0px white;
   text-align: center;
