@@ -9,7 +9,7 @@ GET {{baseUrl}}/decks
 
 
 ### Get all cards from deck
-GET {{baseUrl}}/deck/17/cards
+GET {{baseUrl}}/deck/1/cards
 
 #-----------  USERS CRUD -------------------------------
 
@@ -137,17 +137,17 @@ Content-Type: application/json
 
 ### Add a card
 DELETE {{baseUrl}}/card
-Authorization: {{auth}}
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJpYXQiOjE2MzQxMzU3OTksImV4cCI6MTYzNDEzNjk5OX0.4Hk6ffQMw9B3eCiwGCKIWGLTIZQ5hfIV0r-HbUykWJE
 Content-Type: application/json
 
 {
-    "id" : 80
+    "id" : 14
 }
 
 
 ### Delay a card
 POST {{baseUrl}}/card/delay
-Authorization: {{auth}}
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJpYXQiOjE2MzQxMzU3OTksImV4cCI6MTYzNDEzNjk5OX0.4Hk6ffQMw9B3eCiwGCKIWGLTIZQ5hfIV0r-HbUykWJE
 Content-Type: application/json
 
 {
