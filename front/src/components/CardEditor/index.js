@@ -53,7 +53,7 @@ const CardEditor = ()=>{
 return (
     <div>
 
-        <h1 className="cardEditor__title"> Créer /editer une carte </h1>
+        <h1 className="cardEditor__title"> {cardId?"Editer":"Créer"} une carte </h1>
         {isSubmit&&isSuccess!="init"?
           <Confirmation isSuccess={isSuccess} deckId={deckId} />
           :console.log("première soumission")
