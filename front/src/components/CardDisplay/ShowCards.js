@@ -17,11 +17,11 @@ const ShowCards = ({database, cardId, addFailedCards, failedCards }) => {
   const dispatch = useDispatch();
   const { defaultView, currentView } = useSelector((state) => state.card)
   const { isConnected } = useSelector((state) => state.user)
-
+  const initialLength = useRef(database.length)
+  console.log("longueur", initialLength.current);
   const {isRecto, isVerso} = currentView
   const [nextCard, setNextCard] = useState("/");
   let cardsNumberInDeck = database.length;
-  const allCards = database
 
   const myCard = database[cardId] ?? [{recto:"recto", verso:"verso"}]
   let nextCardURL ="/"
@@ -111,7 +111,7 @@ return  <>
     </motion.pre>
   </motion.div>
 }
-  <Next failedCards={failedCards} database={database} showedCard={showedCard} nextCard={nextCard} setNextCard={setNextCard} deckId={deckId} cardsNumberInDeck={cardsNumberInDeck} addFailedCards={addFailedCards}/>
+  <Next initialLength={initialLength.current} failedCards={failedCards} database={database} showedCard={showedCard} nextCard={nextCard} setNextCard={setNextCard} deckId={deckId} cardsNumberInDeck={cardsNumberInDeck} addFailedCards={addFailedCards}/>
   <p style={{fontSize: "1.5em"}}> Cartes restantes: {cardsNumberInDeck-1}</p>
   </>
 }
