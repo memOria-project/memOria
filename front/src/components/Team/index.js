@@ -7,10 +7,10 @@ const Team = ()=>{
    // n'utilise PAS les boutons OK et x, ça ne marchera pas. Utilise le bouton "au suivant"
 
    const database = [
-      {recto:"**Vincent Mingam \n PRODUCT OWNER**", verso:'![](https://i.postimg.cc/1zSPg5C6/whatsapp.png)'},
-      {recto:"**Souleymane Coulibaly \n REFERENT TECHNIQUE  GIT**", verso:'![](https://i.postimg.cc/1zSPg5C6/whatsapp.png)'},
-      {recto:"**Jean Hautier \n SCRUM MASTER**", verso:'![](https://i.postimg.cc/1zSPg5C6/whatsapp.png)'},
-      {recto:"**Yann Béraud \n LEAD DEV**", verso:'![](https://i.postimg.cc/1zSPg5C6/whatsapp.png)'},
+      {recto:"**Vincent Mingam \n PRODUCT OWNER**", verso:'![](https://i.postimg.cc/DfR8ftCh/vince.jpg)'},
+      {recto:"**Souleymane Coulibaly \n REFERENT TECHNIQUE  GIT**", verso:'![](https://i.postimg.cc/cLgcPMt4/120680-FA-3-CD4-4-B1-C-A692-908-BDF19-D418-1-201-a.jpg)'},
+      {recto:"**Jean Hautier \n SCRUM MASTER \n LEAD DEV**", verso:'![](https://i.postimg.cc/hvKrwfHD/whatsapp.png)'},
+      {recto:"**Yann Béraud \n DEV FRONT**", verso:'![](https://i.postimg.cc/qq6ch2Vv/default-image.jpg)'},
    ]
    // tentative de disable les boutons. Mais ça ne marche pas, probablement car le DOM est impacté après.
    // il faudrait utiliser useRef, mais il faudrait alors intervenir dans ShowCards... pas la peine vu l'utilité de la page
