@@ -14,8 +14,11 @@ const deckController = {
 
   getCardsFromDeck: async function (request, response) {
     try {
-      const data = await Deck.findAllCardsFromDeck(parseInt(request.params.id, 10))
-      response.status(200).json(data)
+      const deck = await Deck.findAllCardsFromDeck(parseInt(request.params.id, 10))
+      if (!deck.cards) {
+        response.status(204).json(deck)
+      }
+      response.status(200).json(deck)
     } catch (error) {
       console.log(error)
       response.status(500).json(error.message)
