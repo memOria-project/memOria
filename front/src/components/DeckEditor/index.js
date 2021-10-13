@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { FETCH_CARDS, SET_CURRENT_DECK_ID, EDIT_CARD, DELETE_CARD } from '../../actions'
+import { FETCH_CARDS, SET_CURRENT_DECK_ID, EDIT_CARD, DELETE_CARD, CHECK_TOKEN } from '../../actions'
 import { useEffect, useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import MDEditor from '@uiw/react-md-editor'
@@ -8,8 +8,10 @@ import Loading from '../Loading'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons'
 
+
 const DeckEditor = () => {
   const [loading, setLoading] = useState(true);
+  const [nameOfDeck, setNameOfDeck] = useState()
   const { deckEditorDeckId } = useParams();
 
   const deckId = deckEditorDeckId
@@ -17,6 +19,7 @@ const DeckEditor = () => {
 
 
   useEffect(() => {
+    dispatch({type: CHECK_TOKEN})
     dispatch({ type: SET_CURRENT_DECK_ID, currentDeckId: deckId })
   }, [])
 
@@ -26,7 +29,18 @@ const DeckEditor = () => {
   const dispatch = useDispatch()
   const {currentDeckContent} = useSelector(state => state.currentDeck)
   const currentDeckInEditor = useSelector(state => state.currentDeck).currentDeckContent.cards
-  const nameOfDeck = useSelector((state) => state.currentDeck.currentDeckContent.title)
+  const {decks} = useSelector((state)=> state.user)
+
+  // ce  useEffect existe pour afficher le titre des paquets vides... pas très propre :( )
+  useEffect(()=> {
+    if(decks.length){
+      const findDeck = decks.find((deck)=> deck.id === parseInt(deckEditorDeckId,10));
+      setNameOfDeck(findDeck.title)
+      // const nameOfDeck = useSelector((state) => state.currentDeck.currentDeckContent.title)
+      }
+  }, [decks.length])
+ 
+  // ce use effect suffit pour les paquets avec des cartes. 
 
   useEffect(()=> {
     dispatch({ type: FETCH_CARDS })
@@ -69,7 +83,7 @@ const DeckEditor = () => {
         <div> 
         <h2 className="header__title">{nameOfDeck}</h2>
         {/* <h3>{currentDeckInEditor.length} cartes</h3> */}
-        <button>Editer le nom</button>
+        <FontAwesomeIcon icon={faEdit} /> 
         </div>
         <div className="header__newCard">
           <NavLink to={`/cardEditor/${deckId}/new`}>
@@ -99,7 +113,7 @@ const DeckEditor = () => {
             </p>)
           }
         ))}
-        {!currentDeckContent&& <div> Ce paquet est vide! Vite, ajoutez une carte! </div>}
+        {!currentDeckContent&& <div style={{marginTop:"2em", fontSize:"2em", }}> Ce paquet est vide! Vite, <NavLink to={`/cardEditor/${deckId}/new`}> ajoutez une carte!</NavLink> </div>}
         {loading&&<Loading />}
     </div>
   )

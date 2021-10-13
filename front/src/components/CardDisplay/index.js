@@ -67,19 +67,20 @@ const CardDisplay = () => {
 
   const selectDatabase = () => {
     if (isAlternateRequired) {
-      console.log({ database, alternateFailedCards })
       database = alternateFailedCards
-      console.log({database})
+      console.log("la database suivante est séléctionnée(1. cartes ratées, rounds pairs):", database)
     } else if (isFailed) {
       database = initialFailedCards
+      console.log("la database suivante est séléctionnée(2. cartes ratées, rounds impairs):", database)
+
     } 
     else if (isDelayedReviewOn) {
       database = delayedCards
-      console.log({database})
+      console.log("la database suivante est séléctionnée(3. cartes delayed):", database)
     } 
     else if (!isFailed) {
       database = allCards
-      console.log({database})
+      console.log("la database suivante est séléctionnée(4. toutes les cartes, par défaut):", database)
 
     }
   }
@@ -99,9 +100,9 @@ const CardDisplay = () => {
   //  Triggers the modal offering the "next games" options: start again with all the cards, or check the missed ones
   const checkIfOver = () => {
     if (database?.length === 0) {
+      console.log("la modale over est montrée")
       return true
     } else {
-      console.log({ isFailed, databaseFailedCards })
       return false
     }
   }

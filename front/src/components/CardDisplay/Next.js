@@ -19,13 +19,13 @@ const Next = ({ failedCards, database, nextCard, deckId, cardsNumberInDeck, setN
     return `/deck/${deckId}/${nextCard-1}`
   }
 }
-const deckLength = useSelector(state => state.currentDeck).deck_length
-const goodCards = deckLength- failedCards.length
-console.log(goodCards)
+// const deckLength = useSelector(state => state.currentDeck).deck_length
+// const goodCards = deckLength- failedCards.length
+// console.log(goodCards)
 const handleClickNext = () => {
   dispatch({type:RESET_CARD, isRecto: defaultView.isRecto})
   database.splice(cardId, 1)
-  console.log({failedCards})
+  console.log("la carte suivante a été enclenché, il y a maintenant", database.length, "cartes")
 }
 
   const handleClickFail = () => {
@@ -37,9 +37,6 @@ const handleClickNext = () => {
     database.splice(cardId, 1)
     addFailedCards(showedCard)
   }
-
-  console.log("sans modif", nextCard);
-
 
 
 return (
