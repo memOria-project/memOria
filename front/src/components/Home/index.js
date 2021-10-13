@@ -49,7 +49,7 @@ return (
                 // animation de "pulse", mais fait bugger l'autre animation
                 // animate={{scale:[1, 1.1, 1]}}
                 // transition={{ease:"easeOut", duration:3, repeat: Infinity}}
-                className="card__content" style={{textAlign:"center", backgroundColor:"lightgrey"}}>
+                className="card__content" >
                 <MDEditor.Markdown source={rectoPres} />
                 </motion.pre>
             </motion.div>
@@ -63,9 +63,8 @@ return (
                 // onMouseLeave={handleClick}
                 >
                 <motion.pre 
-                                animate={{rotateY:180}}
-
-                                className="card__content" style={{textAlign:"center"}}>
+                     animate={{rotateY:180}}
+                    className="card__content" style={{textAlign:"center"}}>
                 <MDEditor.Markdown source={versoPres} />
                 </motion.pre>
             </motion.div>

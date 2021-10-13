@@ -50,7 +50,7 @@ return (
           <NavLink to={nextCardURL} > <FontAwesomeIcon icon={faCalendarCheck}/> OK</NavLink>
         </button>
           <button className="warning" onClick={()=>handleClickFail()}>
-            <NavLink to={nextCardURL} > <FontAwesomeIcon icon={faTimesCircle}/> ({failedCards.length})</NavLink>
+            <NavLink to={nextCardURL} > <FontAwesomeIcon icon={faTimesCircle} onClick={()=>handleClickFail()}/> ({failedCards.length})</NavLink>
           </button>
 
       </>)

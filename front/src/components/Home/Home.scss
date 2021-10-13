@@ -1,4 +1,7 @@
 @use "../../styles/_vars";
+@use "../../styles/mixinsCards";
+
+@include mixinsCards.cardMobile;
 
 .main-content__presentation-container {
   padding: 1em vars.$margin-big;
@@ -14,11 +17,10 @@
 }
 
 .main-content__deck-display {
-margin:auto;
+  margin: auto;
 }
 
-.main-content h2
-{
-  font-size:2em;
-  padding-bottom:0.5em;
+.main-content h2 {
+  font-size: 2em;
+  padding-bottom: 0.5em;
 }
