@@ -62,7 +62,7 @@ const Form = ({isInProfile}) => {
       </div>
 
       <div className= 'form__profil-section formSection'>
-        <h2 class="infoPersoTitle">Créer un compte</h2>
+        <h1 class="infoPersoTitle">Créer un compte</h1>
 
         <div className= 'form__info-profil infoPersoLeft'>
           <div className= 'form__username inputRow'>

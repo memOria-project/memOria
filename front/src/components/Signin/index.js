@@ -36,7 +36,7 @@ return (<div>
           </div>
 
           <div className= 'form__profil-section formSection'>
-            <h2 class="infoPersoTitle">Connexion</h2>
+            <h1 class="infoPersoTitle">Connexion</h1>
 
             <div className='form__info-profil infoPersoLeft'>
               <div className='form__email inputRow'>
