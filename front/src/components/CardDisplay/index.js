@@ -1,5 +1,4 @@
-import './CardDisplay.scss'
-import './CardDisplay_desktop.scss'
+
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
@@ -10,14 +9,19 @@ import Loading from '../Loading'
 import Options from './Options'
 import NextGame from './NextGame'
 
+import './CardDisplay.scss'
+import './CardDisplay_desktop.scss'
+import { faCog } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 const CardDisplay = () => {
   const dispatch = useDispatch()
   // use URl parameters to determine the card to display from deck and card id
-  const { deckId } = useParams()
+  const { deckId, cardId } = useParams()
   const delayedIds = useSelector((state) => state.user.delayedCards)
   const allCards = useSelector(state => state.currentDeck).currentDeckContent.cards
   const deckTitle = useSelector(state => state.currentDeck).currentDeckContent.title
-
+  const deckLength = useSelector(state => state.currentDeck).deck_length
   // Fetch all cards from the selected deck
   useEffect(() => {
     dispatch({ type: SET_CURRENT_DECK_ID, currentDeckId: deckId })
@@ -66,15 +70,18 @@ const CardDisplay = () => {
     if (isAlternateRequired) {
       console.log({ database, alternateFailedCards })
       database = alternateFailedCards
+      console.log({database})
     } else if (isFailed) {
       database = initialFailedCards
     } 
     else if (isDelayedReviewOn) {
       database = delayedCards
-      console.log("delayedCards activated!")
+      console.log({database})
     } 
     else if (!isFailed) {
       database = allCards
+      console.log({database})
+
     }
   }
   selectDatabase()
@@ -113,19 +120,16 @@ const CardDisplay = () => {
   return (<div>
           {showOptions &&
             <div className="cardDisplay__modal">
-              <div class="modal__container modal__container__verso">
+              <div class="cardDisplay__modal__container modal__container__verso">
 
-              <div class="modal__container__content"> 
               <Options setShowOptions={setShowOptions} delayedCards={delayedCards} />
-              </div>
               </div>
             </div>
           }
           {database?.length >= 1 &&
             (<>
-            <p className="deck__title">{deckTitle} </p>
-            <button onClick={() => setShowOptions(true)}>Show Options</button>
-            <ShowCards database={database} addFailedCards={addFailedCards} failedCards={databaseFailedCards} />
+            <p className="deck__title">{deckTitle} <FontAwesomeIcon icon={faCog} onClick={()=> setShowOptions(true)} style={{cursor:"pointer"}}/> </p>
+            <ShowCards cardId={cardId} database={database} addFailedCards={addFailedCards} failedCards={databaseFailedCards} />
             </>)
           }
           {isOver &&

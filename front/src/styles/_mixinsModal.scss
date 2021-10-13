@@ -1,23 +1,36 @@
+@use "./vars.scss";
+
 @mixin modal {
-  position: absolute;
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
   z-index: 1;
   height: 100%;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.95); /* Black w/ opacity */
+  background-color: rgba(230, 230, 230, 0.8); /* Black w/ opacity */
   overflow: auto;
-  color: white;
+  //   color: white;
 
-  &__content {
+  &__container {
     position: absolute;
+    background-color: vars.$color-main;
+    border-radius: 25px;
     width: 380px;
-    margin-left: -160px;
-    margin-top: -160px;
-    top: 25%;
-    left: 50%;
+    top: 10%;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2em;
     overflow: hidden;
     align-items: center;
+    filter: drop-shadow(0px 8px 8px lighten(black, 50%));
   }
   & h1 {
+    font-size: 3em;
+  }
+  & h2 {
     font-size: 2em;
   }
   & h1,

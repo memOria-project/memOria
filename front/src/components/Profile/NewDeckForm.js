@@ -12,32 +12,31 @@ const NewDeckForm = ({ handleClick, setShowNewDeck }) => {
   const dispatch = useDispatch()
 return (
   <div className="modal">
-  <div className="modal__content">
-    <h1>Créer un nouveau paquet</h1>
-    <form onSubmit={handleSubmit((data)=> dispatch({type:CREATE_DECK, data}))}>
-      <label>Nom du deck
-        <input
-        {...register('name',
-          {
-            required: 'Nom requis',
-            minLength: { value: 3, message: '4 caractères minimum! ' },
-            maxLength: { value: 20, message: '20 caractères maximum! ' }
-          })} />
-      </label><br />
-      <ErrorMessage errors ={errors} render={({ message }) => <span className='label--error'>{message}</span>} name="name" />
-      <label>Tag
-        <select name="tags" id="tags" 
-                {...register('tags')}>
-            <option value="JS">JS</option>
-            <option value="HTML">HTML</option> 
-            <option value="HTML">CSS</option>
-            <option value="oclock">oClock</option>
-        </select>
-      </label> <br />
-      <button name="newDeck" type="submit">Créer</button>
-
-    </form> <br />
-    <button name="newDeck" className="information" onClick={handleClick}>retour</button>
+    <div className="modal__container">
+      <h1>Créer un nouveau paquet</h1>
+      <form onSubmit={handleSubmit((data)=> dispatch({type:CREATE_DECK, data}))}>
+        <label>Nom du deck
+          <input
+          {...register('name',
+            {
+              required: 'Nom requis',
+              minLength: { value: 3, message: '4 caractères minimum! ' },
+              maxLength: { value: 20, message: '20 caractères maximum! ' }
+            })} />
+          </label><br />
+        <ErrorMessage errors ={errors} render={({ message }) => <span className='label--error'>{message}</span>} name="name" />
+        <label>Tag
+          <select name="tags" id="tags" 
+                  {...register('tags')}>
+              <option value="JS">JS</option>
+              <option value="HTML">HTML</option> 
+              <option value="CSS">CSS</option>
+              <option value="oclock">oClock</option>
+          </select>
+        </label> <br />
+         <button name="newDeck" type="submit">Créer</button>
+      </form> <br />
+      <button name="newDeck" className="information" onClick={handleClick}>retour</button>
     </div>
   </div>
 )

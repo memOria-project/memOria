@@ -12,6 +12,7 @@ import Profile from './components/Profile'
 
 import CardEditor from './components/CardEditor'
 import Subscribe from './components/Subscribe'
+import Team from './components/Team'
 
 function App () {
   return (
@@ -49,6 +50,10 @@ function App () {
 
         <Route path="/deckEditor/:deckEditorDeckId">
           <DeckEditor />
+        </Route>
+
+        <Route path="/team">
+          <Team />
         </Route>
         {/* Route par défaut (404)  */}
         <Route path="*">

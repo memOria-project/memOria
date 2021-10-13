@@ -154,7 +154,7 @@ const Form = ({isInProfile}) => {
           }
 
           <div className= 'login-button'>
-              {!isInProfile&&<Link to="/signin"><button className={loginButton}>J'ai déjà un compte</button></Link>}
+              {!isInProfile&&<Link to="/signin">J'ai déjà un compte</Link>}
               {isInProfile?<button type="submit" disabled={!isValid}>Mettre à jour</button>
               :
               <button type="submit" disabled={!isValid} className={submitButton}>S'inscrire</button>

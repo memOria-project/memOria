@@ -11,8 +11,8 @@ import { motion } from "framer-motion"
 import classNames from 'classnames'
 import { useSwipeable } from 'react-swipeable';
 
-const ShowCards = ({database, addFailedCards, failedCards }) => {
-  const { deckId, cardId } = useParams()
+const ShowCards = ({database, cardId, addFailedCards, failedCards }) => {
+  const { deckId } = useParams()
   // console.log("database", database)
   const dispatch = useDispatch();
   const { defaultView, currentView } = useSelector((state) => state.card)

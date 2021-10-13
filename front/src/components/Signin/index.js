@@ -49,9 +49,9 @@ return (<div>
                 <input onChange={(event)=> handleChange(event, "password")} id="password" type="password" value={password} />
               </div>
 
-              <button type="submit">Se Connecter</button>
-            </div>
-
+              <button className="btn__submit" type="submit">Se Connecter</button>
+          
+            </div> 
           </div>
       </div> 
 
