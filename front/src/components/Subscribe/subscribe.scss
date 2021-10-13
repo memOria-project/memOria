@@ -38,9 +38,12 @@
 }
 
 
-.userForm .infoPersoTitle {
+.infoPersoTitle {
+  //color: vars.$color-text;
+  //font-family: Arial;
   width: 100%;
-  text-decoration: none;
+  font-size: 18px;
+  //text-decoration: none;
   text-shadow: 0px 1px 0px white;
   text-align: center;
   padding-top: 20px;
@@ -66,7 +69,6 @@
   justify-content: center;
   width: 65%;
   height: 100%;
-  // border: 0.5px solid gray;
   background-color: #f6f8fa;
 }
 
@@ -93,11 +95,11 @@
   box-shadow: 0 0px 10px  #3E3E3E;
 }
 
-.inputRow .inputName {
+.inputName {
   border-right: 1px solid grey;
   width: 42%;
-  text-align: center;
-  vertical-align: bottom;
+  //text-align: center;
+  //vertical-align: bottom; .inputRow 
 }
 
 input[type="text"],
@@ -118,6 +120,7 @@ input[type="password"] {
   width: 100%;
 }
 
+/*
 .formbutton {
   background-color: #67c1b0;
   border-radius: 28px;
@@ -136,6 +139,10 @@ input[type="password"] {
   position: relative;
   top: 1px;
 }
+*/
+
+
+
 .valid {
   background-color: vars.$color-text-alt;
   color: white;
@@ -186,9 +193,18 @@ input[type="password"] {
     width: 100%;
   }
 
+  .form__signIn-container, .form__signUp-container {
+    font-size: 1rem;
+}
+
+  .infoPersoTitle {
+  font-size: 25px;
+}
+
+  /*
   .userForm button {
     font-size: 17px;
     padding: 8px 20px;
   }
-  
+  */
 }
