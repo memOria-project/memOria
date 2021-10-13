@@ -35,7 +35,6 @@ const ShowCards = ({database, cardId, addFailedCards, failedCards }) => {
 
     }
 
-    console.log({nextCard})
 
   }, [cardsNumberInDeck])
 
@@ -53,7 +52,6 @@ const ShowCards = ({database, cardId, addFailedCards, failedCards }) => {
   const handleClickNext = () => {
         dispatch({type:RESET_CARD, isRecto: defaultView.isRecto})
         database.splice(cardId, 1)
-        console.log({failedCards})
       }
       
   const handleClickFail = () => {
