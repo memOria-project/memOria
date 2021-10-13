@@ -12,8 +12,13 @@ const PersonalisedDeck = ({ deck }) => {
   return (
     // je laisse ça ici au cas où on veut tester plus tard les autres données
     // <p className="deck"> id: {id} title: {title} created: {created_at} tag:{myTags}</p>
-  <div className="deck"> <NavLink to={viewPath}>{title}</NavLink>
-    <NavLink to={editPath}><FontAwesomeIcon icon={faEdit}/></NavLink>
+  <div className="deck">
+    <div>
+      <NavLink to={editPath}><FontAwesomeIcon icon={faEdit} size="2x"/></NavLink>
+    </div>
+    <div>
+      <NavLink to={viewPath}>{title}</NavLink>
+    </div>
   </div>
 
   )
