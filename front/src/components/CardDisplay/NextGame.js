@@ -42,7 +42,7 @@ const NextGame = ({setInitialFailedCards, isFailed, failedCards, setIsAlternateR
   const check = isRecheckAllowed();
   const firstCardURL = `/deck/${deckId}/0`
   const dispatch = useDispatch()
-  dispatch({type: CHECK_TOKEN })
+  // dispatch({type: CHECK_TOKEN })
 
   return (
   <div class="cardDisplay__modal">

@@ -24,7 +24,6 @@ const ShowCards = ({database, cardId, addFailedCards, failedCards }) => {
   const allCards = database
 
   const myCard = database[cardId] ?? [{recto:"recto", verso:"verso"}]
-  console.log(allCards)
   let nextCardURL ="/"
   useEffect(()=> {
     setNextCard(Math.floor(cardsNumberInDeck*Math.random()));
@@ -54,25 +53,26 @@ const ShowCards = ({database, cardId, addFailedCards, failedCards }) => {
         database.splice(cardId, 1)
       }
       
-  const handleClickFail = () => {
-      dispatch({type:RESET_CARD, isRecto: defaultView.isRecto})
-      if(isConnected)
-        {
-      dispatch({type: DELAY_CARD, id: showedCard.id })
-        }
-      database.splice(cardId, 1)
-      addFailedCards(showedCard)
-        }
+  // const handleClickFail = () => {
+  //     dispatch({type:RESET_CARD, isRecto: defaultView.isRecto})
+  //     if(isConnected)
+  //       {
+  //     dispatch({type: DELAY_CARD, id: showedCard.id })
+  //       }
+  //     database.splice(cardId, 1)
+  //     addFailedCards(showedCard)
+  //       }
 
 
 
+//? swiper. Il faut aussi activer ...handlers dans les divs
+  // const handlers = useSwipeable({
 
-  const handlers = useSwipeable({
-
-    onSwipedDown: handleClickFail,
-    onSwipedUp: handleClickNext,
-    // trackMouse:true
-  })
+  //   onSwipedDown: handleClickFail,
+  //   onSwipedUp: handleClickNext,
+  //   // trackMouse:true
+  // })
+//? fin swiper
 
   const showedCard = database[cardId]
 
@@ -90,7 +90,8 @@ const ShowCards = ({database, cardId, addFailedCards, failedCards }) => {
 
 return  <>
 {isRecto?
-  <motion.div {...handlers}
+  <motion.div 
+  // {...handlers}
     className={cardClass}
     onClick={handleClickReturn}
     >
@@ -99,7 +100,8 @@ return  <>
     </pre>
   </motion.div>
 :
-  <motion.div {...handlers}
+  <motion.div 
+  // {...handlers}
   animate={{rotateY:180}}
   className={cardClass} onClick={handleClickReturn}>
     <motion.pre 
