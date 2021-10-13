@@ -56,7 +56,7 @@ const Form = ({isInProfile}) => {
       }
     })}>
 
-    <div className= 'form__container container'>
+    <div className= 'form__signUp-container'>
       <div className= 'form__image-section imageSection'>
         <img src={monimage} alt="code expressjs" />
       </div>

@@ -3,6 +3,7 @@ import { LOG_IN, UPDATE_LOGIN } from '../../actions'
 import { Redirect } from 'react-router-dom'
 import { useState } from 'react';
 import Loading from '../Loading';
+import '../Subscribe/subscribe.scss'
 import monimage2 from '../../assets/javascript.jpg'
 
 const SignIn = ()=>{
@@ -28,8 +29,8 @@ return (<div>
     :isLoading?
       <Loading />
       :
-      (<form onSubmit={handleSubmit}>
-        <div className= 'form__container container'>
+      (<form className='form' onSubmit={handleSubmit}>
+        <div className= 'form__signIn-container'>
           <div className= 'form__image-section imageSection'>
             <img src={monimage2} alt="code expressjs" />
           </div>
@@ -49,8 +50,8 @@ return (<div>
               </div>
 
               <button type="submit">Se Connecter</button>
-          
-            </div> 
+            </div>
+
           </div>
       </div> 
 
