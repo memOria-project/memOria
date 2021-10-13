@@ -21,7 +21,6 @@ const CardDisplay = () => {
   const delayedIds = useSelector((state) => state.user.delayedCards)
   const allCards = useSelector(state => state.currentDeck).currentDeckContent.cards
   const deckTitle = useSelector(state => state.currentDeck).currentDeckContent.title
-  const deckLength = useSelector(state => state.currentDeck).deck_length
   // Fetch all cards from the selected deck
   useEffect(() => {
     dispatch({ type: SET_CURRENT_DECK_ID, currentDeckId: deckId })
@@ -133,7 +132,7 @@ const CardDisplay = () => {
             </>)
           }
           {isOver &&
-            <NextGame isAlternateRequired={isAlternateRequired} isFailed={isFailed} failedCards={databaseFailedCards} alternateFailedCards={alternateFailedCards} />}
+            <NextGame setInitialFailedCards={setInitialFailedCards} isAlternateRequired={isAlternateRequired} isFailed={isFailed} failedCards={databaseFailedCards} alternateFailedCards={alternateFailedCards} />}
 
           {loading &&
             <Loading />

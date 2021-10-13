@@ -2,7 +2,7 @@ import {FETCH_CARDS, EDIT_OPTIONS, CHECK_TOKEN} from '../../actions'
 import {useDispatch} from 'react-redux'
 import { NavLink, useParams } from 'react-router-dom'
 
-const NextGame = ({isFailed, failedCards, setIsAlternateRequired, alternateFailedCards, isAlternateRequired}) => {
+const NextGame = ({setInitialFailedCards, isFailed, failedCards, setIsAlternateRequired, alternateFailedCards, isAlternateRequired}) => {
   const {cardId, deckId} = useParams()
   const handleClickCheckFail = () => {
     if(isFailed) {
@@ -25,6 +25,7 @@ const NextGame = ({isFailed, failedCards, setIsAlternateRequired, alternateFaile
 
   const handleClickRestart = () => {
     dispatch({type:FETCH_CARDS, deckId})
+    setInitialFailedCards([])
     dispatch({type:EDIT_OPTIONS, field:"isFailed", value:false})
     dispatch({type:EDIT_OPTIONS, field:"isAlternateRequired", value:false})
   }

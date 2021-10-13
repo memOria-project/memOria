@@ -34,11 +34,13 @@ const api = (store) => (next) => (action) => {
       const getCurrentDeck = async () => {
         try {
           const request = await fetch(`${back}/deck/${currentDeckId}/cards`, fetchCardsOptions)
+          if(request === 1) {
+            store.dispatch(getCurrentDeckContent(false))
+          } else {
           const response = await request.json()
-          console.log(response)
-
+          console.log("get CUrrent Deck", response)
           store.dispatch(getCurrentDeckContent(response))
-          
+          }
         } catch (error) { console.log(error) }
       }
       getCurrentDeck()
