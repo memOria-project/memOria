@@ -44,7 +44,12 @@
   }
 }
 
-@mixin cardMobile {
+@mixin cardMobile(
+  $width: 12.5em,
+  $height: 15em,
+  $widthContent: 10em,
+  $heightContent: 11em
+) {
   .card {
     box-sizing: border-box;
     padding: 2em 0.25em;
@@ -52,8 +57,8 @@
     margin-bottom: 1em;
     margin-top: 1em;
     border-radius: 25px;
-    width: 12.5em;
-    height: 15em;
+    width: $width;
+    height: $height;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -79,8 +84,8 @@
     }
 
     &__content {
-      max-width: 10em;
-      max-height: 11em;
+      max-width: $widthContent;
+      max-height: $heightContent;
     }
     .wmde-markdown.wmde-markdown {
       font-size: 0.75em;

@@ -18,21 +18,6 @@
   text-align: right;
 }
 
-:root {
-  font-weight: 16px;
-}
-
-body {
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-  font-weight: normal;
-  font-size: 0.8rem;
-
-  font-family: "Roboto", sans-serif;
-  color: vars.$color-text;
-}
-
 .userForm .container {
   display: flex;
   width: 100%;

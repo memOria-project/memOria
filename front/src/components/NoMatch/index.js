@@ -1,25 +1,25 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import MDEditor from '@uiw/react-md-editor';
+import './NoMatch.scss'
+import './NoMatch_Desktop.scss'
 
 const NoMatch = () => {
     const [turnCard, setTurnCard] = useState(false)
     
     const handleClick = () => {
         setTurnCard((state)=> !state);
-        setTimeout(()=>setTurnCard((state)=>!state), 2000)
+        // setTimeout(()=>setTurnCard((state)=>!state), 2000)
     }
     const rectoPres = "# 404\nCeci n'est pas une carte";
     const versoPres = "Vous avez trouvé mug O'Clock\n![](https://image.shutterstock.com/image-photo/isolate-broken-mug-mugs-shards-260nw-1094446331.jpg)";
 
-    return (
-        <div className="main-content"> 
-            <div className="main-content__presentation-container">
-                {!turnCard?
-                    <motion.div 
+    return (<div class="NoMatch__container">
+        {!turnCard?
+                 <motion.div 
 
                         className="card card__recto"
-                        onMouseEnter={handleClick}
+                        onClick={handleClick}
                         // onMouseLeave={handleClick}                
                         >
                         <motion.pre
@@ -31,7 +31,6 @@ const NoMatch = () => {
                         </motion.pre>
                     </motion.div>
                     :
-                    <>
                     <motion.div 
                         animate={{rotateY:180}}
                         className="card card__verso"
@@ -46,11 +45,8 @@ const NoMatch = () => {
                         <MDEditor.Markdown source={versoPres} />
                         </motion.pre>
                     </motion.div>
-                    </>
-
                 }
-            </div>
-        </div>    
-    )
+                </div>)
+
     }
 export default NoMatch
