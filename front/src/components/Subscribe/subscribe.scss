@@ -2,16 +2,12 @@
 
 .formContainer {
   margin: auto;
-  width: 50%;
+  width: 100%;
 }
 .userForm {
   text-align: center;
 }
-.form__label {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
+
 .label--error {
   display: block;
   color: red;
@@ -42,10 +38,9 @@ body {
   
 }
 
-.form {
+.formSignin {
   margin: auto;
-  width: 50%;
-  border: none;
+  width: 100%;
 }
 
 .form__signIn-container {
@@ -175,15 +170,29 @@ input[type="password"] {
 }
 /*---------Media Query----------*/
 @media all and (min-width: 481px) {
-  .userForm .container {
+
+  .userForm {
+    margin: 50%;
+  }
+
+  .form__signUp-container {
     display: flex;
     width: 50%;
-    height: 50vh;
-
+    height: 80vh;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -65%);
+    transform: translate(-50%, -50%);
+  }
+
+  .form__signIn-container {
+    display: flex;
+    width: 50%;
+    height: 80vh;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 
   .infoPersoLeft {
