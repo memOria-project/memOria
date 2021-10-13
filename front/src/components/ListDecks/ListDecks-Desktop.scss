@@ -1,5 +1,7 @@
 @use "../../styles/_mixinsDecks";
 
 @media all and (min-width: 481px) {
+  .main-content__deck-display {
     @include mixinsDecks.deckDesktop;
+  }
 }
