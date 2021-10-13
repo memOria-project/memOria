@@ -1,12 +1,38 @@
-.form {
-    width:50%;
-    height:30%;
-    margin:auto;
-    border:1px solid black;
-    margin-bottom:1em;
+@use "../../styles/vars";
+
+.cardEditor__forms {
+  display: flex;
+  flex-direction: column;
+  //   border: 1px solid black;
+  //   justify-content: center;
+  //   align-items: center;
+  //   width: 40em;
+  //   height: 11em;
+  //   //   margin: auto;
+  //   margin-bottom: 1em;
 }
-.title {
-    font-size:2em;
-    padding:0.5em;
+.cardDisplay__title {
+  font-size: 2em;
+  padding: 0.5em;
 }
 
+.confirmation--success {
+  background-color: vars.$color-confirm;
+  width: 100%;
+  margin: auto;
+  border-radius: 10px;
+  color: white;
+  & a {
+    color: vars.$color-main;
+  }
+}
+.confirmation--error {
+  background-color: vars.$color-critic;
+  width: 100%;
+  margin: auto;
+  border-radius: 10px;
+  color: white;
+  & a {
+    color: vars.$color-main;
+  }
+}
