@@ -34,12 +34,18 @@ class Deck {
     }
   }
 
-  static async findAllCardsFromDeck (id) {
+  static async findAllCardsFromDeck (deckId) {
     try {
-      const { rows } = await db.query('SELECT * FROM allcardsFromDeck($1)', [id])
-      //  console.log(rows[0])
-      const deckWithItsCards = rows[0]
-      return deckWithItsCards
+      const { rows } = await db.query('SELECT * FROM allcardsFromDeck($1)', [deckId])
+      console.log(rows[0])
+      if (rows[0]) {
+        const deckWithItsCards = rows[0]
+        return deckWithItsCards
+      }
+      return {
+        deckId: deckId,
+        status: 'empty'
+      }
     } catch (error) {
       console.log(error)
       if (error.detail) {
