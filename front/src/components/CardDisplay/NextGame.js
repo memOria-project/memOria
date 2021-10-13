@@ -2,7 +2,7 @@ import {FETCH_CARDS, EDIT_OPTIONS, CHECK_TOKEN} from '../../actions'
 import {useDispatch} from 'react-redux'
 import { NavLink, useParams } from 'react-router-dom'
 
-const NextGame = ({isFailed, failedCards, setIsAlternateRequired, alternateFailedCards, isAlternateRequired}) => {
+const NextGame = ({setInitialFailedCards, isFailed, failedCards, setIsAlternateRequired, alternateFailedCards, isAlternateRequired}) => {
   const {cardId, deckId} = useParams()
   const handleClickCheckFail = () => {
     if(isFailed) {
@@ -25,6 +25,7 @@ const NextGame = ({isFailed, failedCards, setIsAlternateRequired, alternateFaile
 
   const handleClickRestart = () => {
     dispatch({type:FETCH_CARDS, deckId})
+    setInitialFailedCards([])
     dispatch({type:EDIT_OPTIONS, field:"isFailed", value:false})
     dispatch({type:EDIT_OPTIONS, field:"isAlternateRequired", value:false})
   }
@@ -46,12 +47,12 @@ const NextGame = ({isFailed, failedCards, setIsAlternateRequired, alternateFaile
   return (
   <div class="cardDisplay__modal">
     <div class="cardDisplay__modal__container"> 
-    <h1>Paquet terminé ! </h1>
+    <h1>Paquet terminé!</h1>
     <h2>Bravo!</h2>
-    <button onClick={()=>handleClickRestart()}> Revoir toutes les cartes </button> <br />
+    <button className="confirm" onClick={()=>handleClickRestart()}>Revoir toutes les cartes</button> <br />
     {check&&
-    <button onClick={()=>handleClickCheckFail()} style={{color:"black"}}>
-      <NavLink to={firstCardURL} style={{color:"black"}}> Voir les {failedCards.length} cartes non apprises</NavLink>
+    <button className="warning" onClick={()=>handleClickCheckFail()} >
+      <NavLink to={firstCardURL} >Voir les {failedCards.length} cartes non apprises</NavLink>
     </button>
     }
     </div>

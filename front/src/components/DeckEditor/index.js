@@ -1,21 +1,39 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { FETCH_CARDS, SET_CURRENT_DECK_ID, EDIT_CARD, DELETE_CARD } from '../../actions'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import MDEditor from '@uiw/react-md-editor'
 import './DeckEditor.scss'
 import Loading from '../Loading'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 const DeckEditor = () => {
-  const { deckEditorDeckId } = useParams()
+  const [loading, setLoading] = useState(true);
+  const { deckEditorDeckId } = useParams();
+
   const deckId = deckEditorDeckId
+  const {currentDeckId} = useSelector((state)=> state.currentDeck.currentDeckContent)
+
+
   useEffect(() => {
     dispatch({ type: SET_CURRENT_DECK_ID, currentDeckId: deckId })
-    dispatch({ type: FETCH_CARDS })
   }, [])
+
+
+
+
   const dispatch = useDispatch()
+  const {currentDeckContent} = useSelector(state => state.currentDeck)
   const currentDeckInEditor = useSelector(state => state.currentDeck).currentDeckContent.cards
   const nameOfDeck = useSelector((state) => state.currentDeck.currentDeckContent.title)
+
+  useEffect(()=> {
+    dispatch({ type: FETCH_CARDS })
+    if(!currentDeckContent&&!currentDeckInEditor||currentDeckInEditor){
+      setLoading(false);
+    }
+  }, [currentDeckId])
 
   if(currentDeckInEditor){
     currentDeckInEditor.sort(function (a, b) { return a.id - b.id})
@@ -36,12 +54,12 @@ const DeckEditor = () => {
     }
     }
   
-  const handleClickDelete = (event) => {
-    console.log(event)
-    const cardId = event.target.id
-    dispatch({type:DELETE_CARD, cardId});
+  // const handleClickDelete = (event) => {
+  //   console.log(event)
+  //   const cardId = event.target.id
+  //   dispatch({type:DELETE_CARD, cardId});
 
-  }
+  // }
   //counter for cards
   let count = 1
   // 
@@ -60,7 +78,7 @@ const DeckEditor = () => {
         </div>
       </div>
        {/* <h2 className="header__undertitle">Cartes du paquet</h2>  */}
-      {currentDeckInEditor ?
+      {currentDeckInEditor&&
           (currentDeckInEditor.map((card) => {return (
             <p key={card.id} className="rectoVersoView">
               <div className="card card__recto">
@@ -75,12 +93,14 @@ const DeckEditor = () => {
               </div>
               <div className="card__title">
                 <p><strong>Carte n°{count++}/{currentDeckInEditor.length}</strong></p> 
-                <button id={card.id} onClick={handleClick}> <NavLink to={`/cardEditor/${deckId}/${card.id}`}>Éditer</NavLink> </button>
-                <button id={card.id} onClick={handleClick}> Supprimer </button> 
+                <button className="information" id={card.id} onClick={handleClick}> <NavLink to={`/cardEditor/${deckId}/${card.id}`}><FontAwesomeIcon icon={faEdit} size="2x"/></NavLink> </button>
+                <button className="critic" id={card.id} onClick={handleClick}><FontAwesomeIcon icon={faTrash} size="2x"/></button> 
               </div>
             </p>)
-          }))
-        : <Loading />}
+          }
+        ))}
+        {!currentDeckContent&& <div> Ce paquet est vide! Vite, ajoutez une carte! </div>}
+        {loading&&<Loading />}
     </div>
   )
 }

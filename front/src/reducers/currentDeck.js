@@ -17,6 +17,7 @@ const reducer = (state = initialState, action = {}) => {
       return {...state, currentDeckId: action.currentDeckId};
 
     case GET_CURRENT_DECK_CONTENT:
+      console.log("action.currentDeckContent", action.currentDeckContent)
       return {...state, currentDeckContent: action.currentDeckContent};
 
     case EDIT_CURRENT_DECK:
