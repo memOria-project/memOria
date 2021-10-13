@@ -1,0 +1,6 @@
+@use "../../styles/_mixinsDecks";
+@include mixinsDecks.deckMobile;
+
+@media all and (min-width: 481px) {
+    @include mixinsDecks.deckDesktop;
+}
