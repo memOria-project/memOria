@@ -21,7 +21,7 @@ const [loading, setLoading] = useState(true)
 console.log(personalizedDecks);
 const handleClick = (event) => {
   console.log(event)
-  if(event.target.name === "newDeck"||event.target.innerText === "Nouveau paquet" || event.target.textContent === "+Nouveau paquet" || event.target.textContent === "+")
+  if(event.target.name === "newDeck"||event.target.className === "deck deck--new" || event.target.viewportElement?.parentNode.name === "newDeck" || event.target.parentNode.name === "newDeck")
   {
     setShowNewDeck((state)=>!state)
   }
@@ -56,8 +56,10 @@ return (<>
           <h1 className="personalizedDecksDisplay__title">Tes paquets</h1>  
 
           <div className="personalizedDecksDisplay__decks-container">
-          <div name="newDeck" className="deck deck--new" onClick={handleClick}>
-            <FontAwesomeIcon    icon={faPlus} size="3x"/>
+          <div name="newDeck" className="deck deck--new" >
+            <button name="newDeck" style={{backgroundColor:"transparent"}} onClick={handleClick}>
+              <FontAwesomeIcon    icon={faPlus} size="3x" style={{color:"#16a085"}} />
+            </button>
           </div>
           {showNewDeck&&
           <NewDeckForm handleClick={handleClick} setShowNewDeck={setShowNewDeck} />
