@@ -17,14 +17,13 @@ const ShowCards = ({database, cardId, addFailedCards, failedCards }) => {
   const dispatch = useDispatch();
   const { defaultView, currentView } = useSelector((state) => state.card)
   const { isConnected } = useSelector((state) => state.user)
-
+  const initialLength = useRef(database.length)
+  console.log("longueur", initialLength.current);
   const {isRecto, isVerso} = currentView
   const [nextCard, setNextCard] = useState("/");
   let cardsNumberInDeck = database.length;
-  const allCards = database
 
   const myCard = database[cardId] ?? [{recto:"recto", verso:"verso"}]
-  console.log(allCards)
   let nextCardURL ="/"
   useEffect(()=> {
     setNextCard(Math.floor(cardsNumberInDeck*Math.random()));
@@ -35,7 +34,6 @@ const ShowCards = ({database, cardId, addFailedCards, failedCards }) => {
 
     }
 
-    console.log({nextCard})
 
   }, [cardsNumberInDeck])
 
@@ -53,28 +51,28 @@ const ShowCards = ({database, cardId, addFailedCards, failedCards }) => {
   const handleClickNext = () => {
         dispatch({type:RESET_CARD, isRecto: defaultView.isRecto})
         database.splice(cardId, 1)
-        console.log({failedCards})
       }
       
-  const handleClickFail = () => {
-      dispatch({type:RESET_CARD, isRecto: defaultView.isRecto})
-      if(isConnected)
-        {
-      dispatch({type: DELAY_CARD, id: showedCard.id })
-        }
-      database.splice(cardId, 1)
-      addFailedCards(showedCard)
-        }
+  // const handleClickFail = () => {
+  //     dispatch({type:RESET_CARD, isRecto: defaultView.isRecto})
+  //     if(isConnected)
+  //       {
+  //     dispatch({type: DELAY_CARD, id: showedCard.id })
+  //       }
+  //     database.splice(cardId, 1)
+  //     addFailedCards(showedCard)
+  //       }
 
 
 
+//? swiper. Il faut aussi activer ...handlers dans les divs
+  // const handlers = useSwipeable({
 
-  const handlers = useSwipeable({
-
-    onSwipedDown: handleClickFail,
-    onSwipedUp: handleClickNext,
-    // trackMouse:true
-  })
+  //   onSwipedDown: handleClickFail,
+  //   onSwipedUp: handleClickNext,
+  //   // trackMouse:true
+  // })
+//? fin swiper
 
   const showedCard = database[cardId]
 
@@ -92,7 +90,8 @@ const ShowCards = ({database, cardId, addFailedCards, failedCards }) => {
 
 return  <>
 {isRecto?
-  <motion.div {...handlers}
+  <motion.div 
+  // {...handlers}
     className={cardClass}
     onClick={handleClickReturn}
     >
@@ -101,7 +100,8 @@ return  <>
     </pre>
   </motion.div>
 :
-  <motion.div {...handlers}
+  <motion.div 
+  // {...handlers}
   animate={{rotateY:180}}
   className={cardClass} onClick={handleClickReturn}>
     <motion.pre 
@@ -111,7 +111,7 @@ return  <>
     </motion.pre>
   </motion.div>
 }
-  <Next failedCards={failedCards} database={database} showedCard={showedCard} nextCard={nextCard} setNextCard={setNextCard} deckId={deckId} cardsNumberInDeck={cardsNumberInDeck} addFailedCards={addFailedCards}/>
+  <Next initialLength={initialLength.current} failedCards={failedCards} database={database} showedCard={showedCard} nextCard={nextCard} setNextCard={setNextCard} deckId={deckId} cardsNumberInDeck={cardsNumberInDeck} addFailedCards={addFailedCards}/>
   <p style={{fontSize: "1.5em"}}> Cartes restantes: {cardsNumberInDeck-1}</p>
   </>
 }

@@ -34,11 +34,17 @@ const api = (store) => (next) => (action) => {
       const getCurrentDeck = async () => {
         try {
           const request = await fetch(`${back}/deck/${currentDeckId}/cards`, fetchCardsOptions)
+            store.dispatch(getCurrentDeckContent(false))
           const response = await request.json()
-          console.log(response)
-
+          if(request.status === 204) //le paquet est vide ou n'existe pas
+          {
+            store.dispatch(getCurrentDeckContent(false))
+            console.log("pas de paquets")
+          }
+          else {
+          console.log("get CUrrent Deck", response)
           store.dispatch(getCurrentDeckContent(response))
-          
+          }
         } catch (error) { console.log(error) }
       }
       getCurrentDeck()

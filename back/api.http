@@ -1,15 +1,15 @@
 # @baseUrl=http://localhost:3500/v1
-##@baseUrl=https://memoriapo.herokuapp.com/v1
+@baseUrl=https://memoriapo.herokuapp.com/v1
 @host=http://localhost:3500
 
-@auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTYzMzc2MjE1OSwiZXhwIjoxNjMzNzYyNzU5fQ.Vhy4OMeEC_Z5rDj52V6gx0w4pDJiQ9gk65iJYzHibfQ
+@auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTYzNDE0MjcwOCwiZXhwIjoxNjM0MTQzOTA4fQ.yFisqForxRrVEFWq4AvUt99vH1l3ZNSQvh8xXALi7eY
 
 ### Get all decks
 GET {{baseUrl}}/decks
 
 
 ### Get all cards from deck
-GET {{baseUrl}}/deck/1/cards
+GET {{baseUrl}}/deck/24/cards
 
 #-----------  USERS CRUD -------------------------------
 
@@ -106,8 +106,8 @@ Content-Type: application/json
 Authorization: {{auth}}
 
 {
-  "name" : "TUTU du 69",
-  "password" : "azerty"
+  "currentPassword" : "",
+  "newPassword": ""
 
 }
 
@@ -137,7 +137,7 @@ Content-Type: application/json
 
 ### Add a card
 DELETE {{baseUrl}}/card
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJpYXQiOjE2MzQxMzU3OTksImV4cCI6MTYzNDEzNjk5OX0.4Hk6ffQMw9B3eCiwGCKIWGLTIZQ5hfIV0r-HbUykWJE
+Authorization: {{auth}}
 Content-Type: application/json
 
 {
@@ -147,7 +147,7 @@ Content-Type: application/json
 
 ### Delay a card
 POST {{baseUrl}}/card/delay
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJpYXQiOjE2MzQxMzU3OTksImV4cCI6MTYzNDEzNjk5OX0.4Hk6ffQMw9B3eCiwGCKIWGLTIZQ5hfIV0r-HbUykWJE
+Authorization: {{auth}}
 Content-Type: application/json
 
 {

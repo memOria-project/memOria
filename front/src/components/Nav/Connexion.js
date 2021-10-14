@@ -18,9 +18,9 @@ const Connexion = () => {
     return (
       <>
         <div className="nav__items__item">
-          <NavLink to="/profile" className="nav__items__item--profile">{user.name}</NavLink>
+          <NavLink title="Ton profil" to="/profile" className="nav__items__item--profile">{user.name}</NavLink>
         </div>
-          <div className="nav__items__item" onClick={handleClick}><NavLink to="/"><FontAwesomeIcon icon={faDoorOpen}/></NavLink>
+          <div className="nav__items__item" onClick={handleClick}><NavLink title="Déconnexion" to="/"><FontAwesomeIcon icon={faDoorOpen}/></NavLink>
         </div>
       </>
     )

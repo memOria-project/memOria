@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle, faCalendarCheck  } from '@fortawesome/free-solid-svg-icons'
 import { FETCH_CARDS, RESET_CARD, EDIT_OPTIONS, DELAY_CARD } from '../../actions'
 
-const Next = ({ failedCards, database, nextCard, deckId, cardsNumberInDeck, setNextCard, showedCard, addFailedCards }) => {
+const Next = ({ initialLength, failedCards, database, nextCard, deckId, cardsNumberInDeck, setNextCard, showedCard, addFailedCards }) => {
   // if(nextCard >=cardsNumberInDeck-1) {
   //   setNextCard(cardsNumberInDeck-2)
   //   console.log("after modif", nextCard)
@@ -19,13 +19,13 @@ const Next = ({ failedCards, database, nextCard, deckId, cardsNumberInDeck, setN
     return `/deck/${deckId}/${nextCard-1}`
   }
 }
-const deckLength = useSelector(state => state.currentDeck).deck_length
-const goodCards = deckLength- failedCards.length
-console.log(goodCards)
+// const deckLength = useSelector(state => state.currentDeck).deck_length
+// const goodCards = deckLength- failedCards.length
+// console.log(goodCards)
 const handleClickNext = () => {
   dispatch({type:RESET_CARD, isRecto: defaultView.isRecto})
   database.splice(cardId, 1)
-  console.log({failedCards})
+  console.log("la carte suivante a été enclenché, il y a maintenant", database.length, "cartes")
 }
 
   const handleClickFail = () => {
@@ -38,19 +38,17 @@ const handleClickNext = () => {
     addFailedCards(showedCard)
   }
 
-  console.log("sans modif", nextCard);
-
-
-
+  const howManyGoods = initialLength-database.length-failedCards.length
+  const howManyBads = failedCards.length
 return (
   <div>
     {cardsNumberInDeck>0&&
       (<>
         <button className="confirm" onClick={()=>handleClickNext()}>
-          <NavLink to={nextCardURL} > <FontAwesomeIcon icon={faCalendarCheck}/> OK</NavLink>
+          <NavLink to={nextCardURL} > <FontAwesomeIcon icon={faCalendarCheck}/> {howManyGoods}</NavLink>
         </button>
           <button className="warning" onClick={()=>handleClickFail()}>
-            <NavLink to={nextCardURL} > <FontAwesomeIcon icon={faTimesCircle} onClick={()=>handleClickFail()}/> ({failedCards.length})</NavLink>
+            <NavLink to={nextCardURL} > <FontAwesomeIcon icon={faTimesCircle} /> {howManyBads}</NavLink>
           </button>
 
       </>)

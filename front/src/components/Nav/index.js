@@ -14,7 +14,7 @@ return (
 
       <nav className="nav__items">
           <div className="nav__items__item nav__items__item--hidden">
-              <NavLink to="/"><FontAwesomeIcon icon={faHome}/></NavLink>
+              <NavLink title="Retour à l'accueil" to="/"><FontAwesomeIcon icon={faHome}/></NavLink>
           </div>
           <Connexion />
           

@@ -20,8 +20,8 @@ const RectoVerso = ()=>{
     setIsActive((state) => ({...state, [event.target.id]:true}))
 }
 
-  let className = "btn__options"
-  let classNameActive = "btn__options--active"
+  let className = "information-alt"
+  let classNameActive = "information"
 
 
 

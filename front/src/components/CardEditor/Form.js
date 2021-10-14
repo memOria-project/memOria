@@ -25,7 +25,7 @@ const Form = ({isRecto, preview})=>{
   })
 
   return (
-    <div className="form"> 
+    <div> 
     {preview?
     <div 
 
@@ -34,10 +34,11 @@ const Form = ({isRecto, preview})=>{
     <pre
 
     className="card__content" style={{textAlign:"center"}}>
-      <MDEditor.Markdown source={isRecto?recto:verso} />
+      <MDEditor.Markdown source={isRecto?unescape(recto):unescape(verso)} />
       </pre>
     </div>
       :
+      
       <MDEditor
         onChange={(val)=>handleChange(val)}
         preview='edit'
@@ -60,13 +61,14 @@ const Form = ({isRecto, preview})=>{
             icon: (
               <span> JS </span>
             ),
-            children: (handle: any) => {
-              return (
-                  <button type="button">
-                    Javascript
-                  </button>
-              );
-            },
+            //? children crée un bouton qui s'active sur clique. Pas nécessaire ici.
+            // children: (handle: any) => {
+            //   return (
+            //       <button type="button">
+            //         Javascript
+            //       </button>
+            //   );
+            // },
             execute: javaButton
             ,
             buttonProps: { "aria-label": "Insert Javascript" }
@@ -79,13 +81,13 @@ const Form = ({isRecto, preview})=>{
             icon: (
               <span> HTML </span>
             ),
-            children: (handle: any) => {
-              return (
-                  <button type="button">
-                    HTML
-                  </button>
-              );
-            },
+            // children: (handle: any) => {
+            //   return (
+            //       <button type="button">
+            //         HTML
+            //       </button>
+            //   );
+            // },
             execute: htmlButton
             ,
             buttonProps: { "aria-label": "Insert HTML" }
@@ -97,13 +99,13 @@ const Form = ({isRecto, preview})=>{
             icon: (
               <span> CSS </span>
             ),
-            children: (handle: any) => {
-              return (
-                  <button type="button">
-                    CSS
-                  </button>
-              );
-            },
+            // children: (handle: any) => {
+            //   return (
+            //       <button type="button">
+            //         CSS
+            //       </button>
+            //   );
+            // },
             execute: CSSButton
             ,
             buttonProps: { "aria-label": "Insert CSS" }
@@ -115,13 +117,13 @@ const Form = ({isRecto, preview})=>{
             icon: (
               <span> SQL </span>
             ),
-            children: (handle: any) => {
-              return (
-                  <button type="button">
-                    SQL
-                  </button>
-              );
-            },
+            // children: (handle: any) => {
+            //   return (
+            //       <button type="button">
+            //         SQL
+            //       </button>
+            //   );
+            // },
             execute: sqlButton
             ,
             buttonProps: { "aria-label": "Insert SQL" }
