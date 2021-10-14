@@ -2,17 +2,16 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import MDEditor from '@uiw/react-md-editor';
 import './NoMatch.scss'
-import './NoMatch_Desktop.scss'
 
 const NoMatch = () => {
     const [turnCard, setTurnCard] = useState(false)
     
     const handleClick = () => {
         setTurnCard((state)=> !state);
-        // setTimeout(()=>setTurnCard((state)=>!state), 2000)
+        setTimeout(()=>setTurnCard((state)=>!state), 2000)
     }
     const rectoPres = "# 404\nCeci n'est pas une carte";
-    const versoPres = "Vous avez trouvé mug O'Clock\n![](https://image.shutterstock.com/image-photo/isolate-broken-mug-mugs-shards-260nw-1094446331.jpg)";
+    const versoPres = "Vous avez trouvé mug O'Clock\n![](https://img.freepik.com/photos-gratuite/tasse-vintage-cassee-table-bois-vue-dessus_172251-380.jpg)";
 
     return (<div class="NoMatch__container">
         {!turnCard?

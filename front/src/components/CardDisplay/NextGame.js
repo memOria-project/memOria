@@ -28,6 +28,9 @@ const NextGame = ({setInitialFailedCards, isFailed, failedCards, setIsAlternateR
     setInitialFailedCards([])
     dispatch({type:EDIT_OPTIONS, field:"isFailed", value:false})
     dispatch({type:EDIT_OPTIONS, field:"isAlternateRequired", value:false})
+    dispatch({type:EDIT_OPTIONS, field:"isDelayedReviewOn", value:false})
+
+    // dispatch({type: CHECK_TOKEN })
   }
 
   const isRecheckAllowed = () => {
@@ -42,7 +45,7 @@ const NextGame = ({setInitialFailedCards, isFailed, failedCards, setIsAlternateR
   const check = isRecheckAllowed();
   const firstCardURL = `/deck/${deckId}/0`
   const dispatch = useDispatch()
-  // dispatch({type: CHECK_TOKEN })
+  
 
   return (
   <div class="cardDisplay__modal">
@@ -50,6 +53,7 @@ const NextGame = ({setInitialFailedCards, isFailed, failedCards, setIsAlternateR
     <h1>Paquet terminé!</h1>
     <h2>Bravo!</h2>
     <button className="confirm" onClick={()=>handleClickRestart()}>Revoir toutes les cartes</button> <br />
+    
     {check&&
     <button className="warning" onClick={()=>handleClickCheckFail()} >
       <NavLink to={firstCardURL} >Voir les {failedCards.length} cartes non apprises</NavLink>
