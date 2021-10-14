@@ -1,5 +1,5 @@
-@baseUrl=http://localhost:3500/v1
-# @baseUrl=https://memoriapo.herokuapp.com/v1
+# @baseUrl=http://localhost:3500/v1
+@baseUrl=https://memoriapo.herokuapp.com/v1
 @host=http://localhost:3500
 
 @auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTYzNDE0MjcwOCwiZXhwIjoxNjM0MTQzOTA4fQ.yFisqForxRrVEFWq4AvUt99vH1l3ZNSQvh8xXALi7eY
