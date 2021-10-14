@@ -21,6 +21,7 @@ const CardDisplay = () => {
   const delayedIds = useSelector((state) => state.user.delayedCards)
   const allCards = useSelector(state => state.currentDeck).currentDeckContent.cards
   const deckTitle = useSelector(state => state.currentDeck).currentDeckContent.title
+  
   // Fetch all cards from the selected deck
   useEffect(() => {
     dispatch({ type: SET_CURRENT_DECK_ID, currentDeckId: deckId })
@@ -45,8 +46,16 @@ const CardDisplay = () => {
         }
         })
       const delayedCardsFinal = delayedCardsWithNulls.filter((value)=> value != null)
-      console.log({delayedCardsWithNulls, delayedCards})
-      setDelayedCards(delayedCardsFinal);
+      //delayed cards, version "bonnes cartes reportées"
+      const delayedCardsFinalFinal = allCards.filter(item=>!delayedCardsFinal.includes(item))
+      console.log({delayedCardsFinal, allCards, delayedCardsFinalFinal, delayedCards})
+      if(delayedCardsFinalFinal.length!=allCards.length){
+      setDelayedCards(delayedCardsFinalFinal);
+      setDelayedCardsLength(delayedCardsFinalFinal.length)
+
+      }
+      
+      console.log({delayedCards})
   }
   }, [allCards, delayedIds])
 
@@ -116,20 +125,20 @@ const CardDisplay = () => {
       setInitialFailedCards((state) => [...state, card])
     }
   }
-
+  const [delayedCardsLength, setDelayedCardsLength] = useState(delayedCards.length)
   return (<div>
           {showOptions &&
             <div className="cardDisplay__modal">
               <div class="cardDisplay__modal__container modal__container__verso">
 
-              <Options setShowOptions={setShowOptions} delayedCards={delayedCards} />
+              <Options setDelayedCardsLength={setDelayedCardsLength} setShowOptions={setShowOptions} delayedCards={delayedCards} />
               </div>
             </div>
           }
           {database?.length >= 1 &&
             (<>
             <p className="deck__title">{deckTitle} <FontAwesomeIcon icon={faCog} onClick={()=> setShowOptions(true)} style={{cursor:"pointer"}}/> </p>
-            <ShowCards cardId={cardId} database={database} addFailedCards={addFailedCards} failedCards={databaseFailedCards} />
+            <ShowCards delayedCardsLength={delayedCardsLength} cardId={cardId} database={database} addFailedCards={addFailedCards} failedCards={databaseFailedCards} />
             </>)
           }
           {isOver &&

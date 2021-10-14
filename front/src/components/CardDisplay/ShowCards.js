@@ -11,7 +11,7 @@ import { motion } from "framer-motion"
 import classNames from 'classnames'
 import { useSwipeable } from 'react-swipeable';
 
-const ShowCards = ({database, cardId, addFailedCards, failedCards }) => {
+const ShowCards = ({delayedCardsLength, database, cardId, addFailedCards, failedCards }) => {
   const { deckId } = useParams()
   // console.log("database", database)
   const dispatch = useDispatch();
@@ -48,10 +48,10 @@ const ShowCards = ({database, cardId, addFailedCards, failedCards }) => {
 
 // Copier/Coller de Next.js, pour faire marcher le swipe. Idéalement, il faudrait avoir ces fonctions dans des modules séparés, ou au moins les supprimer de Next.js et les faire passer en props.
 
-  const handleClickNext = () => {
-        dispatch({type:RESET_CARD, isRecto: defaultView.isRecto})
-        database.splice(cardId, 1)
-      }
+  // const handleClickNext = () => {
+  //       dispatch({type:RESET_CARD, isRecto: defaultView.isRecto})
+  //       database.splice(cardId, 1)
+  //     }
       
   // const handleClickFail = () => {
   //     dispatch({type:RESET_CARD, isRecto: defaultView.isRecto})
@@ -111,7 +111,7 @@ return  <>
     </motion.pre>
   </motion.div>
 }
-  <Next initialLength={initialLength.current} failedCards={failedCards} database={database} showedCard={showedCard} nextCard={nextCard} setNextCard={setNextCard} deckId={deckId} cardsNumberInDeck={cardsNumberInDeck} addFailedCards={addFailedCards}/>
+  <Next delayedCardsLength={delayedCardsLength} initialLength={initialLength.current} failedCards={failedCards} database={database} showedCard={showedCard} nextCard={nextCard} setNextCard={setNextCard} deckId={deckId} cardsNumberInDeck={cardsNumberInDeck} addFailedCards={addFailedCards}/>
   <p style={{fontSize: "1.5em"}}> Cartes restantes: {cardsNumberInDeck-1}</p>
   </>
 }

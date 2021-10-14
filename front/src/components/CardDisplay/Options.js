@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { EDIT_OPTIONS } from '../../actions'
@@ -10,11 +10,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck} from '@fortawesome/free-solid-svg-icons'
 
 
-const Options = ({setShowOptions, delayedCards}) => {
+const Options = ({setDelayedCardsLength, setShowOptions, delayedCards}) => {
   const isConnected = useSelector((state) => state.user.isConnected)
   const {isDelayedReviewOn} = useSelector((state) => state.card)
   const dispatch = useDispatch()
-  const [isActive, setIsActive] = useState({allCards: true, onlyFailed:false})
+  const [isActive, setIsActive] = useState({allMastered: false, onlyFailed:false, allCards:true })
+  const delayedCardsLength = useRef(delayedCards.length)
 
   const handleClick = (event) => {
     if (event.target.id === "start") {
@@ -25,8 +26,8 @@ const Options = ({setShowOptions, delayedCards}) => {
     }
     else if (event.target.id === "onlyFailed") {
       dispatch({type:EDIT_OPTIONS, field: "isDelayedReviewOn", value: true})
-    }
 
+    }
     setIsActive((state)=>({...state, allCards: false, onlyFailed: false }))
     setIsActive((state) => ({...state, [event.target.id]:true}))
   }
