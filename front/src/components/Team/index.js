@@ -7,10 +7,10 @@ const Team = ()=>{
    // n'utilise PAS les boutons OK et x, ça ne marchera pas. Utilise le bouton "au suivant"
 
    const database = [
-      {recto:"**Jean Hautier \n SCRUM MASTER \n LEAD DEV FRONT \n https://github.com/JMJHautier**", verso:'![](https://i.postimg.cc/hvKrwfHD/whatsapp.png)'},
-      {recto:"**Souleymane Coulibaly \n REFERENT TECHNIQUE  GIT \n DEV BACK \n https://github.com/S-COULIBALY**", verso:'![](https://i.postimg.cc/cLgcPMt4/120680-FA-3-CD4-4-B1-C-A692-908-BDF19-D418-1-201-a.jpg)'},
-      {recto:"**Yann Béraud \n UX Designer \n DEV FRONT \n https://github.com/yann-beraud**", verso:'![](https://i.postimg.cc/qq6ch2Vv/default-image.jpg)'},
-      {recto:"**Vincent Mingam \n PRODUCT OWNER \n DEV BACK \n https://github.com/vmingam**", verso:'![](https://i.postimg.cc/DfR8ftCh/vince.jpg)'},
+      {recto:"Scrum Master\nLead Dev Front", verso:'[![](https://i.postimg.cc/hvKrwfHD/whatsapp.png)](https://github.com/JMJHautier)\nJean Hautier'},
+      {recto:"Git Master\nDev Back", verso:'[![](https://i.postimg.cc/cLgcPMt4/120680-FA-3-CD4-4-B1-C-A692-908-BDF19-D418-1-201-a.jpg)](https://github.com/S-COULIBALY)\nSouleymane Coulibaly'},
+      {recto:"UX Design\nDev Front", verso:'[![](https://avatars.githubusercontent.com/u/74912713?v=4)](https://github.com/yann-beraud)\nYann Béraud'},
+      {recto:"Product Owner\nDev back", verso:'[![Profil Github](https://avatars.githubusercontent.com/u/7131900?v=4)](https://github.com/vmingam)\nVincent Mingam'}
    ]
    //? tentative de disable les boutons. Mais ça ne marche pas, probablement car le DOM est impacté après.
    //? il faudrait utiliser useRef, mais il faudrait alors intervenir dans ShowCards... pas la peine vu l'utilité de la page
@@ -33,10 +33,15 @@ const Team = ()=>{
       setCardId((state)=>state+1)
    }
 
+   const handleClickBack= () => {
+      setCardId((state)=>state-1)
+   }
+
 return <>
          <h1> L'équipe memOria</h1>
-         <button onClick={handleClick}>Au suivant!</button>
          <ShowCards hideButtons={true} cardId={cardId} database={database} failedCards={failedCards} />
+         <button onClick={handleClickBack}>Précédent</button>
+         <button onClick={handleClick}>Suivant</button>
 
       </>
 }
