@@ -11,7 +11,7 @@ import { motion } from "framer-motion"
 import classNames from 'classnames'
 import { useSwipeable } from 'react-swipeable';
 
-const ShowCards = ({delayedCardsLength, database, cardId, addFailedCards, failedCards }) => {
+const ShowCards = ({hideButtons, delayedCardsLength, database, cardId, addFailedCards, failedCards }) => {
   const { deckId } = useParams()
   // console.log("database", database)
   const dispatch = useDispatch();
@@ -108,8 +108,8 @@ return  <>
     </motion.pre>
   </motion.div>
 }
-  <Next delayedCardsLength={delayedCardsLength} initialLength={initialLength.current} failedCards={failedCards} database={database} showedCard={showedCard} nextCard={nextCard} setNextCard={setNextCard} deckId={deckId} cardsNumberInDeck={cardsNumberInDeck} addFailedCards={addFailedCards}/>
-  <p style={{fontSize: "1.5em"}}> Cartes restantes: {cardsNumberInDeck-1}</p>
+  {!hideButtons&&<><Next delayedCardsLength={delayedCardsLength} initialLength={initialLength.current} failedCards={failedCards} database={database} showedCard={showedCard} nextCard={nextCard} setNextCard={setNextCard} deckId={deckId} cardsNumberInDeck={cardsNumberInDeck} addFailedCards={addFailedCards}/>
+  <p style={{fontSize: "1.5em"}}> Cartes restantes: {cardsNumberInDeck-1}</p></>}
   </>
 }
 export default ShowCards

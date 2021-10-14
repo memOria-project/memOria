@@ -14,12 +14,12 @@ const Team = ()=>{
    ]
    // tentative de disable les boutons. Mais ça ne marche pas, probablement car le DOM est impacté après.
    // il faudrait utiliser useRef, mais il faudrait alors intervenir dans ShowCards... pas la peine vu l'utilité de la page
-   const warning = document.getElementsByClassName("warning");
+   // const warning = document.getElementsByClassName("warning");
 
-   useEffect(() => {
-   console.log(warning)   
-   warning&&warning[0].length===1?warning.style.disabled = true:console.log("pas de warning encore")
-   }, [warning])
+   // useEffect(() => {
+   // console.log(warning)   
+   // warning&&warning[0].length===1?warning.style.disabled = true:console.log("pas de warning encore")
+   // }, [warning])
 
    // fin de la tentative
 
@@ -36,7 +36,7 @@ const Team = ()=>{
 return <>
          <h1> L'équipe memOria</h1>
          <button onClick={handleClick}>Au suivant!</button>
-         <ShowCards cardId={cardId} database={database} failedCards={failedCards} />
+         <ShowCards hideButtons={true} cardId={cardId} database={database} failedCards={failedCards} />
 
       </>
 }
