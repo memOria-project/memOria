@@ -1,72 +1,69 @@
 @use "./vars";
 
 @mixin deckMobile {
-    .decks-container {
-        display: flex;
-        flex-flow: row wrap;
-        justify-content: space-evenly;
-        padding: 1em 0.5em;
-    }
-      
-    .deck {
-        // border-radius: 1px;
-        box-shadow:
-        /* The top layer shadow */
-        0 -1px 1px rgba(0,0,0,0.15),
-        /* The second layer */
-        0 -8px 0 -5px #eee,
-        /* The second layer shadow */
-        0 -8px 1px -4px rgba(0,0,0,0.15),
-            /* The third layer */
-        0 -16px 0 -10px #eee,
-        /* The third layer shadow */
-        0 -16px 1px -9px rgba(0,0,0,0.15);
-        /* Padding for demo purposes */
-        background-color: #ecf0f1;
-        padding: 3rem 1rem;
-        width: 70px;
-        height: 40px;
-        text-align: center;
-        margin: 0.5rem 0.5rem;
-        display: flex;
-        justify-self: start;
-        flex-direction: column;
-    }
+  .decks-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    padding: 1em 0.5em;
+  }
+  .deck__icons {
+    display: flex;
+    justify-content: space-between;
+  }
+  .deck {
+    // border-radius: 1px;
+    box-shadow:
+        /* The top layer shadow */ 0 -1px 1px rgba(0, 0, 0, 0.15),
+      /* The second layer */ 0 -8px 0 -5px #eee,
+      /* The second layer shadow */ 0 -8px 1px -4px rgba(0, 0, 0, 0.15),
+      /* The third layer */ 0 -16px 0 -10px #eee,
+      /* The third layer shadow */ 0 -16px 1px -9px rgba(0, 0, 0, 0.15);
+    /* Padding for demo purposes */
+    background-color: #ecf0f1;
+    width: 100px;
+    height: 120px;
+    padding: 5px 10px;
+    text-align: center;
+    margin: 0.5rem 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    word-break: normal;
+    // justify-content: space-between;
+  }
 
-    .deck--new{
-        color: vars.$color-text-alt;
-    }
+  .deck--new {
+    color: vars.$color-text-alt;
+  }
 
-    .deck div {
-        margin: 4px 0;
-    }
+  .deck div {
+    margin: 4px 0;
+  }
 
-    .deck a{
-        color: vars.$color-text;
-        font-size: 0.8em;
-        line-height: 1rem;
-        font-weight: 600;
-        text-decoration: none;
-    }
+  .deck a {
+    color: vars.$color-text;
+    font-size: 0.8em;
+    line-height: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .deckProfile__title {
+    font-size: 1.1em;
+  }
 }
 
 @mixin deckDesktop {
-
-      
-    .deck {
-        display: inline;
-        vertical-align: baseline;
-        background-color: #ecf0f1;
-        padding: 3rem 1rem;
-        width: 150px;
-        height: 30px;
-        margin: 0.5rem 0.5rem
-    }
-    
-    .deck a{
-        color: vars.$color-text;        
-        font-weight: 600;
-        text-decoration: none;
-    }
-
+  body .deck {
+    width: 200px;
+    height: 130px;
+  }
+  .deck .deck__title {
+    font-size: 1.8em;
+  }
+  .deck a {
+    color: vars.$color-text;
+    font-weight: 600;
+    text-decoration: none;
+  }
 }

@@ -6,8 +6,9 @@ import Loading from '../Loading'
 import Form from '../Subscribe/Form'
 import NewDeckForm from './NewDeckForm'
 import './Profile.scss'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Fragment } from 'react';
-
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 const Profile = ()=>{
 const {user} = useSelector((state)=> state);
@@ -56,8 +57,7 @@ return (<>
 
           <div className="personalizedDecksDisplay__decks-container">
           <div name="newDeck" className="deck deck--new" onClick={handleClick}>
-            <p>+</p>
-            <p>Nouveau paquet</p>
+            <FontAwesomeIcon    icon={faPlus} size="3x"/>
           </div>
           {showNewDeck&&
           <NewDeckForm handleClick={handleClick} setShowNewDeck={setShowNewDeck} />
