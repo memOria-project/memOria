@@ -4,6 +4,7 @@ import './ListDecks.scss'
 import './ListDecks-Desktop.scss'
 import Loading from '../Loading';
 import { Fragment, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 const ListDecks = ()=>{
     const allDecks = useSelector((state)=>(state.decks))
@@ -16,6 +17,7 @@ const ListDecks = ()=>{
     const handleClick= () => {
         setOpenUser((state)=>!state)
     }
+
 return (<>
         <div className="decks-container">
             {decks.length>1?oclockDecks.map((deck) => {
@@ -26,7 +28,9 @@ return (<>
         {openUser&&
         <div className="decks-container">
             {decks.length>1?decks.map((deck) => {
-                return <Fragment key={deck.id}> <Deck  deck={deck} /> </Fragment>
+                const path = `/deck/${deck.id}/0`
+
+                return <Fragment key={deck.id}><NavLink to={path}> <Deck  deck={deck} /></NavLink> </Fragment>
             }):<Loading />}
         </div>
         }

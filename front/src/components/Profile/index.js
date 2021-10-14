@@ -80,7 +80,7 @@ return (<>
             <button onClick={handleClick}>retour</button>
           </>
           :
-          <button class="btn__submit" onClick={handleClick}>Infos personnelles</button>
+          <button class="confirm" onClick={handleClick}>Infos personnelles</button>
           }
           
         </>

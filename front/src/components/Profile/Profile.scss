@@ -6,8 +6,11 @@
 
 .personalizedDecksDisplay__title {
   margin: vars.$margin-main;
-  font-size: 1.5em;
-  color: vars.$color-text;
+  margin-top: 2em;
+  margin-bottom: 1.5em;
+  font-size: 2em;
+  color: vars.$color-text-alt;
+
   background-color: inherit;
 }
 
