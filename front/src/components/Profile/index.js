@@ -62,7 +62,7 @@ return (<>
           {showNewDeck&&
           <NewDeckForm handleClick={handleClick} setShowNewDeck={setShowNewDeck} />
           }
-          {personalizedDecks&&personalizedDecks.length&&personalizedDecks.map((deck) => {
+          {personalizedDecks&&personalizedDecks.length>0&&personalizedDecks.map((deck) => {
                 return <Fragment key={deck.id}> <PersonalisedDeck deck={deck} /> </Fragment>
             })}
 

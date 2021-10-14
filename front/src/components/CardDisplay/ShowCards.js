@@ -74,6 +74,7 @@ const ShowCards = ({delayedCardsLength, database, cardId, addFailedCards, failed
   // })
 //? fin swiper
 
+
   const showedCard = database[cardId]
 
   const cardClass= classNames({
@@ -81,10 +82,6 @@ const ShowCards = ({delayedCardsLength, database, cardId, addFailedCards, failed
     "card__recto": isRecto,
     "card__verso": !isRecto
   })
-
-
-
-
 
 
 

@@ -13,7 +13,7 @@ const NewDeckForm = ({ handleClick, setShowNewDeck }) => {
 return (
   <div className="modal">
     <div className="modal__container">
-      <h1>Créer un nouveau paquet</h1>
+      <h1 className="newDeck__title">Créer un nouveau paquet</h1>
       <form onSubmit={handleSubmit((data)=> dispatch({type:CREATE_DECK, data}))}>
         <label>Nom du deck
           <input
@@ -34,8 +34,8 @@ return (
               <option value="oclock">oClock</option>
           </select>
         </label> <br />
-         <button name="newDeck" type="submit">Créer</button>
-      </form> <br />
+         <button className="confirm" name="newDeck" type="submit">Créer</button>
+      </form>
       <button name="newDeck" className="information" onClick={handleClick}>retour</button>
     </div>
   </div>

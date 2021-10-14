@@ -35,6 +35,9 @@
 .modal {
   @include mixinsModal.modal;
   height: 100vh;
+  .newDeck__title {
+    font-size: 2em;
+  }
 }
 
 .modal__content {
@@ -47,11 +50,11 @@
   margin-top: -150px;
 }
 
-h1,
-h2 .modal__content {
-  margin-bottom: 30px;
-  font-size: 2em;
-}
+// .modal__content h1,
+// h2 {
+//   margin-bottom: 30px;
+//   font-size: 2em;
+// }
 .deck--new {
   font-weight: 800;
 }
