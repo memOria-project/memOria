@@ -1,5 +1,7 @@
 import ShowCards from "../CardDisplay/ShowCards"
 import { useState, useEffect } from "react"
+import { PICK_ORDER } from "../../actions"
+import { useSelector, useDispatch } from 'react-redux'
 
 const Team = ()=>{
    // met tes données en **MarkDown** dans const database
@@ -12,6 +14,12 @@ const Team = ()=>{
       {recto:"UX Design\nDev Front", verso:'[![](https://avatars.githubusercontent.com/u/74912713?v=4)](https://github.com/yann-beraud)\nYann Béraud'},
       {recto:"Product Owner\nDev back", verso:'[![Profil Github](https://avatars.githubusercontent.com/u/7131900?v=4)](https://github.com/vmingam)\nVincent Mingam'}
    ]
+
+   const {defaultView, currentView } = useSelector((state)=>state.card);
+ 
+   const dispatch = useDispatch();
+
+   // dispatch({type:PICK_ORDER, isRecto:true})
    //? tentative de disable les boutons. Mais ça ne marche pas, probablement car le DOM est impacté après.
    //? il faudrait utiliser useRef, mais il faudrait alors intervenir dans ShowCards... pas la peine vu l'utilité de la page
    // const warning = document.getElementsByClassName("warning");
@@ -30,15 +38,30 @@ const Team = ()=>{
    const [cardId, setCardId] = useState(0);
 
    const handleClick= () => {
+      if(cardId === 3) {
+         setCardId(0)
+      }
+      else {
       setCardId((state)=>state+1)
+      }
+      dispatch({type:PICK_ORDER, isRecto:true})
+
    }
 
    const handleClickBack= () => {
+      if(cardId === 0)
+      {
+         setCardId(3)
+      }
+      else{
       setCardId((state)=>state-1)
+      }
+      dispatch({type:PICK_ORDER, isRecto:true})
+
    }
 
 return <>
-         <h1> L'équipe memOria</h1>
+         <h1 style={{fontSize:"2.5em", marginTop:"1.5em"}}> L'équipe memOria</h1>
          <ShowCards hideButtons={true} cardId={cardId} database={database} failedCards={failedCards} />
          <button onClick={handleClickBack}>Précédent</button>
          <button onClick={handleClick}>Suivant</button>
