@@ -93,6 +93,8 @@ const CardDisplay = () => {
 
     }
   }
+  database.sort(function (a, b) { return a.id - b.id})
+
   selectDatabase()
   // "databaseFailedCards" will be passed as props to the MD Editor and contains the array with the "missed cards"
   let databaseFailedCards

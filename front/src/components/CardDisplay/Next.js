@@ -3,7 +3,7 @@ import { NavLink, useParams } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle, faCalendarCheck  } from '@fortawesome/free-solid-svg-icons'
 import { FETCH_CARDS, RESET_CARD, EDIT_OPTIONS, DELAY_CARD } from '../../actions'
-import { useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 const Next = ({ delayedCardsLength,initialLength, failedCards, database, nextCard, deckId, cardsNumberInDeck, setNextCard, showedCard, addFailedCards }) => {
   // if(nextCard >=cardsNumberInDeck-1) {
   //   setNextCard(cardsNumberInDeck-2)
@@ -17,12 +17,26 @@ const Next = ({ delayedCardsLength,initialLength, failedCards, database, nextCar
   const {isDelayedReviewOn} = useSelector((state)=>state.card)
   const {isConnected} = useSelector((state)=>state.user)
   const {cardId} = useParams()
-  const nextCardURL = () => { if(nextCard >=cardsNumberInDeck || nextCard === 0) {
-    return `/deck/${deckId}/${nextCard}`
-  } else {
-    return `/deck/${deckId}/${nextCard-1}`
-  }
+  const [cardIndex, setCardIndex] = useState(0)
+  const [myNextCard, setMyNextCard] = useState("/")
+
+  useEffect(()=> {
+
+  const nextCardURL = () => { 
+  //   if(nextCard >=cardsNumberInDeck || nextCard === 0) {
+  //   return `/deck/${deckId}/${nextCard}`
+  // } else {
+  //   return `/deck/${deckId}/${nextCard-1}`
+  // }
+  setCardIndex((state)=>state+1)
+
+  return `/deck/${deckId}/${cardIndex}`
 }
+const nextCard= nextCardURL();
+setMyNextCard(nextCard)
+
+  }, []
+  )
 // const deckLength = useSelector(state => state.currentDeck).deck_length
 // const goodCards = deckLength- failedCards.length
 // console.log(goodCards)
@@ -74,10 +88,10 @@ return (
     {cardsNumberInDeck>0&&
       (<>
         <button className="confirm" onClick={()=>handleClickNext()}>
-          <NavLink to={nextCardURL} > <FontAwesomeIcon icon={faCalendarCheck}/> {howManyGoods}</NavLink>
+          <NavLink to={myNextCard} > <FontAwesomeIcon icon={faCalendarCheck}/> {howManyGoods}</NavLink>
         </button>
           <button className="warning" onClick={()=>handleClickFail()}>
-            <NavLink to={nextCardURL} > <FontAwesomeIcon icon={faTimesCircle} /> {howManyBads}</NavLink>
+            <NavLink to={myNextCard} > <FontAwesomeIcon icon={faTimesCircle} /> {howManyBads}</NavLink>
           </button>
 
       </>)
