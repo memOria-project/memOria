@@ -1,7 +1,7 @@
 import ShowCards from "../CardDisplay/ShowCards"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { PICK_ORDER } from "../../actions"
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 const Team = ()=>{
    // met tes données en **MarkDown** dans const database
@@ -15,7 +15,7 @@ const Team = ()=>{
       {recto:"Product Owner\nDev back", verso:'[![Profil Github](https://avatars.githubusercontent.com/u/7131900?v=4)](https://github.com/vmingam)\nVincent Mingam'}
    ]
 
-   const {defaultView, currentView } = useSelector((state)=>state.card);
+   // const {defaultView, currentView } = useSelector((state)=>state.card);
  
    const dispatch = useDispatch();
 
