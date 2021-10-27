@@ -1,4 +1,4 @@
-import { PICK_ORDER, RETURN_CARD, RESET_CARD, EDIT_CARD, PICK_NEW_GAME } from '../actions'
+import { PICK_DEFAULT_CARD_SIDE, RETURN_CARD, RESET_CARD, EDIT_CARD, PICK_NEW_GAME } from '../actions'
 
 export const initialState = {
   defaultView: {
@@ -19,7 +19,7 @@ export const initialState = {
 }
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    case PICK_ORDER: {
+    case PICK_DEFAULT_CARD_SIDE: {
       return {
         ...state,
         defaultView: {
@@ -31,6 +31,14 @@ const reducer = (state = initialState, action = {}) => {
       }
     }
 
+    case PICK_NEW_GAME: {
+      return {
+        ...state,
+        [action.field]: action.value
+      }
+    }
+
+    // Cas utilisé quand l'utilisateur clique sur une carte pour en voir l'autre coté
     case RETURN_CARD: {
       return {
         ...state,
@@ -39,6 +47,8 @@ const reducer = (state = initialState, action = {}) => {
         }
       }
     }
+
+    // remet la carte du coté (recto ou verso) choisi par l'utilisateur via PICK_DEFAULT_SIDE
     case RESET_CARD: {
       return {
         ...state,
@@ -54,13 +64,6 @@ const reducer = (state = initialState, action = {}) => {
       const fields = action.field.reduce(reducer)
       console.log(fields)
       return fields
-    }
-
-    case PICK_NEW_GAME: {
-      return {
-        ...state,
-        [action.field]: action.value
-      }
     }
 
     default:

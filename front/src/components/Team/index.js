@@ -1,6 +1,6 @@
 import ShowCards from "../CardDisplay/ShowCards"
 import { useState } from "react"
-import { PICK_ORDER } from "../../actions"
+import { PICK_DEFAULT_CARD_SIDE } from "../../actions"
 import { useDispatch } from 'react-redux'
 
 const Team = ()=>{
@@ -19,7 +19,7 @@ const Team = ()=>{
  
    const dispatch = useDispatch();
 
-   // dispatch({type:PICK_ORDER, isRecto:true})
+   // dispatch({type:PICK_DEFAULT_CARD_SIDE, isRecto:true})
    //? tentative de disable les boutons. Mais ça ne marche pas, probablement car le DOM est impacté après.
    //? il faudrait utiliser useRef, mais il faudrait alors intervenir dans ShowCards... pas la peine vu l'utilité de la page
    // const warning = document.getElementsByClassName("warning");
@@ -44,7 +44,7 @@ const Team = ()=>{
       else {
       setCardId((state)=>state+1)
       }
-      dispatch({type:PICK_ORDER, isRecto:true})
+      dispatch({type:PICK_DEFAULT_CARD_SIDE, isRecto:true})
 
    }
 
@@ -56,7 +56,7 @@ const Team = ()=>{
       else{
       setCardId((state)=>state-1)
       }
-      dispatch({type:PICK_ORDER, isRecto:true})
+      dispatch({type:PICK_DEFAULT_CARD_SIDE, isRecto:true})
 
    }
 

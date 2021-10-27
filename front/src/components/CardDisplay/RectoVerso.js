@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useState } from 'react'
-import { PICK_ORDER } from '../../actions'
+import { PICK_DEFAULT_CARD_SIDE } from '../../actions'
 
 const RectoVerso = ()=>{
   const {defaultView, currentView } = useSelector((state)=>state.card);
@@ -11,10 +11,10 @@ const RectoVerso = ()=>{
     //id = recto button id and verso button id properties
     const userChoice = event.target.id;
     if(userChoice === "recto"){
-        dispatch({type:PICK_ORDER, isRecto:true})
+        dispatch({type:PICK_DEFAULT_CARD_SIDE, isRecto:true})
     }
     else {
-        dispatch({type:PICK_ORDER, isRecto:false})
+        dispatch({type:PICK_DEFAULT_CARD_SIDE, isRecto:false})
     };
     setIsActive((state)=>({...state, recto: false, verso: false }))
     setIsActive((state) => ({...state, [event.target.id]:true}))
