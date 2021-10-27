@@ -52,7 +52,7 @@ const api = (store) => (next) => (action) => {
     }
     case POST_CARD: {
       // const { id } = store.getState().user
-      const { currentCard } = store.getState().card
+      const { currentCard } = store.getState().currentDeck
       const { recto, verso, currentDeckId, currentCardId } = currentCard
       const deckId = currentDeckId
       // const id = currentCardId
