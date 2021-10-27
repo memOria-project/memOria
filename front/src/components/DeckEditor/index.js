@@ -13,17 +13,16 @@ const DeckEditor = () => {
   const [loading, setLoading] = useState(true)
   const [nameOfDeck, setNameOfDeck] = useState()
   const { deckEditorDeckId } = useParams()
-
-  const deckId = deckEditorDeckId
-  const { currentDeckId } = useSelector((state) => state.currentDeck.currentDeckContent)
+  const deckIdFromParams = parseInt(deckEditorDeckId, 10)
 
   useEffect(() => {
     dispatch({ type: CHECK_TOKEN })
-    dispatch({ type: SET_CURRENT_DECK_ID, currentDeckId: deckId })
+    dispatch({ type: SET_CURRENT_DECK_ID, deckId: deckIdFromParams })
   }, [])
 
   const dispatch = useDispatch()
   const { currentDeckContent } = useSelector(state => state.currentDeck)
+  const { deckId } = useSelector((state) => state.currentDeck)
   const currentDeckInEditor = useSelector(state => state.currentDeck).currentDeckContent.cards
   const { decks } = useSelector((state) => state.user)
 
@@ -43,7 +42,7 @@ const DeckEditor = () => {
     if (!currentDeckContent && !currentDeckInEditor || currentDeckInEditor) {
       setTimeout(() => setLoading(false), 1000)
     }
-  }, [currentDeckId])
+  }, [deckId])
 
   if (currentDeckInEditor) {
     currentDeckInEditor.sort(function (a, b) { return a.id - b.id })

@@ -3,10 +3,10 @@ import { SET_CURRENT_DECK_ID, GET_CURRENT_DECK_CONTENT, SET_AS_MODIFIED, GET_CAR
 
 // no current deck at the start of the app
 export const initialState = {
-  currentDeckId: false,
+  deckId: false,
   currentDeckContent: false,
   currentCard: {
-    currentDeckId: false,
+    deckId: false,
     currentCardId: false,
     recto: 'recto',
     verso: 'verso'
@@ -24,7 +24,7 @@ const reducer = (state = initialState, action = {}) => {
     {
       return {
         ...state,
-        currentDeckId: action.currentDeckId
+        deckId: action.deckId
       }
     }
 

@@ -24,7 +24,7 @@ const CardDisplay = () => {
   
   // Fetch all cards from the selected deck
   useEffect(() => {
-    dispatch({ type: SET_CURRENT_DECK_ID, currentDeckId: deckId })
+    dispatch({ type: SET_CURRENT_DECK_ID, deckId: deckId })
     dispatch({ type: FETCH_CARDS })
     dispatch({ type: CHECK_TOKEN })
 
