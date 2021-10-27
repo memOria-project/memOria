@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { FETCH_CARDS, SET_CURRENT_DECK_ID, EDIT_CARD, DELETE_CARD, CHECK_TOKEN } from '../../actions'
+import { FETCH_CARDS, SET_CURRENT_DECK_ID, GET_CARD, DELETE_CARD, CHECK_TOKEN } from '../../actions'
 import { useEffect, useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import MDEditor from '@uiw/react-md-editor'
@@ -58,7 +58,7 @@ const DeckEditor = () => {
     // cette conditionnelle est là pour éviter une erreur "cardContent undefined". Elle ne me semblait pas nécessaire initialement, car il ne devrait pas y avoir de cas où cardContent est undefined, mais bon...
     if (cardContent) {
       dispatch({
-        type: EDIT_CARD,
+        type: GET_CARD,
         field: [
           {
             field: 'recto',

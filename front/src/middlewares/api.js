@@ -1,5 +1,5 @@
 import {
-  getAllDecks, FETCH_DECKS, FETCH_CARDS, getCurrentDeckContent, POST_CARD, EDIT_CURRENT_DECK, DELETE_CARD, DELAY_CARD, CREATE_DECK, CHECK_TOKEN
+  getAllDecks, FETCH_DECKS, FETCH_CARDS, getCurrentDeckContent, POST_CARD, SET_AS_MODIFIED, DELETE_CARD, DELAY_CARD, CREATE_DECK, CHECK_TOKEN
 } from '../actions'
 
 const api = (store) => (next) => (action) => {
@@ -78,10 +78,10 @@ const api = (store) => (next) => (action) => {
           const response = await request.status
           console.log(response)
           if (response === 200 || response === 201) {
-            store.dispatch({type:EDIT_CURRENT_DECK, isModified: true})
+            store.dispatch({type:SET_AS_MODIFIED, isModified: true})
           }
           else {
-            store.dispatch({type:EDIT_CURRENT_DECK, isModified: false})
+            store.dispatch({type:SET_AS_MODIFIED, isModified: false})
           }
           console.log(response)
         } catch (error) { console.log(error) }

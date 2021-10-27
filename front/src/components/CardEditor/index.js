@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import Form from './Form.js'
-import { EDIT_CARD, FETCH_CARDS, getCurrentDeckContent, POST_CARD } from "../../actions/index.js";
+import { GET_CARD, FETCH_CARDS, getCurrentDeckContent, POST_CARD } from "../../actions/index.js";
 import Confirmation from "./Confirmation.js";
 import './CardEditor.scss'
 import './CardEditor_Desktop.scss'
@@ -37,7 +37,7 @@ const CardEditor = ()=>{
       }, [isModified.count])
 
 
-    dispatch({type:EDIT_CARD, field:[{"field":"currentDeckId",
+    dispatch({type:GET_CARD, field:[{"field":"currentDeckId",
         "value": deckId}, {"field":"currentCardId", "value":cardId}]})
 
     const handleClick = (event) => {

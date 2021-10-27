@@ -1,10 +1,16 @@
 
-import { SET_CURRENT_DECK_ID, GET_CURRENT_DECK_CONTENT, EDIT_CURRENT_DECK } from '../actions'
+import { SET_CURRENT_DECK_ID, GET_CURRENT_DECK_CONTENT, SET_AS_MODIFIED, GET_CARD } from '../actions'
 
 // no current deck at the start of the app
 export const initialState = {
   currentDeckId: false,
   currentDeckContent: false,
+  currentCard: {
+    currentDeckId: false,
+    currentCardId: false,
+    recto: 'recto',
+    verso: 'verso'
+  },
   isModified: {
     state: false,
     count: 0
@@ -26,7 +32,8 @@ const reducer = (state = initialState, action = {}) => {
       console.log('action.currentDeckContent', action.currentDeckContent)
       return { ...state, currentDeckContent: action.currentDeckContent }
 
-    case EDIT_CURRENT_DECK:
+    // ce cas est utilisé dans CardEditor, pour déterminer si un message d'erreur/confirmation doit être affiché
+    case SET_AS_MODIFIED:
       return {
         ...state,
         isModified: {
@@ -34,6 +41,25 @@ const reducer = (state = initialState, action = {}) => {
           count: state.isModified.count + 1
         }
       }
+
+    // ce cas est utilisé dans deckEditor quand l'utilisateur clique sur "éditer une carte".
+    //! le state est mis à jour à partir de la valeur de currentDeckContent - pas à partir de l'API!
+    case GET_CARD: {
+      const reducer = (previousValue, currentValue) => (
+        {
+          ...state,
+          currentCard: {
+            ...state.currentCard,
+            [currentValue.field]: currentValue.value,
+            [previousValue.field]: previousValue.value
+          }
+        })
+
+      const fields = action.field.reduce(reducer)
+
+      return fields
+    }
+
     default:
       return state
   }

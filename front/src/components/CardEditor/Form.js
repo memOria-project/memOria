@@ -4,18 +4,18 @@ import { javaButton, htmlButton, CSSButton, title3, sqlButton } from './buttons'
 
 // import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { EDIT_CARD } from '../../actions';
+import { GET_CARD } from '../../actions';
 import './CardEditor.scss'
 import classNames from 'classnames';
 
 const Form = ({isRecto, preview})=>{
 
-  const { recto, verso } = useSelector((state)=>state.card.currentCard);
+  const { recto, verso } = useSelector((state)=>state.currentDeck.currentCard);
   const dispatch = useDispatch();
   const handleChange=(val) => {
       const field= isRecto?"recto":"verso";
       console.log(field)
-      dispatch({type:EDIT_CARD, field: [{"field": field, "value":val}, {"field":"test", "value":"value"}]})        
+      dispatch({type:GET_CARD, field: [{"field": field, "value":val}, {"field":"test", "value":"value"}]})        
   }
 
   const cardClasses = classNames({
