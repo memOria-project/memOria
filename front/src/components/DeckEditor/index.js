@@ -21,9 +21,8 @@ const DeckEditor = () => {
   }, [])
 
   const dispatch = useDispatch()
-  const { currentDeckContent } = useSelector(state => state.currentDeck)
   const { deckId } = useSelector((state) => state.currentDeck)
-  const currentDeckInEditor = useSelector(state => state.currentDeck).currentDeckContent.cards
+  const currentDeckInEditor = useSelector(state => state.currentDeck).cards
   const { decks } = useSelector((state) => state.user)
 
   // ce  useEffect existe pour afficher le titre des paquets vides... pas très propre :( )
@@ -31,7 +30,7 @@ const DeckEditor = () => {
     if (decks.length) {
       const findDeck = decks.find((deck) => deck.id === parseInt(deckEditorDeckId, 10))
       setNameOfDeck(findDeck.title)
-      // const nameOfDeck = useSelector((state) => state.currentDeck.currentDeckContent.title)
+      // const nameOfDeck = useSelector((state) => state.currentDeck.title)
     }
   }, [decks.length])
 
@@ -39,7 +38,7 @@ const DeckEditor = () => {
 
   useEffect(() => {
     dispatch({ type: FETCH_CARDS })
-    if (!currentDeckContent && !currentDeckInEditor || currentDeckInEditor) {
+    if (!currentDeckInEditor && !currentDeckInEditor || currentDeckInEditor) {
       setTimeout(() => setLoading(false), 1000)
     }
   }, [deckId])
@@ -132,20 +131,10 @@ const DeckEditor = () => {
             </p>)
           }
           ))}
-        {!currentDeckContent && !loading && <div style={{ marginTop: '2em', fontSize: '2em' }}> Ce paquet est vide! Vite, <NavLink to={`/cardEditor/${deckId}/new`}> ajoutez une carte!</NavLink> </div>}
+        {!currentDeckInEditor && !loading && <div style={{ marginTop: '2em', fontSize: '2em' }}> Ce paquet est vide! Vite, <NavLink to={`/cardEditor/${deckId}/new`}> ajoutez une carte!</NavLink> </div>}
         {loading && <Loading />}
     </div>
   )
 }
 
 export default DeckEditor
-
-// if (currentDeckInEditor) {
-//   // firstCommonDeck = currentDeckInEditor[0]["cards"];
-//   //;
-
-//   firstCommonDeck = currentDeckInEditor["currentDeckContent"]["cards"];
-
-//   console.log("currentDeckInEditor['currentDeckContent']['cards']",currentDeckInEditor["currentDeckContent"]["cards"]);
-//   console.log("firstCommonDeck", firstCommonDeck);
-// }

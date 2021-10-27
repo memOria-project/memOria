@@ -4,7 +4,9 @@ import { SET_CURRENT_DECK_ID, GET_CURRENT_DECK_CONTENT, SET_AS_MODIFIED, GET_CAR
 // no current deck at the start of the app
 export const initialState = {
   deckId: false,
-  currentDeckContent: false,
+  cards: false,
+  title: false,
+  tags: false,
   currentCard: {
     deckId: false,
     currentCardId: false,
@@ -28,10 +30,29 @@ const reducer = (state = initialState, action = {}) => {
       }
     }
 
-    case GET_CURRENT_DECK_CONTENT:
-      console.log('action.currentDeckContent', action.currentDeckContent)
-      return { ...state, currentDeckContent: action.currentDeckContent }
-
+    case GET_CURRENT_DECK_CONTENT: {
+      const { id, title, tags, cards } = action.currentDeckContent
+      /* cette conditionnelle vise à éviter des boucles de render.
+      currentDeck.deckId est lié à plusieurs useEffect, et le modifier "pour rien" cause des effets de bords indésirables
+      Ce n'est pas très lisible et pourrait être améliorer, par ex au niveau du middleware.
+      */
+      if (state.deckId != id) {
+        return {
+          ...state,
+          title,
+          tags,
+          cards,
+          id
+        }
+      } else {
+        return {
+          ...state,
+          title,
+          tags,
+          cards
+        }
+      }
+    }
     // ce cas est utilisé dans CardEditor, pour déterminer si un message d'erreur/confirmation doit être affiché
     case SET_AS_MODIFIED:
       return {
@@ -43,7 +64,7 @@ const reducer = (state = initialState, action = {}) => {
       }
 
     // ce cas est utilisé dans deckEditor quand l'utilisateur clique sur "éditer une carte".
-    //! le state est mis à jour à partir de la valeur de currentDeckContent - pas à partir de l'API!
+    //! le state est mis à jour à partir de la valeur de currentDeck - pas à partir de l'API!
     case GET_CARD: {
       const reducer = (previousValue, currentValue) => (
         {
