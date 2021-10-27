@@ -107,6 +107,8 @@
     iframe {
       max-width: 9em;
       max-height: 12em;
+      // une image SVG ne s'affiche pas sans un minwidth, je ne comprend pas pourquoi :/
+      min-width: 4em;
     }
   }
 }
@@ -147,6 +149,7 @@
     iframe {
       max-width: 18em;
       max-height: 6em;
+      // min-width: 9em;
     }
   }
 }
