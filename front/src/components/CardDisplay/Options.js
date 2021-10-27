@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { EDIT_OPTIONS } from '../../actions'
+import { PICK_NEW_GAME } from '../../actions'
 import RectoVerso from './RectoVerso'
 import DelayedCards from './DelayedCards'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -22,10 +22,10 @@ const Options = ({setDelayedCardsLength, setShowOptions, delayedCards}) => {
       setShowOptions((state)=> !state)
     }
     else if (event.target.id === "allCards") {
-      dispatch({type:EDIT_OPTIONS, field: "isDelayedReviewOn", value: false})
+      dispatch({type:PICK_NEW_GAME, field: "isDelayedReviewOn", value: false})
     }
     else if (event.target.id === "onlyFailed") {
-      dispatch({type:EDIT_OPTIONS, field: "isDelayedReviewOn", value: true})
+      dispatch({type:PICK_NEW_GAME, field: "isDelayedReviewOn", value: true})
 
     }
     setIsActive((state)=>({...state, allCards: false, onlyFailed: false }))
