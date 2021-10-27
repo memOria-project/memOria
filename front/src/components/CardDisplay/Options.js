@@ -1,35 +1,31 @@
 import { useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { EDIT_OPTIONS } from '../../actions'
+import { PICK_NEW_GAME } from '../../actions'
 import RectoVerso from './RectoVerso'
 import DelayedCards from './DelayedCards'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { library } from '@fortawesome/fontawesome-svg-core'
 // import { fab } from '@fortawesome/free-brands-svg-icons'
-import { faCheck} from '@fortawesome/free-solid-svg-icons'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
-
-const Options = ({setDelayedCardsLength, setShowOptions, delayedCards}) => {
+const Options = ({ setDelayedCardsLength, setShowOptions, delayedCards }) => {
   const isConnected = useSelector((state) => state.user.isConnected)
-  const {isDelayedReviewOn} = useSelector((state) => state.card)
+  const { isDelayedReviewOn } = useSelector((state) => state.options)
   const dispatch = useDispatch()
-  const [isActive, setIsActive] = useState({allMastered: false, onlyFailed:false, allCards:true })
+  const [isActive, setIsActive] = useState({ allMastered: false, onlyFailed: false, allCards: true })
   const delayedCardsLength = useRef(delayedCards.length)
 
   const handleClick = (event) => {
-    if (event.target.id === "start") {
-      setShowOptions((state)=> !state)
+    if (event.target.id === 'start') {
+      setShowOptions((state) => !state)
+    } else if (event.target.id === 'allCards') {
+      dispatch({ type: PICK_NEW_GAME, field: 'isDelayedReviewOn', value: false })
+    } else if (event.target.id === 'onlyFailed') {
+      dispatch({ type: PICK_NEW_GAME, field: 'isDelayedReviewOn', value: true })
     }
-    else if (event.target.id === "allCards") {
-      dispatch({type:EDIT_OPTIONS, field: "isDelayedReviewOn", value: false})
-    }
-    else if (event.target.id === "onlyFailed") {
-      dispatch({type:EDIT_OPTIONS, field: "isDelayedReviewOn", value: true})
-
-    }
-    setIsActive((state)=>({...state, allCards: false, onlyFailed: false }))
-    setIsActive((state) => ({...state, [event.target.id]:true}))
+    setIsActive((state) => ({ ...state, allCards: false, onlyFailed: false }))
+    setIsActive((state) => ({ ...state, [event.target.id]: true }))
   }
 
   return (
@@ -38,7 +34,7 @@ const Options = ({setDelayedCardsLength, setShowOptions, delayedCards}) => {
 
       <h2>Montrer en premier </h2>
         <RectoVerso />
-      {isConnected&&
+      {isConnected &&
         <>
           <h2>  Parcourir les cartes</h2>
           <DelayedCards handleClick={handleClick} isActive={isActive} delayedCards={delayedCards} />

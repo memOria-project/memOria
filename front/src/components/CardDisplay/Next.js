@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, useParams } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle, faCalendarCheck  } from '@fortawesome/free-solid-svg-icons'
-import { FETCH_CARDS, RESET_CARD, EDIT_OPTIONS, DELAY_CARD } from '../../actions'
+import { FETCH_CARDS, RESET_CARD, PICK_NEW_GAME, DELAY_CARD } from '../../actions'
 import { useRef } from 'react'
 const Next = ({ delayedCardsLength,initialLength, failedCards, database, nextCard, deckId, cardsNumberInDeck, setNextCard, showedCard, addFailedCards }) => {
   // if(nextCard >=cardsNumberInDeck-1) {
@@ -13,8 +13,8 @@ const Next = ({ delayedCardsLength,initialLength, failedCards, database, nextCar
   const delayedCardsInitial = useRef(database.length)
  
   const dispatch = useDispatch()
-  const { defaultView, currentView, isFailed } = useSelector((state) => state.card)
-  const {isDelayedReviewOn} = useSelector((state)=>state.card)
+  const { defaultView, currentView, isFailed } = useSelector((state) => state.options)
+  const {isDelayedReviewOn} = useSelector((state)=>state.options)
   const {isConnected} = useSelector((state)=>state.user)
   const {cardId} = useParams()
   const nextCardURL = () => { if(nextCard >=cardsNumberInDeck || nextCard === 0) {

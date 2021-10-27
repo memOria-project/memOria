@@ -19,48 +19,45 @@ const CardDisplay = () => {
   // use URl parameters to determine the card to display from deck and card id
   const { deckId, cardId } = useParams()
   const delayedIds = useSelector((state) => state.user.delayedCards)
-  const allCards = useSelector(state => state.currentDeck).currentDeckContent.cards
-  const deckTitle = useSelector(state => state.currentDeck).currentDeckContent.title
-  
+  const allCards = useSelector(state => state.currentDeck).cards
+  const deckTitle = useSelector(state => state.currentDeck).title
+
   // Fetch all cards from the selected deck
   useEffect(() => {
-    dispatch({ type: SET_CURRENT_DECK_ID, currentDeckId: deckId })
+    dispatch({ type: SET_CURRENT_DECK_ID, deckId: deckId })
     dispatch({ type: FETCH_CARDS })
     dispatch({ type: CHECK_TOKEN })
-
   }, [])
-  // filter data based on delayedIds! 
+  // filter data based on delayedIds!
   useEffect(() => {
     if (allCards?.length) {
       setLoading(false)
     }
 
-    if(allCards?.length&&delayedIds?.length) {
-      const delayedCardsWithNulls = allCards.map((card)=> {
+    if (allCards?.length && delayedIds?.length) {
+      const delayedCardsWithNulls = allCards.map((card) => {
         const myCard = delayedIds.indexOf(card.id)
-        if(myCard != -1){
+        if (myCard != -1) {
           return card
-        }
-        else{
+        } else {
           return null
         }
-        })
-      const delayedCardsFinal = delayedCardsWithNulls.filter((value)=> value != null)
-      //delayed cards, version "bonnes cartes reportées"
-      const delayedCardsFinalFinal = allCards.filter(item=>!delayedCardsFinal.includes(item))
-      console.log({delayedCardsFinal, allCards, delayedCardsFinalFinal, delayedCards})
-      if(delayedCardsFinalFinal.length!=allCards.length){
-      setDelayedCards(delayedCardsFinalFinal);
-      setDelayedCardsLength(delayedCardsFinalFinal.length)
-
+      })
+      const delayedCardsFinal = delayedCardsWithNulls.filter((value) => value != null)
+      // delayed cards, version "bonnes cartes reportées"
+      const delayedCardsFinalFinal = allCards.filter(item => !delayedCardsFinal.includes(item))
+      console.log({ delayedCardsFinal, allCards, delayedCardsFinalFinal, delayedCards })
+      if (delayedCardsFinalFinal.length != allCards.length) {
+        setDelayedCards(delayedCardsFinalFinal)
+        setDelayedCardsLength(delayedCardsFinalFinal.length)
       }
-      
-      console.log({delayedCards})
-  }
+
+      console.log({ delayedCards })
+    }
   }, [allCards, delayedIds])
 
-  const isFailed = useSelector((state) => state.card.isFailed)
-  const {isAlternateRequired, isDelayedReviewOn } = useSelector((state) => state.card)
+  const isFailed = useSelector((state) => state.options.isFailed)
+  const { isAlternateRequired, isDelayedReviewOn } = useSelector((state) => state.options)
   const [initialFailedCards, setInitialFailedCards] = useState([])
   const [delayedCards, setDelayedCards] = useState([])
 
@@ -70,27 +67,20 @@ const CardDisplay = () => {
 
   // "database" will be passed as props to the MD Editor and contains all the cards to be displayed
   let database = [{ recto: 'recto', verso: 'verso' }] ?? [{ recto: 'recto', verso: 'verso' }] // avoid undefined error when the user removed the last card from the deck while browsing
-  
-  
-
 
   const selectDatabase = () => {
     if (isAlternateRequired) {
       database = alternateFailedCards
-      console.log("la database suivante est séléctionnée(1. cartes ratées, rounds pairs):", database)
+      console.log('la database suivante est séléctionnée(1. cartes ratées, rounds pairs):', database)
     } else if (isFailed) {
       database = initialFailedCards
-      console.log("la database suivante est séléctionnée(2. cartes ratées, rounds impairs):", database)
-
-    } 
-    else if (isDelayedReviewOn) {
+      console.log('la database suivante est séléctionnée(2. cartes ratées, rounds impairs):', database)
+    } else if (isDelayedReviewOn) {
       database = delayedCards
-      console.log("la database suivante est séléctionnée(3. cartes delayed):", database)
-    } 
-    else if (!isFailed) {
+      console.log('la database suivante est séléctionnée(3. cartes delayed):', database)
+    } else if (!isFailed) {
       database = allCards
-      console.log("la database suivante est séléctionnée(4. toutes les cartes, par défaut):", database)
-
+      console.log('la database suivante est séléctionnée(4. toutes les cartes, par défaut):', database)
     }
   }
   selectDatabase()
@@ -109,7 +99,7 @@ const CardDisplay = () => {
   //  Triggers the modal offering the "next games" options: start again with all the cards, or check the missed ones
   const checkIfOver = () => {
     if (database?.length === 0) {
-      console.log("la modale over est montrée")
+      console.log('la modale over est montrée')
       return true
     } else {
       return false
@@ -129,7 +119,7 @@ const CardDisplay = () => {
   return (<div>
           {showOptions &&
             <div className="cardDisplay__modal">
-              <div class="cardDisplay__modal__container modal__container__verso">
+              <div className="cardDisplay__modal__container modal__container__verso">
 
               <Options setDelayedCardsLength={setDelayedCardsLength} setShowOptions={setShowOptions} delayedCards={delayedCards} />
               </div>
@@ -137,7 +127,7 @@ const CardDisplay = () => {
           }
           {database?.length >= 1 &&
             (<>
-            <p className="deck__title">{deckTitle} <FontAwesomeIcon icon={faCog} onClick={()=> setShowOptions(true)} style={{cursor:"pointer"}}/> </p>
+            <p className="deck__title">{deckTitle} <FontAwesomeIcon icon={faCog} onClick={() => setShowOptions(true)} style={{ cursor: 'pointer' }}/> </p>
             <ShowCards hideButtons={false} delayedCardsLength={delayedCardsLength} cardId={cardId} database={database} addFailedCards={addFailedCards} failedCards={databaseFailedCards} />
             </>)
           }

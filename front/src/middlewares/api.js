@@ -1,5 +1,5 @@
 import {
-  getAllDecks, FETCH_DECKS, FETCH_CARDS, getCurrentDeckContent, POST_CARD, EDIT_CURRENT_DECK, DELETE_CARD, DELAY_CARD, CREATE_DECK, CHECK_TOKEN
+  getAllDecks, FETCH_DECKS, FETCH_CARDS, getCurrentDeckContent, POST_CARD, SET_AS_MODIFIED, DELETE_CARD, DELAY_CARD, CREATE_DECK, CHECK_TOKEN
 } from '../actions'
 
 const api = (store) => (next) => (action) => {
@@ -26,24 +26,23 @@ const api = (store) => (next) => (action) => {
 
     case FETCH_CARDS:
     {
-      const { currentDeckId } = store.getState().currentDeck
+      const { deckId } = store.getState().currentDeck
       const fetchCardsOptions =
       {
         method: 'GET'
       }
       const getCurrentDeck = async () => {
         try {
-          const request = await fetch(`${back}/deck/${currentDeckId}/cards`, fetchCardsOptions)
-            store.dispatch(getCurrentDeckContent(false))
+          const request = await fetch(`${back}/deck/${deckId}/cards`, fetchCardsOptions)
+          store.dispatch(getCurrentDeckContent(false))
           const response = await request.json()
-          if(request.status === 204) //le paquet est vide ou n'existe pas
+          if (request.status === 204) // le paquet est vide ou n'existe pas
           {
             store.dispatch(getCurrentDeckContent(false))
-            console.log("pas de paquets")
-          }
-          else {
-          console.log("get CUrrent Deck", response)
-          store.dispatch(getCurrentDeckContent(response))
+            console.log('pas de paquets')
+          } else {
+            console.log('get CUrrent Deck', response)
+            store.dispatch(getCurrentDeckContent(response))
           }
         } catch (error) { console.log(error) }
       }
@@ -54,7 +53,7 @@ const api = (store) => (next) => (action) => {
     case POST_CARD: {
       // const { id } = store.getState().user
       const { currentCard } = store.getState().card
-      let { recto, verso, currentDeckId, currentCardId } = currentCard
+      const { recto, verso, currentDeckId, currentCardId } = currentCard
       const deckId = currentDeckId
       // const id = currentCardId
       const newCard = {
@@ -66,22 +65,22 @@ const api = (store) => (next) => (action) => {
       const options =
       {
         method: 'POST',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
-          'Authorization': token },
+          Authorization: token
+        },
         body: JSON.stringify(newCard)
       }
-      console.log(JSON.stringify(newCard));
+      console.log(JSON.stringify(newCard))
       const postCard = async () => {
         try {
           const request = await fetch(`${back}/card`, options)
           const response = await request.status
           console.log(response)
           if (response === 200 || response === 201) {
-            store.dispatch({type:EDIT_CURRENT_DECK, isModified: true})
-          }
-          else {
-            store.dispatch({type:EDIT_CURRENT_DECK, isModified: false})
+            store.dispatch({ type: SET_AS_MODIFIED, isModified: true })
+          } else {
+            store.dispatch({ type: SET_AS_MODIFIED, isModified: false })
           }
           console.log(response)
         } catch (error) { console.log(error) }
@@ -97,21 +96,22 @@ const api = (store) => (next) => (action) => {
       const options =
       {
         method: 'DELETE',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
-          'Authorization': token },
+          Authorization: token
+        },
         body: JSON.stringify(cardToBeDeleted)
       }
       console.log(JSON.stringify(cardToBeDeleted))
-      const deleteCard = async() => {
-        try{
+      const deleteCard = async () => {
+        try {
           const request = await fetch(`${back}/card`, options)
           const response = await request.status
-          if(response === 200){
+          if (response === 200) {
             console.log(`carte supprimée: ${response}`)
           }
-          store.dispatch({type:FETCH_CARDS})
-        }catch(error) { console.log(error)}
+          store.dispatch({ type: FETCH_CARDS })
+        } catch (error) { console.log(error) }
       }
       deleteCard()
       break
@@ -120,57 +120,57 @@ const api = (store) => (next) => (action) => {
       const cardToBeDelayed = {
         id: action.id
       }
-      const options = 
+      const options =
       {
-          method: 'POST',
-          headers: { 
-            'Content-Type': 'application/json',
-            'Authorization': token },
-          body: JSON.stringify(cardToBeDelayed)
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token
+        },
+        body: JSON.stringify(cardToBeDelayed)
       }
       const delayCard = async () => {
         try {
           const request = await fetch(`${back}/card/delay`, options)
           const response = await request.json()
           console.log(response)
-        } catch (error) { console.log(error)}
+        } catch (error) { console.log(error) }
       }
-      delayCard();
+      delayCard()
       break
     }
 
     case CREATE_DECK: {
-      const {name, tags} = action.data;
+      const { name, tags } = action.data
       const title = name
       const newDeck = {
         title,
         tag: [tags]
       }
-      const options = 
+      const options =
       {
-        method:'POST', 
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': token },
+          Authorization: token
+        },
         body: JSON.stringify(newDeck)
-        }
-        console.log(options.body)
+      }
+      console.log(options.body)
 
       const createDeck = async () => {
         try {
           const request = await fetch(`${back}/deck/`, options)
           const response = await request
           console.log(response)
-          if(response.status === 201){
-          store.dispatch({type:CHECK_TOKEN})
+          if (response.status === 201) {
+            store.dispatch({ type: CHECK_TOKEN })
+          } else {
+            console.log('no deck for you')
           }
-          else{
-            console.log("no deck for you")
-          }
-        } catch (error) { console.log(error)}
+        } catch (error) { console.log(error) }
       }
       createDeck()
-
     }
     default:
       next(action)

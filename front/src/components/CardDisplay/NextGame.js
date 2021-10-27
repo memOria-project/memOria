@@ -1,4 +1,4 @@
-import {FETCH_CARDS, EDIT_OPTIONS, CHECK_TOKEN} from '../../actions'
+import {FETCH_CARDS, PICK_NEW_GAME, CHECK_TOKEN} from '../../actions'
 import {useDispatch} from 'react-redux'
 import { NavLink, useParams } from 'react-router-dom'
 
@@ -6,19 +6,19 @@ const NextGame = ({setInitialFailedCards, isFailed, failedCards, setIsAlternateR
   const {cardId, deckId} = useParams()
   const handleClickCheckFail = () => {
     if(isFailed) {
-      dispatch({type:EDIT_OPTIONS, field:"isFailed", value:false})
+      dispatch({type:PICK_NEW_GAME, field:"isFailed", value:false})
 
-      dispatch({type:EDIT_OPTIONS, field:"isAlternateRequired", value:true})
+      dispatch({type:PICK_NEW_GAME, field:"isAlternateRequired", value:true})
 
       console.log({isFailed, isAlternateRequired, alternateFailedCards})
     }
     else if(isAlternateRequired) {
-      dispatch({type:EDIT_OPTIONS, field:"isFailed", value:true})
-      dispatch({type:EDIT_OPTIONS, field:"isAlternateRequired", value:false})
+      dispatch({type:PICK_NEW_GAME, field:"isFailed", value:true})
+      dispatch({type:PICK_NEW_GAME, field:"isAlternateRequired", value:false})
 
     }
     else{
-    dispatch({type:EDIT_OPTIONS, field:"isFailed", value:true})
+    dispatch({type:PICK_NEW_GAME, field:"isFailed", value:true})
     }
     // database.splice(cardId, 1)
   }
@@ -26,9 +26,9 @@ const NextGame = ({setInitialFailedCards, isFailed, failedCards, setIsAlternateR
   const handleClickRestart = () => {
     dispatch({type:FETCH_CARDS, deckId})
     setInitialFailedCards([])
-    dispatch({type:EDIT_OPTIONS, field:"isFailed", value:false})
-    dispatch({type:EDIT_OPTIONS, field:"isAlternateRequired", value:false})
-    dispatch({type:EDIT_OPTIONS, field:"isDelayedReviewOn", value:false})
+    dispatch({type:PICK_NEW_GAME, field:"isFailed", value:false})
+    dispatch({type:PICK_NEW_GAME, field:"isAlternateRequired", value:false})
+    dispatch({type:PICK_NEW_GAME, field:"isDelayedReviewOn", value:false})
 
     // dispatch({type: CHECK_TOKEN })
   }

@@ -20,7 +20,6 @@ const reducer = (state = initialState, action = {}) => {
 
     case DISCONNECT:
       return initialState
-      
 
     case UPDATE_LOGIN:
       return {
@@ -29,9 +28,10 @@ const reducer = (state = initialState, action = {}) => {
       }
 
     case UPDATE_USER: {
-      const {name, email, decks, password, delayedCards } = action
-      console.log("UPDATE_USER", action)
-      return {...state,
+      const { name, email, decks, password, delayedCards } = action
+      console.log('UPDATE_USER', action)
+      return {
+        ...state,
         password,
         name,
         email,
@@ -43,9 +43,10 @@ const reducer = (state = initialState, action = {}) => {
     }
 
     case UPDATE_SESSION: {
-      return {...state,
-        isConnected: action.isConnected}
-        
+      return {
+        ...state,
+        isConnected: action.isConnected
+      }
     }
     default:
       return state
