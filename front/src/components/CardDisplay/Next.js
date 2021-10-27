@@ -13,8 +13,8 @@ const Next = ({ delayedCardsLength,initialLength, failedCards, database, nextCar
   const delayedCardsInitial = useRef(database.length)
  
   const dispatch = useDispatch()
-  const { defaultView, currentView, isFailed } = useSelector((state) => state.card)
-  const {isDelayedReviewOn} = useSelector((state)=>state.card)
+  const { defaultView, currentView, isFailed } = useSelector((state) => state.options)
+  const {isDelayedReviewOn} = useSelector((state)=>state.options)
   const {isConnected} = useSelector((state)=>state.user)
   const {cardId} = useParams()
   const nextCardURL = () => { if(nextCard >=cardsNumberInDeck || nextCard === 0) {

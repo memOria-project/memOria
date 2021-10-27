@@ -15,7 +15,7 @@ const ShowCards = ({hideButtons, delayedCardsLength, database, cardId, addFailed
   const { deckId } = useParams()
   // console.log("database", database)
   const dispatch = useDispatch();
-  const { defaultView, currentView } = useSelector((state) => state.card)
+  const { defaultView, currentView } = useSelector((state) => state.options)
   const { isConnected } = useSelector((state) => state.user)
   const initialLength = useRef(database.length)
   console.log("longueur", initialLength.current);

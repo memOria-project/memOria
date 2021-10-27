@@ -56,8 +56,8 @@ const CardDisplay = () => {
     }
   }, [allCards, delayedIds])
 
-  const isFailed = useSelector((state) => state.card.isFailed)
-  const { isAlternateRequired, isDelayedReviewOn } = useSelector((state) => state.card)
+  const isFailed = useSelector((state) => state.options.isFailed)
+  const { isAlternateRequired, isDelayedReviewOn } = useSelector((state) => state.options)
   const [initialFailedCards, setInitialFailedCards] = useState([])
   const [delayedCards, setDelayedCards] = useState([])
 
