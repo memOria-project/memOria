@@ -62,6 +62,14 @@ a > svg {
   background-color: vars.$color-information;
 }
 
+.confirm > a > svg {
+  color: vars.$color-main;
+}
+
+.warning > a > svg {
+  color: vars.$color-main;
+}
+
 .information-alt,
 .information-alt > a {
   color: vars.$color-information;
