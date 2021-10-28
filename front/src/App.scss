@@ -35,10 +35,12 @@ button {
   font-size: 1.2rem;
   font-weight: 600;
   color: vars.$color-main;
+  cursor: pointer;
 }
 
 button:hover {
   transform: scale(0.95);
+  transition: transform 0.5s;
 }
 
 button > a {

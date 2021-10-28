@@ -3,13 +3,15 @@ import { useEffect, useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import MDEditor from '@uiw/react-md-editor'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faEdit, faEye, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons'
 
 import Loading from '../Loading'
 import { handleClickEdit, handleClickDelete } from './handleClick'
 import { FETCH_CARDS, SET_CURRENT_DECK_ID, CHECK_TOKEN } from '../../actions'
 
 import './DeckEditor.scss'
+import './DeckEditor_desktop.scss'
+
 import ExportDeck from './ExportDeck'
 
 const DeckEditor = () => {
@@ -24,6 +26,7 @@ const DeckEditor = () => {
 
   const dispatch = useDispatch()
 
+  const toView = `/deck/${deckId}/0`
   useEffect(() => {
     dispatch({ type: CHECK_TOKEN })
     dispatch({ type: SET_CURRENT_DECK_ID, deckId: deckIdFromParams })
@@ -58,16 +61,26 @@ const DeckEditor = () => {
   return (
     <div>
       <div className="cardEditor__header">
-        <div>
-        <h2 className="header__title">{nameOfDeck}</h2>
-        <FontAwesomeIcon icon={faEdit} />
+        <div className="header__titleBlock">
+          <div className="header__deckTitleBlock">
+            <h2 className="header__title">{nameOfDeck}</h2>
+            <div className="header__icon">
+              <FontAwesomeIcon icon={faEdit} />
+            </div>
+          </div>
+          <div className="header__undertitleBlock">
+            <NavLink to={toView}>
+              <FontAwesomeIcon icon={faEye} size="2x"/>
+            </NavLink>
+            <ExportDeck cards={cards} title={currentDeck.title} />
+          </div>
         </div>
-        <div className="header__newCard">
+        <div className="header__newCard header__newCard__recto">
           <NavLink to={`/cardEditor/${deckId}/new`}>
-            <p>+ <br /> Nouvelle <br /> Carte</p>
+              <FontAwesomeIcon icon={faPlus} size="3x" style={{ color: '#16a085' }} />
           </NavLink>
         </div>
-        <ExportDeck cards={cards} title={currentDeck.title} />
+
       </div>
       {cards &&
           (cards.map((card) => {

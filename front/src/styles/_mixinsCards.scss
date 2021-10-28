@@ -1,5 +1,28 @@
 @use "./vars";
 
+@mixin cardLookAlike {
+  box-sizing: border-box;
+  border-radius: 25px;
+  filter: drop-shadow(8px 8px 8px lighten(black, 50%));
+  padding: 1em 0.5em;
+  min-width: 4em;
+  min-height: 5em;
+  margin: 0.5em;
+  &__recto {
+    background-color: vars.$color-main;
+    color: #e67e22;
+  }
+
+  &__verso {
+    background-color: vars.$color-main-alt;
+    color: vars.$color-text;
+  }
+}
+
+@mixin cardLookAlikeDesktop {
+  min-width: 8em;
+  min-height: 4em;
+}
 @mixin basicCardMobile {
   box-sizing: border-box;
   padding: 2em 0.25em;

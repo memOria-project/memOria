@@ -1,6 +1,8 @@
 import { saveAs } from 'file-saver'
 import { getMyDate } from './getMyDate'
 import { PropTypes } from 'prop-types'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faDownload } from '@fortawesome/free-solid-svg-icons'
 
 const ExportDeck = ({ cards, title }) => {
   const handleClick = () => {
@@ -37,7 +39,9 @@ exporté depuis memOria (${url} - ${new Date(Date.now())}
     saveAs(blob, `${title}__${dateOfExport}.md`)
   }
 
-  return <button onClick={handleClick}>export</button>
+  return <button onClick={handleClick} className="btn__download">
+    <FontAwesomeIcon icon={faDownload} size="2x" />
+  </button>
 }
 export default ExportDeck
 
