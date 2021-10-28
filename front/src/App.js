@@ -48,7 +48,7 @@ function App () {
           <Profile />
         </Route>
 
-        <Route path="/deckEditor/:deckEditorDeckId">
+        <Route path="/deckEditor/:deckId">
           <DeckEditor />
         </Route>
 
