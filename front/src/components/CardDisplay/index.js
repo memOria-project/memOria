@@ -127,7 +127,7 @@ const CardDisplay = () => {
           }
           {database?.length >= 1 &&
             (<>
-            <p className="deck__title">{deckTitle} <FontAwesomeIcon icon={faCog} onClick={() => setShowOptions(true)} style={{ cursor: 'pointer' }}/> </p>
+            <p className="deck__title">{deckTitle} <button className="icon__options"><FontAwesomeIcon icon={faCog} onClick={() => setShowOptions(true)} size="2x"/></button> </p>
             <ShowCards hideButtons={false} delayedCardsLength={delayedCardsLength} cardId={cardId} database={database} addFailedCards={addFailedCards} failedCards={databaseFailedCards} />
             </>)
           }

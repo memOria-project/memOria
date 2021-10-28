@@ -11,6 +11,11 @@
   @include mixinsModal.modal;
 }
 
+.icon__options {
+  color: vars.$color-text-alt;
+  margin: 0;
+  padding: 5px;
+}
 .btn__submit {
   background-color: vars.$color-text-alt;
   outline: none;

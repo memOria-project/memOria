@@ -3,4 +3,8 @@
 
 @media all and (min-width: 481px) {
   @include mixinsCards.cardDesktop;
+
+  .header__newCard {
+    @include mixinsCards.cardLookAlikeDesktop;
+  }
 }

@@ -17,6 +17,7 @@
 
 .cardEditor__header {
   margin-top: 2em;
+  margin-bottom: 1em;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -24,26 +25,48 @@
 }
 
 .header__newCard {
-  border: 1px solid vars.$color-main;
-  padding: 1em;
-  margin: 1em;
+  // border: 1px solid vars.$color-main;
+  // padding: 1em;
+  // margin: 1em;
+  @include mixinsCards.cardLookAlike;
+  &:hover {
+    transform: scale(0.95);
+    transition: transform 0.5s;
+  }
+}
+
+.header__titleBlock {
+  display: flex;
+  margin-right: 1.5em;
+  flex-direction: column;
+}
+.header__deckTitleBlock {
+  display: flex;
+  margin-bottom: 10px;
+}
+.header__undertitleBlock {
+  align-self: stretch;
+  display: flex;
+  justify-content: space-around;
 }
 
 .header__title {
-  padding-right: 1em;
+  padding-right: 0.5em;
   border: none;
   font-size: 2em;
+  color: vars.$color-text;
 }
 
-.header__undertitle {
-  text-align: start;
-  padding-left: 8em;
+.header__icon {
+  align-self: center;
+  color: vars.$color-text-alt;
 }
 
-.cardEditor_untertitle {
-  display: flex;
-  flex-direction: row;
-  flex-direction: space-between;
+.btn__download {
+  margin: 0;
+  padding: 0;
+  margin-left: 5px;
+  font-size: initial;
+  color: vars.$color-text-alt;
 }
-
 @include mixinsCards.cardMobile;

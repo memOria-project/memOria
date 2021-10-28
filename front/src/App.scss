@@ -16,7 +16,7 @@ body {
 h1,
 h2,
 h3 {
-  color: vars.$color-text-alt;
+  color: vars.$color-text;
   font-family: vars.$font-alt;
 }
 
@@ -35,15 +35,21 @@ button {
   font-size: 1.2rem;
   font-weight: 600;
   color: vars.$color-main;
+  cursor: pointer;
 }
 
 button:hover {
   transform: scale(0.95);
+  transition: transform 0.5s;
 }
 
 button > a {
   text-decoration: none;
   color: vars.$color-main;
+}
+
+a > svg {
+  color: vars.$color-text-alt;
 }
 
 .confirm,
@@ -54,6 +60,14 @@ button > a {
 .information,
 .information > a {
   background-color: vars.$color-information;
+}
+
+.confirm > a > svg {
+  color: vars.$color-main;
+}
+
+.warning > a > svg {
+  color: vars.$color-main;
 }
 
 .information-alt,
