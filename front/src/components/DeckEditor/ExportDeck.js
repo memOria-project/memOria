@@ -4,7 +4,7 @@ import { PropTypes } from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload } from '@fortawesome/free-solid-svg-icons'
 
-const ExportDeck = ({ cards, title }) => {
+const ExportDeck = ({ cards = [], title = 'Paquet vide!' }) => {
   const handleClick = () => {
     // éléments inclus dans le fichier
     const deckTitle = `## ${title}`
