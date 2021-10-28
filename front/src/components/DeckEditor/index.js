@@ -7,6 +7,7 @@ import './DeckEditor.scss'
 import Loading from '../Loading'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { handleClickEdit, handleClickDelete } from './handleClick'
 { /* <FontAwesomeIcon icon="fa-solid fa-rectangle-vertical" /> */ }
 
 const DeckEditor = () => {
@@ -45,37 +46,6 @@ const DeckEditor = () => {
 
   if (currentDeckInEditor) {
     currentDeckInEditor.sort(function (a, b) { return a.id - b.id })
-  }
-  console.log('currentDeckInEditor', currentDeckInEditor)
-
-  const handleClickEdit = (event) => {
-    // pour clickedCard: si l'utilisateur a cliqué sur l'icone, l'id de la carte est récupéré via event.target.id.
-    // pour clickedCard: si l'utilisateur a cliqué sur le bouton (hors icone), l'id de la carte est récupéré via event.current.target.id
-    const clickedCard = event.currentTarget.id ? event.currentTarget.id : event.target.id
-    const cardContent = currentDeckInEditor.find((card) => clickedCard == card.id)
-    // cette conditionnelle est là pour éviter une erreur "cardContent undefined". Elle ne me semblait pas nécessaire initialement, car il ne devrait pas y avoir de cas où cardContent est undefined, mais bon...
-    if (cardContent) {
-      dispatch({
-        type: GET_CARD,
-        field: [
-          {
-            field: 'recto',
-            value: cardContent.recto
-          },
-          {
-            field: 'verso',
-            value: cardContent.verso
-          }
-        ]
-      })
-    }
-  }
-  const handleClickDelete = (event) => {
-    const idTakenFromIcon = event.target?.viewportElement?.parentElement?.id
-    const idTakenFromButton = event.target.id
-    const cardIdString = idTakenFromButton || idTakenFromIcon
-    const cardId = parseInt(cardIdString, 10)
-    dispatch({ type: DELETE_CARD, cardId })
   }
 
   // const handleClickDelete = (event) => {

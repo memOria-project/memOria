@@ -5,6 +5,7 @@ import {
 const api = (store) => (next) => (action) => {
   const token = localStorage.getItem('token')
   const back = store.getState().back.url
+
   switch (action.type) {
     case FETCH_DECKS:
     {
@@ -41,7 +42,7 @@ const api = (store) => (next) => (action) => {
             store.dispatch(getCurrentDeckContent(false))
             console.log('pas de paquets')
           } else {
-            console.log('get CUrrent Deck', response)
+            console.log('get Current Deck', response)
             store.dispatch(getCurrentDeckContent(response))
           }
         } catch (error) { console.log(error) }
@@ -52,7 +53,7 @@ const api = (store) => (next) => (action) => {
     }
     case POST_CARD: {
       // const { id } = store.getState().user
-      const { currentCard } = store.getState().card
+      const { currentCard } = store.getState().currentDeck
       const { recto, verso, currentDeckId, currentCardId } = currentCard
       const deckId = currentDeckId
       // const id = currentCardId
@@ -71,18 +72,15 @@ const api = (store) => (next) => (action) => {
         },
         body: JSON.stringify(newCard)
       }
-      console.log(JSON.stringify(newCard))
       const postCard = async () => {
         try {
           const request = await fetch(`${back}/card`, options)
           const response = await request.status
-          console.log(response)
           if (response === 200 || response === 201) {
             store.dispatch({ type: SET_AS_MODIFIED, isModified: true })
           } else {
             store.dispatch({ type: SET_AS_MODIFIED, isModified: false })
           }
-          console.log(response)
         } catch (error) { console.log(error) }
       }
       postCard()
@@ -102,7 +100,6 @@ const api = (store) => (next) => (action) => {
         },
         body: JSON.stringify(cardToBeDeleted)
       }
-      console.log(JSON.stringify(cardToBeDeleted))
       const deleteCard = async () => {
         try {
           const request = await fetch(`${back}/card`, options)
@@ -156,13 +153,11 @@ const api = (store) => (next) => (action) => {
         },
         body: JSON.stringify(newDeck)
       }
-      console.log(options.body)
 
       const createDeck = async () => {
         try {
           const request = await fetch(`${back}/deck/`, options)
           const response = await request
-          console.log(response)
           if (response.status === 201) {
             store.dispatch({ type: CHECK_TOKEN })
           } else {
@@ -171,6 +166,7 @@ const api = (store) => (next) => (action) => {
         } catch (error) { console.log(error) }
       }
       createDeck()
+      break
     }
     default:
       next(action)
