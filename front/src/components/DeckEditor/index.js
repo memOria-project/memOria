@@ -10,6 +10,7 @@ import { handleClickEdit, handleClickDelete } from './handleClick'
 import { FETCH_CARDS, SET_CURRENT_DECK_ID, CHECK_TOKEN } from '../../actions'
 
 import './DeckEditor.scss'
+import ExportDeck from './ExportDeck'
 
 const DeckEditor = () => {
   const deckIdFromParams = parseInt(useParams().deckId, 10)
@@ -66,6 +67,7 @@ const DeckEditor = () => {
             <p>+ <br /> Nouvelle <br /> Carte</p>
           </NavLink>
         </div>
+        <ExportDeck cards={cards} title={currentDeck.title} />
       </div>
       {cards &&
           (cards.map((card) => {
