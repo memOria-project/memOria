@@ -16,7 +16,7 @@ body {
 h1,
 h2,
 h3 {
-  color: vars.$color-text-alt;
+  color: vars.$color-text;
   font-family: vars.$font-alt;
 }
 
@@ -46,6 +46,10 @@ button:hover {
 button > a {
   text-decoration: none;
   color: vars.$color-main;
+}
+
+a > svg {
+  color: vars.$color-text-alt;
 }
 
 .confirm,
