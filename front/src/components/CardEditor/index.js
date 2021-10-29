@@ -61,12 +61,6 @@ const CardEditor = () => {
     <div>
 
         <h1 className="cardEditor__title"> {cardId ? 'Editer' : 'Créer'} une carte </h1>
-        {isSubmit
-
-          ? <Confirmation isSuccess={isModified.state} deckId={deckId} />
-          : console.log('première soumission')
-
-        }
         <form id="recto" onSubmit={handleSubmit}>
           <div className="cardEditor__forms">
             <label>
@@ -79,6 +73,12 @@ const CardEditor = () => {
           <button className="information" onClick={handleClick}> {preview ? 'Retour éditeur' : 'Aperçu'}</button>
           <button type="submit" className="confirm">Créer</button>
         </form>
+        {isSubmit
+
+          ? <Confirmation isSuccess={isModified.state} deckId={deckId} />
+          : console.log('première soumission')
+
+}
     </div>
   )
 }

@@ -11,10 +11,11 @@
   }
   .confirmation--success,
   .confirmation--error {
-    width: 30%;
-    padding: 0.25em;
+    width: fit-content;
+    font-size: 1.25em;
+    padding: 1.5em;
   }
   .cardEditor__title {
-    margin-bottom: 1em;
+    margin-bottom: 0.5em;
   }
 }
