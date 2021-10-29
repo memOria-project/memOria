@@ -11,6 +11,7 @@ $color-bg: white;
 
 $color-warning: #e67e22;
 $color-confirm: $color-text-alt;
+// à utiliser s'il  y a des éléments proches utilisant aussi "color-confirm"
 $color-confirm-light: color.adjust($color-text-alt, $lightness: 5%);
 
 $color-information: #2980b9;
