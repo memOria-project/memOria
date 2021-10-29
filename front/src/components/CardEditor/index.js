@@ -1,9 +1,10 @@
 import MDEditor from '@uiw/react-md-editor'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState, useRef } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Redirect } from 'react-router-dom'
 import Form from './Form.js'
 import { GET_CARD, FETCH_CARDS, getCurrentDeckContent, POST_CARD, SET_AS_MODIFIED } from '../../actions/index.js'
+
 import Confirmation from './Confirmation.js'
 import './CardEditor.scss'
 import './CardEditor_Desktop.scss'
@@ -43,6 +44,7 @@ const CardEditor = () => {
       value: deckId
     }, { field: 'currentCardId', value: cardId }]
   })
+  const path = `/deckEditor/${deckId}`
 
   // handleClick du preview
   const handleClick = (event) => {
@@ -59,6 +61,10 @@ const CardEditor = () => {
 
   return (
     <div>
+
+      {/* redirection vers le deck SEULEMENT SI on edite une carte existante, et que la soumission a fonctionné
+      */
+      (cardId && isSubmit && isModified.state) && <Redirect to={path}/>}
 
         <h1 className="cardEditor__title"> {cardId ? 'Editer' : 'Créer'} une carte </h1>
         <form id="recto" onSubmit={handleSubmit}>
