@@ -3,10 +3,9 @@ import { useEffect, useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import MDEditor from '@uiw/react-md-editor'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit, faEye, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faEdit, faEye, faPlus } from '@fortawesome/free-solid-svg-icons'
 
 import Loading from '../Loading'
-import { handleClickEdit, handleClickDelete } from './handleClick'
 import { FETCH_CARDS, SET_CURRENT_DECK_ID, CHECK_TOKEN } from '../../actions'
 
 import './DeckEditor.scss'
@@ -14,6 +13,7 @@ import './DeckEditor_desktop.scss'
 
 import ExportDeck from './ExportDeck'
 import Delete from './Delete'
+import Edit from './Edit'
 
 const DeckEditor = () => {
   const deckIdFromParams = parseInt(useParams().deckId, 10)
@@ -99,11 +99,7 @@ const DeckEditor = () => {
               </div>
               <div className="card__title">
                 <p ><strong>Carte n°{cards.indexOf(card) + 1}/{cards.length}</strong></p>
-                <NavLink to={`/cardEditor/${deckId}/${card.id}`}>
-                  <button className="information" id={card.id} onClick={handleClickEdit}>
-                <FontAwesomeIcon icon={faEdit} size="2x" name={card.id} onClick={handleClickEdit}/>
-                </button>
-                </NavLink>
+                <Edit card={card} deckId={deckId} />
                 <Delete card={card} />
               </div>
             </p>)
