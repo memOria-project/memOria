@@ -1,5 +1,8 @@
+@use "sass:color";
+
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,200;0,400;0,600;1,400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Roboto+Mono:ital,wght@0,200;0,400;0,600;1,400&display=swap");
+
 $color-text-alt: #16a085;
 $color-main-alt: #bdc3c7;
 $color-main: #ecf0f1;
@@ -8,6 +11,9 @@ $color-bg: white;
 
 $color-warning: #e67e22;
 $color-confirm: $color-text-alt;
+// à utiliser s'il  y a des éléments proches utilisant aussi "color-confirm"
+$color-confirm-light: color.adjust($color-text-alt, $lightness: 5%);
+
 $color-information: #2980b9;
 $color-critic: #c0392b;
 

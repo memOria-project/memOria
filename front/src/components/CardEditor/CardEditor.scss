@@ -3,21 +3,32 @@
 .cardEditor__forms {
   display: flex;
   flex-direction: column;
-  //   border: 1px solid black;
-  //   justify-content: center;
-  //   align-items: center;
-  //   width: 40em;
-  //   height: 11em;
-  //   //   margin: auto;
-  //   margin-bottom: 1em;
+  & > label {
+    margin: 0.5em;
+    // flex: 0 1 500px;
+  }
 }
+
+.w-md-editor-toolbar {
+  height: 50px !important;
+
+  & > ul:first-of-type {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    & > [class="w-md-editor-toolbar-divider"] {
+      align-self: center;
+    }
+  }
+}
+
 .cardEditor__title {
   font-size: 2em;
   margin-top: 1em;
 }
 
 .confirmation--success {
-  background-color: vars.$color-confirm;
+  background-color: vars.$color-confirm-light;
   width: 100%;
   margin: auto;
   border-radius: 10px;
@@ -36,3 +47,36 @@
     color: vars.$color-main;
   }
 }
+
+.setDelay {
+  visibility: hidden;
+}
+
+.w-md-editor-toolbar li > button {
+  color: vars.$color-text-alt;
+  font-size: inherit;
+}
+
+// cache les boutons : edit code, live code, preview code, full screen
+.w-md-editor-toolbar ul:last-of-type {
+  display: none;
+  /* 
+  remplace: 
+  [title="Edit code"],
+  [title="Live code"],
+  [title="Preview code"],
+  [title="fullscreen"] {
+    display: none;
+  }
+  */
+}
+
+// @keyframes delay {
+//   from {
+//     visibility: hidden;
+//   }
+//   to {
+//     visibility: visible;
+//     transform: scale(1.5);
+//   }
+// }
