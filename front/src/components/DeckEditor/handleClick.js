@@ -27,10 +27,20 @@ export const handleClickEdit = (event) => {
   }
 }
 
-export const handleClickDelete = (event) => {
+export const handleClickDelete = (event, isClicked, setIsClicked) => {
+  // confirmations status
+  setIsClicked(state => !state)
+  // récupération de l'id
   const idTakenFromIcon = event.target?.viewportElement?.parentElement?.id
   const idTakenFromButton = event.target.id
   const cardIdString = idTakenFromButton || idTakenFromIcon
   const cardId = parseInt(cardIdString, 10)
-  store.dispatch({ type: DELETE_CARD, cardId })
+
+  // suppression si l'utilisateur en est à son deuxième clique.
+  // si c'est le premier, on reset après qq secondes
+  if (isClicked) {
+    store.dispatch({ type: DELETE_CARD, cardId })
+  } else {
+    setTimeout(() => setIsClicked(state => !state), 5000)
+  }
 }

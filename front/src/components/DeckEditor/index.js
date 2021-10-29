@@ -13,6 +13,7 @@ import './DeckEditor.scss'
 import './DeckEditor_desktop.scss'
 
 import ExportDeck from './ExportDeck'
+import Delete from './Delete'
 
 const DeckEditor = () => {
   const deckIdFromParams = parseInt(useParams().deckId, 10)
@@ -103,9 +104,7 @@ const DeckEditor = () => {
                 <FontAwesomeIcon icon={faEdit} size="2x" name={card.id} onClick={handleClickEdit}/>
                 </button>
                 </NavLink>
-                <button className="critic" id={card.id} onClick={handleClickDelete}>
-                  <FontAwesomeIcon cardId={card.id} icon={faTrash} size="2x" style={{ cursor: 'pointer' }} />
-                </button>
+                <Delete card={card} />
               </div>
             </p>)
           }
