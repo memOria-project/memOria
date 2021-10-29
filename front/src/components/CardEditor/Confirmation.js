@@ -5,20 +5,35 @@ import { motion } from 'framer-motion'
 
 const Confirmation = ({ isSuccess, deckId }) => {
   const path = `/deckEditor/${deckId}`
-return (isSuccess?
-        <motion.div
-          animate={{y:5}}
-          transition={{ease:"easeIn"}} 
+
+  return (
+    /* le wrapper vise à laisser le temps au state de se mettre à jour, et d'afficher directement le bon message.
+    Sans lui, on voit durant quelques millisecondes le message par défaut (celui d'erreur), même si la carte a bien été créée.
+    */
+    <motion.div
+      animate={{ visibility: 'visible' }}
+      transition={{ ease: 'easeIn', delay: 0.05 }}
+      className="setDelay"
+      >
+    {isSuccess
+      ? <motion.div
+          animate={{ y: 5 }}
+          transition={{ ease: 'easeIn' }}
           className="confirmation--success"
-        > 
-         <FontAwesomeIcon icon={faCheck} /> <strong>Carte enregistrée!</strong> <br /> Revenez au <NavLink to={path}>paquet</NavLink> ou créer une autre carte
+        >
+         <FontAwesomeIcon icon={faCheck} /> <strong>Carte enregistrée!</strong> <br />
+          Revenez au <NavLink to={path}>paquet</NavLink> ou créer une autre carte
         </motion.div>
-        :
-        <motion.div
-        animate={{y:5}}
-        transition={{ease:"easeIn"}} 
-         className="confirmation--error"> 
-        <FontAwesomeIcon icon={faTimes} /> <strong>Carte non créée.</strong> <br /> Veuillez vous connecter et essayer à nouveau. </motion.div>
-)
+
+      : <motion.div
+        animate={{ y: 5 }}
+        transition={{ ease: 'easeIn' }}
+         className="confirmation--error">
+        <FontAwesomeIcon icon={faTimes} /> <strong>Carte non créée.</strong> <br /> Veuillez vous connecter et essayer à nouveau.
+      </motion.div>
+      }
+      </motion.div>
+
+  )
 }
 export default Confirmation

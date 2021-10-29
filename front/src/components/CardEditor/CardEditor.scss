@@ -36,3 +36,16 @@
     color: vars.$color-main;
   }
 }
+
+.setDelay {
+  visibility: hidden;
+}
+@keyframes delay {
+  from {
+    visibility: hidden;
+  }
+  to {
+    visibility: visible;
+    transform: scale(1.5);
+  }
+}
