@@ -2,7 +2,6 @@ import MDEditor, { commands } from '@uiw/react-md-editor'
 
 import { javaButton, htmlButton, CSSButton, title3, sqlButton } from './buttons'
 
-import { useRef, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { GET_CARD } from '../../actions'
 import './CardEditor.scss'
@@ -17,7 +16,6 @@ const Form = ({ isRecto, preview, textArea }) => {
     dispatch({ type: GET_CARD, field: [{ field: field, value: val }, { field: 'test', value: 'value' }] })
   }
 
-  // console.log(textAreaRecto.current.commandOrchestrator.textArea)
   const cardClasses = classNames({
     card: true,
     card__recto: isRecto,
@@ -41,13 +39,12 @@ const Form = ({ isRecto, preview, textArea }) => {
       : <MDEditor
         ref={textArea}
         onChange={(val) => handleChange(val)}
-        // onKeyDown={(event, isRecto, textAreaRecto, textAreaVerso) => switchTextArea(event, isRecto, textAreaRecto, textAreaVerso)}
         preview='edit'
         // détermine ce que le formulaire va éditer: recto ou verso
         value={isRecto ? recto : verso}
         // liste tous les boutons devant apparaitre dans le toolbar
         commands={[
-          title3, // bouton pour intégrer un titre
+          title3, // bouton pour intégrer un titre de niveau 3
           commands.bold,
           commands.strikethrough,
           commands.orderedListCommand,
@@ -62,7 +59,7 @@ const Form = ({ isRecto, preview, textArea }) => {
             icon: (
               <span> JS </span>
             ),
-            // ? children crée un bouton qui s'active sur clique. Pas nécessaire ici.
+            // ? children crée un bouton qui s'active sur clique. Pas nécessaire ici, ni sur les autres boutons. Je le laisse seulement ici pour ref.
             // children: (handle: any) => {
             //   return (
             //       <button type="button">
@@ -81,13 +78,6 @@ const Form = ({ isRecto, preview, textArea }) => {
             icon: (
               <span> HTML </span>
             ),
-            // children: (handle: any) => {
-            //   return (
-            //       <button type="button">
-            //         HTML
-            //       </button>
-            //   );
-            // },
             execute: htmlButton,
             buttonProps: { 'aria-label': 'Insert HTML' }
           }
@@ -98,13 +88,6 @@ const Form = ({ isRecto, preview, textArea }) => {
             icon: (
               <span> CSS </span>
             ),
-            // children: (handle: any) => {
-            //   return (
-            //       <button type="button">
-            //         CSS
-            //       </button>
-            //   );
-            // },
             execute: CSSButton,
             buttonProps: { 'aria-label': 'Insert CSS' }
           }
@@ -115,19 +98,11 @@ const Form = ({ isRecto, preview, textArea }) => {
             icon: (
               <span> SQL </span>
             ),
-            // children: (handle: any) => {
-            //   return (
-            //       <button type="button">
-            //         SQL
-            //       </button>
-            //   );
-            // },
             execute: sqlButton,
             buttonProps: { 'aria-label': 'Insert SQL' }
           }
           )
-          // Toutes les options de titre. Je les commente car je crois qu'elles sont superflues.
-
+          // ? Toutes les options de titre. Je les laisse en commentaire pour ref.
           // commands.group(
           //   [
           //     commands.title1,

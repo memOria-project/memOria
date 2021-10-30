@@ -60,7 +60,7 @@ const CardEditor = () => {
     dispatch({ type: POST_CARD, cardId })
     setIsSubmit(true)
   }
-
+  // sont utilisés pour le  switchFocus hotkey (ctrl+M)
   const textAreaRecto = useRef()
   const textAreaVerso = useRef()
 
@@ -72,8 +72,15 @@ const CardEditor = () => {
       (cardId && isSubmit && isModified.state) && <Redirect to={path}/>}
 
         <h1 className="cardEditor__title"> {cardId ? 'Editer' : 'Créer'} une carte </h1>
-        <form id="recto" onSubmit={handleSubmit} onKeyDown={(event) => switchFocusTextArea(event, textAreaRecto, textAreaVerso, isFocusOnRecto, setIsFocusOnRecto)}>
-          <div className="cardEditor__forms">
+        <form
+          id="recto"
+          onSubmit={handleSubmit}
+        >
+
+          <div className="cardEditor__forms"
+            /* onKeyDown permet l'utilisation du hotkey ctrl+M */
+            onKeyDown={(event) => switchFocusTextArea(event, textAreaRecto, textAreaVerso, isFocusOnRecto, setIsFocusOnRecto)}
+          >
             <label>
             <Form isRecto={true} preview={preview} textArea={textAreaRecto} />
             </label>
