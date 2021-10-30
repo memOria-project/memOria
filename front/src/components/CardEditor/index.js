@@ -67,9 +67,11 @@ const CardEditor = () => {
   return (
     <div>
 
-      {/* redirection vers le deck SEULEMENT SI on edite une carte existante, et que la modification a fonctionné
+      {
+      /* redirection vers le deck SEULEMENT SI on edite une carte existante, et que la modification a fonctionné
       */
-      (cardId && isSubmit && isModified.state) && <Redirect to={path}/>}
+      (isSubmit && cardId && isModified.state) && <Redirect to={path}/>
+      }
 
         <h1 className="cardEditor__title"> {cardId ? 'Editer' : 'Créer'} une carte </h1>
         <form
