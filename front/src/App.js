@@ -13,7 +13,7 @@ import Profile from './components/Profile'
 import CardEditor from './components/CardEditor'
 import Subscribe from './components/Subscribe'
 import Team from './components/Team'
-
+import TestFocus from './components/testFocus'
 function App () {
   return (
     <div className="App">
@@ -56,6 +56,9 @@ function App () {
           <Team />
         </Route>
         {/* Route par défaut (404)  */}
+        <Route path="/test">
+          <TestFocus />
+        </Route>
         <Route path="*">
           <NoMatch />
         </Route>

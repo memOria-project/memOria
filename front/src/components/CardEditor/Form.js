@@ -2,13 +2,13 @@ import MDEditor, { commands } from '@uiw/react-md-editor'
 
 import { javaButton, htmlButton, CSSButton, title3, sqlButton } from './buttons'
 
-// import { useState } from 'react';
+import { useRef, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { GET_CARD } from '../../actions'
 import './CardEditor.scss'
 import classNames from 'classnames'
 
-const Form = ({ isRecto, preview }) => {
+const Form = ({ isRecto, preview, textArea }) => {
   const { recto, verso } = useSelector((state) => state.currentDeck.currentCard)
   const dispatch = useDispatch()
   const handleChange = (val) => {
@@ -17,6 +17,7 @@ const Form = ({ isRecto, preview }) => {
     dispatch({ type: GET_CARD, field: [{ field: field, value: val }, { field: 'test', value: 'value' }] })
   }
 
+  // console.log(textAreaRecto.current.commandOrchestrator.textArea)
   const cardClasses = classNames({
     card: true,
     card__recto: isRecto,
@@ -25,6 +26,7 @@ const Form = ({ isRecto, preview }) => {
 
   return (
     <div>
+
     {preview
       ? <div
 
@@ -37,7 +39,9 @@ const Form = ({ isRecto, preview }) => {
       </pre>
     </div>
       : <MDEditor
+        ref={textArea}
         onChange={(val) => handleChange(val)}
+        // onKeyDown={(event, isRecto, textAreaRecto, textAreaVerso) => switchTextArea(event, isRecto, textAreaRecto, textAreaVerso)}
         preview='edit'
         // détermine ce que le formulaire va éditer: recto ou verso
         value={isRecto ? recto : verso}

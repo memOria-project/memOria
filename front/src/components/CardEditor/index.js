@@ -8,6 +8,7 @@ import { GET_CARD, FETCH_CARDS, getCurrentDeckContent, POST_CARD, SET_AS_MODIFIE
 import Confirmation from './Confirmation.js'
 import './CardEditor.scss'
 import './CardEditor_Desktop.scss'
+import { switchFocusTextArea } from './switchFocusTextArea.js'
 
 const CardEditor = () => {
   let { deckId, cardId } = useParams()
@@ -17,9 +18,10 @@ const CardEditor = () => {
   const isModified = useSelector((state) => state.currentDeck.isModified)
   const [preview, setPreview] = useState(false)
   const [isSubmit, setIsSubmit] = useState(false)
+  const [isFocusOnRecto, setIsFocusOnRecto] = useState(true)
+
   const dispatch = useDispatch()
   const didMountRef = useRef(false)
-
   // reset le retour utilisateur quand le composant est monté
   useEffect(() => {
     if (didMountRef.current) {
@@ -59,21 +61,24 @@ const CardEditor = () => {
     setIsSubmit(true)
   }
 
+  const textAreaRecto = useRef()
+  const textAreaVerso = useRef()
+
   return (
     <div>
 
-      {/* redirection vers le deck SEULEMENT SI on edite une carte existante, et que la soumission a fonctionné
+      {/* redirection vers le deck SEULEMENT SI on edite une carte existante, et que la modification a fonctionné
       */
       (cardId && isSubmit && isModified.state) && <Redirect to={path}/>}
 
         <h1 className="cardEditor__title"> {cardId ? 'Editer' : 'Créer'} une carte </h1>
-        <form id="recto" onSubmit={handleSubmit}>
+        <form id="recto" onSubmit={handleSubmit} onKeyDown={(event) => switchFocusTextArea(event, textAreaRecto, textAreaVerso, isFocusOnRecto, setIsFocusOnRecto)}>
           <div className="cardEditor__forms">
             <label>
-            <Form isRecto={true} preview={preview}/>
+            <Form isRecto={true} preview={preview} textArea={textAreaRecto} />
             </label>
             <label>
-            <Form isRecto={false} preview={preview}/>
+            <Form isRecto={false} preview={preview} textArea={textAreaVerso} />
             </label>
           </div>
           <button className="information" onClick={handleClick}> {preview ? 'Retour éditeur' : 'Aperçu'}</button>
