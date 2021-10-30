@@ -65,7 +65,9 @@ const CardEditor = () => {
   const textAreaVerso = useRef()
 
   return (
-    <div>
+    <div
+    onKeyDown={(event) => switchFocusTextArea(event, textAreaRecto, textAreaVerso, isFocusOnRecto, setIsFocusOnRecto, handleSubmit, handleClick)}
+    >
 
       {
       /* redirection vers le deck SEULEMENT SI on edite une carte existante, et que la modification a fonctionné
@@ -81,7 +83,6 @@ const CardEditor = () => {
 
           <div className="cardEditor__forms"
             /* onKeyDown permet l'utilisation du hotkey ctrl+M */
-            onKeyDown={(event) => switchFocusTextArea(event, textAreaRecto, textAreaVerso, isFocusOnRecto, setIsFocusOnRecto)}
           >
             <label>
             <Form isRecto={true} preview={preview} textArea={textAreaRecto} />
@@ -99,6 +100,10 @@ const CardEditor = () => {
           : console.log('première soumission')
 
 }
+    {preview &&
+      <textarea autoFocus={true} style={{ width: '1px', border: 'none', resize: 'none', position: 'absolute', top: 0, left: 0, zIndex: 0 }}></textarea>
+}
+
     </div>
   )
 }

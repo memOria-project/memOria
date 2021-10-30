@@ -1,7 +1,7 @@
 import MDEditor, { commands } from '@uiw/react-md-editor'
 
 import { javaButton, htmlButton, CSSButton, title3, sqlButton } from './buttons'
-
+import { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { GET_CARD } from '../../actions'
 import './CardEditor.scss'
@@ -10,6 +10,13 @@ import classNames from 'classnames'
 const Form = ({ isRecto, preview, textArea }) => {
   const { recto, verso } = useSelector((state) => state.currentDeck.currentCard)
   const dispatch = useDispatch()
+  const previewFocus = useRef()
+  // useEffect(() => {
+  //   if (previewFocus.current) {
+  //     console.log(previewFocus.current)
+  //     previewFocus.current.focus()
+  //   }
+  // }, [previewFocus.current])
   const handleChange = (val) => {
     const field = isRecto ? 'recto' : 'verso'
     console.log(field)
@@ -35,9 +42,11 @@ const Form = ({ isRecto, preview, textArea }) => {
     className="card__content" style={{ textAlign: 'center' }}>
       <MDEditor.Markdown source={isRecto ? unescape(recto) : unescape(verso)} />
       </pre>
+
     </div>
       : <MDEditor
         ref={textArea}
+        autoFocus={isRecto}
         onChange={(val) => handleChange(val)}
         preview='edit'
         // détermine ce que le formulaire va éditer: recto ou verso
