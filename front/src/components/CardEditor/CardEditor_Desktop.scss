@@ -8,17 +8,6 @@
     //   margin: auto;
     margin-bottom: 1em;
 
-    .submission__buttons {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .submission__hotkeys {
-      display: flex;
-
-      flex-direction: column;
-      justify-content: center;
-    }
     & > label {
       margin: 1em;
       flex: 0 1 500px;
@@ -46,7 +35,17 @@
       transition: opacity 1s;
     }
   }
+  .submission__hotkeys {
+    display: flex;
+    min-width: 1px;
+    min-height: 50px;
+    justify-content: center;
+  }
 
+  .submission__buttons {
+    display: flex;
+    justify-content: center;
+  }
   body .displayNone {
     display: none;
   }
