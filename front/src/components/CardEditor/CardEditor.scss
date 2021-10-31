@@ -7,6 +7,10 @@
     margin: 0.5em;
     // flex: 0 1 500px;
   }
+  &__hotkey {
+    display: none;
+    opacity: 0;
+  }
 }
 
 .w-md-editor-toolbar {

@@ -9,6 +9,10 @@ import Confirmation from './Confirmation.js'
 import './CardEditor.scss'
 import './CardEditor_Desktop.scss'
 import { switchFocusTextArea } from './switchFocusTextArea.js'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import classNames from 'classnames'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const CardEditor = () => {
   let { deckId, cardId } = useParams()
@@ -19,6 +23,7 @@ const CardEditor = () => {
   const [preview, setPreview] = useState(false)
   const [isSubmit, setIsSubmit] = useState(false)
   const [isFocusOnRecto, setIsFocusOnRecto] = useState(true)
+  const [areHotkeysVisible, setAreHotKeyVisibile] = useState(false)
 
   const dispatch = useDispatch()
   const didMountRef = useRef(false)
@@ -64,9 +69,20 @@ const CardEditor = () => {
   const textAreaRecto = useRef()
   const textAreaVerso = useRef()
 
+  const classShiftKey = classNames({
+    hotkey__key: true,
+    'hotkey__key--highlight': areHotkeysVisible
+  })
+
+  const classSwitchFocus = classNames({
+    cardEditor__forms__hotkey: true,
+    cardEditor__forms__firstRender: true,
+    displayNone: preview
+  })
   return (
     <div
-    onKeyDown={(event) => switchFocusTextArea(event, textAreaRecto, textAreaVerso, isFocusOnRecto, setIsFocusOnRecto, handleSubmit, handleClick)}
+    onKeyDown={(event) => switchFocusTextArea(event, textAreaRecto, textAreaVerso, isFocusOnRecto, setIsFocusOnRecto, handleSubmit, handleClick, setAreHotKeyVisibile)}
+    onKeyUp={(event) => { if (!event.shiftKey) { setAreHotKeyVisibile(false) } }}
     >
 
       {
@@ -87,12 +103,59 @@ const CardEditor = () => {
             <label>
             <Form isRecto={true} preview={preview} textArea={textAreaRecto} />
             </label>
+            <div className={classSwitchFocus}>
+              <FontAwesomeIcon icon={faArrowRight} size="2x" className="arrow__icons" />
+              <p className={classShiftKey}>Shift</p>
+              <p className="hotkey__plus">+</p>
+              <p className="hotkey__key">M</p>
+              <FontAwesomeIcon icon={faArrowLeft} size="2x" className="arrow__icons" />
+            </div>
             <label>
             <Form isRecto={false} preview={preview} textArea={textAreaVerso} />
             </label>
           </div>
-          <button className="information" onClick={handleClick}> {preview ? 'Retour éditeur' : 'Aperçu'}</button>
-          <button type="submit" className="confirm">Créer</button>
+          <div className="cardEditor__forms__submission">
+            <div className="submission__buttons">
+              <button className="information" onClick={handleClick}> {preview ? 'Retour éditeur' : 'Aperçu'}</button>
+              <button type="submit" className="confirm">Créer</button>
+            </div>
+            <div className="submission__hotkeys">
+            <AnimatePresence>
+              {areHotkeysVisible &&
+              <>
+                <motion.div
+                animate={{ opacity: 1 }}
+                transition={{ ease: 'easeInOut', delay: 0.25 }}
+                exit={{ opacity: 0 }}
+
+                className="cardEditor__forms__hotkey cardEditor__forms__hotkey--horizontal">
+                  <motion.p
+                  animate={{ scale: 0.9 }}
+                  transition={{ ease: 'easeIn', delay: 0.5 }}
+                  className="hotkey__key hotkey__key--highlight">Shift</motion.p>
+                  <p className="hotkey__plus">+</p>
+                  <p className="hotkey__key">P</p>
+                </motion.div>
+
+                <motion.div
+                animate={{ opacity: 1 }}
+                transition={{ ease: 'easeInOut', delay: 0.25 }}
+                exit={{ opacity: 0 }}
+                className="cardEditor__forms__hotkey cardEditor__forms__hotkey--horizontal">
+                  <motion.p
+                  animate={{ scale: 0.9 }}
+                  transition={{ ease: 'easeIn', delay: 0.5 }}
+
+                  className="hotkey__key hotkey__key--highlight">Shift</motion.p>
+                  <p className="hotkey__plus">+</p>
+                  <p className="hotkey__key">Enter</p>
+                </motion.div>
+                </>
+              }
+              </AnimatePresence>
+            </div>
+          </div>
+
         </form>
         {isSubmit
 

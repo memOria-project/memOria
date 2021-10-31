@@ -1,4 +1,4 @@
-export const switchFocusTextArea = (event, textArea1, textArea2, isFocusOn1, setIsFocusOn1, handleSubmit, handleClick) => {
+export const switchFocusTextArea = (event, textArea1, textArea2, isFocusOn1, setIsFocusOn1, handleSubmit, handleClick, setAreHotKeyVisibile) => {
   /*
   cursorPosition définit la position du curseur quand le hotkey est utilisé (donc, à la fin).
   Il aurait été plus propre de se baser sur currentCard.recto.length / currentCard.verso.length
@@ -6,6 +6,9 @@ export const switchFocusTextArea = (event, textArea1, textArea2, isFocusOn1, set
   Par ailleurs, d'après stackoverflow, cette solution semble éviter des malfonctionnements dans certains browser
   */
   const cursorPosition = 5000
+  if (event.shiftKey === true) {
+    setAreHotKeyVisibile(true)
+  }
   if (event.key === 'M' && event.shiftKey === true) {
     // evite que le "M" soit tapé dans textArea
     event.preventDefault()
