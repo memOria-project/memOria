@@ -1,16 +1,22 @@
 import MDEditor, { commands } from '@uiw/react-md-editor'
 
 import { javaButton, htmlButton, CSSButton, title3, sqlButton } from './buttons'
-
-// import { useState } from 'react';
+import { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { GET_CARD } from '../../actions'
 import './CardEditor.scss'
 import classNames from 'classnames'
 
-const Form = ({ isRecto, preview }) => {
+const Form = ({ isRecto, preview, textArea }) => {
   const { recto, verso } = useSelector((state) => state.currentDeck.currentCard)
   const dispatch = useDispatch()
+  const previewFocus = useRef()
+  // useEffect(() => {
+  //   if (previewFocus.current) {
+  //     console.log(previewFocus.current)
+  //     previewFocus.current.focus()
+  //   }
+  // }, [previewFocus.current])
   const handleChange = (val) => {
     const field = isRecto ? 'recto' : 'verso'
     console.log(field)
@@ -25,6 +31,7 @@ const Form = ({ isRecto, preview }) => {
 
   return (
     <div>
+
     {preview
       ? <div
 
@@ -35,15 +42,18 @@ const Form = ({ isRecto, preview }) => {
     className="card__content" style={{ textAlign: 'center' }}>
       <MDEditor.Markdown source={isRecto ? unescape(recto) : unescape(verso)} />
       </pre>
+
     </div>
       : <MDEditor
+        ref={textArea}
+        autoFocus={isRecto}
         onChange={(val) => handleChange(val)}
         preview='edit'
         // détermine ce que le formulaire va éditer: recto ou verso
         value={isRecto ? recto : verso}
         // liste tous les boutons devant apparaitre dans le toolbar
         commands={[
-          title3, // bouton pour intégrer un titre
+          title3, // bouton pour intégrer un titre de niveau 3
           commands.bold,
           commands.strikethrough,
           commands.orderedListCommand,
@@ -58,7 +68,7 @@ const Form = ({ isRecto, preview }) => {
             icon: (
               <span> JS </span>
             ),
-            // ? children crée un bouton qui s'active sur clique. Pas nécessaire ici.
+            // ? children crée un bouton qui s'active sur clique. Pas nécessaire ici, ni sur les autres boutons. Je le laisse seulement ici pour ref.
             // children: (handle: any) => {
             //   return (
             //       <button type="button">
@@ -77,13 +87,6 @@ const Form = ({ isRecto, preview }) => {
             icon: (
               <span> HTML </span>
             ),
-            // children: (handle: any) => {
-            //   return (
-            //       <button type="button">
-            //         HTML
-            //       </button>
-            //   );
-            // },
             execute: htmlButton,
             buttonProps: { 'aria-label': 'Insert HTML' }
           }
@@ -94,13 +97,6 @@ const Form = ({ isRecto, preview }) => {
             icon: (
               <span> CSS </span>
             ),
-            // children: (handle: any) => {
-            //   return (
-            //       <button type="button">
-            //         CSS
-            //       </button>
-            //   );
-            // },
             execute: CSSButton,
             buttonProps: { 'aria-label': 'Insert CSS' }
           }
@@ -111,19 +107,11 @@ const Form = ({ isRecto, preview }) => {
             icon: (
               <span> SQL </span>
             ),
-            // children: (handle: any) => {
-            //   return (
-            //       <button type="button">
-            //         SQL
-            //       </button>
-            //   );
-            // },
             execute: sqlButton,
             buttonProps: { 'aria-label': 'Insert SQL' }
           }
           )
-          // Toutes les options de titre. Je les commente car je crois qu'elles sont superflues.
-
+          // ? Toutes les options de titre. Je les laisse en commentaire pour ref.
           // commands.group(
           //   [
           //     commands.title1,
