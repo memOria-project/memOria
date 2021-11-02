@@ -14,7 +14,7 @@ const Confirmation = ({ isSuccess, deckId }) => {
     */
     <motion.div
       animate={{ visibility: 'visible' }}
-      transition={{ ease: 'easeIn', delay: 0.05 }}
+      transition={{ ease: 'easeIn', delay: 0.10 }}
       className="setDelay"
       >
       {isSuccess

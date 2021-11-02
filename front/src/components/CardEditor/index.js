@@ -59,15 +59,18 @@ const CardEditor = () => {
     setPreview((state) => !state)
   }
 
+  // sont utilisés pour le  switchFocus hotkey (ctrl+M)
+  const textAreaRecto = useRef()
+  const textAreaVerso = useRef()
+
   // envoie la carte
   const handleSubmit = (event) => {
     event.preventDefault()
     dispatch({ type: POST_CARD, cardId })
     setIsSubmit(true)
+    setIsFocusOnRecto(true)
+    textAreaRecto.current.commandOrchestrator.textArea.focus()
   }
-  // sont utilisés pour le  switchFocus hotkey (ctrl+M)
-  const textAreaRecto = useRef()
-  const textAreaVerso = useRef()
 
   const classAltKey = classNames({
     hotkey__key: true,
