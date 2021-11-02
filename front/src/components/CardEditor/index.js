@@ -28,13 +28,14 @@ const CardEditor = () => {
   const [areHotkeysVisible, setAreHotKeyVisibile] = useState(false)
 
   const dispatch = useDispatch()
-  const didMountRef = useRef(false)
+  // const didMountRef = useRef(false)
+
   // reset le retour utilisateur quand le composant est monté
-  useEffect(() => {
-    if (didMountRef.current) {
-      dispatch({ type: SET_AS_MODIFIED, state: false })
-    } else didMountRef.current = true
-  }, [])
+  // useEffect(() => {
+  //   if (didMountRef.current) {
+  //     console.log(cardId)
+  //   } else didMountRef.current = true
+  // }, [])
 
   useEffect(() => {
     if (isSubmit) {
@@ -45,14 +46,29 @@ const CardEditor = () => {
     }
   }, [isModified.count])
 
+  // Au montage du composant:
+  // - reset le contenu de la carte (si creation) OU charge le contenu de la carte (si edit)
+  // - reset le retour utilisateur quand le composant est monté
+
+  useEffect(() => {
+    dispatch({ type: SET_AS_MODIFIED, state: false })
+
+    if (!cardId) {
+      console.log('reset card')
+      dispatch({ type: GET_CARD, field: [{ field: 'recto', value: '' }, { field: 'verso', value: '' }] })
+    } else {
+      dispatch({
+        type: GET_CARD,
+        field: [{
+          field: 'currentDeckId',
+          value: deckId
+        }, { field: 'currentCardId', value: cardId }]
+      })
+    }
+  }, [])
+
   // récupère le contenu de la carte
-  dispatch({
-    type: GET_CARD,
-    field: [{
-      field: 'currentDeckId',
-      value: deckId
-    }, { field: 'currentCardId', value: cardId }]
-  })
+
   const path = `/deckEditor/${deckId}`
 
   // handleClick du preview
@@ -74,6 +90,9 @@ const CardEditor = () => {
     if (!preview) {
       setIsFocusOnRecto(true)
       textAreaRecto.current.commandOrchestrator.textArea.focus()
+    }
+    if (isModified) {
+      dispatch({ type: GET_CARD, field: [{ field: 'recto', value: '' }, { field: 'verso', value: '' }] })
     }
   }
 
