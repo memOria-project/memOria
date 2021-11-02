@@ -28,27 +28,10 @@ const CardEditor = () => {
   const [areHotkeysVisible, setAreHotKeyVisibile] = useState(false)
 
   const dispatch = useDispatch()
-  // const didMountRef = useRef(false)
-
-  // reset le retour utilisateur quand le composant est monté
-  // useEffect(() => {
-  //   if (didMountRef.current) {
-  //     console.log(cardId)
-  //   } else didMountRef.current = true
-  // }, [])
-
-  useEffect(() => {
-    if (isSubmit) {
-      setIsSubmit(false)
-      setTimeout(() => {
-        setIsSubmit(true)
-      }, 50)
-    }
-  }, [isModified.count])
 
   // Au montage du composant:
   // - reset le contenu de la carte (si creation) OU charge le contenu de la carte (si edit)
-  // - reset le retour utilisateur quand le composant est monté
+  // - reset le retour utilisateur
 
   useEffect(() => {
     dispatch({ type: SET_AS_MODIFIED, state: false })
@@ -67,7 +50,15 @@ const CardEditor = () => {
     }
   }, [])
 
-  // récupère le contenu de la carte
+  // relance l'animation de confirmation à chaque fois que l'utilisateur envoie le formulaire
+  useEffect(() => {
+    if (isSubmit) {
+      setIsSubmit(false)
+      setTimeout(() => {
+        setIsSubmit(true)
+      }, 50)
+    }
+  }, [isModified.count])
 
   const path = `/deckEditor/${deckId}`
 
@@ -77,7 +68,7 @@ const CardEditor = () => {
     setPreview((state) => !state)
   }
 
-  // sont utilisés pour le  switchFocus hotkey (ctrl+M)
+  // sont utilisés pour les switch de focus (hotkey et resets)
   const textAreaRecto = useRef()
   const textAreaVerso = useRef()
 
@@ -86,7 +77,7 @@ const CardEditor = () => {
     event.preventDefault()
     dispatch({ type: POST_CARD, cardId })
     setIsSubmit(true)
-    // reset le focus sur le recto quand la carte est soumise en mode éditeur (non preview)
+    // reset le focus sur le recto quand la carte est soumise en mode éditeur (preview est falsy)
     if (!preview) {
       setIsFocusOnRecto(true)
       textAreaRecto.current.commandOrchestrator.textArea.focus()
@@ -119,6 +110,7 @@ const CardEditor = () => {
 
       {
       /* redirection vers le deck SEULEMENT SI on edite une carte existante, et que la modification a fonctionné
+      le ? est utilisé car isSubmit && isModified.state && cardId &&<Redirect /> affiche "NaN"(valeur de cardId) quand elle renvoie falsy - pas idéal, mais fonctionne
       */
       (isSubmit && isModified.state && cardId ? <Redirect to={path}/> : <></>)
       }
