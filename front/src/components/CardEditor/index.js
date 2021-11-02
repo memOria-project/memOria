@@ -20,6 +20,8 @@ const CardEditor = () => {
   cardId = parseInt(cardId, 10)
 
   const isModified = useSelector((state) => state.currentDeck.isModified)
+  const title = useSelector((state) => state.currentDeck.title)
+
   const [preview, setPreview] = useState(false)
   const [isSubmit, setIsSubmit] = useState(false)
   const [isFocusOnRecto, setIsFocusOnRecto] = useState(true)
@@ -68,14 +70,25 @@ const CardEditor = () => {
     event.preventDefault()
     dispatch({ type: POST_CARD, cardId })
     setIsSubmit(true)
-    setIsFocusOnRecto(true)
-    textAreaRecto.current.commandOrchestrator.textArea.focus()
+    // reset le focus sur le recto quand la carte est soumise en mode éditeur (non preview)
+    if (!preview) {
+      setIsFocusOnRecto(true)
+      textAreaRecto.current.commandOrchestrator.textArea.focus()
+    }
   }
 
   const classAltKey = classNames({
     hotkey__key: true,
     'hotkey__key--highlight': areHotkeysVisible
   })
+
+  // reset le focus sur le recto quand on quitte le mode preview.
+  useEffect(() => {
+    if (!preview && isSubmit && textAreaRecto.current.commandOrchestrator) {
+      setIsFocusOnRecto(true)
+      textAreaRecto.current.commandOrchestrator.textArea.focus()
+    }
+  }, [preview])
 
   const classSwitchFocus = classNames({
     cardEditor__forms__hotkey: true,
@@ -94,7 +107,7 @@ const CardEditor = () => {
       (isSubmit && isModified.state && cardId ? <Redirect to={path}/> : <></>)
       }
 
-        <h1 className="cardEditor__title"> {cardId ? 'Editer' : 'Créer'} une carte </h1>
+        <h1 className="cardEditor__title"> {cardId ? 'Editer' : 'Créer'} une carte ({title})</h1>
         <form
           id="recto"
           onSubmit={handleSubmit}
