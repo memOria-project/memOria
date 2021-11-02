@@ -69,7 +69,7 @@ const CardEditor = () => {
   const textAreaRecto = useRef()
   const textAreaVerso = useRef()
 
-  const classShiftKey = classNames({
+  const classAltKey = classNames({
     hotkey__key: true,
     'hotkey__key--highlight': areHotkeysVisible
   })
@@ -82,7 +82,7 @@ const CardEditor = () => {
   return (
     <div
     onKeyDown={(event) => switchFocusTextArea(event, textAreaRecto, textAreaVerso, isFocusOnRecto, setIsFocusOnRecto, handleSubmit, handleClick, setAreHotKeyVisibile)}
-    onKeyUp={(event) => { if (!event.shiftKey) { setAreHotKeyVisibile(false) } }}
+    onKeyUp={(event) => { if (!event.altKey) { setAreHotKeyVisibile(false) } }}
     >
 
       {
@@ -105,7 +105,7 @@ const CardEditor = () => {
             </label>
             <div className={classSwitchFocus}>
               <FontAwesomeIcon icon={faArrowRight} size="2x" className="arrow__icons" />
-              <p className={classShiftKey}>Shift</p>
+              <p className={classAltKey}>Alt</p>
               <p className="hotkey__plus">+</p>
               <p className="hotkey__key">M</p>
               <FontAwesomeIcon icon={faArrowLeft} size="2x" className="arrow__icons" />
@@ -132,7 +132,7 @@ const CardEditor = () => {
                   <motion.p
                   animate={{ scale: 0.9 }}
                   transition={{ ease: 'easeIn', delay: 0.5 }}
-                  className="hotkey__key hotkey__key--highlight">Shift</motion.p>
+                  className="hotkey__key hotkey__key--highlight">Alt</motion.p>
                   <p className="hotkey__plus">+</p>
                   <p className="hotkey__key">P</p>
                 </motion.div>
@@ -146,7 +146,7 @@ const CardEditor = () => {
                   animate={{ scale: 0.9 }}
                   transition={{ ease: 'easeIn', delay: 0.5 }}
 
-                  className="hotkey__key hotkey__key--highlight">Shift</motion.p>
+                  className="hotkey__key hotkey__key--highlight">Alt</motion.p>
                   <p className="hotkey__plus">+</p>
                   <p className="hotkey__key">Enter</p>
                 </motion.div>

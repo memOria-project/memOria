@@ -6,10 +6,11 @@ export const switchFocusTextArea = (event, textArea1, textArea2, isFocusOn1, set
   Par ailleurs, d'après stackoverflow, cette solution semble éviter des malfonctionnements dans certains browser
   */
   const cursorPosition = 5000
-  if (event.shiftKey === true) {
+  if (event.altKey === true) {
     setAreHotKeyVisibile(true)
+    console.log(event)
   }
-  if (event.key === 'M' && event.shiftKey === true) {
+  if (event.key === 'm' && event.altKey === true) {
     // evite que le "M" soit tapé dans textArea
     event.preventDefault()
     console.log(event)
@@ -26,9 +27,9 @@ export const switchFocusTextArea = (event, textArea1, textArea2, isFocusOn1, set
     }
 
     setIsFocusOn1((state) => !state)
-  } else if (event.shiftKey === true && event.key === 'Enter') {
+  } else if (event.altKey === true && event.key === 'Enter') {
     handleSubmit(event)
-  } else if (event.shiftKey === true && event.key === 'P') {
+  } else if (event.altKey === true && event.key === 'p') {
     console.log(event)
     handleClick(event)
   }

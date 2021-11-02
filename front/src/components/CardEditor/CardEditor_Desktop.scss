@@ -52,15 +52,18 @@
   .hotkey {
     &__key {
       background-color: lightgrey;
+
       font-weight: 600;
       padding: 5px;
       border-radius: 5px;
-      filter: drop-shadow(-2px -2px 0px);
-      transition: background-color 0.75s;
-      transition: transform 0.75s;
+      filter: drop-shadow(-2px -2px 0px black);
+      // on ajoute un léger délais pour éviter que l'effet se déclenche quand on le connait déjà
+      transition: background-color 0.75s 0.5s, transform 0.75s 0.5s,
+        color 0.75s 0.5s;
 
       &--highlight {
         background-color: lightseagreen;
+
         color: white;
         filter: drop-shadow(-2px -2px 0px black);
         transform: scale(0.95);
