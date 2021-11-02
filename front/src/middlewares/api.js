@@ -1,5 +1,5 @@
 import {
-  getAllDecks, FETCH_DECKS, FETCH_CARDS, getCurrentDeckContent, POST_CARD, SET_AS_MODIFIED, DELETE_CARD, DELAY_CARD, CREATE_DECK, CHECK_TOKEN
+  getAllDecks, GET_CARD, FETCH_DECKS, FETCH_CARDS, getCurrentDeckContent, POST_CARD, SET_AS_MODIFIED, DELETE_CARD, DELAY_CARD, CREATE_DECK, CHECK_TOKEN
 } from '../actions'
 
 const api = (store) => (next) => (action) => {
@@ -53,9 +53,8 @@ const api = (store) => (next) => (action) => {
     }
     case POST_CARD: {
       // const { id } = store.getState().user
-      const { currentCard } = store.getState().currentDeck
-      const { recto, verso, currentDeckId, currentCardId } = currentCard
-      const deckId = currentDeckId
+      const { currentCard, deckId } = store.getState().currentDeck
+      const { recto, verso } = currentCard
       // const id = currentCardId
       const newCard = {
         recto,
@@ -78,6 +77,7 @@ const api = (store) => (next) => (action) => {
           const response = await request.status
           if (response === 200 || response === 201) {
             store.dispatch({ type: SET_AS_MODIFIED, isModified: true })
+            store.dispatch({ type: GET_CARD, field: [{ field: 'recto', value: '' }, { field: 'verso', value: '' }] })
           } else {
             store.dispatch({ type: SET_AS_MODIFIED, isModified: false })
           }

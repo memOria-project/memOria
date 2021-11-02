@@ -6,7 +6,7 @@ const TestFocus = () => {
   const [isFocusOn1, setIsFocusOn1] = useState(true)
   const cursorPosition = 0
   const handleKeyDown = (event) => {
-    if (event.key === 'R' && event.shiftKey === true) {
+    if (event.key === 'R' && event.altKey === true) {
       if (isFocusOn1) {
         textArea1.current.focus()
 
