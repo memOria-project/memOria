@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState, useRef } from 'react'
 import { useParams, Redirect } from 'react-router-dom'
 import Form from './Form.js'
-import { GET_CARD, FETCH_CARDS, getCurrentDeckContent, POST_CARD, SET_AS_MODIFIED } from '../../actions/index.js'
+import { GET_CARD, FETCH_CARDS, getCurrentDeckContent, POST_CARD, SET_AS_MODIFIED, SET_CURRENT_DECK_ID } from '../../actions/index.js'
 
 import Confirmation from './Confirmation.js'
 import './CardEditor.scss'
@@ -52,7 +52,7 @@ const CardEditor = () => {
 
   useEffect(() => {
     dispatch({ type: SET_AS_MODIFIED, state: false })
-
+    dispatch({ type: SET_CURRENT_DECK_ID, deckId })
     if (!cardId) {
       console.log('reset card')
       dispatch({ type: GET_CARD, field: [{ field: 'recto', value: '' }, { field: 'verso', value: '' }] })
@@ -90,9 +90,6 @@ const CardEditor = () => {
     if (!preview) {
       setIsFocusOnRecto(true)
       textAreaRecto.current.commandOrchestrator.textArea.focus()
-    }
-    if (isModified) {
-      dispatch({ type: GET_CARD, field: [{ field: 'recto', value: '' }, { field: 'verso', value: '' }] })
     }
   }
 
