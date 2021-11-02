@@ -60,7 +60,9 @@
   color: vars.$color-text-alt;
   font-size: inherit;
 }
-
+.cardEditor__forms__hotkey {
+  display: none;
+}
 // cache les boutons : edit code, live code, preview code, full screen
 .w-md-editor-toolbar ul:last-of-type {
   display: none;

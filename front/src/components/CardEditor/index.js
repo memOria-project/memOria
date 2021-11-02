@@ -1,9 +1,8 @@
-import MDEditor from '@uiw/react-md-editor'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState, useRef } from 'react'
 import { useParams, Redirect } from 'react-router-dom'
 import Form from './Form.js'
-import { GET_CARD, FETCH_CARDS, getCurrentDeckContent, POST_CARD, SET_AS_MODIFIED, SET_CURRENT_DECK_ID } from '../../actions/index.js'
+import { GET_CARD, POST_CARD, SET_AS_MODIFIED, SET_CURRENT_DECK_ID } from '../../actions/index.js'
 
 import Confirmation from './Confirmation.js'
 import './CardEditor.scss'
@@ -81,6 +80,9 @@ const CardEditor = () => {
     if (!preview) {
       setIsFocusOnRecto(true)
       textAreaRecto.current.commandOrchestrator.textArea.focus()
+    } else {
+      setPreview(false)
+      setIsFocusOnRecto(true)
     }
   }
 
