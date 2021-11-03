@@ -84,6 +84,7 @@ const CardEditor = () => {
       setPreview(false)
       setIsFocusOnRecto(true)
     }
+    setTimeout(() => setIsSubmit(false), 6000)
   }
 
   const classAltKey = classNames({
