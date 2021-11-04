@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faEye, faPlus } from '@fortawesome/free-solid-svg-icons'
 
 import Loading from '../Loading'
-import { FETCH_USER_DECKS, getCurrentDeckContent } from '../../actions'
+import { FETCH_USER_DECKS, SET_CURRENT_DECK_CONTENT } from '../../actions'
 
 import './DeckEditor.scss'
 import './DeckEditor_desktop.scss'
@@ -29,10 +29,13 @@ const DeckEditor = () => {
   const toView = `/deck/${id}/0`
   const { decks, isConnected } = useSelector((state) => state.user)
 
+  const resetDeck = {
+    id: '', title: '', tags: '', cards: ''
+  }
   useEffect(() => {
     console.log('I fire once')
     dispatch({ type: FETCH_USER_DECKS })
-    dispatch(getCurrentDeckContent({ id: '', title: '', tags: '', cards: '' }))
+    dispatch({ type: SET_CURRENT_DECK_CONTENT, currentDeckContent: resetDeck })
   }
   , [])
 
@@ -42,7 +45,11 @@ const DeckEditor = () => {
     if (decks?.length > 0) {
       deckToBeDisplayed = decks.find((deck) => deckIdFromParams === deck.id)
       if (deckToBeDisplayed) {
-        dispatch(getCurrentDeckContent(deckToBeDisplayed))
+        dispatch(
+          {
+            type: SET_CURRENT_DECK_CONTENT,
+            currentDeckContent: deckToBeDisplayed
+          })
       }
     }
   }, [decks])

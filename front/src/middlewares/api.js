@@ -1,6 +1,6 @@
 import {
   getAllDecks, GET_CARD, FETCH_DECKS, FETCH_CARDS, getCurrentDeckContent, POST_CARD, SET_AS_MODIFIED, DELETE_CARD, DELAY_CARD, CREATE_DECK, CHECK_TOKEN
-  , FETCH_USER_DECKS, UPDATE_USER, UPDATE_USER_DECKS
+  , FETCH_USER_DECKS, UPDATE_USER, UPDATE_USER_DECKS, SET_CURRENT_DECK_CONTENT
 } from '../actions'
 
 const api = (store) => (next) => (action) => {
@@ -36,15 +36,16 @@ const api = (store) => (next) => (action) => {
       const getCurrentDeck = async () => {
         try {
           const request = await fetch(`${back}/deck/${deckId}/cards`, fetchCardsOptions)
-          store.dispatch(getCurrentDeckContent(false))
+          store.dispatch(
+            { type: SET_CURRENT_DECK_CONTENT, currentDeckContent: false })
           const response = await request.json()
           if (request.status === 204) // le paquet est vide ou n'existe pas
           {
-            store.dispatch(getCurrentDeckContent(false))
+            store.dispatch({ type: SET_CURRENT_DECK_CONTENT, currentDeckContent: false })
             console.log('pas de paquets')
           } else {
             console.log('get Current Deck', response)
-            store.dispatch(getCurrentDeckContent(response))
+            store.dispatch({ type: SET_CURRENT_DECK_CONTENT, currentDeckContent: response })
           }
         } catch (error) { console.log(error) }
       }
