@@ -69,14 +69,6 @@ const api = (store) => (next) => (action) => {
           if (request.status === 200) {
             store.dispatch({ type: UPDATE_USER_DECKS, decks: response })
           } else { console.log(`UPDATE_USER_DECKS failed: ${request.status}, ${response}`) }
-          // if (request.status === 204)
-          // {
-          //   store.dispatch(getCurrentDeckContent(false))
-          //   console.log('pas de paquets')
-          // } else {
-          //   console.log('get Current Deck', response)
-          //   store.dispatch(getCurrentDeckContent(response))
-          // }
         } catch (error) { console.log(error) }
       }
       getUserDecks()
@@ -191,7 +183,7 @@ const api = (store) => (next) => (action) => {
           const request = await fetch(`${back}/deck/`, options)
           const response = await request
           if (response.status === 201) {
-            store.dispatch({ type: CHECK_TOKEN })
+            store.dispatch({ type: FETCH_USER_DECKS })
           } else {
             console.log('no deck for you')
           }

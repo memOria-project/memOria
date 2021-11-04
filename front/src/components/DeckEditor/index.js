@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faEye, faPlus } from '@fortawesome/free-solid-svg-icons'
 
 import Loading from '../Loading'
-import { FETCH_CARDS, FETCH_USER_DECKS, SET_CURRENT_DECK_ID, CHECK_TOKEN, getCurrentDeckContent } from '../../actions'
+import { FETCH_USER_DECKS, getCurrentDeckContent } from '../../actions'
 
 import './DeckEditor.scss'
 import './DeckEditor_desktop.scss'
@@ -20,8 +20,6 @@ const DeckEditor = () => {
   const deckIdFromParams = parseInt(useParams().deckId, 10)
 
   const [loading, setLoading] = useState(true)
-  const [nameOfDeck, setNameOfDeck] = useState()
-
   const { id } = useSelector((state) => state.currentDeck)
   const { currentDeck } = useSelector((state) => state)
   const { cards } = currentDeck
@@ -35,10 +33,6 @@ const DeckEditor = () => {
     console.log('I fire once')
     dispatch({ type: FETCH_USER_DECKS })
     dispatch(getCurrentDeckContent({ id: '', title: '', tags: '', cards: '' }))
-
-    // dispatch({ type: SET_CURRENT_DECK_ID, deckId: deckIdFromParams })
-    // dispatch({ type: FETCH_CARDS })
-    // dispatch({ type: FETCH_CARDS })
   }
   , [])
 
@@ -57,24 +51,10 @@ const DeckEditor = () => {
   if (cards) {
     cards.sort(function (a, b) { return a.id - b.id })
   }
-  //! à supprimer quand #28 est résolu
-  // ce  useEffect existe pour afficher le titre des paquets vides... pas très propre :( )
-  // pour le moment, il n'est pas possible de récupérer les titres des paquets vides, sauf en passant par le user state...
 
-  // useEffect(() => {
-  //   if (decks?.length) {
-  //     const findDeck = decks.find((deck) => deck.id === deckIdFromParams)
-  //     setNameOfDeck(findDeck.title)
-  //     // const nameOfDeck = useSelector((state) => state.currentDeck.title)
-  //   }
-  // }, [decks?.length])
-  //! fin du code à supprimer quand #28 est résolu
-  //! ne pas oublier de remplacer nameOfDeck par currentDeck.title
-  // ce use effect suffit pour les paquets avec des cartes.
-  // il pourra sans doute être améliorer quand #28 sera résolue
-
+  // pour le loading spinner
   useEffect(() => {
-    if ((!cards && !cards) || cards) {
+    if (cards) {
       setTimeout(() => setLoading(false), 500)
     }
   }, [id])
