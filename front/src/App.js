@@ -6,7 +6,6 @@ import Home from './components/Home'
 import NoMatch from './components/NoMatch'
 import SignIn from './components/Signin'
 import CardDisplay from './components/CardDisplay'
-import CheckSession from './components/CheckSession'
 import DeckEditor from './components/DeckEditor'
 import Profile from './components/Profile'
 
@@ -14,12 +13,14 @@ import CardEditor from './components/CardEditor'
 import Subscribe from './components/Subscribe'
 import Team from './components/Team'
 import TestFocus from './components/testFocus'
+import { checkSession } from './components/CheckSession/checkSession'
 function App () {
+  checkSession()
   return (
     <div className="App">
       <Nav />
       {/* Switch permet d'afficher une seule des 'Routes' qui suit. Sans Switch, plusieurs routes pourraient être affichées */}
-      <CheckSession />
+      {/* <CheckSession /> */}
       <Switch>
         {/* Route de l'accueil. Notez l'utilisation de "exact path" - sans lui, n'importe quel path commençant par "/" pourrait match!  */}
         <Route exact path="/">
