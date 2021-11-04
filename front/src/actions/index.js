@@ -20,7 +20,9 @@ export const DELAY_CARD = 'DELAY_CARD'
 export const UPDATE_PROFILE = 'UPDATE_PROFILE'
 export const CREATE_DECK = 'CREATE_DECK'
 export const REQUEST_SUCCESS = 'REQUEST_SUCCESS'
-
+export const FETCH_USER_DECKS = 'FETCH_USER_DECKS'
+export const UPDATE_USER_DECKS = 'UPDATE_USER_DECKS'
+export const SET_CURRENT_DECK_CONTENT = 'SET_CURRENT_DECK_CONTENT'
 export const getAllDecks = (decks) => {
   return {
     type: GET_DECKS,
@@ -31,12 +33,5 @@ export const ADMIN = 'ADMIN'
 export const DISCONNECT = 'DISCONNECT'
 
 export const SET_CURRENT_DECK_ID = 'SET_CURRENT_DECK_ID'
-export const GET_CURRENT_DECK_CONTENT = 'GET_CURRENT_DECK_CONTENT'
-export const getCurrentDeckContent = (currentDeckContent) => {
-  return {
-    type: GET_CURRENT_DECK_CONTENT,
-    currentDeckContent
-  }
-}
 
 export const FETCH_CARDS = 'FETCH_CARDS'

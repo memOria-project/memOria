@@ -1,51 +1,57 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import MDEditor from '@uiw/react-md-editor';
+import { useState } from 'react'
+import { motion } from 'framer-motion'
+import MDEditor from '@uiw/react-md-editor'
 import './NoMatch.scss'
+import PropTypes from 'prop-types'
+import { setReason } from './setReason'
 
-const NoMatch = () => {
-    const [turnCard, setTurnCard] = useState(false)
-    
-    const handleClick = () => {
-        setTurnCard((state)=> !state);
-        setTimeout(()=>setTurnCard((state)=>!state), 2000)
-    }
-    const rectoPres = "# 404\nCeci n'est pas une carte";
-    const versoPres = "Vous avez trouvé mug O'Clock\n![](https://img.freepik.com/photos-gratuite/tasse-vintage-cassee-table-bois-vue-dessus_172251-380.jpg)";
+const NoMatch = ({ reason }) => {
+  const [turnCard, setTurnCard] = useState(false)
 
-    return (<div class="NoMatch__container">
-        {!turnCard?
-                 <motion.div 
+  const handleClick = () => {
+    setTurnCard((state) => !state)
+  }
+  //   const rectoPres = "# 404\nCeci n'est pas une carte"
+  //   const versoPres = "Vous avez trouvé mug O'Clock\n![](https://img.freepik.com/photos-gratuite/tasse-vintage-cassee-table-bois-vue-dessus_172251-380.jpg)"
+
+  const [rectoPres, versoPres] = setReason(reason)
+
+  return (<div className="NoMatch__container">
+        {!turnCard
+          ? <motion.div
 
                         className="card card__recto"
                         onClick={handleClick}
-                        // onMouseLeave={handleClick}                
+                        // onMouseLeave={handleClick}
                         >
                         <motion.pre
                         // animation de "pulse", mais fait bugger l'autre animation
                         // animate={{scale:[1, 1.1, 1]}}
                         // transition={{ease:"easeOut", duration:3, repeat: Infinity}}
-                        className="card__content" style={{textAlign:"center"}}>
+                        className="card__content" style={{ textAlign: 'center' }}>
                         <MDEditor.Markdown source={rectoPres} />
                         </motion.pre>
                     </motion.div>
-                    :
-                    <motion.div 
-                        animate={{rotateY:180}}
+          : <motion.div
+                        animate={{ rotateY: 180 }}
+                        onClick={handleClick}
                         className="card card__verso"
                         // onHoverEnd={{rotateY:-180}}
                         // onMouseEnter={handleClick}
                         // onMouseLeave={handleClick}
                         >
-                        <motion.pre 
-                                        animate={{rotateY:180}}
+                        <motion.pre
+                                        animate={{ rotateY: 180 }}
 
-                                        className="card__content" style={{textAlign:"center"}}>
+                                        className="card__content" style={{ textAlign: 'center' }}>
                         <MDEditor.Markdown source={versoPres} />
                         </motion.pre>
                     </motion.div>
                 }
                 </div>)
-
-    }
+}
 export default NoMatch
+
+NoMatch.propTypes = {
+  reason: PropTypes.string
+}

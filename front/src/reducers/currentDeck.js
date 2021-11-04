@@ -1,5 +1,5 @@
 
-import { SET_CURRENT_DECK_ID, GET_CURRENT_DECK_CONTENT, SET_AS_MODIFIED, GET_CARD } from '../actions'
+import { SET_CURRENT_DECK_ID, SET_CURRENT_DECK_CONTENT, SET_AS_MODIFIED, GET_CARD } from '../actions'
 
 // les "false" par défaut sont pour faciliter certaines conditionnelles
 // ce n'est pas idéal, mais je n'ai pas envie de passer du temps dessus pour l'instant
@@ -32,7 +32,7 @@ const reducer = (state = initialState, action = {}) => {
       }
     }
 
-    case GET_CURRENT_DECK_CONTENT: {
+    case SET_CURRENT_DECK_CONTENT: {
       const { id, title, tags, cards } = action.currentDeckContent
       /* cette conditionnelle vise à éviter des boucles de render.
       currentDeck.deckId est lié à plusieurs useEffect, et le modifier "pour rien" cause des effets de bords indésirables
@@ -51,7 +51,8 @@ const reducer = (state = initialState, action = {}) => {
           ...state,
           title,
           tags,
-          cards
+          cards,
+          id
         }
       }
     }
