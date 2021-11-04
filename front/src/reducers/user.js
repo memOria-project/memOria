@@ -1,4 +1,4 @@
-import { DISCONNECT, UPDATE_LOGIN, UPDATE_USER, UPDATE_SESSION } from '../actions'
+import { DISCONNECT, UPDATE_LOGIN, UPDATE_USER, UPDATE_SESSION, UPDATE_USER_DECKS } from '../actions'
 
 const initialState = {
   isConnected: false,
@@ -42,6 +42,13 @@ const reducer = (state = initialState, action = {}) => {
       }
     }
 
+    case UPDATE_USER_DECKS: {
+      const { decks } = action
+      return {
+        ...state,
+        decks
+      }
+    }
     case UPDATE_SESSION: {
       return {
         ...state,

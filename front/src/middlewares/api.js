@@ -1,5 +1,6 @@
 import {
   getAllDecks, GET_CARD, FETCH_DECKS, FETCH_CARDS, getCurrentDeckContent, POST_CARD, SET_AS_MODIFIED, DELETE_CARD, DELAY_CARD, CREATE_DECK, CHECK_TOKEN
+  , FETCH_USER_DECKS, UPDATE_USER, UPDATE_USER_DECKS
 } from '../actions'
 
 const api = (store) => (next) => (action) => {
@@ -51,6 +52,36 @@ const api = (store) => (next) => (action) => {
       next(action)
       break
     }
+    case FETCH_USER_DECKS:
+    {
+      const { deckId } = store.getState().currentDeck
+      const options = {
+        method: 'GET',
+        headers: {
+          Authorization: token
+        }
+
+      }
+      const getUserDecks = async () => {
+        try {
+          const request = await fetch(`${back}/user/cards/`, options)
+          const response = await request.json()
+          if (request.status === 200) {
+            store.dispatch({ type: UPDATE_USER_DECKS, decks: response })
+          } else { console.log(`UPDATE_USER_DECKS failed: ${request.status}, ${response}`) }
+          // if (request.status === 204)
+          // {
+          //   store.dispatch(getCurrentDeckContent(false))
+          //   console.log('pas de paquets')
+          // } else {
+          //   console.log('get Current Deck', response)
+          //   store.dispatch(getCurrentDeckContent(response))
+          // }
+        } catch (error) { console.log(error) }
+      }
+      getUserDecks()
+      break
+    }
     case POST_CARD: {
       // const { id } = store.getState().user
       const { currentCard, deckId } = store.getState().currentDeck
@@ -78,6 +109,7 @@ const api = (store) => (next) => (action) => {
           if (response === 200 || response === 201) {
             store.dispatch({ type: SET_AS_MODIFIED, isModified: true })
             store.dispatch({ type: GET_CARD, field: [{ field: 'recto', value: '' }, { field: 'verso', value: '' }] })
+            console.log('new card' + response)
           } else {
             store.dispatch({ type: SET_AS_MODIFIED, isModified: false })
           }
@@ -107,7 +139,7 @@ const api = (store) => (next) => (action) => {
           if (response === 200) {
             console.log(`carte supprimée: ${response}`)
           }
-          store.dispatch({ type: FETCH_CARDS })
+          store.dispatch({ type: FETCH_USER_DECKS })
         } catch (error) { console.log(error) }
       }
       deleteCard()

@@ -51,7 +51,8 @@ const reducer = (state = initialState, action = {}) => {
           ...state,
           title,
           tags,
-          cards
+          cards,
+          id
         }
       }
     }
