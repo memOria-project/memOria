@@ -33,7 +33,12 @@ const reducer = (state = initialState, action = {}) => {
     }
 
     case SET_CURRENT_DECK_CONTENT: {
-      const { id, title, tags, cards } = action.currentDeckContent
+      let { id, title, tags, cards } = action.currentDeckContent
+      // allège le code sur deckEditor
+      if (cards[0] === null) {
+        cards = []
+      }
+
       /* cette conditionnelle vise à éviter des boucles de render.
       currentDeck.deckId est lié à plusieurs useEffect, et le modifier "pour rien" cause des effets de bords indésirables
       Cette n'est pas très lisible et pourrait être améliorer, par ex au niveau de middleware/api.js

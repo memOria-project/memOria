@@ -91,7 +91,7 @@ const DeckEditor = () => {
         </div>
 
       </div>
-      {cards && cards[0] &&
+      {cards &&
           (cards.map((card) => {
             return (
             <p key={card.id} className="rectoVersoView">
@@ -113,7 +113,7 @@ const DeckEditor = () => {
             </p>)
           }
           ))}
-        {cards && !cards[0] && !loading && <div style={{ marginTop: '2em', fontSize: '2em' }}> Ce paquet est vide! Vite, <NavLink to={`/cardEditor/${id}/new`}> ajoutez une carte!</NavLink> </div>}
+        {cards && !loading && <div style={{ marginTop: '2em', fontSize: '2em' }}> Ce paquet est vide! Vite, <NavLink to={`/cardEditor/${id}/new`}> ajoutez une carte!</NavLink> </div>}
         {loading && <Loading />}
     </div>
       : loading ? <Loading /> : <NoMatch reason="deck" />
