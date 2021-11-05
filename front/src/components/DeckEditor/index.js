@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { useEffect, useState } from 'react'
-import { NavLink, useParams } from 'react-router-dom'
+import { useEffect, useState, useRef } from 'react'
+import { NavLink, useParams, useLocation } from 'react-router-dom'
 import MDEditor from '@uiw/react-md-editor'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faEye, faPlus } from '@fortawesome/free-solid-svg-icons'
@@ -16,8 +16,10 @@ import Delete from './Delete'
 import Edit from './Edit'
 import NoMatch from '../NoMatch'
 
-const DeckEditor = () => {
+const DeckEditor = ({ value }) => {
   const deckIdFromParams = parseInt(useParams().deckId, 10)
+  const location = useLocation()
+  const editedCardId = location.state?.editedCardId
 
   const [loading, setLoading] = useState(true)
   const { id } = useSelector((state) => state.currentDeck)
@@ -28,14 +30,22 @@ const DeckEditor = () => {
 
   const toView = `/deck/${id}/0`
   const { decks, isConnected } = useSelector((state) => state.user)
-
+  const cardRef = useRef([])
+  console.log(cardRef)
   const resetDeck = {
     id: '', title: '', tags: '', cards: ''
   }
+
   useEffect(() => {
-    console.log('I fire once')
     dispatch({ type: FETCH_USER_DECKS })
     dispatch({ type: SET_CURRENT_DECK_CONTENT, currentDeckContent: resetDeck })
+
+    // set focus if the card has been deleted or edited.
+    const myCard = document.getElementById(editedCardId)
+    if (myCard) {
+      myCard.focus()
+    }
+    // console.log(editedCardId)
   }
   , [])
 
@@ -63,6 +73,8 @@ const DeckEditor = () => {
   useEffect(() => {
     if (cards) {
       setTimeout(() => setLoading(false), 500)
+    } else {
+      setTimeout(() => setLoading(false), 3000)
     }
   }, [id])
 
@@ -94,7 +106,7 @@ const DeckEditor = () => {
       {cards &&
           (cards.map((card) => {
             return (
-            <p key={card.id} className="rectoVersoView">
+            <p key={card.id} tabIndex="0" id={card.id} className="rectoVersoView">
               <div className="card card__recto">
               <pre className="card__content">
                 <MDEditor.Markdown source={card.recto} />
@@ -113,7 +125,7 @@ const DeckEditor = () => {
             </p>)
           }
           ))}
-        {cards && !loading && <div style={{ marginTop: '2em', fontSize: '2em' }}> Ce paquet est vide! Vite, <NavLink to={`/cardEditor/${id}/new`}> ajoutez une carte!</NavLink> </div>}
+        {!cards?.length && !loading && <div style={{ marginTop: '2em', fontSize: '2em' }}> Ce paquet est vide! Vite, <NavLink to={`/cardEditor/${id}/new`}> ajoutez une carte!</NavLink> </div>}
         {loading && <Loading />}
     </div>
       : loading ? <Loading /> : <NoMatch reason="deck" />

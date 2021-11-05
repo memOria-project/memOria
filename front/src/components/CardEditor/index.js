@@ -115,7 +115,7 @@ const CardEditor = () => {
       /* redirection vers le deck SEULEMENT SI on edite une carte existante, et que la modification a fonctionné
       le ? est utilisé car isSubmit && isModified.state && cardId &&<Redirect /> affiche "NaN"(valeur de cardId) quand elle renvoie falsy - pas idéal, mais fonctionne
       */
-      (isSubmit && isModified.state && cardId ? <Redirect to={path}/> : <></>)
+      (isSubmit && isModified.state && cardId ? <Redirect to={{ pathname: path, state: { editedCardId: cardId } }}/> : <></>)
       }
 
         <h1 className="cardEditor__title"> {cardId ? 'Editer' : 'Créer'} une carte ({title})</h1>

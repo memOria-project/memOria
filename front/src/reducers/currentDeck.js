@@ -35,7 +35,7 @@ const reducer = (state = initialState, action = {}) => {
     case SET_CURRENT_DECK_CONTENT: {
       let { id, title, tags, cards } = action.currentDeckContent
       // allège le code sur deckEditor
-      if (cards[0] === null) {
+      if (cards && cards[0] === null) {
         cards = []
       }
 
