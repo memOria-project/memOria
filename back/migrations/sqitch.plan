@@ -9,3 +9,4 @@ user_functions 2021-09-30T13:07:47Z vmingam <vmingam@gmail.com> # Ajout des fonc
 func-getOwnerIdOfCard 2021-09-30T13:21:12Z vmingam <vmingam@gmail.com> # Add function to get the id of owner of a specific card id
 func-cards-save 2021-10-03T19:17:24Z vmingam <vmingam@gmail.com> # Add function to manage and control cards saving
 func-decksOfUser 2021-10-05T11:33:39Z vmingam <vmingam@gmail.com> # Add sql function decks_of_user()
+deleteOnCascadeDelay 2021-11-08T13:08:52Z Vincent Mingam,,, <vincent@vincent-Mint> # Enable deleting card even if associated to a delay
