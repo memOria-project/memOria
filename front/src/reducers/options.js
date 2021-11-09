@@ -9,7 +9,8 @@ export const initialState = {
   },
   isFailed: false,
   isAlternateRequired: false,
-  isDelayedReviewOn: false
+  isDelayedReviewOn: false,
+  databaseSelector: ''
 
 }
 const reducer = (state = initialState, action = {}) => {

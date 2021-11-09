@@ -2,7 +2,7 @@
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { SET_CURRENT_DECK_ID, FETCH_CARDS, CHECK_TOKEN } from '../../actions'
+import { SET_CURRENT_DECK_ID, FETCH_CARDS, CHECK_TOKEN, PICK_NEW_GAME } from '../../actions'
 
 import ShowCards from './ShowCards'
 import Loading from '../Loading'
@@ -27,6 +27,7 @@ const CardDisplay = () => {
     dispatch({ type: SET_CURRENT_DECK_ID, deckId: deckId })
     dispatch({ type: FETCH_CARDS })
     dispatch({ type: CHECK_TOKEN })
+    dispatch({ type: PICK_NEW_GAME, field: 'databaseSelector', value: '' })
   }, [])
   // filter data based on delayedIds!
   useEffect(() => {
@@ -57,7 +58,9 @@ const CardDisplay = () => {
   }, [allCards, delayedIds])
 
   const isFailed = useSelector((state) => state.options.isFailed)
-  const { isAlternateRequired, isDelayedReviewOn } = useSelector((state) => state.options)
+  const { isAlternateRequired, isDelayedReviewOn, databaseSelector } = useSelector((state) => state.options)
+  //
+
   const [initialFailedCards, setInitialFailedCards] = useState([])
   const [delayedCards, setDelayedCards] = useState([])
 
@@ -68,22 +71,31 @@ const CardDisplay = () => {
   // "database" will be passed as props to the MD Editor and contains all the cards to be displayed
   let database = [{ recto: 'recto', verso: 'verso' }] ?? [{ recto: 'recto', verso: 'verso' }] // avoid undefined error when the user removed the last card from the deck while browsing
 
-  const selectDatabase = () => {
-    if (isAlternateRequired) {
-      database = alternateFailedCards
-      console.log('la database suivante est séléctionnée(1. cartes ratées, rounds pairs):', database)
-    } else if (isFailed) {
-      database = initialFailedCards
-      console.log('la database suivante est séléctionnée(2. cartes ratées, rounds impairs):', database)
-    } else if (isDelayedReviewOn) {
-      database = delayedCards
-      console.log('la database suivante est séléctionnée(3. cartes delayed):', database)
-    } else if (!isFailed) {
-      database = allCards
-      console.log('la database suivante est séléctionnée(4. toutes les cartes, par défaut):', database)
+  const selectDatabase = (selector) => {
+    switch (selector) {
+      case 'FAILED_1ST_ROUND': {
+        database = initialFailedCards
+        console.log('la database suivante est séléctionnée(2. cartes ratées, rounds impairs):', database)
+        break
+      }
+      case 'FAILED_2ND_ROUND': {
+        database = alternateFailedCards
+        console.log('la database suivante est séléctionnée(1. cartes ratées, rounds pairs):', database)
+        break
+      }
+      case 'NOT_MASTERED': {
+        database = delayedCards
+        console.log('la database suivante est séléctionnée(3. cartes delayed):', database)
+        break
+      }
+      default: {
+        database = allCards
+        console.log('la database suivante est séléctionnée(4. toutes les cartes, par défaut):', database)
+      }
     }
   }
-  selectDatabase()
+
+  selectDatabase(databaseSelector)
   // "databaseFailedCards" will be passed as props to the MD Editor and contains the array with the "missed cards"
   let databaseFailedCards
   const selectFailedCards = () => {

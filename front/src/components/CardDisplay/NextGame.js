@@ -9,13 +9,15 @@ const NextGame = ({ setInitialFailedCards, isFailed, failedCards, setIsAlternate
       dispatch({ type: PICK_NEW_GAME, field: 'isFailed', value: false })
 
       dispatch({ type: PICK_NEW_GAME, field: 'isAlternateRequired', value: true })
-
+      dispatch({ type: PICK_NEW_GAME, field: 'databaseSelector', value: 'FAILED_2ND_ROUND' })
       console.log({ isFailed, isAlternateRequired, alternateFailedCards })
     } else if (isAlternateRequired) {
       dispatch({ type: PICK_NEW_GAME, field: 'isFailed', value: true })
       dispatch({ type: PICK_NEW_GAME, field: 'isAlternateRequired', value: false })
+      dispatch({ type: PICK_NEW_GAME, field: 'databaseSelector', value: 'FAILED_1ST_ROUND' })
     } else {
       dispatch({ type: PICK_NEW_GAME, field: 'isFailed', value: true })
+      dispatch({ type: PICK_NEW_GAME, field: 'databaseSelector', value: 'FAILED_1ST_ROUND' })
     }
     // database.splice(cardId, 1)
   }
@@ -26,6 +28,7 @@ const NextGame = ({ setInitialFailedCards, isFailed, failedCards, setIsAlternate
     dispatch({ type: PICK_NEW_GAME, field: 'isFailed', value: false })
     dispatch({ type: PICK_NEW_GAME, field: 'isAlternateRequired', value: false })
     dispatch({ type: PICK_NEW_GAME, field: 'isDelayedReviewOn', value: false })
+    dispatch({ type: PICK_NEW_GAME, field: 'databaseSelector', value: '' })
 
     // dispatch({type: CHECK_TOKEN })
   }

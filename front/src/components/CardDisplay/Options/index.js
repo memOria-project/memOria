@@ -11,9 +11,9 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
 const Options = ({ setDelayedCardsLength, setShowOptions, delayedCards }) => {
   const isConnected = useSelector((state) => state.user.isConnected)
-  const { isDelayedReviewOn } = useSelector((state) => state.options)
+  const { isDelayedReviewOn, databaseSelector } = useSelector((state) => state.options)
   const dispatch = useDispatch()
-  const [isActive, setIsActive] = useState({ allMastered: false, onlyFailed: false, allCards: true })
+  const [isActive, setIsActive] = useState({ allMastered: false, notMastered: false, allCards: true })
   const delayedCardsLength = useRef(delayedCards.length)
 
   const handleClick = (event) => {
@@ -21,10 +21,12 @@ const Options = ({ setDelayedCardsLength, setShowOptions, delayedCards }) => {
       setShowOptions((state) => !state)
     } else if (event.target.id === 'allCards') {
       dispatch({ type: PICK_NEW_GAME, field: 'isDelayedReviewOn', value: false })
-    } else if (event.target.id === 'onlyFailed') {
+      dispatch({ type: PICK_NEW_GAME, field: 'databaseSelector', value: '' })
+    } else if (event.target.id === 'notMastered') {
       dispatch({ type: PICK_NEW_GAME, field: 'isDelayedReviewOn', value: true })
+      dispatch({ type: PICK_NEW_GAME, field: 'databaseSelector', value: 'NOT_MASTERED' })
     }
-    setIsActive((state) => ({ ...state, allCards: false, onlyFailed: false }))
+    setIsActive((state) => ({ ...state, allCards: false, notMastered: false }))
     setIsActive((state) => ({ ...state, [event.target.id]: true }))
   }
 
