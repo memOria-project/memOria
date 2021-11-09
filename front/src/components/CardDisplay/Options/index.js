@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { PICK_NEW_GAME } from '../../actions'
+import { PICK_NEW_GAME } from '../../../actions'
 import RectoVerso from './RectoVerso'
 import DelayedCards from './DelayedCards'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
