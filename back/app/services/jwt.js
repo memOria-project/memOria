@@ -13,7 +13,7 @@ module.exports = {
         // header
         {
           algorithm: 'HS256',
-          expiresIn: '20m'
+          expiresIn: '12h'
         }
       )
     } catch (error) {

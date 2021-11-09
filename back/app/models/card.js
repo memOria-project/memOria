@@ -105,7 +105,7 @@ class Card {
     try {
       const statusCard = await db.query('SELECT is_card_owner($1, $2)', [this.id, this.userId])
       if (!statusCard.rows[0].is_card_owner) {
-        throw new Error('User is not allowed to delete this card')
+        throw new Error(`User #${this.userId} is not allowed to delete card #${this.id}`)
       }
       const { rows } = await db.query('DELETE FROM card WHERE id=$1', [this.id])
       if (rows) {
