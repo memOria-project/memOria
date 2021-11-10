@@ -2,34 +2,23 @@ import { FETCH_CARDS, PICK_NEW_GAME, CHECK_TOKEN } from '../../actions'
 import { useDispatch } from 'react-redux'
 import { NavLink, useParams } from 'react-router-dom'
 
-const NextGame = ({ setInitialFailedCards, isFailed, failedCards, setIsAlternateRequired, alternateFailedCards, isAlternateRequired }) => {
+const NextGame = ({ failedCards, setCurrentCard, database, setFailedCards }) => {
   const { cardId, deckId } = useParams()
   const handleClickCheckFail = () => {
-    if (isFailed) {
-      dispatch({ type: PICK_NEW_GAME, field: 'isFailed', value: false })
+    dispatch({ type: PICK_NEW_GAME, field: 'databaseSelector', value: 'FAILED_1ST_ROUND' })
+    dispatch({ type: PICK_NEW_GAME, field: 'isFailed', value: true })
 
-      dispatch({ type: PICK_NEW_GAME, field: 'isAlternateRequired', value: true })
-      dispatch({ type: PICK_NEW_GAME, field: 'databaseSelector', value: 'FAILED_2ND_ROUND' })
-      console.log({ isFailed, isAlternateRequired, alternateFailedCards })
-    } else if (isAlternateRequired) {
-      dispatch({ type: PICK_NEW_GAME, field: 'isFailed', value: true })
-      dispatch({ type: PICK_NEW_GAME, field: 'isAlternateRequired', value: false })
-      dispatch({ type: PICK_NEW_GAME, field: 'databaseSelector', value: 'FAILED_1ST_ROUND' })
-    } else {
-      dispatch({ type: PICK_NEW_GAME, field: 'isFailed', value: true })
-      dispatch({ type: PICK_NEW_GAME, field: 'databaseSelector', value: 'FAILED_1ST_ROUND' })
-    }
-    // database.splice(cardId, 1)
     dispatch({ type: CHECK_TOKEN })
   }
 
   const handleClickRestart = () => {
     dispatch({ type: FETCH_CARDS, deckId })
-    setInitialFailedCards([])
+    setFailedCards([])
     dispatch({ type: PICK_NEW_GAME, field: 'isFailed', value: false })
-    dispatch({ type: PICK_NEW_GAME, field: 'isAlternateRequired', value: false })
     dispatch({ type: PICK_NEW_GAME, field: 'isDelayedReviewOn', value: false })
     dispatch({ type: PICK_NEW_GAME, field: 'databaseSelector', value: '' })
+    const { id, recto, verso } = database[0]
+    setCurrentCard({ index: 0, id, recto, verso })
 
     dispatch({ type: CHECK_TOKEN })
   }

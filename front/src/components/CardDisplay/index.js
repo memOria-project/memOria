@@ -30,9 +30,9 @@ const CardDisplay = () => {
   const [showOptions, setShowOptions] = useState(true)
   const [loading, setLoading] = useState(true)
   // "database" will be passed as props to the MD Editor and contains all the cards to be displayed
-  const [database, setDatabase] = useState([{ recto: 'recto', verso: 'verso' }])
+  const [database, setDatabase] = useState([{ id: 0, index: 0, recto: 'recto', verso: 'verso' }])
   const [failedCards, setFailedCards] = useState([])
-  const [cardShown, setCardShown] = useState({ id: 0, index: 0 })
+  const [currentCard, setCurrentCard] = useState({ id: 0, index: 0, recto: 'recto', verso: 'verso' })
   // Fetch all cards from the selected deck
   useEffect(() => {
     dispatch({ type: SET_CURRENT_DECK_ID, deckId: deckId })
@@ -70,25 +70,25 @@ const CardDisplay = () => {
   }, [allCards, delayedIds])
 
   useEffect(() => {
-    selectDatabase(databaseSelector)
-  }, [databaseSelector])
+    if (allCards) {
+      selectDatabase(databaseSelector)
+    }
+
+    console.log(currentCard)
+  }, [allCards, databaseSelector])
 
   //
 
   const selectDatabase = (selector) => {
     switch (selector) {
       case 'FAILED_1ST_ROUND': {
-        setDatabase(initialFailedCards)
+        setDatabase(prevState => failedCards)
         console.log('la database suivante est séléctionnée(1. cartes ratées, rounds impairs):', database)
-        break
-      }
-      case 'FAILED_2ND_ROUND': {
-        setDatabase(alternateFailedCards)
-        console.log('la database suivante est séléctionnée(2. cartes ratées, rounds pairs):', database)
+        setFailedCards([])
         break
       }
       case 'NOT_MASTERED': {
-        setDatabase(delayedCards)
+        setDatabase(prevState => delayedCards)
         console.log('la database suivante est séléctionnée(3. cartes delayed):', database)
         break
       }
@@ -101,7 +101,7 @@ const CardDisplay = () => {
 
   //  Triggers the modal offering the "next games" options: start again with all the cards, or check the missed ones
   const checkIfOver = () => {
-    if (cardShown.index === database.length) {
+    if (currentCard?.index === database?.length) {
       console.log('la modale over est montrée')
       return true
     } else {
@@ -124,14 +124,14 @@ const CardDisplay = () => {
               </div>
             </div>
           }
-          {cardShown.index > database?.length &&
+          {currentCard.index <= database.length &&
             (<>
             <p className="deck__title">{deckTitle} <button className="icon__options"><FontAwesomeIcon icon={faCog} onClick={() => setShowOptions(true)} size="2x"/></button> </p>
-            <ShowCards hideButtons={false} delayedCardsLength={delayedCardsLength} cardId={cardId} database={database} addFailedCards={addFailedCards} failedCards={databaseFailedCards} />
+            <ShowCards currentCard={currentCard} setCurrentCard={setCurrentCard} hideButtons={false} delayedCardsLength={delayedCardsLength} cardId={cardId} database={database} addFailedCards={addFailedCards} failedCards={failedCards} />
             </>)
           }
           {isOver &&
-            <NextGame setInitialFailedCards={setInitialFailedCards} isAlternateRequired={isAlternateRequired} isFailed={isFailed} failedCards={databaseFailedCards} alternateFailedCards={alternateFailedCards} />}
+            <NextGame setFailedCards={setFailedCards} isFailed={isFailed} failedCards={failedCards} setCurrentCard={setCurrentCard} database={database} />}
 
           {loading &&
             <Loading />

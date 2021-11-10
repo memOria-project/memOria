@@ -1,90 +1,80 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, useParams } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimesCircle, faCalendarCheck  } from '@fortawesome/free-solid-svg-icons'
+import { faTimesCircle, faCalendarCheck } from '@fortawesome/free-solid-svg-icons'
 import { FETCH_CARDS, RESET_CARD, PICK_NEW_GAME, DELAY_CARD } from '../../actions'
-import { useRef } from 'react'
-const Next = ({ delayedCardsLength,initialLength, failedCards, database, nextCard, deckId, cardsNumberInDeck, setNextCard, showedCard, addFailedCards }) => {
-  // if(nextCard >=cardsNumberInDeck-1) {
-  //   setNextCard(cardsNumberInDeck-2)
-  //   console.log("after modif", nextCard)
-  // }
-  
-  const delayedCardsInitial = useRef(database.length)
- 
+import { useRef, useState, useEffect } from 'react'
+const Next = ({ deckId, deckLength, currentCard, setCurrentCard, addFailedCards }) => {
   const dispatch = useDispatch()
   const { defaultView, currentView, isFailed } = useSelector((state) => state.options)
-  const {isDelayedReviewOn} = useSelector((state)=>state.options)
-  const {isConnected} = useSelector((state)=>state.user)
-  const {cardId} = useParams()
-  const nextCardURL = () => { if(nextCard >=cardsNumberInDeck || nextCard === 0) {
-    return `/deck/${deckId}/${nextCard}`
-  } else {
-    return `/deck/${deckId}/${nextCard-1}`
+  const { isDelayedReviewOn } = useSelector((state) => state.options)
+  const { isConnected } = useSelector((state) => state.user)
+  const { cardId } = useParams()
+  const [count, setCount] = useState({ success: 0, failed: 0 })
+  console.log(currentCard)
+  const setNextCardURL = () => {
+    return `/deck/${deckId}/`
+
+    // if (currentCard) {
+    //   return `/deck/${deckId}/${currentCard.id}`
+    // } else {
+    //   return '/'
+    // }
   }
-}
-// const deckLength = useSelector(state => state.currentDeck).deck_length
-// const goodCards = deckLength- failedCards.length
-// console.log(goodCards)
+  const nextCardURL = `/deck/${deckId}/${currentCard.id}`
+  // useEffect(() => {
+  //   nextCardURL = setNextCardURL()
+  //   console.log(nextCardURL)
+  //   console.log(currentCard)
+  // }, [currentCard])
+  // const deckLength = useSelector(state => state.currentDeck).deck_length
+  // const goodCards = deckLength- failedCards.length
+  // console.log(goodCards)
 
-let delayedCardsLengthInitial
-if(isDelayedReviewOn)
-{
-delayedCardsLengthInitial = delayedCardsInitial.current
-}
-const handleClickNext = () => {
-
-  dispatch({type:RESET_CARD, isRecto: defaultView.isRecto})
-
-  if(isConnected)
-  {
-dispatch({type: DELAY_CARD, id: showedCard.id })
-console.log("card delayed")
+  const setIndexNextCard = () => {
+    setCurrentCard(prevState => ({ ...prevState, index: prevState.index + 1 }))
+    console.log(currentCard)
   }
-  database.splice(cardId, 1)
 
-  console.log("la carte suivante a été enclenché, il y a maintenant", database.length, "cartes")
-}
+  const setDelay = () => {
+    dispatch({ type: DELAY_CARD, id: currentCard.id })
+  }
+  const handleClickSuccess = () => {
+    dispatch({ type: RESET_CARD, isRecto: defaultView.isRecto })
+
+    if (isConnected) {
+      setDelay()
+      console.log(`handleClickSuccess:
+      ${cardId} has been delayed`)
+    }
+
+    setIndexNextCard()
+
+    setCount(prevState => ({ ...prevState, good: prevState.good + 1 }))
+  }
 
   const handleClickFail = () => {
-    dispatch({type:RESET_CARD, isRecto: defaultView.isRecto})
+    dispatch({ type: RESET_CARD, isRecto: defaultView.isRecto })
 
-    database.splice(cardId, 1)
-    addFailedCards(showedCard)
+    addFailedCards(currentCard)
+    setCount(prevState => ({ ...prevState, bad: prevState.bad + 1 }))
+    setIndexNextCard()
   }
-  if(isDelayedReviewOn){
-    console.log({delayedCardsLength, delayedCardsLengthInitial, database: database.length, failedCards: failedCards.length })
 
-  }
-  else{
-  console.log({initialLength, database: database.length, failedCards: failedCards.length })
-  }
-  const resetIfDelayOn = (initialLength-database.length)
-  if(database.length === delayedCardsLengthInitial)
-  {
-
-  }
-  const howManyGoods = !isDelayedReviewOn?initialLength-database.length-failedCards.length
-  :delayedCardsLength-failedCards.length-database.length
-
-  const howManyBads = failedCards.length
-
-return (
+  return (
   <div>
-    {cardsNumberInDeck>0&&
+    {deckLength > 0 &&
       (<>
-        <button className="confirm" onClick={()=>handleClickNext()}>
-          <NavLink to={nextCardURL} > <FontAwesomeIcon icon={faCalendarCheck}/> {howManyGoods}</NavLink>
+        <button className="confirm" onClick={() => handleClickSuccess()}>
+          <NavLink to={nextCardURL} > <FontAwesomeIcon icon={faCalendarCheck}/> {count.success}</NavLink>
         </button>
-          <button className="warning" onClick={()=>handleClickFail()}>
-            <NavLink to={nextCardURL} > <FontAwesomeIcon icon={faTimesCircle} /> {howManyBads}</NavLink>
+          <button className="warning" onClick={() => handleClickFail()}>
+            <NavLink to={nextCardURL} > <FontAwesomeIcon icon={faTimesCircle} /> {count.failed}</NavLink>
           </button>
 
       </>)
  }
   </div>
-)
-
-
+  )
 }
 export default Next
