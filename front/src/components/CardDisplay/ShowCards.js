@@ -16,8 +16,7 @@ const ShowCards = ({ hideButtons, database, addFailedCards, failedCards, setCurr
   const deckLength = database.length
 
   useEffect(() => {
-    console.log('update current card')
-    if (database.length > 1) {
+    if (database.length >= 1) {
       setCurrentCard((prevState) => ({ ...prevState, recto: database[prevState.index].recto, verso: database[prevState.index].verso, id: database[prevState.index].id }))
       console.log({ currentCard })
     }

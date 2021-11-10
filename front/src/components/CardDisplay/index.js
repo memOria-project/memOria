@@ -46,7 +46,6 @@ const CardDisplay = () => {
     if (allCards?.length) {
       setLoading(false)
     }
-    console.log({ allCards })
     if (allCards?.length && delayedIds?.length) {
       const delayedCardsWithNulls = allCards.map((card) => {
         const myCard = delayedIds.indexOf(card.id)
@@ -73,8 +72,6 @@ const CardDisplay = () => {
     if (allCards) {
       selectDatabase(databaseSelector)
     }
-
-    console.log(currentCard)
   }, [allCards, databaseSelector, count.restart])
 
   //
@@ -83,19 +80,28 @@ const CardDisplay = () => {
     switch (selector) {
       case 'FAILED_1ST_ROUND': {
         setDatabase(failedCards)
-        setTimeout(() => console.log('la database suivante est séléctionnée(1. cartes ratées, rounds impairs):', database), 1000)
+        setDatabase((state) => {
+          console.log('la database suivante est séléctionnée(1. cartes ratées):', state)
+          return state
+        })
         setFailedCards([])
         break
       }
 
       case 'NOT_MASTERED': {
-        setDatabase(prevState => delayedCards)
-        console.log('la database suivante est séléctionnée(3. cartes delayed):', database)
+        setDatabase(delayedCards)
+        setDatabase((state) => {
+          console.log('la database suivante est séléctionnée(2. cartes delayed):', state)
+          return state
+        })
         break
       }
       default: {
         setDatabase(allCards)
-        console.log('la database suivante est séléctionnée(4. toutes les cartes, par défaut):', database)
+        setDatabase((state) => {
+          console.log('la database suivante est séléctionnée(4. toutes les cartes, par défaut):', state)
+          return state
+        })
       }
     }
   }
@@ -113,9 +119,7 @@ const CardDisplay = () => {
   const isOver = checkIfOver()
   // is called when a user clicks on "I missed"
   const addFailedCards = (card) => {
-    console.log({ card })
     setFailedCards((state) => [...state, card])
-    console.log({ failedCards })
   }
   const [delayedCardsLength, setDelayedCardsLength] = useState(delayedCards.length)
   return (<div>

@@ -10,7 +10,6 @@ const Next = ({ deckId, deckLength, currentCard, setCurrentCard, addFailedCards,
   const { isDelayedReviewOn } = useSelector((state) => state.options)
   const { isConnected } = useSelector((state) => state.user)
   const { cardId } = useParams()
-  console.log(currentCard)
   const setNextCardURL = () => {
     return `/deck/${deckId}/`
 
@@ -32,7 +31,6 @@ const Next = ({ deckId, deckLength, currentCard, setCurrentCard, addFailedCards,
 
   const setIndexNextCard = () => {
     setCurrentCard(prevState => ({ ...prevState, index: prevState.index + 1 }))
-    console.log(currentCard)
   }
 
   const setDelay = () => {
