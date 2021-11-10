@@ -11,7 +11,7 @@ export const initialState = {
   tags: false,
   currentCard: {
     deckId: false,
-    currentCardId: false,
+    cardId: false,
     recto: 'recto',
     verso: 'verso'
   },

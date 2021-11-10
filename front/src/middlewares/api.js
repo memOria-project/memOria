@@ -79,7 +79,7 @@ const api = (store) => (next) => (action) => {
       // const { id } = store.getState().user
       const { currentCard, deckId } = store.getState().currentDeck
       const { recto, verso } = currentCard
-      // const id = currentCardId
+      // const id = cardId
       const newCard = {
         recto,
         verso,
