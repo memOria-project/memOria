@@ -4,13 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle, faCalendarCheck } from '@fortawesome/free-solid-svg-icons'
 import { FETCH_CARDS, RESET_CARD, PICK_NEW_GAME, DELAY_CARD } from '../../actions'
 import { useRef, useState, useEffect } from 'react'
-const Next = ({ deckId, deckLength, currentCard, setCurrentCard, addFailedCards }) => {
+const Next = ({ deckId, deckLength, currentCard, setCurrentCard, addFailedCards, count, setCount }) => {
   const dispatch = useDispatch()
   const { defaultView, currentView, isFailed } = useSelector((state) => state.options)
   const { isDelayedReviewOn } = useSelector((state) => state.options)
   const { isConnected } = useSelector((state) => state.user)
   const { cardId } = useParams()
-  const [count, setCount] = useState({ success: 0, failed: 0 })
   console.log(currentCard)
   const setNextCardURL = () => {
     return `/deck/${deckId}/`
@@ -50,14 +49,14 @@ const Next = ({ deckId, deckLength, currentCard, setCurrentCard, addFailedCards 
 
     setIndexNextCard()
 
-    setCount(prevState => ({ ...prevState, good: prevState.good + 1 }))
+    setCount(prevState => ({ ...prevState, success: prevState.success + 1 }))
   }
 
   const handleClickFail = () => {
     dispatch({ type: RESET_CARD, isRecto: defaultView.isRecto })
 
     addFailedCards(currentCard)
-    setCount(prevState => ({ ...prevState, bad: prevState.bad + 1 }))
+    setCount(prevState => ({ ...prevState, failed: prevState.failed + 1 }))
     setIndexNextCard()
   }
 

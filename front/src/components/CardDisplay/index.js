@@ -24,14 +24,14 @@ const CardDisplay = () => {
   const { isAlternateRequired, isDelayedReviewOn, databaseSelector } = useSelector((state) => state.options)
   const isFailed = useSelector((state) => state.options.isFailed)
 
-  const [initialFailedCards, setInitialFailedCards] = useState([])
   const [delayedCards, setDelayedCards] = useState([])
-  const [alternateFailedCards, setAlternateFailedCards] = useState([])
   const [showOptions, setShowOptions] = useState(true)
   const [loading, setLoading] = useState(true)
   // "database" will be passed as props to the MD Editor and contains all the cards to be displayed
   const [database, setDatabase] = useState([{ id: 0, index: 0, recto: 'recto', verso: 'verso' }])
   const [failedCards, setFailedCards] = useState([])
+  const [count, setCount] = useState({ success: 0, failed: 0, restart: 0 })
+
   const [currentCard, setCurrentCard] = useState({ id: 0, index: 0, recto: 'recto', verso: 'verso' })
   // Fetch all cards from the selected deck
   useEffect(() => {
@@ -75,18 +75,19 @@ const CardDisplay = () => {
     }
 
     console.log(currentCard)
-  }, [allCards, databaseSelector])
+  }, [allCards, databaseSelector, count.restart])
 
   //
 
   const selectDatabase = (selector) => {
     switch (selector) {
       case 'FAILED_1ST_ROUND': {
-        setDatabase(prevState => failedCards)
-        console.log('la database suivante est séléctionnée(1. cartes ratées, rounds impairs):', database)
+        setDatabase(failedCards)
+        setTimeout(() => console.log('la database suivante est séléctionnée(1. cartes ratées, rounds impairs):', database), 1000)
         setFailedCards([])
         break
       }
+
       case 'NOT_MASTERED': {
         setDatabase(prevState => delayedCards)
         console.log('la database suivante est séléctionnée(3. cartes delayed):', database)
@@ -112,7 +113,9 @@ const CardDisplay = () => {
   const isOver = checkIfOver()
   // is called when a user clicks on "I missed"
   const addFailedCards = (card) => {
+    console.log({ card })
     setFailedCards((state) => [...state, card])
+    console.log({ failedCards })
   }
   const [delayedCardsLength, setDelayedCardsLength] = useState(delayedCards.length)
   return (<div>
@@ -124,14 +127,14 @@ const CardDisplay = () => {
               </div>
             </div>
           }
-          {currentCard.index <= database.length &&
+          {currentCard.index <= database.length - 1 &&
             (<>
             <p className="deck__title">{deckTitle} <button className="icon__options"><FontAwesomeIcon icon={faCog} onClick={() => setShowOptions(true)} size="2x"/></button> </p>
-            <ShowCards currentCard={currentCard} setCurrentCard={setCurrentCard} hideButtons={false} delayedCardsLength={delayedCardsLength} cardId={cardId} database={database} addFailedCards={addFailedCards} failedCards={failedCards} />
+            <ShowCards count={count} setCount={setCount} currentCard={currentCard} setCurrentCard={setCurrentCard} hideButtons={false} delayedCardsLength={delayedCardsLength} cardId={cardId} database={database} addFailedCards={addFailedCards} failedCards={failedCards} />
             </>)
           }
           {isOver &&
-            <NextGame setFailedCards={setFailedCards} isFailed={isFailed} failedCards={failedCards} setCurrentCard={setCurrentCard} database={database} />}
+            <NextGame setCount={setCount} setFailedCards={setFailedCards} isFailed={isFailed} failedCards={failedCards} setCurrentCard={setCurrentCard} database={database} />}
 
           {loading &&
             <Loading />
