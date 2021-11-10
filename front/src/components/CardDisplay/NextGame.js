@@ -1,4 +1,4 @@
-import { FETCH_CARDS, PICK_NEW_GAME } from '../../actions'
+import { FETCH_CARDS, PICK_NEW_GAME, CHECK_TOKEN } from '../../actions'
 import { useDispatch } from 'react-redux'
 import { NavLink, useParams } from 'react-router-dom'
 
@@ -20,6 +20,7 @@ const NextGame = ({ setInitialFailedCards, isFailed, failedCards, setIsAlternate
       dispatch({ type: PICK_NEW_GAME, field: 'databaseSelector', value: 'FAILED_1ST_ROUND' })
     }
     // database.splice(cardId, 1)
+    dispatch({ type: CHECK_TOKEN })
   }
 
   const handleClickRestart = () => {
@@ -30,7 +31,7 @@ const NextGame = ({ setInitialFailedCards, isFailed, failedCards, setIsAlternate
     dispatch({ type: PICK_NEW_GAME, field: 'isDelayedReviewOn', value: false })
     dispatch({ type: PICK_NEW_GAME, field: 'databaseSelector', value: '' })
 
-    // dispatch({type: CHECK_TOKEN })
+    dispatch({ type: CHECK_TOKEN })
   }
 
   const isRecheckAllowed = () => {

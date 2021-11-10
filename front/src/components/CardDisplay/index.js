@@ -34,7 +34,7 @@ const CardDisplay = () => {
     if (allCards?.length) {
       setLoading(false)
     }
-
+    console.log({ allCards })
     if (allCards?.length && delayedIds?.length) {
       const delayedCardsWithNulls = allCards.map((card) => {
         const myCard = delayedIds.indexOf(card.id)
