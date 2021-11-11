@@ -6,7 +6,7 @@ const DelayedCards = ({ handleClick, isActive, delayedCards }) => {
   const { databaseSelector } = useSelector((state) => state.options)
   const areThereDelayedCards = delayedCards > 0
   console.log({ delayedCards, areThereDelayedCards })
-  const isDelayedReviewOn = databaseSelector === 'NOT_MASTERED'
+  const isDelayedReviewOn = databaseSelector === 'NOT_MASTERED' || databaseSelector === 'FAILED_1ST_ROUND'
   const className = 'information-alt'
   const classNameActive = 'information'
   const classNameAllCards = classNames({

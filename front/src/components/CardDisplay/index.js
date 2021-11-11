@@ -20,23 +20,25 @@ const CardDisplay = () => {
   const dispatch = useDispatch()
   // use URl parameters to determine the card to display from deck and card id
   const { deckId, cardId } = useParams()
+  const initialFirstCardState = { id: 0, index: 0, recto: 'ce paquet est vide, ou ne vous est pas accessible', verso: 'Vérifiez que vous êtes connectés et que ce paquet a bel et bien un contenu ' }
+
   const delayedIds = useSelector((state) => state.user.delayedCards)
   const allCards = useSelector(state => state.currentDeck).cards
   const deckTitle = useSelector(state => state.currentDeck).title
   const { isAlternateRequired, isDelayedReviewOn, databaseSelector, order } = useSelector((state) => state.options)
   const isFailed = useSelector((state) => state.options.isFailed)
+
   const [showError, setShowError] = useState(false)
-  const initialFirstCardState = { id: 0, index: 0, recto: 'ce paquet est vide, ou ne vous est pas accessible', verso: 'Vérifiez que vous êtes connectés et que ce paquet a bel et bien un contenu ' }
   const [delayedCards, setDelayedCards] = useState([])
   const [showOptions, setShowOptions] = useState(true)
+
   const [loading, setLoading] = useState(true)
-  const [checkIfExist, setCheckIfExist] = useState(0)
+  const [checkIfExist, setCheckIfExist] = useState('no timeout yet')
   // "database" will be passed as props to the MD Editor and contains all the cards to be displayed
   const [database, setDatabase] = useState([initialFirstCardState])
+  const [currentCard, setCurrentCard] = useState(initialFirstCardState)
   const [failedCards, setFailedCards] = useState([])
   const [count, setCount] = useState({ success: 0, failed: 0, restart: 0, loading: 0 })
-
-  const [currentCard, setCurrentCard] = useState(initialFirstCardState)
   // Fetch all cards from the selected deck
   useEffect(() => {
     dispatch({ type: SET_CURRENT_DECK_ID, deckId: deckId })
@@ -78,7 +80,7 @@ const CardDisplay = () => {
       clearTimeout(checkIfExist)
       setLoading(false)
     } else {
-      if (checkIfExist === 0) {
+      if (checkIfExist === 'no timeout yet') {
         setCheckIfExist(setTimeout(() => {
           setLoading(false); setShowError(true)
         }, 1000))
@@ -129,10 +131,13 @@ const CardDisplay = () => {
         setDatabase(prevState => (pickOrder(prevState, order)))
 
         resetCount()
+        setCurrentCard(prevState => ({ ...prevState, index: 0 }))
         setDatabase((state) => {
           console.log('la database suivante est séléctionnée(2. cartes delayed):', state)
           return state
         })
+        setFailedCards([])
+
         break
       }
       default: {
