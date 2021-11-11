@@ -140,7 +140,7 @@ const CardDisplay = () => {
         setDatabase(prevState => (pickOrder(prevState, order)))
         resetCount()
         setDatabase((state) => {
-          console.log('la database suivante est séléctionnée(4. toutes les cartes, par défaut):', state)
+          console.log(`la database suivante est séléctionnée(3. toutes les cartes, par défaut, ordre ${order}):, state`)
           return state
         })
       }

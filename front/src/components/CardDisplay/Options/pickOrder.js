@@ -1,5 +1,5 @@
 export const pickOrder = (database, order) => {
-  const randomDatabase = database.slice()
+  const randomDatabase = Array.from(database) // crée une shallow copy, pour respecter l'immutabilité
 
   switch (order) {
     case 'RANDOM': {
@@ -10,6 +10,7 @@ export const pickOrder = (database, order) => {
       console.log({ randomDatabase })
       return randomDatabase
     }
+    // ordre chronologique
     default: {
       return database
     }
