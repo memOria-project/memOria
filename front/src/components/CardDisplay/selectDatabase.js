@@ -20,13 +20,4 @@ const selectDatabase = (database, databaseSelector) => {
       console.log('la database suivante est séléctionnée(4. toutes les cartes, par défaut):', database)
     }
   }
-  // if (isAlternateRequired) {
-
-  // } else if (isFailed) {
-
-  // } else if (isDelayedReviewOn) {
-
-  // } else if (!isFailed) {
-
-  // }
 }

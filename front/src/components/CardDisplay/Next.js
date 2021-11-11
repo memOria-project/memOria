@@ -6,28 +6,11 @@ import { FETCH_CARDS, RESET_CARD, PICK_NEW_GAME, DELAY_CARD } from '../../action
 import { useRef, useState, useEffect } from 'react'
 const Next = ({ deckId, deckLength, currentCard, setCurrentCard, addFailedCards, count, setCount }) => {
   const dispatch = useDispatch()
-  const { defaultView, currentView, isFailed } = useSelector((state) => state.options)
-  const { isDelayedReviewOn } = useSelector((state) => state.options)
+  const { defaultView } = useSelector((state) => state.options)
   const { isConnected } = useSelector((state) => state.user)
   const { cardId } = useParams()
-  const setNextCardURL = () => {
-    return `/deck/${deckId}/`
 
-    // if (currentCard) {
-    //   return `/deck/${deckId}/${currentCard.id}`
-    // } else {
-    //   return '/'
-    // }
-  }
   const nextCardURL = `/deck/${deckId}/${currentCard.id}`
-  // useEffect(() => {
-  //   nextCardURL = setNextCardURL()
-  //   console.log(nextCardURL)
-  //   console.log(currentCard)
-  // }, [currentCard])
-  // const deckLength = useSelector(state => state.currentDeck).deck_length
-  // const goodCards = deckLength- failedCards.length
-  // console.log(goodCards)
 
   const setIndexNextCard = () => {
     setCurrentCard(prevState => ({ ...prevState, index: prevState.index + 1 }))

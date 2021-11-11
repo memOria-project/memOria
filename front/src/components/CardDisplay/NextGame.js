@@ -7,7 +7,6 @@ const NextGame = ({ failedCards, setCurrentCard, database, setFailedCards, setCo
 
   const handleClickCheckFail = () => {
     dispatch({ type: PICK_NEW_GAME, field: 'databaseSelector', value: 'FAILED_1ST_ROUND' })
-    dispatch({ type: PICK_NEW_GAME, field: 'isFailed', value: true })
     setCount(prevState => ({ ...prevState, restart: prevState.restart + 1 }))
     const { id, recto, verso } = database[0]
 
@@ -19,8 +18,6 @@ const NextGame = ({ failedCards, setCurrentCard, database, setFailedCards, setCo
   const handleClickRestart = () => {
     dispatch({ type: FETCH_CARDS, deckId })
     setFailedCards([])
-    dispatch({ type: PICK_NEW_GAME, field: 'isFailed', value: false })
-    dispatch({ type: PICK_NEW_GAME, field: 'isDelayedReviewOn', value: false })
     dispatch({ type: PICK_NEW_GAME, field: 'databaseSelector', value: '' })
     const { id, recto, verso } = database[0]
     setCurrentCard({ index: 0, id, recto, verso })

@@ -7,9 +7,6 @@ export const initialState = {
   currentView: {
     isRecto: true
   },
-  isFailed: false,
-  isAlternateRequired: false,
-  isDelayedReviewOn: false,
   databaseSelector: '',
   order: 'RANDOM'
 

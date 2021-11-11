@@ -1,8 +1,8 @@
 
 import { useParams } from 'react-router-dom'
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { SET_CURRENT_DECK_ID, FETCH_CARDS, CHECK_TOKEN, PICK_NEW_GAME, SET_CURRENT_DECK_CONTENT } from '../../actions'
+import { SET_CURRENT_DECK_ID, FETCH_CARDS, CHECK_TOKEN, PICK_NEW_GAME } from '../../actions'
 
 import ShowCards from './ShowCards'
 import Loading from '../Loading'
@@ -25,8 +25,7 @@ const CardDisplay = () => {
   const delayedIds = useSelector((state) => state.user.delayedCards)
   const allCards = useSelector(state => state.currentDeck).cards
   const deckTitle = useSelector(state => state.currentDeck).title
-  const { isAlternateRequired, isDelayedReviewOn, databaseSelector, order } = useSelector((state) => state.options)
-  const isFailed = useSelector((state) => state.options.isFailed)
+  const { databaseSelector, order } = useSelector((state) => state.options)
 
   const [showError, setShowError] = useState(false)
   const [delayedCards, setDelayedCards] = useState([])
@@ -38,8 +37,12 @@ const CardDisplay = () => {
   const [database, setDatabase] = useState([initialFirstCardState])
   const [currentCard, setCurrentCard] = useState(initialFirstCardState)
   const [failedCards, setFailedCards] = useState([])
-  const [count, setCount] = useState({ success: 0, failed: 0, restart: 0, loading: 0 })
-  // Fetch all cards from the selected deck
+  // count.restart est uniquement là pour forcer le re-render quand l'utilisateur décide de rejouer au même mode de jeu.
+  // dans ce cas précis, sans count.restart, la database appropriée ne serait pas re-sélectionné
+  const [count, setCount] = useState({ success: 0, failed: 0, restart: 0 })
+
+  // * ↓ Initialisation (récup et traitement des données) ↓
+  // récupère toutes les cartes du paquet concerné, les infos utilisateurs, et reset le mode de parcours (pour qu'il soit par défaut)
   useEffect(() => {
     dispatch({ type: SET_CURRENT_DECK_ID, deckId: deckId })
     dispatch({ type: FETCH_CARDS })
@@ -47,7 +50,23 @@ const CardDisplay = () => {
     dispatch({ type: PICK_NEW_GAME, field: 'databaseSelector', value: '' })
   }, [])
 
-  // filter data based on delayedIds!
+  // vérifie que le paquet existe / que l'utilisateur a le droit de l'utiliser
+  useEffect(() => {
+    if (allCards) {
+      console.log(`timeout ${checkIfExist} cleared!`)
+      clearTimeout(checkIfExist)
+      setLoading(false)
+    } else {
+      if (checkIfExist === 'no timeout yet') {
+        setCheckIfExist(setTimeout(() => {
+          setLoading(false); setShowError(true)
+        }, 1000))
+        console.log('timeout créé')
+      }
+    }
+  }, [allCards, checkIfExist])
+
+  // recupère les cartes reportées, met à jour l'array delayedCards
   useEffect(() => {
     if (allCards?.length) {
       setLoading(false)
@@ -65,47 +84,23 @@ const CardDisplay = () => {
       // delayed cards, version "bonnes cartes reportées"
       const delayedCardsFinalFinal = allCards.filter(item => !delayedCardsFinal.includes(item))
       console.log({ delayedCardsFinal, allCards, delayedCardsFinalFinal, delayedCards })
-      if (delayedCardsFinalFinal.length != allCards.length) {
+      if (delayedCardsFinalFinal.length !== allCards.length) {
         setDelayedCards(delayedCardsFinalFinal)
-        setDelayedCardsLength(delayedCardsFinalFinal.length)
       }
 
       console.log({ delayedCards })
     }
   }, [allCards, delayedIds])
 
-  useEffect(() => {
-    if (allCards) {
-      console.log(`timeout ${checkIfExist} cleared!`)
-      clearTimeout(checkIfExist)
-      setLoading(false)
-    } else {
-      if (checkIfExist === 'no timeout yet') {
-        setCheckIfExist(setTimeout(() => {
-          setLoading(false); setShowError(true)
-        }, 1000))
-        console.log('timeout créé')
-      }
-    }
-    // else {
-    //   // if (count.loading > 1 && !allCards) {
-    //   //   setLoading(false); setShowError(true)
-    //   // } else {
-    //   //   setCount(prevState => ({ ...prevState, loading: prevState.loading + 1 }))
-    //   // }
-    // }
-  }, [allCards, checkIfExist])
-
-  // useEffect(()=> {
-  //   if(database === first)
-  // })
-
+  // sélectionne le sous ensemble de cartes à parcourir
   useEffect(() => {
     console.log(`database selection ${allCards}`)
     if (allCards) {
       selectDatabase(databaseSelector)
     }
   }, [allCards, databaseSelector, order, count.restart])
+
+  // * ↓ fonctions utilisées dans l'initalisation (à modulariser à l'avenir) ↓
 
   const resetCount = () => {
     setCount(prevState => ({ ...prevState, success: 0, failed: 0 }))
@@ -152,7 +147,7 @@ const CardDisplay = () => {
     }
   }
 
-  //  Triggers the modal offering the "next games" options: start again with all the cards, or check the missed ones
+  //  Vérifie s'il faut montrer le composant NextGame (modale offrant les options de rejouabilité)
   const checkIfOver = () => {
     if (currentCard?.index === database?.length) {
       console.log('la modale over est montrée')
@@ -163,17 +158,20 @@ const CardDisplay = () => {
   }
 
   const isOver = checkIfOver()
-  // is called when a user clicks on "I missed"
+
+  // est appelé quand l'utilisateur clique sur le bouton "j'ai raté une carte"
   const addFailedCards = (card) => {
     setFailedCards((state) => [...state, card])
   }
-  const [delayedCardsLength, setDelayedCardsLength] = useState(delayedCards.length)
-  /* le return statement se construit avec plusieurs niveau de tertiary operator...
-  idéalement, il faudrait s'en passer, car c'est peu lisible.
-  */
 
-  // ? ici, react render un ARRAY. Comme React ne render pas les entrées qui renvoient falsy, ça fonctionne.
-  // ?  C'est la seule syntaxe qui semble permettre de gérer la présence d'expression avec && à l'intérieur des ternary.
+  /* le return statement se construit avec plusieurs niveau de tertiary operator...
+C'est mauvais question visibilité. Piste pour éviter ça
+ => intégrer les composants Loading et NoMatch dans App.js, au niveau des routeurs, voir #66
+
+ */
+
+  // ? dans ce return, s'il n'y a pas d'erreur, react render un ARRAY. Si ça marche, c'est notamment car chaque entrée renvoie "false" si elles sont non pertinentes (et React n'affiche pas les expression "false")
+  // ?  C'est un peu particulier... mais c'est la seule syntaxe qui semble permettre de gérer la présence d'expression avec && à l'intérieur des ternary.
   return (<div>
           {loading
             ? <Loading />
@@ -184,18 +182,18 @@ const CardDisplay = () => {
             <div className="cardDisplay__modal">
               <div className="cardDisplay__modal__container modal__container__verso">
 
-              <Options setDelayedCardsLength={setDelayedCardsLength} setShowOptions={setShowOptions} delayedCards={delayedCards} />
+              <Options setShowOptions={setShowOptions} delayedCards={delayedCards} />
               </div>
             </div>,
 
                   currentCard.index <= database.length - 1 &&
             (<>
             <p className="deck__title">{deckTitle} <button className="icon__options"><FontAwesomeIcon icon={faCog} onClick={() => setShowOptions(true)} size="2x"/></button> </p>
-            <ShowCards count={count} setCount={setCount} currentCard={currentCard} setCurrentCard={setCurrentCard} hideButtons={false} delayedCardsLength={delayedCardsLength} cardId={cardId} database={database} addFailedCards={addFailedCards} failedCards={failedCards} />
+            <ShowCards count={count} setCount={setCount} currentCard={currentCard} setCurrentCard={setCurrentCard} hideButtons={false} cardId={cardId} database={database} addFailedCards={addFailedCards} failedCards={failedCards} />
             </>),
 
                   isOver &&
-            <NextGame setCount={setCount} setFailedCards={setFailedCards} isFailed={isFailed} failedCards={failedCards} setCurrentCard={setCurrentCard} database={database} />,
+            <NextGame setCount={setCount} setFailedCards={setFailedCards} failedCards={failedCards} setCurrentCard={setCurrentCard} database={database} />,
 
                   loading &&
             <Loading />

@@ -1,5 +1,4 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { useState } from 'react'
 import { PICK_DEFAULT_CARD_SIDE } from '../../../actions'
 import classNames from 'classnames'
 

@@ -1,8 +1,7 @@
 import classNames from 'classnames'
-import { useState } from 'react'
 import { useSelector } from 'react-redux'
 
-const DelayedCards = ({ handleClick, isActive, delayedCards }) => {
+const DelayedCards = ({ handleClick, delayedCards }) => {
   const { databaseSelector } = useSelector((state) => state.options)
   const areThereDelayedCards = delayedCards > 0
   console.log({ delayedCards, areThereDelayedCards })
