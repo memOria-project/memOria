@@ -10,7 +10,8 @@ export const initialState = {
   isFailed: false,
   isAlternateRequired: false,
   isDelayedReviewOn: false,
-  databaseSelector: ''
+  databaseSelector: '',
+  order: 'RANDOM'
 
 }
 const reducer = (state = initialState, action = {}) => {

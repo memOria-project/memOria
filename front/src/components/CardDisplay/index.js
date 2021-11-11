@@ -14,6 +14,7 @@ import './CardDisplay_desktop.scss'
 import { faCog } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import NoMatch from '../NoMatch'
+import { pickOrder } from './Options/pickOrder'
 
 const CardDisplay = () => {
   const dispatch = useDispatch()
@@ -22,7 +23,7 @@ const CardDisplay = () => {
   const delayedIds = useSelector((state) => state.user.delayedCards)
   const allCards = useSelector(state => state.currentDeck).cards
   const deckTitle = useSelector(state => state.currentDeck).title
-  const { isAlternateRequired, isDelayedReviewOn, databaseSelector } = useSelector((state) => state.options)
+  const { isAlternateRequired, isDelayedReviewOn, databaseSelector, order } = useSelector((state) => state.options)
   const isFailed = useSelector((state) => state.options.isFailed)
   const [showError, setShowError] = useState(false)
   const initialFirstCardState = { id: 0, index: 0, recto: 'ce paquet est vide, ou ne vous est pas accessible', verso: 'Vérifiez que vous êtes connectés et que ce paquet a bel et bien un contenu ' }
@@ -102,7 +103,7 @@ const CardDisplay = () => {
     if (allCards) {
       selectDatabase(databaseSelector)
     }
-  }, [allCards, databaseSelector, count.restart])
+  }, [allCards, databaseSelector, order, count.restart])
 
   const resetCount = () => {
     setCount(prevState => ({ ...prevState, success: 0, failed: 0 }))
@@ -112,6 +113,8 @@ const CardDisplay = () => {
     switch (selector) {
       case 'FAILED_1ST_ROUND': {
         setDatabase(failedCards)
+        setDatabase(prevState => (pickOrder(prevState, order)))
+
         setDatabase((state) => {
           console.log('la database suivante est séléctionnée(1. cartes ratées):', state)
           return state
@@ -123,6 +126,8 @@ const CardDisplay = () => {
 
       case 'NOT_MASTERED': {
         setDatabase(delayedCards)
+        setDatabase(prevState => (pickOrder(prevState, order)))
+
         resetCount()
         setDatabase((state) => {
           console.log('la database suivante est séléctionnée(2. cartes delayed):', state)
@@ -132,6 +137,7 @@ const CardDisplay = () => {
       }
       default: {
         setDatabase(allCards)
+        setDatabase(prevState => (pickOrder(prevState, order)))
         resetCount()
         setDatabase((state) => {
           console.log('la database suivante est séléctionnée(4. toutes les cartes, par défaut):', state)

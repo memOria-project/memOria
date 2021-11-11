@@ -36,6 +36,7 @@ const Options = ({ setDelayedCardsLength, setShowOptions, delayedCards }) => {
 
       <h2>Montrer en premier </h2>
         <RectoVerso />
+      {/* <h2>Cartes dans l'ordre </h2> */}
       {isConnected &&
         <>
           <h2>  Parcourir les cartes</h2>
