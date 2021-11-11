@@ -4,9 +4,7 @@ import { NavLink, useParams } from 'react-router-dom'
 
 const NextGame = ({ failedCards, setCurrentCard, database, setFailedCards, setCount }) => {
   const { cardId, deckId } = useParams()
-  const resetCount = () => {
-    setCount(prevState => ({ ...prevState, success: 0, failed: 0 }))
-  }
+
   const handleClickCheckFail = () => {
     dispatch({ type: PICK_NEW_GAME, field: 'databaseSelector', value: 'FAILED_1ST_ROUND' })
     dispatch({ type: PICK_NEW_GAME, field: 'isFailed', value: true })
@@ -14,7 +12,6 @@ const NextGame = ({ failedCards, setCurrentCard, database, setFailedCards, setCo
     const { id, recto, verso } = database[0]
 
     setCurrentCard({ index: 0, id, recto, verso })
-    resetCount()
 
     dispatch({ type: CHECK_TOKEN })
   }
@@ -27,7 +24,6 @@ const NextGame = ({ failedCards, setCurrentCard, database, setFailedCards, setCo
     dispatch({ type: PICK_NEW_GAME, field: 'databaseSelector', value: '' })
     const { id, recto, verso } = database[0]
     setCurrentCard({ index: 0, id, recto, verso })
-    resetCount()
     dispatch({ type: CHECK_TOKEN })
   }
 

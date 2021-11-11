@@ -69,12 +69,15 @@ const CardDisplay = () => {
   }, [allCards, delayedIds])
 
   useEffect(() => {
+    console.log(`database selection ${allCards}`)
     if (allCards) {
       selectDatabase(databaseSelector)
     }
   }, [allCards, databaseSelector, count.restart])
 
-  //
+  const resetCount = () => {
+    setCount(prevState => ({ ...prevState, success: 0, failed: 0 }))
+  }
 
   const selectDatabase = (selector) => {
     switch (selector) {
@@ -85,11 +88,13 @@ const CardDisplay = () => {
           return state
         })
         setFailedCards([])
+        resetCount()
         break
       }
 
       case 'NOT_MASTERED': {
         setDatabase(delayedCards)
+        resetCount()
         setDatabase((state) => {
           console.log('la database suivante est séléctionnée(2. cartes delayed):', state)
           return state
@@ -98,6 +103,7 @@ const CardDisplay = () => {
       }
       default: {
         setDatabase(allCards)
+        resetCount()
         setDatabase((state) => {
           console.log('la database suivante est séléctionnée(4. toutes les cartes, par défaut):', state)
           return state
