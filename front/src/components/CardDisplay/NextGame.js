@@ -1,33 +1,27 @@
-import { FETCH_CARDS, PICK_NEW_GAME } from '../../actions'
+import { FETCH_CARDS, PICK_NEW_GAME, CHECK_TOKEN } from '../../actions'
 import { useDispatch } from 'react-redux'
 import { NavLink, useParams } from 'react-router-dom'
 
-const NextGame = ({ setInitialFailedCards, isFailed, failedCards, setIsAlternateRequired, alternateFailedCards, isAlternateRequired }) => {
+const NextGame = ({ failedCards, setCurrentCard, database, setFailedCards, setCount }) => {
   const { cardId, deckId } = useParams()
+
   const handleClickCheckFail = () => {
-    if (isFailed) {
-      dispatch({ type: PICK_NEW_GAME, field: 'isFailed', value: false })
+    dispatch({ type: PICK_NEW_GAME, field: 'databaseSelector', value: 'FAILED_1ST_ROUND' })
+    setCount(prevState => ({ ...prevState, restart: prevState.restart + 1 }))
+    const { id, recto, verso } = database[0]
 
-      dispatch({ type: PICK_NEW_GAME, field: 'isAlternateRequired', value: true })
+    setCurrentCard({ index: 0, id, recto, verso })
 
-      console.log({ isFailed, isAlternateRequired, alternateFailedCards })
-    } else if (isAlternateRequired) {
-      dispatch({ type: PICK_NEW_GAME, field: 'isFailed', value: true })
-      dispatch({ type: PICK_NEW_GAME, field: 'isAlternateRequired', value: false })
-    } else {
-      dispatch({ type: PICK_NEW_GAME, field: 'isFailed', value: true })
-    }
-    // database.splice(cardId, 1)
+    dispatch({ type: CHECK_TOKEN })
   }
 
   const handleClickRestart = () => {
     dispatch({ type: FETCH_CARDS, deckId })
-    setInitialFailedCards([])
-    dispatch({ type: PICK_NEW_GAME, field: 'isFailed', value: false })
-    dispatch({ type: PICK_NEW_GAME, field: 'isAlternateRequired', value: false })
-    dispatch({ type: PICK_NEW_GAME, field: 'isDelayedReviewOn', value: false })
-
-    // dispatch({type: CHECK_TOKEN })
+    setFailedCards([])
+    dispatch({ type: PICK_NEW_GAME, field: 'databaseSelector', value: '' })
+    const { id, recto, verso } = database[0]
+    setCurrentCard({ index: 0, id, recto, verso })
+    dispatch({ type: CHECK_TOKEN })
   }
 
   const isRecheckAllowed = () => {

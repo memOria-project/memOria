@@ -8,30 +8,19 @@ import { motion } from 'framer-motion'
 import classNames from 'classnames'
 // import { useSwipeable } from 'react-swipeable'
 
-const ShowCards = ({ hideButtons, delayedCardsLength, database, cardId, addFailedCards, failedCards }) => {
+const ShowCards = ({ hideButtons, database, addFailedCards, failedCards, setCurrentCard, currentCard, count, setCount }) => {
   const { deckId } = useParams()
   const dispatch = useDispatch()
   const { currentView } = useSelector((state) => state.options)
-  const initialLength = useRef(database.length)
-  console.log('longueur', initialLength.current)
   const { isRecto } = currentView
-  const [nextCard, setNextCard] = useState('/')
-  const cardsNumberInDeck = database.length
+  const deckLength = database.length
 
-  const myCard = database[cardId] ?? [{ recto: 'recto', verso: 'verso' }]
   useEffect(() => {
-    setNextCard(Math.floor(cardsNumberInDeck * Math.random()))
-    // if(cardsNumberInDeck===randomNextCardId){
-    //   cardsNumberInDeck = cardsNumberInDeck-1;
-    // }
-    if (nextCard >= cardsNumberInDeck) {
-
+    if (database.length >= 1) {
+      setCurrentCard((prevState) => ({ ...prevState, recto: database[prevState.index].recto, verso: database[prevState.index].verso, id: database[prevState.index].id }))
+      console.log({ currentCard })
     }
-  }, [cardsNumberInDeck])
-
-  // randomNextCardId = Math.floor(cardsNumberInDeck*Math.random());
-
-  // cardContent = database['cards'].find((card)=> card.id == cardId)
+  }, [database, currentCard.index])
 
   const handleClickReturn = () => {
     dispatch({ type: RETURN_CARD, isRecto: currentView.isRecto })
@@ -45,8 +34,6 @@ const ShowCards = ({ hideButtons, delayedCardsLength, database, cardId, addFaile
   //   // trackMouse:true
   // })
   // ? fin swiper
-
-  const showedCard = database[cardId]
 
   const cardClass = classNames({
     card: true,
@@ -62,7 +49,7 @@ const ShowCards = ({ hideButtons, delayedCardsLength, database, cardId, addFaile
     onClick={handleClickReturn}
     >
     <pre className="card__content">
-      <MDEditor.Markdown source={myCard.recto} />
+      <MDEditor.Markdown source={currentCard.recto} />
     </pre>
   </motion.div>
   : <motion.div
@@ -72,12 +59,12 @@ const ShowCards = ({ hideButtons, delayedCardsLength, database, cardId, addFaile
     <motion.pre
     className="card__content"
     animate={{ rotateY: 180 }}>
-      <MDEditor.Markdown source={myCard.verso} />
+      <MDEditor.Markdown source={currentCard.verso} />
     </motion.pre>
   </motion.div>
 }
-  {!hideButtons && <><Next delayedCardsLength={delayedCardsLength} initialLength={initialLength.current} failedCards={failedCards} database={database} showedCard={showedCard} nextCard={nextCard} setNextCard={setNextCard} deckId={deckId} cardsNumberInDeck={cardsNumberInDeck} addFailedCards={addFailedCards}/>
-  <p style={{ fontSize: '1.5em' }}> Cartes restantes: {cardsNumberInDeck - 1}</p></>}
+  {!hideButtons && <><Next count={count} setCount={setCount} failedCards={failedCards} database={database} currentCard={currentCard} setCurrentCard={setCurrentCard} deckId={deckId} deckLength={deckLength} addFailedCards={addFailedCards}/>
+  <p style={{ fontSize: '1.5em' }}> Cartes restantes: {deckLength - currentCard.index - 1}</p></>}
   </>
 }
 export default ShowCards

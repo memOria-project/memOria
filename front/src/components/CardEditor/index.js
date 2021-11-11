@@ -44,7 +44,7 @@ const CardEditor = () => {
         field: [{
           field: 'currentDeckId',
           value: deckId
-        }, { field: 'currentCardId', value: cardId }]
+        }, { field: 'cardId', value: cardId }]
       })
     }
   }, [])

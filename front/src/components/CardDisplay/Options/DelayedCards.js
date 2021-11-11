@@ -1,16 +1,27 @@
-import { useState } from "react"
-import { useSelector } from "react-redux"
+import classNames from 'classnames'
+import { useSelector } from 'react-redux'
 
-const DelayedCards = ({handleClick, isActive, delayedCards}) => {
-  const areThereDelayedCards = delayedCards.length>0?true:false
+const DelayedCards = ({ handleClick, delayedCards }) => {
+  const { databaseSelector } = useSelector((state) => state.options)
+  const areThereDelayedCards = delayedCards > 0
+  console.log({ delayedCards, areThereDelayedCards })
+  const isDelayedReviewOn = databaseSelector === 'NOT_MASTERED' || databaseSelector === 'FAILED_1ST_ROUND'
+  const className = 'information-alt'
+  const classNameActive = 'information'
+  const classNameAllCards = classNames({
+    [classNameActive]: !isDelayedReviewOn,
+    [className]: isDelayedReviewOn
+  })
 
-  let className = "information-alt"
-  let classNameActive = "information"
+  const classNameNotMastered = classNames({
+    [classNameActive]: isDelayedReviewOn,
+    [className]: !isDelayedReviewOn
+  })
 
-return <>
-  <button id="allCards" onClick={handleClick} className={isActive.allCards?classNameActive:className}>Toutes les cartes</button>
-  <button id="onlyFailed" className={isActive.onlyFailed?classNameActive:className} onClick={handleClick} disabled={!areThereDelayedCards} hidden={!areThereDelayedCards}> Cartes non Maitrisées</button> <br /> <br />
-  {/* <button id="allCards" onClick={handleClick} className={isActive.onlyFailed?classNameActive:className}>Seulement Non Maitrisées</button> */}
+  return <>
+  <button id="allCards" onClick={handleClick} className={classNameAllCards}>Toutes les cartes</button>
+  <button id="notMastered" className={classNameNotMastered} onClick={handleClick} disabled={!areThereDelayedCards} hidden={!areThereDelayedCards}> Cartes non Maitrisées</button> <br /> <br />
+  {/* <button id="allCards" onClick={handleClick} className={isActive.notMastered?classNameActive:className}>Seulement Non Maitrisées</button> */}
   </>
 }
 export default DelayedCards
