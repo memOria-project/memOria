@@ -8,12 +8,15 @@ import SignIn from './components/Signin'
 import CardDisplay from './components/CardDisplay'
 import DeckEditor from './components/DeckEditor'
 import Profile from './components/Profile'
-
+import store from './store'
 import CardEditor from './components/CardEditor'
 import Subscribe from './components/Subscribe'
 import Team from './components/Team'
 import TestFocus from './components/testFocus'
 import { checkSession } from './components/CheckSession/checkSession'
+import { SET_CURRENT_DECK_CONTENT } from './actions'
+import ResetCard from './components/ResetCard'
+
 function App () {
   checkSession()
   return (
@@ -30,6 +33,7 @@ function App () {
           <SignIn />
         </Route>
         <Route path="/deck/:deckId/:cardId">
+          <ResetCard />
           <CardDisplay />
         </Route>
         <Route path="/profile/:deckId/new">
