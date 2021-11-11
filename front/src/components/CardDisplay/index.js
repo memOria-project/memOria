@@ -1,8 +1,8 @@
 
 import { useParams } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { SET_CURRENT_DECK_ID, FETCH_CARDS, CHECK_TOKEN, PICK_NEW_GAME } from '../../actions'
+import { SET_CURRENT_DECK_ID, FETCH_CARDS, CHECK_TOKEN, PICK_NEW_GAME, SET_CURRENT_DECK_CONTENT } from '../../actions'
 
 import ShowCards from './ShowCards'
 import Loading from '../Loading'
@@ -13,6 +13,7 @@ import './CardDisplay.scss'
 import './CardDisplay_desktop.scss'
 import { faCog } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import NoMatch from '../NoMatch'
 
 const CardDisplay = () => {
   const dispatch = useDispatch()
@@ -23,16 +24,18 @@ const CardDisplay = () => {
   const deckTitle = useSelector(state => state.currentDeck).title
   const { isAlternateRequired, isDelayedReviewOn, databaseSelector } = useSelector((state) => state.options)
   const isFailed = useSelector((state) => state.options.isFailed)
-
+  const [showError, setShowError] = useState(false)
+  const initialFirstCardState = { id: 0, index: 0, recto: 'ce paquet est vide, ou ne vous est pas accessible', verso: 'Vérifiez que vous êtes connectés et que ce paquet a bel et bien un contenu ' }
   const [delayedCards, setDelayedCards] = useState([])
   const [showOptions, setShowOptions] = useState(true)
   const [loading, setLoading] = useState(true)
+  const [checkIfExist, setCheckIfExist] = useState(0)
   // "database" will be passed as props to the MD Editor and contains all the cards to be displayed
-  const [database, setDatabase] = useState([{ id: 0, index: 0, recto: 'recto', verso: 'verso' }])
+  const [database, setDatabase] = useState([initialFirstCardState])
   const [failedCards, setFailedCards] = useState([])
-  const [count, setCount] = useState({ success: 0, failed: 0, restart: 0 })
+  const [count, setCount] = useState({ success: 0, failed: 0, restart: 0, loading: 0 })
 
-  const [currentCard, setCurrentCard] = useState({ id: 0, index: 0, recto: 'recto', verso: 'verso' })
+  const [currentCard, setCurrentCard] = useState(initialFirstCardState)
   // Fetch all cards from the selected deck
   useEffect(() => {
     dispatch({ type: SET_CURRENT_DECK_ID, deckId: deckId })
@@ -67,6 +70,32 @@ const CardDisplay = () => {
       console.log({ delayedCards })
     }
   }, [allCards, delayedIds])
+
+  useEffect(() => {
+    if (allCards) {
+      console.log(`timeout ${checkIfExist} cleared!`)
+      clearTimeout(checkIfExist)
+      setLoading(false)
+    } else {
+      if (checkIfExist === 0) {
+        setCheckIfExist(setTimeout(() => {
+          setLoading(false); setShowError(true)
+        }, 1000))
+        console.log('timeout créé')
+      }
+    }
+    // else {
+    //   // if (count.loading > 1 && !allCards) {
+    //   //   setLoading(false); setShowError(true)
+    //   // } else {
+    //   //   setCount(prevState => ({ ...prevState, loading: prevState.loading + 1 }))
+    //   // }
+    // }
+  }, [allCards, checkIfExist])
+
+  // useEffect(()=> {
+  //   if(database === first)
+  // })
 
   useEffect(() => {
     console.log(`database selection ${allCards}`)
@@ -128,28 +157,39 @@ const CardDisplay = () => {
     setFailedCards((state) => [...state, card])
   }
   const [delayedCardsLength, setDelayedCardsLength] = useState(delayedCards.length)
+  /* le return statement se construit avec plusieurs niveau de tertiary operator...
+  idéalement, il faudrait s'en passer, car c'est peu lisible.
+  */
+
+  // ? ici, react render un ARRAY. Comme React ne render pas les entrées qui renvoient falsy, ça fonctionne.
+  // ?  C'est la seule syntaxe qui semble permettre de gérer la présence d'expression avec && à l'intérieur des ternary.
   return (<div>
-          {showOptions &&
+          {loading
+            ? <Loading />
+            : showError
+              ? <NoMatch reason="deck-display" />
+              : [
+                  !loading && showOptions &&
             <div className="cardDisplay__modal">
               <div className="cardDisplay__modal__container modal__container__verso">
 
               <Options setDelayedCardsLength={setDelayedCardsLength} setShowOptions={setShowOptions} delayedCards={delayedCards} />
               </div>
-            </div>
-          }
-          {currentCard.index <= database.length - 1 &&
+            </div>,
+
+                  currentCard.index <= database.length - 1 &&
             (<>
             <p className="deck__title">{deckTitle} <button className="icon__options"><FontAwesomeIcon icon={faCog} onClick={() => setShowOptions(true)} size="2x"/></button> </p>
             <ShowCards count={count} setCount={setCount} currentCard={currentCard} setCurrentCard={setCurrentCard} hideButtons={false} delayedCardsLength={delayedCardsLength} cardId={cardId} database={database} addFailedCards={addFailedCards} failedCards={failedCards} />
-            </>)
-          }
-          {isOver &&
-            <NextGame setCount={setCount} setFailedCards={setFailedCards} isFailed={isFailed} failedCards={failedCards} setCurrentCard={setCurrentCard} database={database} />}
+            </>),
 
-          {loading &&
+                  isOver &&
+            <NextGame setCount={setCount} setFailedCards={setFailedCards} isFailed={isFailed} failedCards={failedCards} setCurrentCard={setCurrentCard} database={database} />,
+
+                  loading &&
             <Loading />
-          }
 
+                ]}
            </div>)
 }
 
