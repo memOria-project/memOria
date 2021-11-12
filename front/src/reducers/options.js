@@ -1,4 +1,4 @@
-import { PICK_DEFAULT_CARD_SIDE, RETURN_CARD, RESET_CARD, GET_CARD, PICK_NEW_GAME } from '../actions'
+import { PICK_DEFAULT_CARD_SIDE, RETURN_CARD, RESET_CARD, GET_CARD, PICK_NEW_GAME, PICK_ORDER } from '../actions'
 
 export const initialState = {
   defaultView: {
@@ -32,6 +32,12 @@ const reducer = (state = initialState, action = {}) => {
       }
     }
 
+    case PICK_ORDER: {
+      return {
+        ...state,
+        order: action.value
+      }
+    }
     // Cas utilisé quand l'utilisateur clique sur une carte pour en voir l'autre coté
     case RETURN_CARD: {
       return {

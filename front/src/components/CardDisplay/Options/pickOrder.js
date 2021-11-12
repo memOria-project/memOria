@@ -1,18 +1,26 @@
 export const pickOrder = (database, order) => {
-  const randomDatabase = Array.from(database) // crée une shallow copy, pour respecter l'immutabilité
-
+  const databaseCopy = Array.from(database) // crée une shallow copy, pour respecter l'immutabilité
   switch (order) {
     case 'RANDOM': {
-      for (let i = randomDatabase.length - 1; i > 0; i--) {
+      for (let i = databaseCopy.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [randomDatabase[i], randomDatabase[j]] = [randomDatabase[j], randomDatabase[i]]
+        [databaseCopy[i], databaseCopy[j]] = [databaseCopy[j], databaseCopy[i]]
       }
-      console.log({ randomDatabase })
-      return randomDatabase
+      console.log({ databaseCopy })
+      return databaseCopy
+    }
+    case 'REVERSE_CHRONO': {
+      databaseCopy.sort(function (a, b) {
+        return b.id - a.id
+      })
+      return databaseCopy
     }
     // ordre chronologique
     default: {
-      return database
+      databaseCopy.sort(function (a, b) {
+        return a.id - b.id
+      })
+      return databaseCopy
     }
   }
 }

@@ -1,19 +1,46 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { PICK_NEW_GAME } from '../../../actions'
+import { PICK_NEW_GAME, PICK_ORDER } from '../../../actions'
 import RectoVerso from './RectoVerso'
 import DelayedCards from './DelayedCards'
+import DeckOrder from './DeckOrder'
 
 const Options = ({ setShowOptions, delayedCards }) => {
   const isConnected = useSelector((state) => state.user.isConnected)
   const dispatch = useDispatch()
 
   const handleClick = (event) => {
-    if (event.target.id === 'start') {
-      setShowOptions((state) => !state)
-    } else if (event.target.id === 'allCards') {
-      dispatch({ type: PICK_NEW_GAME, field: 'databaseSelector', value: '' })
-    } else if (event.target.id === 'notMastered') {
-      dispatch({ type: PICK_NEW_GAME, field: 'databaseSelector', value: 'NOT_MASTERED' })
+    switch (event.target.id) {
+      case 'start': {
+        setShowOptions((state) => !state)
+
+        break
+      }
+      case 'allCards': {
+        dispatch({ type: PICK_NEW_GAME, field: 'databaseSelector', value: '' })
+
+        break
+      }
+      case 'NotMastered': {
+        dispatch({ type: PICK_NEW_GAME, field: 'databaseSelector', value: 'NOT_MASTERED' })
+        break
+      }
+      case 'random': {
+        dispatch({ type: PICK_ORDER, value: 'RANDOM' })
+        break
+      }
+      case 'chronological': {
+        dispatch({ type: PICK_ORDER, value: '' })
+        break
+      }
+
+      case 'chronological_reverse': {
+        dispatch({ type: PICK_ORDER, value: 'REVERSE_CHRONO' })
+        break
+      }
+
+      default: {
+        console.log('no valid button selected')
+      }
     }
   }
 
@@ -23,7 +50,9 @@ const Options = ({ setShowOptions, delayedCards }) => {
 
       <h2>Montrer en premier </h2>
         <RectoVerso />
-      {/* <h2>Cartes dans l'ordre </h2> */}
+      <h2> Ordre </h2>
+        <DeckOrder handleClick={handleClick}/>
+
       {isConnected &&
         <>
           <h2>  Parcourir les cartes</h2>
