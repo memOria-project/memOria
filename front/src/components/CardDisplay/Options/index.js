@@ -20,7 +20,7 @@ const Options = ({ setShowOptions, delayedCards }) => {
 
         break
       }
-      case 'NotMastered': {
+      case 'notMastered': {
         dispatch({ type: PICK_NEW_GAME, field: 'databaseSelector', value: 'NOT_MASTERED' })
         break
       }
@@ -48,14 +48,14 @@ const Options = ({ setShowOptions, delayedCards }) => {
     <div>
       <h1> Options</h1>
 
-      <h2>Montrer en premier </h2>
+      <h2> Face par défaut </h2>
         <RectoVerso />
       <h2> Ordre </h2>
         <DeckOrder handleClick={handleClick}/>
 
       {isConnected &&
         <>
-          <h2>  Parcourir les cartes</h2>
+          <h2>Montrer...</h2>
           <DelayedCards handleClick={handleClick} delayedCards={delayedCards.length} />
         </>
         }

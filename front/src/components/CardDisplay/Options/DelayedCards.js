@@ -20,7 +20,7 @@ const DelayedCards = ({ handleClick, delayedCards }) => {
 
   return <>
   <button id="allCards" onClick={handleClick} className={classNameAllCards}>Toutes les cartes</button>
-  <button id="notMastered" className={classNameNotMastered} onClick={handleClick} disabled={!areThereDelayedCards} hidden={!areThereDelayedCards}> Cartes non Maitrisées</button> <br /> <br />
+  <button id="notMastered" className={classNameNotMastered} onClick={handleClick} disabled={!areThereDelayedCards} hidden={!areThereDelayedCards}> Juste les non-maitrisées</button> <br /> <br />
   {/* <button id="allCards" onClick={handleClick} className={isActive.notMastered?classNameActive:className}>Seulement Non Maitrisées</button> */}
   </>
 }
