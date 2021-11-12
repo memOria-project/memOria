@@ -23,6 +23,8 @@ export const REQUEST_SUCCESS = 'REQUEST_SUCCESS'
 export const FETCH_USER_DECKS = 'FETCH_USER_DECKS'
 export const UPDATE_USER_DECKS = 'UPDATE_USER_DECKS'
 export const SET_CURRENT_DECK_CONTENT = 'SET_CURRENT_DECK_CONTENT'
+export const PICK_ORDER = 'PICK_ORDER'
+
 export const getAllDecks = (decks) => {
   return {
     type: GET_DECKS,
