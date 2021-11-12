@@ -20,21 +20,22 @@ const Options = ({ setShowOptions, delayedCards }) => {
 
         break
       }
-      case 'notMastered': {
+      case 'NOT_MASTERED': {
         dispatch({ type: PICK_NEW_GAME, field: 'databaseSelector', value: 'NOT_MASTERED' })
         break
       }
-      case 'random': {
+      case 'RANDOM': {
         dispatch({ type: PICK_ORDER, value: 'RANDOM' })
         break
       }
-      case 'chronological': {
-        dispatch({ type: PICK_ORDER, value: '' })
+
+      case 'REVERSE_CHRONO': {
+        dispatch({ type: PICK_ORDER, value: 'REVERSE_CHRONO' })
         break
       }
 
-      case 'chronological_reverse': {
-        dispatch({ type: PICK_ORDER, value: 'REVERSE_CHRONO' })
+      case 'CHRONO': {
+        dispatch({ type: PICK_ORDER, value: '' })
         break
       }
 
