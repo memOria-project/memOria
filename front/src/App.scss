@@ -105,5 +105,11 @@ a > svg {
   background-color: vars.$color-critic;
 }
 
+.scaleDown {
+  transition: background-color 0.75s 0.5s, transform 0.5s, color 0.75s 0.5s;
+  transform: scale(0.95);
+
+  filter: drop-shadow(0px 0px 2px black) brightness(0.9);
+}
 .App {
 }

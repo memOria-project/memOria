@@ -4,7 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle, faCalendarCheck } from '@fortawesome/free-solid-svg-icons'
 import { FETCH_CARDS, RESET_CARD, PICK_NEW_GAME, DELAY_CARD } from '../../actions'
 import { useRef, useState, useEffect } from 'react'
-const Next = ({ deckId, deckLength, currentCard, setCurrentCard, addFailedCards, count, setCount }) => {
+import setResponseStatus from './setResponseStatus'
+const Next = ({ setDatabase, deckId, deckLength, currentCard, setCurrentCard, addFailedCards, count, setCount }) => {
   const dispatch = useDispatch()
   const { defaultView } = useSelector((state) => state.options)
   const { isConnected } = useSelector((state) => state.user)
@@ -41,18 +42,51 @@ const Next = ({ deckId, deckLength, currentCard, setCurrentCard, addFailedCards,
       console.log(`handleClickSuccess:
       ${cardId} has been delayed`)
     }
-
+    setResponseStatus(setDatabase, currentCard.id, true)
     setIndexNextCard()
-
-    setCount(prevState => ({ ...prevState, success: prevState.success + 1 }))
+    switch (currentCard.response) {
+      case 'notPicked': {
+        setCount(prevState => ({ ...prevState, success: prevState.success + 1 }))
+        break
+      }
+      case 'wrong': {
+        setCount(prevState => ({ ...prevState, success: prevState.success + 1, failed: prevState.failed - 1 }))
+        break
+      }
+      case 'correct': {
+        console.log('card response confirmed')
+      }
+    }
   }
 
   const handleClickFail = () => {
     dispatch({ type: RESET_CARD, isRecto: defaultView.isRecto })
-
-    addFailedCards(currentCard)
-    setCount(prevState => ({ ...prevState, failed: prevState.failed + 1 }))
+    switch (currentCard.response) {
+      case 'notPicked': {
+        addFailedCards(currentCard)
+        setCount(prevState => ({ ...prevState, failed: prevState.failed + 1 }))
+        break
+      }
+      case 'wrong': {
+        setCount(prevState => ({ ...prevState, success: prevState.success + 1, failed: prevState.failed - 1 }))
+        break
+      }
+      case 'correct': {
+        setCount(prevState => ({ ...prevState, failed: prevState.failed + 1, success: prevState.success - 1 }))
+      }
+    }
+    setResponseStatus(setDatabase, currentCard.id, false)
     setIndexNextCard()
+  }
+  const setActiveClass = (defaultClass, buttonType, cardStatus) => {
+    switch (cardStatus) {
+      case buttonType: {
+        return `${defaultClass} scaleDown`
+      }
+      default: {
+        return `${defaultClass}`
+      }
+    }
   }
 
   return (
@@ -60,10 +94,10 @@ const Next = ({ deckId, deckLength, currentCard, setCurrentCard, addFailedCards,
     {deckLength > 0 &&
       (<>
         <button className="information" onClick={setIndexPreviousCard} style={{ visibility: isFirstCard ? 'hidden' : 'visible' }}>Previous</button>
-        <button className="confirm" onClick={() => handleClickSuccess()}>
+        <button className={setActiveClass('confirm', 'correct', currentCard.response)} onClick={() => handleClickSuccess()}>
           <NavLink to={nextCardURL} > <FontAwesomeIcon icon={faCalendarCheck}/> {count.success}</NavLink>
         </button>
-          <button className="warning" onClick={() => handleClickFail()}>
+          <button className={setActiveClass('warning', 'wrong', currentCard.response)} onClick={() => handleClickFail()}>
             <NavLink to={nextCardURL} > <FontAwesomeIcon icon={faTimesCircle} /> {count.failed}</NavLink>
           </button>
           <button className="information" onClick={setIndexNextCard}>Next</button>
