@@ -111,5 +111,14 @@ a > svg {
 
   filter: drop-shadow(0px 0px 2px black) brightness(0.9);
 }
+
+.discrete {
+  // background-color: vars.$color-main;
+  background-color: transparent;
+  color: vars.$color-text-alt;
+  font-weight: 800;
+  font-size: 2em;
+  text-transform: uppercase;
+}
 .App {
 }

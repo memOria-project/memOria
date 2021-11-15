@@ -92,17 +92,18 @@ const Next = ({ setDatabase, deckId, deckLength, currentCard, setCurrentCard, ad
   return (
   <div>
     {deckLength > 0 &&
-      (<>
-        <button className="information" onClick={setIndexPreviousCard} style={{ visibility: isFirstCard ? 'hidden' : 'visible' }}>Previous</button>
+      (<div className="cardDisplay__nextButtons">
+        <button className="discrete" onClick={setIndexPreviousCard} style={{ visibility: isFirstCard ? 'hidden' : 'visible' }}>
+&#11164;</button>
         <button className={setActiveClass('confirm', 'correct', currentCard.response)} onClick={() => handleClickSuccess()}>
           <NavLink to={nextCardURL} > <FontAwesomeIcon icon={faCalendarCheck}/> {count.success}</NavLink>
         </button>
           <button className={setActiveClass('warning', 'wrong', currentCard.response)} onClick={() => handleClickFail()}>
             <NavLink to={nextCardURL} > <FontAwesomeIcon icon={faTimesCircle} /> {count.failed}</NavLink>
           </button>
-          <button className="information" onClick={setIndexNextCard}>Next</button>
+          <button className="discrete" onClick={setIndexNextCard}>&#10148; </button>
 
-      </>)
+      </div>)
  }
   </div>
   )

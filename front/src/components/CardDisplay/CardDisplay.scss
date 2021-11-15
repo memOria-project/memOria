@@ -36,3 +36,17 @@
   background-color: black;
   border: 2px solid gold;
 }
+.cardDisplay__nextButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cardDisplay__nextButtons .confirm,
+.cardDisplay__nextButtons .warning {
+  height: 50%;
+}
+.cardDisplay__nextButtons .discrete {
+  flex: 0;
+  padding: 0.25em;
+}
