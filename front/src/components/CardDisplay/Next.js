@@ -5,6 +5,8 @@ import { faTimesCircle, faCalendarCheck, faCheckCircle } from '@fortawesome/free
 import { FETCH_CARDS, RESET_CARD, PICK_NEW_GAME, DELAY_CARD } from '../../actions'
 import { useRef, useState, useEffect } from 'react'
 import setResponseStatus from './setResponseStatus'
+import setIndexPreviousCard from './setIndexPreviousCard'
+
 const Next = ({ setDatabase, deckId, deckLength, currentCard, setCurrentCard, addFailedCards, count, setCount }) => {
   const dispatch = useDispatch()
   const { defaultView } = useSelector((state) => state.options)
@@ -23,12 +25,6 @@ const Next = ({ setDatabase, deckId, deckLength, currentCard, setCurrentCard, ad
 
   const setIndexNextCard = () => {
     setCurrentCard(prevState => ({ ...prevState, index: prevState.index + 1 }))
-  }
-
-  const setIndexPreviousCard = () => {
-    if (currentCard.index > 0) {
-      setCurrentCard(prevState => ({ ...prevState, index: prevState.index - 1 }))
-    }
   }
 
   const setDelay = () => {
@@ -93,7 +89,7 @@ const Next = ({ setDatabase, deckId, deckLength, currentCard, setCurrentCard, ad
   <div>
     {deckLength > 0 &&
       (<div className="cardDisplay__nextButtons">
-        <button className="discrete" onClick={setIndexPreviousCard} style={{ visibility: isFirstCard ? 'hidden' : 'visible' }}>
+        <button className="discrete" onClick={() => setIndexPreviousCard(setCurrentCard, currentCard.index)} style={{ visibility: isFirstCard ? 'hidden' : 'visible' }}>
 &#11164;</button>
         <button className={setActiveClass('confirm', 'correct', currentCard.response)} onClick={() => handleClickSuccess()}>
           <NavLink to={nextCardURL} > <FontAwesomeIcon icon={faCheckCircle}/> {count.success}</NavLink>

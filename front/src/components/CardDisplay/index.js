@@ -123,6 +123,8 @@ const CardDisplay = () => {
           return state
         })
         initResponseStatus()
+        setCurrentCard(prevState => ({ ...prevState, index: 0 }))
+
         setFailedCards([])
         resetCount()
         break
@@ -146,6 +148,8 @@ const CardDisplay = () => {
       default: {
         setDatabase(allCards)
         setDatabase(prevState => (pickOrder(prevState, order)))
+        setCurrentCard(prevState => ({ ...prevState, index: 0 }))
+
         resetCount()
         setDatabase((state) => {
           console.log(`la database suivante est séléctionnée(3. toutes les cartes, par défaut, ordre ${order}):, state`)
@@ -202,7 +206,7 @@ C'est mauvais question visibilité. Piste pour éviter ça
             </>),
 
                   isOver &&
-            <NextGame setCount={setCount} setFailedCards={setFailedCards} failedCards={failedCards} setCurrentCard={setCurrentCard} database={database} />,
+            <NextGame setCount={setCount} setFailedCards={setFailedCards} failedCards={failedCards} currentCard={currentCard} setCurrentCard={setCurrentCard} database={database} />,
 
                   loading &&
             <Loading />
