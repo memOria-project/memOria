@@ -105,7 +105,13 @@ const CardDisplay = () => {
   const resetCount = () => {
     setCount(prevState => ({ ...prevState, success: 0, failed: 0 }))
   }
-
+  const initResponseStatus = () => {
+    setDatabase(prevState => prevState.map((card) => ({ ...card, response: 'notPicked' })))
+    setDatabase((state) => {
+      console.log('statut des réponses initialisé', state)
+      return state
+    })
+  }
   const selectDatabase = (selector) => {
     switch (selector) {
       case 'FAILED_1ST_ROUND': {
@@ -116,6 +122,9 @@ const CardDisplay = () => {
           console.log('la database suivante est séléctionnée(1. cartes ratées):', state)
           return state
         })
+        initResponseStatus()
+        setCurrentCard(prevState => ({ ...prevState, index: 0 }))
+
         setFailedCards([])
         resetCount()
         break
@@ -131,6 +140,7 @@ const CardDisplay = () => {
           console.log('la database suivante est séléctionnée(2. cartes delayed):', state)
           return state
         })
+        initResponseStatus()
         setFailedCards([])
 
         break
@@ -138,11 +148,14 @@ const CardDisplay = () => {
       default: {
         setDatabase(allCards)
         setDatabase(prevState => (pickOrder(prevState, order)))
+        setCurrentCard(prevState => ({ ...prevState, index: 0 }))
+
         resetCount()
         setDatabase((state) => {
           console.log(`la database suivante est séléctionnée(3. toutes les cartes, par défaut, ordre ${order}):, state`)
           return state
         })
+        initResponseStatus()
       }
     }
   }
@@ -189,11 +202,11 @@ C'est mauvais question visibilité. Piste pour éviter ça
                   currentCard.index <= database.length - 1 &&
             (<>
             <p className="deck__title">{deckTitle} <button className="icon__options"><FontAwesomeIcon icon={faCog} onClick={() => setShowOptions(true)} size="2x"/></button> </p>
-            <ShowCards count={count} setCount={setCount} currentCard={currentCard} setCurrentCard={setCurrentCard} hideButtons={false} cardId={cardId} database={database} addFailedCards={addFailedCards} failedCards={failedCards} />
+            <ShowCards setDatabase={setDatabase} count={count} setCount={setCount} currentCard={currentCard} setCurrentCard={setCurrentCard} hideButtons={false} cardId={cardId} database={database} addFailedCards={addFailedCards} failedCards={failedCards} />
             </>),
 
                   isOver &&
-            <NextGame setCount={setCount} setFailedCards={setFailedCards} failedCards={failedCards} setCurrentCard={setCurrentCard} database={database} />,
+            <NextGame setCount={setCount} setFailedCards={setFailedCards} failedCards={failedCards} currentCard={currentCard} setCurrentCard={setCurrentCard} database={database} />,
 
                   loading &&
             <Loading />

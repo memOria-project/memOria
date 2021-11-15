@@ -105,5 +105,20 @@ a > svg {
   background-color: vars.$color-critic;
 }
 
+.scaleDown {
+  transition: background-color 0.75s 0.5s, transform 0.5s, color 0.75s 0.5s;
+  transform: scale(0.95);
+  border: 4px solid vars.$color-text;
+  // background-color: vars.$color-confirm-dark;
+}
+
+.discrete {
+  // background-color: vars.$color-main;
+  background-color: transparent;
+  color: vars.$color-confirm-light;
+  font-weight: 800;
+  font-size: 2em;
+  text-transform: uppercase;
+}
 .App {
 }

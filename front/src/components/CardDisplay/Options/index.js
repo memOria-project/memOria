@@ -3,45 +3,15 @@ import { PICK_NEW_GAME, PICK_ORDER } from '../../../actions'
 import RectoVerso from './RectoVerso'
 import DelayedCards from './DelayedCards'
 import DeckOrder from './DeckOrder'
+import optionSwitch from './optionSwitch'
 
 const Options = ({ setShowOptions, delayedCards }) => {
   const isConnected = useSelector((state) => state.user.isConnected)
   const dispatch = useDispatch()
-
   const handleClick = (event) => {
-    switch (event.target.id) {
-      case 'start': {
-        setShowOptions((state) => !state)
-
-        break
-      }
-      case 'allCards': {
-        dispatch({ type: PICK_NEW_GAME, field: 'databaseSelector', value: '' })
-
-        break
-      }
-      case 'NOT_MASTERED': {
-        dispatch({ type: PICK_NEW_GAME, field: 'databaseSelector', value: 'NOT_MASTERED' })
-        break
-      }
-      case 'RANDOM': {
-        dispatch({ type: PICK_ORDER, value: 'RANDOM' })
-        break
-      }
-
-      case 'REVERSE_CHRONO': {
-        dispatch({ type: PICK_ORDER, value: 'REVERSE_CHRONO' })
-        break
-      }
-
-      case 'CHRONO': {
-        dispatch({ type: PICK_ORDER, value: '' })
-        break
-      }
-
-      default: {
-        console.log('no valid button selected')
-      }
+    optionSwitch(event.target.id, dispatch)
+    if (event.target.id === 'start') {
+      setShowOptions((state) => !state)
     }
   }
 

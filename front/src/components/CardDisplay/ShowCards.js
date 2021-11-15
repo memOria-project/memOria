@@ -8,7 +8,7 @@ import { motion } from 'framer-motion'
 import classNames from 'classnames'
 // import { useSwipeable } from 'react-swipeable'
 
-const ShowCards = ({ hideButtons, database, addFailedCards, failedCards, setCurrentCard, currentCard, count, setCount }) => {
+const ShowCards = ({ hideButtons, setDatabase, database, addFailedCards, failedCards, setCurrentCard, currentCard, count, setCount }) => {
   const { deckId } = useParams()
   const dispatch = useDispatch()
   const { currentView } = useSelector((state) => state.options)
@@ -17,7 +17,7 @@ const ShowCards = ({ hideButtons, database, addFailedCards, failedCards, setCurr
 
   useEffect(() => {
     if (database.length >= 1 && !hideButtons) {
-      setCurrentCard((prevState) => ({ ...prevState, recto: database[prevState.index].recto, verso: database[prevState.index].verso, id: database[prevState.index].id }))
+      setCurrentCard((prevState) => ({ ...prevState, recto: database[prevState.index].recto, verso: database[prevState.index].verso, id: database[prevState.index].id, response: database[prevState.index].response }))
       console.log({ currentCard })
     }
   }, [database, currentCard.index])
@@ -63,7 +63,7 @@ const ShowCards = ({ hideButtons, database, addFailedCards, failedCards, setCurr
     </motion.pre>
   </motion.div>
 }
-  {!hideButtons && <><Next count={count} setCount={setCount} failedCards={failedCards} database={database} currentCard={currentCard} setCurrentCard={setCurrentCard} deckId={deckId} deckLength={deckLength} addFailedCards={addFailedCards}/>
+  {!hideButtons && <><Next count={count} setDatabase={setDatabase} setCount={setCount} failedCards={failedCards} database={database} currentCard={currentCard} setCurrentCard={setCurrentCard} deckId={deckId} deckLength={deckLength} addFailedCards={addFailedCards}/>
   <p style={{ fontSize: '1.5em' }}> Cartes restantes: {deckLength - currentCard.index - 1}</p></>}
   </>
 }

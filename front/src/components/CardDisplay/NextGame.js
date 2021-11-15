@@ -1,8 +1,9 @@
 import { FETCH_CARDS, PICK_NEW_GAME, CHECK_TOKEN } from '../../actions'
 import { useDispatch } from 'react-redux'
 import { NavLink, useParams } from 'react-router-dom'
+import setIndexPreviousCard from './setIndexPreviousCard'
 
-const NextGame = ({ failedCards, setCurrentCard, database, setFailedCards, setCount }) => {
+const NextGame = ({ failedCards, currentCard, setCurrentCard, database, setFailedCards, setCount }) => {
   const { cardId, deckId } = useParams()
 
   const handleClickCheckFail = () => {
@@ -46,7 +47,10 @@ const NextGame = ({ failedCards, setCurrentCard, database, setFailedCards, setCo
     <button className="warning" onClick={() => handleClickCheckFail()} >
       <NavLink to={firstCardURL} >Voir les {failedCards.length} cartes non apprises</NavLink>
     </button>
-    }
+    }<br />
+    <button className="information" onClick={() => setIndexPreviousCard(setCurrentCard, currentCard.index)}>
+      Retour
+    </button>
     </div>
   </div>)
 }
