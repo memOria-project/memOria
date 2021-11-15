@@ -13,7 +13,8 @@ $color-warning: #e67e22;
 $color-confirm: $color-text-alt;
 // à utiliser s'il  y a des éléments proches utilisant aussi "color-confirm"
 $color-confirm-light: color.adjust($color-text-alt, $lightness: 5%);
-
+$color-warning-dark: color.adjust($color-warning, $blackness: 5%);
+$color-confirm-dark: color.adjust($color-confirm, $blackness: 5%);
 $color-information: #2980b9;
 $color-critic: #c0392b;
 

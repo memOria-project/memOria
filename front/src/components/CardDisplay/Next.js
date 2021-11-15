@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, useParams } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimesCircle, faCalendarCheck } from '@fortawesome/free-solid-svg-icons'
+import { faTimesCircle, faCalendarCheck, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { FETCH_CARDS, RESET_CARD, PICK_NEW_GAME, DELAY_CARD } from '../../actions'
 import { useRef, useState, useEffect } from 'react'
 import setResponseStatus from './setResponseStatus'
@@ -96,7 +96,7 @@ const Next = ({ setDatabase, deckId, deckLength, currentCard, setCurrentCard, ad
         <button className="discrete" onClick={setIndexPreviousCard} style={{ visibility: isFirstCard ? 'hidden' : 'visible' }}>
 &#11164;</button>
         <button className={setActiveClass('confirm', 'correct', currentCard.response)} onClick={() => handleClickSuccess()}>
-          <NavLink to={nextCardURL} > <FontAwesomeIcon icon={faCalendarCheck}/> {count.success}</NavLink>
+          <NavLink to={nextCardURL} > <FontAwesomeIcon icon={faCheckCircle}/> {count.success}</NavLink>
         </button>
           <button className={setActiveClass('warning', 'wrong', currentCard.response)} onClick={() => handleClickFail()}>
             <NavLink to={nextCardURL} > <FontAwesomeIcon icon={faTimesCircle} /> {count.failed}</NavLink>
