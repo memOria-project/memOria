@@ -9,11 +9,25 @@ const Next = ({ deckId, deckLength, currentCard, setCurrentCard, addFailedCards,
   const { defaultView } = useSelector((state) => state.options)
   const { isConnected } = useSelector((state) => state.user)
   const { cardId } = useParams()
+  const [isFirstCard, setIsFirstCard] = useState()
 
   const nextCardURL = `/deck/${deckId}/${currentCard.id}`
+  useEffect(() => {
+    if (currentCard.index === 0) {
+      setIsFirstCard(true)
+    } else {
+      setIsFirstCard(false)
+    }
+  }, [currentCard.index])
 
   const setIndexNextCard = () => {
     setCurrentCard(prevState => ({ ...prevState, index: prevState.index + 1 }))
+  }
+
+  const setIndexPreviousCard = () => {
+    if (currentCard.index > 0) {
+      setCurrentCard(prevState => ({ ...prevState, index: prevState.index - 1 }))
+    }
   }
 
   const setDelay = () => {
@@ -45,12 +59,14 @@ const Next = ({ deckId, deckLength, currentCard, setCurrentCard, addFailedCards,
   <div>
     {deckLength > 0 &&
       (<>
+        <button className="information" onClick={setIndexPreviousCard} style={{ visibility: isFirstCard ? 'hidden' : 'visible' }}>Previous</button>
         <button className="confirm" onClick={() => handleClickSuccess()}>
           <NavLink to={nextCardURL} > <FontAwesomeIcon icon={faCalendarCheck}/> {count.success}</NavLink>
         </button>
           <button className="warning" onClick={() => handleClickFail()}>
             <NavLink to={nextCardURL} > <FontAwesomeIcon icon={faTimesCircle} /> {count.failed}</NavLink>
           </button>
+          <button className="information" onClick={setIndexNextCard}>Next</button>
 
       </>)
  }
