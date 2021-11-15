@@ -46,7 +46,17 @@
 .cardDisplay__nextButtons .warning {
   height: 50%;
 }
-.cardDisplay__nextButtons .discrete {
+.cardDisplay__nextButtons .discrete,
+.deckOptions__buttons .discrete {
   flex: 0;
-  padding: 0.25em;
+  padding: 0.15em;
+  margin: 0.25em;
+}
+
+.deckOptions__buttons .information {
+  margin: 0.5em;
+  // box-shadow: -30px -0px 0px white, 30px 0px 0px white;
+}
+
+.carousel {
 }
