@@ -15,6 +15,7 @@ import { faCog } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import NoMatch from '../NoMatch'
 import { pickOrder } from './Options/pickOrder'
+import hotkeys from './hotkeys'
 
 const CardDisplay = () => {
   const dispatch = useDispatch()
@@ -185,7 +186,8 @@ C'est mauvais question visibilité. Piste pour éviter ça
 
   // ? dans ce return, s'il n'y a pas d'erreur, react render un ARRAY. Si ça marche, c'est notamment car chaque "entrée" renvoie "false" si elles sont non pertinentes (et React n'affiche pas les expression "false")
   // ?  C'est un peu particulier... mais c'est la seule syntaxe qui semble gérer les expressions avec && à l'intérieur des ternary.
-  return (<div>
+  return (<div
+            onKeyDown={(event) => hotkeys(event, setCurrentCard, currentCard.id)}>
           {loading
             ? <Loading />
             : showError

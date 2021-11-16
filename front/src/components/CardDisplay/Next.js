@@ -6,6 +6,7 @@ import { FETCH_CARDS, RESET_CARD, PICK_NEW_GAME, DELAY_CARD } from '../../action
 import { useRef, useState, useEffect } from 'react'
 import setResponseStatus from './setResponseStatus'
 import setIndexPreviousCard from './setIndexPreviousCard'
+import setIndexNextCard from './setIndexNextCard'
 
 const Next = ({ setDatabase, deckId, deckLength, currentCard, setCurrentCard, addFailedCards, count, setCount }) => {
   const dispatch = useDispatch()
@@ -22,10 +23,6 @@ const Next = ({ setDatabase, deckId, deckLength, currentCard, setCurrentCard, ad
       setIsFirstCard(false)
     }
   }, [currentCard.index])
-
-  const setIndexNextCard = () => {
-    setCurrentCard(prevState => ({ ...prevState, index: prevState.index + 1 }))
-  }
 
   const setDelay = () => {
     dispatch({ type: DELAY_CARD, id: currentCard.id })
@@ -97,7 +94,7 @@ const Next = ({ setDatabase, deckId, deckLength, currentCard, setCurrentCard, ad
           <button className={setActiveClass('warning', 'wrong', currentCard.response)} onClick={() => handleClickFail()}>
             <NavLink to={nextCardURL} > <FontAwesomeIcon icon={faTimesCircle} /> {count.failed}</NavLink>
           </button>
-          <button className="discrete" onClick={setIndexNextCard}>&#10148; </button>
+          <button className="discrete" onClick={() => setIndexNextCard(setCurrentCard, currentCard.index)}>&#10148; </button>
 
       </div>)
  }

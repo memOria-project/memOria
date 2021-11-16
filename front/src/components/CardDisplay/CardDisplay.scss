@@ -55,8 +55,13 @@
 
 .deckOptions__buttons .information {
   margin: 0.5em;
-  // box-shadow: -30px -0px 0px white, 30px 0px 0px white;
+  width: 250px;
 }
 
-.carousel {
+.deckOptions__buttons .discrete {
+  // position: absolute;
+  // left: 30%;
+}
+
+.deckOptions__buttons {
 }
