@@ -1,6 +1,6 @@
 
 import { useParams } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { SET_CURRENT_DECK_ID, FETCH_CARDS, CHECK_TOKEN, PICK_NEW_GAME } from '../../actions'
 
@@ -41,7 +41,10 @@ const CardDisplay = () => {
   // count.restart est uniquement là pour forcer le re-render quand l'utilisateur décide de rejouer au même mode de jeu.
   // dans ce cas précis, sans count.restart, la database appropriée ne serait pas re-sélectionné
   const [count, setCount] = useState({ success: 0, failed: 0, restart: 0 })
-
+  const myFocus = useRef()
+  if (myFocus.current) {
+    myFocus.current.focus()
+  }
   // * ↓ Initialisation (récup et traitement des données) ↓
   // récupère toutes les cartes du paquet concerné, les infos utilisateurs, et reset le mode de parcours (pour qu'il soit par défaut)
   useEffect(() => {
@@ -187,7 +190,9 @@ C'est mauvais question visibilité. Piste pour éviter ça
   // ? dans ce return, s'il n'y a pas d'erreur, react render un ARRAY. Si ça marche, c'est notamment car chaque "entrée" renvoie "false" si elles sont non pertinentes (et React n'affiche pas les expression "false")
   // ?  C'est un peu particulier... mais c'est la seule syntaxe qui semble gérer les expressions avec && à l'intérieur des ternary.
   return (<div
-            onKeyDown={(event) => hotkeys(event, setCurrentCard, currentCard.id)}>
+  ref={myFocus}
+  tabIndex="-1"
+            onKeyDown={(event) => hotkeys(event, setCurrentCard, currentCard.index)}>
           {loading
             ? <Loading />
             : showError
