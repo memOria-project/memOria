@@ -47,24 +47,24 @@ const DeckOrder = ({ handleClick }) => {
   }
   const allButtons = [(<motion.button
     key={1}
-    animate={{ opacity: [0, 1], boxShadow: '-5px -10px 0px white', y: 0, x: 0, duration: 5 }}
-    initial={{ y: 0, x: 0 }}
+    animate={{ opacity: [0, 1], boxShadow: '-5px -10px 0px white', duration: 5 }}
+    initial={{ opacity: 1 }}
 
     transition={{ ease: 'easeInOut' }}
     exit={{ backgroundColor: 'white', boxShadow: 'none', color: 'dark', y: [-5, -25, -5], x: [0, -5, 0], position: 'absolute' }}
     id="RANDOM" onClick={handleClick} className={setClassName(isRandomOn)}>Random</motion.button>),
   (<motion.button
     key={2}
-    animate={{ opacity: [0, 1], boxShadow: '-5px -10px 0px white', y: 0, x: 0, duration: 5 }}
-    initial={{ y: 0, x: 0 }}
+    animate={{ opacity: [0, 1], boxShadow: '-5px -10px 0px white', duration: 5 }}
+    // initial={{ y: 0, x: 0 }}
     transition={{ ease: 'easeInOut' }}
     exit={{ backgroundColor: 'white', boxShadow: 'none', color: 'dark', y: [-5, -25, -5], x: [0, -5, 0], position: 'absolute' }}
     id="CHRONO" onClick={handleClick} className={setClassName(isChronoOn)}> ancient &gt; récent </motion.button>),
   (<motion.button
     key={3}
-    initial={{ y: 0, x: 0 }}
+    // initial={{ y: 0, x: 0 }}
 
-    animate={{ opacity: [0, 1], boxShadow: '-5px -10px 0px white', y: 0, x: 0, duration: 5 }}
+    animate={{ opacity: [0, 1], boxShadow: '-5px -10px 0px white', duration: 5 }}
     transition={{ ease: 'easeInOut' }}
     exit={{ backgroundColor: 'white', boxShadow: 'none', color: 'dark', y: [-5, -25, -5], x: [0, -5, 0], position: 'absolute' }}
     id="REVERSE_CHRONO" onClick={handleClick} className={setClassName(isReverseChronoOn)}> récent &gt; ancient </motion.button>)]
