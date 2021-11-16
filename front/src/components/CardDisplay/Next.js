@@ -10,8 +10,9 @@ import setIndexNextCard from './setIndexNextCard'
 import setAsSuccessful from './setAsSuccessful'
 import setDelay from './setDelay'
 import setAsFailed from './setAsFailed'
+import { AnimatePresence, motion } from 'framer-motion'
 
-const Next = ({ setDatabase, deckId, deckLength, currentCard, setCurrentCard, count, setCount, setFailedCards }) => {
+const Next = ({ showHotkeys, setDatabase, deckId, deckLength, currentCard, setCurrentCard, count, setCount, setFailedCards }) => {
   const dispatch = useDispatch()
   const { defaultView } = useSelector((state) => state.options)
   const { isConnected } = useSelector((state) => state.user)
@@ -47,15 +48,66 @@ const Next = ({ setDatabase, deckId, deckLength, currentCard, setCurrentCard, co
         }} style={{ visibility: isFirstCard ? 'hidden' : 'visible' }}>
 &#11164;</button>
         <button className={setActiveClass('confirm', 'correct', currentCard.response)} onClick={() => setAsSuccessful(setDelay, setDatabase, currentCard, setCurrentCard, setCount, dispatch)}>
-          <NavLink to={nextCardURL} > <FontAwesomeIcon icon={faCheckCircle}/> {count.success}</NavLink>
+
+          <NavLink to={nextCardURL} >
+          <AnimatePresence>
+
+            {showHotkeys
+              ? <motion.span
+              key={1}
+              initial={{ opacity: 0, x: -10, y: -5 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0, transition: { duration: 3 }, position: 'absolute' }}
+              className="keyUp">&#11165;
+              </motion.span>
+              : <motion.span
+              animate={{ opacity: [0, 1] }}
+              transition={{ delay: 3 }}
+              >
+                <FontAwesomeIcon key={2}
+              animate={{ opacity: [0, 1] }}
+              transition={{ delay: 3 }}
+              icon={faCheckCircle}/>
+              </motion.span>
+            }
+                        </AnimatePresence>
+          <span style={{ paddingLeft: '5px' }}>
+            {count.success}
+          </span>
+
+          </NavLink>
+
         </button>
           <button className={setActiveClass('warning', 'wrong', currentCard.response)} onClick={() => setAsFailed(setFailedCards, setCount, currentCard, setDatabase, setCurrentCard, dispatch)}>
-            <NavLink to={nextCardURL} > <FontAwesomeIcon icon={faTimesCircle} /> {count.failed}</NavLink>
+            <NavLink to={nextCardURL} >
+            <AnimatePresence>
+            {showHotkeys
+              ? <motion.span
+              key={1}
+              initial={{ opacity: 0, x: -10, y: -5 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0, transition: { duration: 3 }, position: 'absolute' }}
+              className="keyUp">&#11167;
+              </motion.span>
+              : <motion.span
+              animate={{ opacity: [0, 1] }}
+              transition={{ delay: 3 }}
+              >
+                <FontAwesomeIcon
+                key={2}
+                icon={faTimesCircle}
+                />
+              </motion.span>
+              }
+              </AnimatePresence>
+               <span style={{ paddingLeft: '5px' }}>{count.failed}</span>
+              </NavLink>
           </button>
-          <button className="discrete" onClick={() => { setIndexNextCard(setCurrentCard, currentCard.index); dispatch({ type: RESET_CARD, isRecto: defaultView.isRecto }) }}>&#10148; </button>
-
+          <button className="discrete" onClick={() => { setIndexNextCard(setCurrentCard, currentCard.index); dispatch({ type: RESET_CARD, isRecto: defaultView.isRecto }) }}>
+            &#10148; </button>
       </div>)
  }
+
   </div>
   )
 }

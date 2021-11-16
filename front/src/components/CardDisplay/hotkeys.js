@@ -4,8 +4,9 @@ import setIndexPreviousCard from './setIndexPreviousCard'
 import setDelay from './setDelay'
 import setAsFailed from './setAsFailed'
 
-const hotkeys = (event, setCurrentCard, currentCardIndex, setDatabase, setCount, currentCard, setFailedCards, dispatch) => {
+const hotkeys = (event, setShowHotkeys, setCurrentCard, currentCardIndex, setDatabase, setCount, currentCard, setFailedCards, dispatch) => {
   console.log(currentCardIndex)
+  setShowHotkeys(true)
   switch (event.which) {
     // arrow left
     case 37: {

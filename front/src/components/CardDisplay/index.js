@@ -31,6 +31,7 @@ const CardDisplay = () => {
   const [showError, setShowError] = useState(false)
   const [delayedCards, setDelayedCards] = useState([])
   const [showOptions, setShowOptions] = useState(true)
+  const [showHotkeys, setShowHotkeys] = useState(true)
 
   const [loading, setLoading] = useState(true)
   const [checkIfExist, setCheckIfExist] = useState('no timeout yet')
@@ -52,6 +53,7 @@ const CardDisplay = () => {
     dispatch({ type: FETCH_CARDS })
     dispatch({ type: CHECK_TOKEN })
     dispatch({ type: PICK_NEW_GAME, field: 'databaseSelector', value: '' })
+    setTimeout(() => setShowHotkeys(false), 2000)
   }, [])
 
   // vérifie que le paquet existe / que l'utilisateur a le droit de l'utiliser
@@ -187,7 +189,10 @@ C'est mauvais question visibilité. Piste pour éviter ça
   return (<div
   ref={myFocus}
   tabIndex="-1"
-            onKeyDown={(event) => hotkeys(event, setCurrentCard, currentCard.index, setDatabase, setCount, currentCard, setFailedCards, dispatch)}>
+            onKeyDown={(event) => hotkeys(event, setShowHotkeys, setCurrentCard, currentCard.index, setDatabase, setCount, currentCard, setFailedCards, dispatch)}
+            onKeyUp={() => setShowHotkeys(false)
+            }
+            >
           {loading
             ? <Loading />
             : showError
@@ -204,7 +209,7 @@ C'est mauvais question visibilité. Piste pour éviter ça
                   currentCard.index <= database.length - 1 &&
             (<>
             <p className="deck__title">{deckTitle} <button className="icon__options"><FontAwesomeIcon icon={faCog} onClick={() => setShowOptions(true)} size="2x"/></button> </p>
-            <ShowCards setDatabase={setDatabase} count={count} setCount={setCount} currentCard={currentCard} setCurrentCard={setCurrentCard} hideButtons={false} cardId={cardId} database={database} setFailedCards={setFailedCards} failedCards={failedCards} />
+            <ShowCards showHotkeys={showHotkeys} setDatabase={setDatabase} count={count} setCount={setCount} currentCard={currentCard} setCurrentCard={setCurrentCard} hideButtons={false} cardId={cardId} database={database} setFailedCards={setFailedCards} failedCards={failedCards} />
             </>),
 
                   isOver &&
