@@ -1,6 +1,6 @@
 
 import { useParams } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { SET_CURRENT_DECK_ID, FETCH_CARDS, CHECK_TOKEN, PICK_NEW_GAME } from '../../actions'
 
@@ -15,6 +15,7 @@ import { faCog } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import NoMatch from '../NoMatch'
 import { pickOrder } from './Options/pickOrder'
+import hotkeys from './hotkeys'
 
 const CardDisplay = () => {
   const dispatch = useDispatch()
@@ -30,6 +31,7 @@ const CardDisplay = () => {
   const [showError, setShowError] = useState(false)
   const [delayedCards, setDelayedCards] = useState([])
   const [showOptions, setShowOptions] = useState(true)
+  const [showHotkeys, setShowHotkeys] = useState(true)
 
   const [loading, setLoading] = useState(true)
   const [checkIfExist, setCheckIfExist] = useState('no timeout yet')
@@ -40,7 +42,10 @@ const CardDisplay = () => {
   // count.restart est uniquement là pour forcer le re-render quand l'utilisateur décide de rejouer au même mode de jeu.
   // dans ce cas précis, sans count.restart, la database appropriée ne serait pas re-sélectionné
   const [count, setCount] = useState({ success: 0, failed: 0, restart: 0 })
-
+  const myFocus = useRef()
+  if (myFocus.current) {
+    myFocus.current.focus()
+  }
   // * ↓ Initialisation (récup et traitement des données) ↓
   // récupère toutes les cartes du paquet concerné, les infos utilisateurs, et reset le mode de parcours (pour qu'il soit par défaut)
   useEffect(() => {
@@ -48,6 +53,7 @@ const CardDisplay = () => {
     dispatch({ type: FETCH_CARDS })
     dispatch({ type: CHECK_TOKEN })
     dispatch({ type: PICK_NEW_GAME, field: 'databaseSelector', value: '' })
+    setTimeout(() => setShowHotkeys(false), 2000)
   }, [])
 
   // vérifie que le paquet existe / que l'utilisateur a le droit de l'utiliser
@@ -172,11 +178,6 @@ const CardDisplay = () => {
 
   const isOver = checkIfOver()
 
-  // est appelé quand l'utilisateur clique sur le bouton "j'ai raté une carte"
-  const addFailedCards = (card) => {
-    setFailedCards((state) => [...state, card])
-  }
-
   /* le return statement se construit avec plusieurs niveau de tertiary operator...
 C'est mauvais question visibilité. Piste pour éviter ça
  => intégrer les composants Loading et NoMatch dans App.js, au niveau des routeurs, voir #66
@@ -185,7 +186,13 @@ C'est mauvais question visibilité. Piste pour éviter ça
 
   // ? dans ce return, s'il n'y a pas d'erreur, react render un ARRAY. Si ça marche, c'est notamment car chaque "entrée" renvoie "false" si elles sont non pertinentes (et React n'affiche pas les expression "false")
   // ?  C'est un peu particulier... mais c'est la seule syntaxe qui semble gérer les expressions avec && à l'intérieur des ternary.
-  return (<div>
+  return (<div
+  ref={myFocus}
+  tabIndex="-1"
+            onKeyDown={(event) => hotkeys(event, setShowHotkeys, setCurrentCard, currentCard.index, setDatabase, setCount, currentCard, setFailedCards, dispatch)}
+            onKeyUp={() => setShowHotkeys(false)
+            }
+            >
           {loading
             ? <Loading />
             : showError
@@ -202,7 +209,7 @@ C'est mauvais question visibilité. Piste pour éviter ça
                   currentCard.index <= database.length - 1 &&
             (<>
             <p className="deck__title">{deckTitle} <button className="icon__options"><FontAwesomeIcon icon={faCog} onClick={() => setShowOptions(true)} size="2x"/></button> </p>
-            <ShowCards setDatabase={setDatabase} count={count} setCount={setCount} currentCard={currentCard} setCurrentCard={setCurrentCard} hideButtons={false} cardId={cardId} database={database} addFailedCards={addFailedCards} failedCards={failedCards} />
+            <ShowCards showHotkeys={showHotkeys} setDatabase={setDatabase} count={count} setCount={setCount} currentCard={currentCard} setCurrentCard={setCurrentCard} hideButtons={false} cardId={cardId} database={database} setFailedCards={setFailedCards} failedCards={failedCards} />
             </>),
 
                   isOver &&
