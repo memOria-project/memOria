@@ -7,6 +7,8 @@ import { useRef, useState, useEffect } from 'react'
 import setResponseStatus from './setResponseStatus'
 import setIndexPreviousCard from './setIndexPreviousCard'
 import setIndexNextCard from './setIndexNextCard'
+import setAsSuccessful from './setAsSuccessful'
+import setDelay from './setDelay'
 
 const Next = ({ setDatabase, deckId, deckLength, currentCard, setCurrentCard, addFailedCards, count, setCount }) => {
   const dispatch = useDispatch()
@@ -23,34 +25,6 @@ const Next = ({ setDatabase, deckId, deckLength, currentCard, setCurrentCard, ad
       setIsFirstCard(false)
     }
   }, [currentCard.index])
-
-  const setDelay = () => {
-    dispatch({ type: DELAY_CARD, id: currentCard.id })
-  }
-  const handleClickSuccess = () => {
-    dispatch({ type: RESET_CARD, isRecto: defaultView.isRecto })
-
-    if (isConnected) {
-      setDelay()
-      console.log(`handleClickSuccess:
-      ${cardId} has been delayed`)
-    }
-    setResponseStatus(setDatabase, currentCard.id, true)
-    setIndexNextCard()
-    switch (currentCard.response) {
-      case 'notPicked': {
-        setCount(prevState => ({ ...prevState, success: prevState.success + 1 }))
-        break
-      }
-      case 'wrong': {
-        setCount(prevState => ({ ...prevState, success: prevState.success + 1, failed: prevState.failed - 1 }))
-        break
-      }
-      case 'correct': {
-        console.log('card response confirmed')
-      }
-    }
-  }
 
   const handleClickFail = () => {
     dispatch({ type: RESET_CARD, isRecto: defaultView.isRecto })
@@ -69,7 +43,7 @@ const Next = ({ setDatabase, deckId, deckLength, currentCard, setCurrentCard, ad
       }
     }
     setResponseStatus(setDatabase, currentCard.id, false)
-    setIndexNextCard()
+    setIndexNextCard(setCurrentCard, currentCard.index)
   }
   const setActiveClass = (defaultClass, buttonType, cardStatus) => {
     switch (cardStatus) {
@@ -88,7 +62,7 @@ const Next = ({ setDatabase, deckId, deckLength, currentCard, setCurrentCard, ad
       (<div className="cardDisplay__nextButtons">
         <button className="discrete" onClick={() => setIndexPreviousCard(setCurrentCard, currentCard.index)} style={{ visibility: isFirstCard ? 'hidden' : 'visible' }}>
 &#11164;</button>
-        <button className={setActiveClass('confirm', 'correct', currentCard.response)} onClick={() => handleClickSuccess()}>
+        <button className={setActiveClass('confirm', 'correct', currentCard.response)} onClick={() => setAsSuccessful(setDelay, setDatabase, currentCard, setCurrentCard, setCount, dispatch)}>
           <NavLink to={nextCardURL} > <FontAwesomeIcon icon={faCheckCircle}/> {count.success}</NavLink>
         </button>
           <button className={setActiveClass('warning', 'wrong', currentCard.response)} onClick={() => handleClickFail()}>

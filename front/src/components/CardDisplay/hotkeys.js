@@ -1,7 +1,8 @@
+import setAsSuccessful from './setAsSuccessful'
 import setIndexNextCard from './setIndexNextCard'
 import setIndexPreviousCard from './setIndexPreviousCard'
-
-const hotkeys = (event, setCurrentCard, currentCardIndex) => {
+import setDelay from './setDelay'
+const hotkeys = (event, setCurrentCard, currentCardIndex, setDatabase, setCount, currentCard, dispatch) => {
   console.log(currentCardIndex)
   switch (event.which) {
     // arrow left
@@ -14,6 +15,10 @@ const hotkeys = (event, setCurrentCard, currentCardIndex) => {
       setIndexNextCard(setCurrentCard, currentCardIndex)
       console.log(currentCardIndex)
       break
+    }
+    // arrow up
+    case 38: {
+      setAsSuccessful(setDelay, setDatabase, currentCard, setCurrentCard, setCount, dispatch)
     }
     default: {
       console.log("we're good")

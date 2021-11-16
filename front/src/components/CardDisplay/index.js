@@ -192,7 +192,7 @@ C'est mauvais question visibilité. Piste pour éviter ça
   return (<div
   ref={myFocus}
   tabIndex="-1"
-            onKeyDown={(event) => hotkeys(event, setCurrentCard, currentCard.index)}>
+            onKeyDown={(event) => hotkeys(event, setCurrentCard, currentCard.index, setDatabase, setCount, currentCard, dispatch)}>
           {loading
             ? <Loading />
             : showError
