@@ -176,11 +176,6 @@ const CardDisplay = () => {
 
   const isOver = checkIfOver()
 
-  // est appelé quand l'utilisateur clique sur le bouton "j'ai raté une carte"
-  const addFailedCards = (card) => {
-    setFailedCards((state) => [...state, card])
-  }
-
   /* le return statement se construit avec plusieurs niveau de tertiary operator...
 C'est mauvais question visibilité. Piste pour éviter ça
  => intégrer les composants Loading et NoMatch dans App.js, au niveau des routeurs, voir #66
@@ -192,7 +187,7 @@ C'est mauvais question visibilité. Piste pour éviter ça
   return (<div
   ref={myFocus}
   tabIndex="-1"
-            onKeyDown={(event) => hotkeys(event, setCurrentCard, currentCard.index, setDatabase, setCount, currentCard, dispatch)}>
+            onKeyDown={(event) => hotkeys(event, setCurrentCard, currentCard.index, setDatabase, setCount, currentCard, setFailedCards, dispatch)}>
           {loading
             ? <Loading />
             : showError
@@ -209,7 +204,7 @@ C'est mauvais question visibilité. Piste pour éviter ça
                   currentCard.index <= database.length - 1 &&
             (<>
             <p className="deck__title">{deckTitle} <button className="icon__options"><FontAwesomeIcon icon={faCog} onClick={() => setShowOptions(true)} size="2x"/></button> </p>
-            <ShowCards setDatabase={setDatabase} count={count} setCount={setCount} currentCard={currentCard} setCurrentCard={setCurrentCard} hideButtons={false} cardId={cardId} database={database} addFailedCards={addFailedCards} failedCards={failedCards} />
+            <ShowCards setDatabase={setDatabase} count={count} setCount={setCount} currentCard={currentCard} setCurrentCard={setCurrentCard} hideButtons={false} cardId={cardId} database={database} setFailedCards={setFailedCards} failedCards={failedCards} />
             </>),
 
                   isOver &&

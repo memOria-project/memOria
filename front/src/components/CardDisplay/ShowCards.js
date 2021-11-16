@@ -8,7 +8,7 @@ import { motion } from 'framer-motion'
 import classNames from 'classnames'
 // import { useSwipeable } from 'react-swipeable'
 
-const ShowCards = ({ hideButtons, setDatabase, database, addFailedCards, failedCards, setCurrentCard, currentCard, count, setCount }) => {
+const ShowCards = ({ hideButtons, setDatabase, database, failedCards, setFailedCards, setCurrentCard, currentCard, count, setCount }) => {
   const { deckId } = useParams()
   const dispatch = useDispatch()
   const { currentView } = useSelector((state) => state.options)
@@ -63,7 +63,7 @@ const ShowCards = ({ hideButtons, setDatabase, database, addFailedCards, failedC
     </motion.pre>
   </motion.div>
 }
-  {!hideButtons && <><Next count={count} setDatabase={setDatabase} setCount={setCount} failedCards={failedCards} database={database} currentCard={currentCard} setCurrentCard={setCurrentCard} deckId={deckId} deckLength={deckLength} addFailedCards={addFailedCards}/>
+  {!hideButtons && <><Next count={count} setFailedCards={setFailedCards} setDatabase={setDatabase} setCount={setCount} failedCards={failedCards} database={database} currentCard={currentCard} setCurrentCard={setCurrentCard} deckId={deckId} deckLength={deckLength} />
   <p style={{ fontSize: '1.5em' }}> Cartes restantes: {deckLength - currentCard.index - 1}</p></>}
   </>
 }

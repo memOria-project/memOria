@@ -9,8 +9,9 @@ import setIndexPreviousCard from './setIndexPreviousCard'
 import setIndexNextCard from './setIndexNextCard'
 import setAsSuccessful from './setAsSuccessful'
 import setDelay from './setDelay'
+import setAsFailed from './setAsFailed'
 
-const Next = ({ setDatabase, deckId, deckLength, currentCard, setCurrentCard, addFailedCards, count, setCount }) => {
+const Next = ({ setDatabase, deckId, deckLength, currentCard, setCurrentCard, count, setCount, setFailedCards }) => {
   const dispatch = useDispatch()
   const { defaultView } = useSelector((state) => state.options)
   const { isConnected } = useSelector((state) => state.user)
@@ -26,25 +27,6 @@ const Next = ({ setDatabase, deckId, deckLength, currentCard, setCurrentCard, ad
     }
   }, [currentCard.index])
 
-  const handleClickFail = () => {
-    dispatch({ type: RESET_CARD, isRecto: defaultView.isRecto })
-    switch (currentCard.response) {
-      case 'notPicked': {
-        addFailedCards(currentCard)
-        setCount(prevState => ({ ...prevState, failed: prevState.failed + 1 }))
-        break
-      }
-      case 'wrong': {
-        setCount(prevState => ({ ...prevState, success: prevState.success + 1, failed: prevState.failed - 1 }))
-        break
-      }
-      case 'correct': {
-        setCount(prevState => ({ ...prevState, failed: prevState.failed + 1, success: prevState.success - 1 }))
-      }
-    }
-    setResponseStatus(setDatabase, currentCard.id, false)
-    setIndexNextCard(setCurrentCard, currentCard.index)
-  }
   const setActiveClass = (defaultClass, buttonType, cardStatus) => {
     switch (cardStatus) {
       case buttonType: {
@@ -60,15 +42,17 @@ const Next = ({ setDatabase, deckId, deckLength, currentCard, setCurrentCard, ad
   <div>
     {deckLength > 0 &&
       (<div className="cardDisplay__nextButtons">
-        <button className="discrete" onClick={() => setIndexPreviousCard(setCurrentCard, currentCard.index)} style={{ visibility: isFirstCard ? 'hidden' : 'visible' }}>
+        <button className="discrete" onClick={() => {
+          setIndexPreviousCard(setCurrentCard, currentCard.index); dispatch({ type: RESET_CARD, isRecto: defaultView.isRecto })
+        }} style={{ visibility: isFirstCard ? 'hidden' : 'visible' }}>
 &#11164;</button>
         <button className={setActiveClass('confirm', 'correct', currentCard.response)} onClick={() => setAsSuccessful(setDelay, setDatabase, currentCard, setCurrentCard, setCount, dispatch)}>
           <NavLink to={nextCardURL} > <FontAwesomeIcon icon={faCheckCircle}/> {count.success}</NavLink>
         </button>
-          <button className={setActiveClass('warning', 'wrong', currentCard.response)} onClick={() => handleClickFail()}>
+          <button className={setActiveClass('warning', 'wrong', currentCard.response)} onClick={() => setAsFailed(setFailedCards, setCount, currentCard, setDatabase, setCurrentCard, dispatch)}>
             <NavLink to={nextCardURL} > <FontAwesomeIcon icon={faTimesCircle} /> {count.failed}</NavLink>
           </button>
-          <button className="discrete" onClick={() => setIndexNextCard(setCurrentCard, currentCard.index)}>&#10148; </button>
+          <button className="discrete" onClick={() => { setIndexNextCard(setCurrentCard, currentCard.index); dispatch({ type: RESET_CARD, isRecto: defaultView.isRecto }) }}>&#10148; </button>
 
       </div>)
  }
