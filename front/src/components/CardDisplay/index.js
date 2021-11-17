@@ -189,7 +189,7 @@ C'est mauvais question visibilité. Piste pour éviter ça
   return (<div
   ref={myFocus}
   tabIndex="-1"
-            onKeyDown={(event) => hotkeys(event, setShowHotkeys, setCurrentCard, currentCard.index, setDatabase, setCount, currentCard, setFailedCards, dispatch)}
+            onKeyDown={(event) => hotkeys(event, database, setShowHotkeys, setCurrentCard, currentCard.index, setDatabase, setCount, currentCard, setFailedCards, dispatch)}
             onKeyUp={() => setShowHotkeys(false)
             }
             >
