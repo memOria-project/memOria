@@ -3,10 +3,13 @@ import setIndexNextCard from './setIndexNextCard'
 import setIndexPreviousCard from './setIndexPreviousCard'
 import setDelay from './setDelay'
 import setAsFailed from './setAsFailed'
+import { RETURN_CARD } from '../../actions'
+import store from '../../store'
+import { faDatabase } from '@fortawesome/free-solid-svg-icons'
 
-const hotkeys = (event, setShowHotkeys, setCurrentCard, currentCardIndex, setDatabase, setCount, currentCard, setFailedCards, dispatch) => {
+const hotkeys = (event, database, setShowHotkeys, setCurrentCard, currentCardIndex, setDatabase, setCount, currentCard, setFailedCards, dispatch) => {
   console.log(currentCardIndex)
-  setShowHotkeys(true)
+  const { currentView } = store.getState().options
   switch (event.which) {
     // arrow left
     case 37: {
@@ -15,8 +18,9 @@ const hotkeys = (event, setShowHotkeys, setCurrentCard, currentCardIndex, setDat
     }
     // arrow right
     case 39: {
-      setIndexNextCard(setCurrentCard, currentCardIndex)
-      console.log(currentCardIndex)
+      if (currentCard.index < database.length) {
+        setIndexNextCard(setCurrentCard, currentCardIndex)
+      }
       break
     }
     // arrow up
@@ -27,9 +31,15 @@ const hotkeys = (event, setShowHotkeys, setCurrentCard, currentCardIndex, setDat
     // arrow down
     case 40: {
       setAsFailed(setFailedCards, setCount, currentCard, setDatabase, setCurrentCard, dispatch)
+      break
+    }
+    // 0
+    case 96: {
+      dispatch({ type: RETURN_CARD, isRecto: currentView.isRecto })
+      break
     }
     default: {
-      console.log("we're good")
+      console.log(event.which)
     }
   }
 }
