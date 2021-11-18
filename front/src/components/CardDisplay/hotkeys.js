@@ -26,12 +26,16 @@ const hotkeys = (event, database, setShowHotkeys, setCurrentCard, currentCardInd
     }
     // arrow up
     case 38: {
-      setAsSuccessful(setDelay, setDatabase, currentCard, setCurrentCard, setCount, dispatch)
+      if (currentCard.index < database.length) {
+        setAsSuccessful(setDelay, setDatabase, currentCard, setCurrentCard, setCount, dispatch)
+      }
       break
     }
     // arrow down
     case 40: {
-      setAsFailed(setFailedCards, setCount, currentCard, setDatabase, setCurrentCard, dispatch)
+      if (currentCard.index < database.length) {
+        setAsFailed(setFailedCards, setCount, currentCard, setDatabase, setCurrentCard, dispatch)
+      }
       break
     }
     // 0
