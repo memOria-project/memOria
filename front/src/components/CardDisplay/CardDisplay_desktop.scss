@@ -7,4 +7,9 @@
   .cardDisplay__modal__container {
     width: 480px;
   }
+  .cardDisplay__nextButtons .warning,
+  .cardDisplay__nextButtons .confirm {
+    width: 115px;
+    height: 60px;
+  }
 }

@@ -9,6 +9,7 @@ import { faDatabase } from '@fortawesome/free-solid-svg-icons'
 
 const hotkeys = (event, database, setShowHotkeys, setCurrentCard, currentCardIndex, setDatabase, setCount, currentCard, setFailedCards, dispatch) => {
   console.log(currentCardIndex)
+  setShowHotkeys(true)
   const { currentView } = store.getState().options
   switch (event.which) {
     // arrow left
