@@ -202,7 +202,7 @@ C'est mauvais question visibilité. Piste pour éviter ça
             <div className="cardDisplay__modal">
               <div className="cardDisplay__modal__container modal__container__verso">
 
-              <Options setShowOptions={setShowOptions} delayedCards={delayedCards} />
+              <Options firstCard={database[0]} setShowOptions={setShowOptions} delayedCards={delayedCards} />
               </div>
             </div>,
 
