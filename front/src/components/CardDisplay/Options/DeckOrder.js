@@ -46,35 +46,31 @@ const DeckOrder = ({ handleClick }) => {
     }
   }
   const allButtons = [(<motion.button
-    key={1}
-    animate={{ opacity: [0, 1], boxShadow: '-5px -10px 0px white', duration: 5 }}
-    initial={{ opacity: 1 }}
+    // key={1}
+    // animate={{ opacity: [0, 1], boxShadow: '-5px -10px 0px white', duration: 5 }}
 
-    transition={{ ease: 'easeInOut' }}
-    exit={{ backgroundColor: 'white', boxShadow: 'none', color: 'dark', y: [-5, -25, -5], x: [0, -5, 0], position: 'absolute' }}
+    // exit={{ boxShadow: 'none', color: 'dark', y: [-5, -25, -5], x: [0, -5, 0] }}
     id="RANDOM" onClick={handleClick} className={setClassName(isRandomOn)}>Random</motion.button>),
   (<motion.button
-    key={2}
-    animate={{ opacity: [0, 1], boxShadow: '-5px -10px 0px white', duration: 5 }}
+    // key={2}
+    // animate={{ opacity: [0, 1], boxShadow: '-5px -10px 0px white', duration: 5 }}
     // initial={{ y: 0, x: 0 }}
-    transition={{ ease: 'easeInOut' }}
-    exit={{ backgroundColor: 'white', boxShadow: 'none', color: 'dark', y: [-5, -25, -5], x: [0, -5, 0], position: 'absolute' }}
+    // exit={{ boxShadow: 'none', color: 'dark', y: [-5, -25, -5], x: [0, -5, 0] }}
     id="CHRONO" onClick={handleClick} className={setClassName(isChronoOn)}> ancient &gt; récent </motion.button>),
   (<motion.button
-    key={3}
+    // key={3}
     // initial={{ y: 0, x: 0 }}
 
-    animate={{ opacity: [0, 1], boxShadow: '-5px -10px 0px white', duration: 5 }}
-    transition={{ ease: 'easeInOut' }}
-    exit={{ backgroundColor: 'white', boxShadow: 'none', color: 'dark', y: [-5, -25, -5], x: [0, -5, 0], position: 'absolute' }}
+    // animate={{ opacity: [0, 1], boxShadow: '-5px -10px 0px white', duration: 5 }}
+    // exit={{ boxShadow: 'none', color: 'dark', y: [-5, -25, -5], x: [0, -5, 0] }}
     id="REVERSE_CHRONO" onClick={handleClick} className={setClassName(isReverseChronoOn)}> récent &gt; ancient </motion.button>)]
 
   return <div className="deckOptions__buttons">
 <button className="discrete" onClick={handleClickBack} >
 &#11164;</button>
-<AnimatePresence initial={false}>
+{/* <AnimatePresence initial={false} exitBeforeEnter> */}
                   {allButtons[optionIndex]}
-    </AnimatePresence>
+    {/* </AnimatePresence> */}
     <button className="discrete" onClick={handleClickNext}>&#10148; </button>
 
 </div>
