@@ -72,7 +72,7 @@ const DeckOrder = ({ handleClick }) => {
   return <div className="deckOptions__buttons">
 <button className="discrete" onClick={handleClickBack} >
 &#11164;</button>
-<AnimatePresence>
+<AnimatePresence initial={false}>
                   {allButtons[optionIndex]}
     </AnimatePresence>
     <button className="discrete" onClick={handleClickNext}>&#10148; </button>
