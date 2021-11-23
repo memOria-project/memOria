@@ -67,7 +67,6 @@ function App () {
         <Route path="*">
           <NoMatch />
         </Route>
-
       </Switch>
 
     </div>

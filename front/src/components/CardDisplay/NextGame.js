@@ -2,19 +2,10 @@ import { FETCH_CARDS, PICK_NEW_GAME, CHECK_TOKEN } from '../../actions'
 import { useDispatch } from 'react-redux'
 import { NavLink, useParams } from 'react-router-dom'
 import setIndexPreviousCard from './setIndexPreviousCard'
+import handleClickCheckFail from './handleClickFail'
 
 const NextGame = ({ failedCards, currentCard, setCurrentCard, database, setFailedCards, setCount }) => {
   const { cardId, deckId } = useParams()
-
-  const handleClickCheckFail = () => {
-    dispatch({ type: PICK_NEW_GAME, field: 'databaseSelector', value: 'FAILED_1ST_ROUND' })
-    setCount(prevState => ({ ...prevState, restart: prevState.restart + 1 }))
-    const { id, recto, verso } = database[0]
-
-    setCurrentCard({ index: 0, id, recto, verso })
-
-    dispatch({ type: CHECK_TOKEN })
-  }
 
   const handleClickRestart = () => {
     dispatch({ type: FETCH_CARDS, deckId })
@@ -44,7 +35,7 @@ const NextGame = ({ failedCards, currentCard, setCurrentCard, database, setFaile
     <button className="confirm" onClick={() => handleClickRestart()}>Revoir toutes les cartes</button> <br />
 
     {check &&
-    <button className="warning" onClick={() => handleClickCheckFail()} >
+    <button className="warning" onClick={() => handleClickCheckFail(database, setCount, setCurrentCard, dispatch)} >
       <NavLink to={firstCardURL} >Voir les {failedCards.length} cartes non apprises</NavLink>
     </button>
     }<br />

@@ -62,6 +62,30 @@ button > a {
     background-color: vars.$color-warning;
   }
 }
+
+@keyframes breath-shadow {
+  from {
+    filter: drop-shadow(0px 0px 0px vars.$color-warning);
+  }
+  50% {
+    filter: drop-shadow(0px 0px 8px vars.$color-warning);
+  }
+  to {
+    filter: drop-shadow(0px 0px 0px vars.$color-warning);
+  }
+}
+
+@keyframes breath-shadow-green {
+  from {
+    filter: drop-shadow(0px 0px 0px vars.$color-confirm);
+  }
+  50% {
+    filter: drop-shadow(0px 0px 8px vars.$color-confirm);
+  }
+  to {
+    filter: drop-shadow(0px 0px 0px vars.$color-confirm);
+  }
+}
 .btn-doubleCheck {
   animation-name: breath;
   animation-duration: 1s;
@@ -106,10 +130,16 @@ a > svg {
 }
 
 .scaleDown {
-  transition: background-color 0.75s 0.5s, transform 0.5s, color 0.75s 0.5s;
+  transition: background-color 0.75s 0.5s, transform 0.5s, color 0.75s 0.5s,
+    filter 0.75s 0.5s;
   transform: scale(0.95);
-  border: 4px solid vars.$color-text;
+  // border: 4px solid vars.$color-text;
   // background-color: vars.$color-confirm-dark;
+  filter: drop-shadow(0px 0px 8px vars.$color-warning);
+  animation-name: breath-shadow;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
 }
 
 .discrete {
@@ -119,6 +149,15 @@ a > svg {
   font-weight: 800;
   font-size: 2em;
   text-transform: uppercase;
+}
+
+.keyUp {
+  background-color: lightgrey;
+  font-weight: 600;
+  padding: 5px;
+  border-radius: 5px;
+  color: black;
+  filter: drop-shadow(-2px -2px 0px black);
 }
 .App {
 }

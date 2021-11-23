@@ -6,8 +6,13 @@ import { FETCH_CARDS, RESET_CARD, PICK_NEW_GAME, DELAY_CARD } from '../../action
 import { useRef, useState, useEffect } from 'react'
 import setResponseStatus from './setResponseStatus'
 import setIndexPreviousCard from './setIndexPreviousCard'
+import setIndexNextCard from './setIndexNextCard'
+import setAsSuccessful from './setAsSuccessful'
+import setDelay from './setDelay'
+import setAsFailed from './setAsFailed'
+import { AnimatePresence, motion } from 'framer-motion'
 
-const Next = ({ setDatabase, deckId, deckLength, currentCard, setCurrentCard, addFailedCards, count, setCount }) => {
+const Next = ({ showHotkeys, setDatabase, deckId, deckLength, currentCard, setCurrentCard, count, setCount, setFailedCards }) => {
   const dispatch = useDispatch()
   const { defaultView } = useSelector((state) => state.options)
   const { isConnected } = useSelector((state) => state.user)
@@ -23,57 +28,6 @@ const Next = ({ setDatabase, deckId, deckLength, currentCard, setCurrentCard, ad
     }
   }, [currentCard.index])
 
-  const setIndexNextCard = () => {
-    setCurrentCard(prevState => ({ ...prevState, index: prevState.index + 1 }))
-  }
-
-  const setDelay = () => {
-    dispatch({ type: DELAY_CARD, id: currentCard.id })
-  }
-  const handleClickSuccess = () => {
-    dispatch({ type: RESET_CARD, isRecto: defaultView.isRecto })
-
-    if (isConnected) {
-      setDelay()
-      console.log(`handleClickSuccess:
-      ${cardId} has been delayed`)
-    }
-    setResponseStatus(setDatabase, currentCard.id, true)
-    setIndexNextCard()
-    switch (currentCard.response) {
-      case 'notPicked': {
-        setCount(prevState => ({ ...prevState, success: prevState.success + 1 }))
-        break
-      }
-      case 'wrong': {
-        setCount(prevState => ({ ...prevState, success: prevState.success + 1, failed: prevState.failed - 1 }))
-        break
-      }
-      case 'correct': {
-        console.log('card response confirmed')
-      }
-    }
-  }
-
-  const handleClickFail = () => {
-    dispatch({ type: RESET_CARD, isRecto: defaultView.isRecto })
-    switch (currentCard.response) {
-      case 'notPicked': {
-        addFailedCards(currentCard)
-        setCount(prevState => ({ ...prevState, failed: prevState.failed + 1 }))
-        break
-      }
-      case 'wrong': {
-        setCount(prevState => ({ ...prevState, success: prevState.success + 1, failed: prevState.failed - 1 }))
-        break
-      }
-      case 'correct': {
-        setCount(prevState => ({ ...prevState, failed: prevState.failed + 1, success: prevState.success - 1 }))
-      }
-    }
-    setResponseStatus(setDatabase, currentCard.id, false)
-    setIndexNextCard()
-  }
   const setActiveClass = (defaultClass, buttonType, cardStatus) => {
     switch (cardStatus) {
       case buttonType: {
@@ -89,18 +43,69 @@ const Next = ({ setDatabase, deckId, deckLength, currentCard, setCurrentCard, ad
   <div>
     {deckLength > 0 &&
       (<div className="cardDisplay__nextButtons">
-        <button className="discrete" onClick={() => setIndexPreviousCard(setCurrentCard, currentCard.index)} style={{ visibility: isFirstCard ? 'hidden' : 'visible' }}>
+        <button className="discrete" onClick={() => {
+          setIndexPreviousCard(setCurrentCard, currentCard.index); dispatch({ type: RESET_CARD, isRecto: defaultView.isRecto })
+        }} style={{ visibility: isFirstCard ? 'hidden' : 'visible' }}>
 &#11164;</button>
-        <button className={setActiveClass('confirm', 'correct', currentCard.response)} onClick={() => handleClickSuccess()}>
-          <NavLink to={nextCardURL} > <FontAwesomeIcon icon={faCheckCircle}/> {count.success}</NavLink>
-        </button>
-          <button className={setActiveClass('warning', 'wrong', currentCard.response)} onClick={() => handleClickFail()}>
-            <NavLink to={nextCardURL} > <FontAwesomeIcon icon={faTimesCircle} /> {count.failed}</NavLink>
-          </button>
-          <button className="discrete" onClick={setIndexNextCard}>&#10148; </button>
+        <button className={setActiveClass('confirm', 'correct', currentCard.response)} onClick={() => setAsSuccessful(setDelay, setDatabase, currentCard, setCurrentCard, setCount, dispatch)}>
 
+          <NavLink to={nextCardURL} >
+          <AnimatePresence>
+
+            {showHotkeys
+              ? <motion.span
+              key={1}
+              initial={{ opacity: 0, x: -10, y: -5 }}
+              animate={{ opacity: 1, x: -10, y: -5 }}
+              exit={{ opacity: 0, x: -10, y: -5, transition: { duration: 1.5 }, position: 'absolute' }}
+              className="keyUp">&#11165;
+              </motion.span>
+              : <motion.span
+              animate={{ opacity: [0, 1] }}
+              transition={{ delay: 1.5 }}
+              >
+                <FontAwesomeIcon key={2}
+              icon={faCheckCircle}/>
+              </motion.span>
+            }
+                        </AnimatePresence>
+          <span style={{ paddingLeft: '5px' }}>
+            {count.success}
+          </span>
+
+          </NavLink>
+
+        </button>
+          <button className={setActiveClass('warning', 'wrong', currentCard.response)} onClick={() => setAsFailed(setFailedCards, setCount, currentCard, setDatabase, setCurrentCard, dispatch)}>
+            <NavLink to={nextCardURL} >
+            <AnimatePresence>
+            {showHotkeys
+              ? <motion.span
+              key={1}
+              initial={{ opacity: 0, x: -10, y: -5 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0, transition: { duration: 1.5 }, position: 'absolute' }}
+              className="keyUp">&#11167;
+              </motion.span>
+              : <motion.span
+              animate={{ opacity: [0, 1] }}
+              transition={{ delay: 1.5 }}
+              >
+                <FontAwesomeIcon
+                key={2}
+                icon={faTimesCircle}
+                />
+              </motion.span>
+              }
+              </AnimatePresence>
+               <span style={{ paddingLeft: '5px' }}>{count.failed}</span>
+              </NavLink>
+          </button>
+          <button className="discrete" onClick={() => { setIndexNextCard(setCurrentCard, currentCard.index); dispatch({ type: RESET_CARD, isRecto: defaultView.isRecto }) }}>
+            &#10148; </button>
       </div>)
  }
+
   </div>
   )
 }
