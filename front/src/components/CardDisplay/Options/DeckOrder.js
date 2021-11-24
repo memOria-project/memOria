@@ -56,14 +56,14 @@ const DeckOrder = ({ handleClick }) => {
     // animate={{ opacity: [0, 1], boxShadow: '-5px -10px 0px white', duration: 5 }}
     // initial={{ y: 0, x: 0 }}
     // exit={{ boxShadow: 'none', color: 'dark', y: [-5, -25, -5], x: [0, -5, 0] }}
-    id="CHRONO" onClick={handleClick} className={setClassName(isChronoOn)}> ancient &gt; récent </motion.button>),
+    id="CHRONO" onClick={handleClick} className={setClassName(isChronoOn)}> ancien &gt; récent </motion.button>),
   (<motion.button
     // key={3}
     // initial={{ y: 0, x: 0 }}
 
     // animate={{ opacity: [0, 1], boxShadow: '-5px -10px 0px white', duration: 5 }}
     // exit={{ boxShadow: 'none', color: 'dark', y: [-5, -25, -5], x: [0, -5, 0] }}
-    id="REVERSE_CHRONO" onClick={handleClick} className={setClassName(isReverseChronoOn)}> récent &gt; ancient </motion.button>)]
+    id="REVERSE_CHRONO" onClick={handleClick} className={setClassName(isReverseChronoOn)}> récent &gt; ancien </motion.button>)]
 
   return <div className="deckOptions__buttons">
 <button className="discrete" onClick={handleClickBack} >
