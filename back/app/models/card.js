@@ -10,9 +10,9 @@ class Card {
   /**
      * Get all cards owned by user (through deck possession)
      */
-  static async doesExist (cardId) {
+  static async doesExist () {
     try {
-      await db.query('SELECT id FROM card WHERE id=$1', [cardId])
+      await db.query('SELECT id FROM card WHERE id=$1', [this.id])
     } catch (error) {
       if (error.detail) {
         throw new Error(error.detail)
@@ -124,7 +124,7 @@ class Card {
     try {
       this.purgeDelay()
       const { rows } = await db.query('UPDATE delay SET to_date=(now()+\'1 day\'::interval) WHERE card_id=$1 AND user_id=$2 RETURNING card_id, to_date', [this.id, userId])
-      console.log(!rows.length)
+      console.log('No delay already exists: ',!rows.length)
       if (!rows.length) {
         const newDelay = await db.query('INSERT INTO delay (card_id, user_id, to_date) VALUES ($1, $2, (now()+\'1 day\'::interval)) RETURNING card_id, to_date', [this.id, userId])
         return { cardId: newDelay.rows[0].card_id, toDate: newDelay.rows[0].to_date }
