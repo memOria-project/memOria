@@ -1,5 +1,6 @@
 const { Router } = require('express')
 const checkJwt = require('./middlewares/checkJwt')
+const sanitizer = require('./middlewares/sanitizer')
 const deckController = require('./controllers/deckController')
 const userController = require('./controllers/userController')
 const cardController = require('./controllers/cardController')
@@ -16,7 +17,7 @@ const router = Router()
 router.get('/decks', deckController.getAllDecks) // Afficher tous les paquet
 router.get('/deck/:id/cards', deckController.getCardsFromDeck) // Displays cards of a deck
 
-router.post('/deck', checkJwt, deckController.save)
+router.post('/deck', checkJwt, sanitizer, deckController.save)
 
 /** Création  de compte utilisateur
  * Respond with all cards of the connected user
@@ -24,11 +25,11 @@ router.post('/deck', checkJwt, deckController.save)
  * @returns {integer<id>} 201 - An integer of user id
  * @returns {string} 500 - Server error
  */
-router.post('/signup', userController.subscribe)
+router.post('/signup', sanitizer, userController.subscribe)
 
-router.post('/login', userController.login) // Connection de l’utilisateur
+router.post('/login', sanitizer, userController.login) // Connection de l’utilisateur
 router.get('/user/infos', checkJwt, userController.getOneUser)
-router.post('/user/update', checkJwt, userController.update) //  modification de compte utilisateur
+router.post('/user/update', checkJwt, sanitizer, userController.update) //  modification de compte utilisateur
 
 // Displays cards of a user
 /**
@@ -47,7 +48,7 @@ router.get('/user/cards', checkJwt, cardController.getCardsFromUser)
  * @returns {} 204 - Empty response
  * @returns {string} 500 - Server error
  */
-router.post('/card', checkJwt, cardController.save)
+router.post('/card', checkJwt, sanitizer, cardController.save)
 
 // Delay a card for a specific user
 /**
@@ -56,7 +57,7 @@ router.post('/card', checkJwt, cardController.save)
  * @returns {integer<cardId>, timestamptz<toDate>} 200 - The delayed card id as integer, a delaying date as TIMESTAMPTZ
  * @returns {string} 500 - Server error
  */
-router.post('/card/delay', checkJwt, cardController.delay)
+router.post('/card/delay', checkJwt, sanitizer, cardController.delay)
 
 // Remove any delay on a specific card for a connected user
 /**
