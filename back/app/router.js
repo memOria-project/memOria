@@ -58,6 +58,16 @@ router.post('/card', checkJwt, cardController.save)
  */
 router.post('/card/delay', checkJwt, cardController.delay)
 
+// Remove any delay on a specific card for a connected user
+/**
+ * Respond with the id of the delayed card and the date of the new delay
+ * @route DELETE /card/delay
+ * @returns {integer<removedDelayId>, integer<cardId>} 200 - The remove delay id as integer, the concerned card id 
+ * @returns {string} 500 - Server error
+ */
+ router.delete('/card/delay', checkJwt, cardController.removeDelay)
+
+
 // Delete a card of a user
 /**
  * Respond with all cards of the connected user

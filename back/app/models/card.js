@@ -135,6 +135,19 @@ class Card {
     }
   }
 
+  /**
+ * Delay a card from the database
+ */
+   async removeDelay (userId) {
+    try {
+      this.purgeDelay()
+      const { rows } = await db.query('DELETE FROM delay WHERE user_id=$1 AND card_id=$2', [userId, this.id])
+      return { cardId: this.id, status: "undelayed" }
+    } catch (error) {
+      throw new Error(error.detail ? error.detail : error.message)
+    }
+  }
+
   async purgeDelay () {
     try {
       await db.query('DELETE FROM delay WHERE to_date < now()')
