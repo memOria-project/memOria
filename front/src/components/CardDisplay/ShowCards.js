@@ -16,7 +16,6 @@ const ShowCards = ({ hideButtons, showHotkeys, setDatabase, database, failedCard
   const dispatch = useDispatch()
   const { currentView } = useSelector((state) => state.options)
   const { isRecto } = currentView
-  const deckLength = database.length
   useEffect(() => {
     if (database.length >= 1 && !hideButtons) {
       setCurrentCard((prevState) => ({ ...prevState, recto: database[prevState.index].recto, verso: database[prevState.index].verso, id: database[prevState.index].id, response: database[prevState.index].response }))
@@ -64,8 +63,8 @@ const ShowCards = ({ hideButtons, showHotkeys, setDatabase, database, failedCard
     </motion.pre>
   </motion.div>
 }
-  {!hideButtons && <><Next count={count} showHotkeys={showHotkeys} setFailedCards={setFailedCards} setDatabase={setDatabase} setCount={setCount} failedCards={failedCards} database={database} currentCard={currentCard} setCurrentCard={setCurrentCard} deckId={deckId} deckLength={deckLength} />
-  <p style={{ fontSize: '1.5em' }}> Cartes restantes: {deckLength - currentCard.index - 1}</p></>}
+  {!hideButtons && <><Next count={count} showHotkeys={showHotkeys} setFailedCards={setFailedCards} setDatabase={setDatabase} setCount={setCount} failedCards={failedCards} database={database} currentCard={currentCard} setCurrentCard={setCurrentCard} deckId={deckId} deckLength={database.length} />
+  <p style={{ fontSize: '1.5em' }}> Cartes restantes: {database.length - currentCard.index - 1}</p></>}
   </>
 }
 export default ShowCards

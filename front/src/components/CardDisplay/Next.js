@@ -47,7 +47,7 @@ const Next = ({ showHotkeys, setDatabase, deckId, deckLength, currentCard, setCu
           setIndexPreviousCard(setCurrentCard, currentCard.index); dispatch({ type: RESET_CARD, isRecto: defaultView.isRecto })
         }} style={{ visibility: isFirstCard ? 'hidden' : 'visible' }}>
 &#11164;</button>
-        <button className={setActiveClass('confirm', 'correct', currentCard.response)} onClick={() => setAsSuccessful(setDelay, setDatabase, currentCard, setCurrentCard, setCount, dispatch)}>
+        <button className={setActiveClass('confirm', 'correct', currentCard.response)} onClick={() => setAsSuccessful(setDelay, setDatabase, currentCard, setCurrentCard, setCount, deckLength, dispatch)}>
 
           <NavLink to={nextCardURL} >
           <AnimatePresence>
@@ -76,7 +76,7 @@ const Next = ({ showHotkeys, setDatabase, deckId, deckLength, currentCard, setCu
           </NavLink>
 
         </button>
-          <button className={setActiveClass('warning', 'wrong', currentCard.response)} onClick={() => setAsFailed(setFailedCards, setCount, currentCard, setDatabase, setCurrentCard, dispatch)}>
+          <button className={setActiveClass('warning', 'wrong', currentCard.response)} onClick={() => setAsFailed(setFailedCards, setCount, currentCard, setDatabase, setCurrentCard, deckLength, dispatch)}>
             <NavLink to={nextCardURL} >
             <AnimatePresence>
             {showHotkeys
@@ -101,7 +101,7 @@ const Next = ({ showHotkeys, setDatabase, deckId, deckLength, currentCard, setCu
                <span style={{ paddingLeft: '5px' }}>{count.failed}</span>
               </NavLink>
           </button>
-          <button className="discrete" onClick={() => { setIndexNextCard(setCurrentCard, currentCard.index); dispatch({ type: RESET_CARD, isRecto: defaultView.isRecto }) }}>
+          <button className="discrete" onClick={() => { setIndexNextCard(setCurrentCard, currentCard.index, deckLength); dispatch({ type: RESET_CARD, isRecto: defaultView.isRecto }) }}>
             &#10148; </button>
       </div>)
  }
