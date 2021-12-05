@@ -6,14 +6,16 @@ import { useSelector, useDispatch } from 'react-redux'
 import Next from './Next'
 import { motion } from 'framer-motion'
 import classNames from 'classnames'
-// import { useSwipeable } from 'react-swipeable'
+import { useSwipeable } from 'react-swipeable'
+import setAsSuccessful from './setAsSuccessful'
+import setAsFailed from './setAsFailed'
+import setDelay from './setDelay'
 
 const ShowCards = ({ hideButtons, showHotkeys, setDatabase, database, failedCards, setFailedCards, setCurrentCard, currentCard, count, setCount }) => {
   const { deckId } = useParams()
   const dispatch = useDispatch()
   const { currentView } = useSelector((state) => state.options)
   const { isRecto } = currentView
-  const deckLength = database.length
   useEffect(() => {
     if (database.length >= 1 && !hideButtons) {
       setCurrentCard((prevState) => ({ ...prevState, recto: database[prevState.index].recto, verso: database[prevState.index].verso, id: database[prevState.index].id, response: database[prevState.index].response }))
@@ -26,12 +28,11 @@ const ShowCards = ({ hideButtons, showHotkeys, setDatabase, database, failedCard
   }
 
   // ? swiper. Il faut aussi activer ...handlers dans les divs, et import handleClickFail/handleClickNext
-  // const handlers = useSwipeable({
-
-  //   onSwipedDown: handleClickFail,
-  //   onSwipedUp: handleClickNext,
-  //   // trackMouse:true
-  // })
+  const handlers = useSwipeable({
+    onSwipedDown: (event) => setAsFailed(setFailedCards, setCount, currentCard, setDatabase, setCurrentCard, database.length, dispatch),
+    onSwipedUp: (event) => setAsSuccessful(setDelay, setDatabase, currentCard, setCurrentCard, setCount, database.length, dispatch),
+    trackMouse: true
+  })
   // ? fin swiper
 
   const cardClass = classNames({
@@ -43,7 +44,7 @@ const ShowCards = ({ hideButtons, showHotkeys, setDatabase, database, failedCard
   return <>
 {isRecto
   ? <motion.div
-  // {...handlers}
+  {...handlers}
     className={cardClass}
     onClick={handleClickReturn}
     >
@@ -52,7 +53,7 @@ const ShowCards = ({ hideButtons, showHotkeys, setDatabase, database, failedCard
     </pre>
   </motion.div>
   : <motion.div
-  // {...handlers}
+  {...handlers}
   animate={{ rotateY: 180 }}
   className={cardClass} onClick={handleClickReturn}>
     <motion.pre
@@ -62,8 +63,8 @@ const ShowCards = ({ hideButtons, showHotkeys, setDatabase, database, failedCard
     </motion.pre>
   </motion.div>
 }
-  {!hideButtons && <><Next count={count} showHotkeys={showHotkeys} setFailedCards={setFailedCards} setDatabase={setDatabase} setCount={setCount} failedCards={failedCards} database={database} currentCard={currentCard} setCurrentCard={setCurrentCard} deckId={deckId} deckLength={deckLength} />
-  <p style={{ fontSize: '1.5em' }}> Cartes restantes: {deckLength - currentCard.index - 1}</p></>}
+  {!hideButtons && <><Next count={count} showHotkeys={showHotkeys} setFailedCards={setFailedCards} setDatabase={setDatabase} setCount={setCount} failedCards={failedCards} database={database} currentCard={currentCard} setCurrentCard={setCurrentCard} deckId={deckId} deckLength={database.length} />
+  <p style={{ fontSize: '1.5em' }}> Cartes restantes: {database.length - currentCard.index - 1}</p></>}
   </>
 }
 export default ShowCards

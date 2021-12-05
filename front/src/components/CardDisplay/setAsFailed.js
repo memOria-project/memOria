@@ -1,29 +1,18 @@
-
-import addFailedCards from './addFailedCards'
 import setResponseStatus from './setResponseStatus'
 import setIndexNextCard from './setIndexNextCard'
 import { RESET_CARD } from '../../actions'
 import store from '../../store'
+import { updateCount } from './updateCount'
 
-const setAsFailed = (setFailedCards, setCount, currentCard, setDatabase, setCurrentCard, dispatch) => {
+const setAsFailed = (setFailedCards, setCount, currentCard, setDatabase, setCurrentCard, databaseLength, dispatch) => {
   const { defaultView } = store.getState().options
-  dispatch({ type: RESET_CARD, isRecto: defaultView.isRecto })
-  switch (currentCard.response) {
-    case 'notPicked': {
-      addFailedCards(currentCard, setFailedCards)
-      setCount(prevState => ({ ...prevState, failed: prevState.failed + 1 }))
-      break
-    }
-    case 'wrong': {
-      setCount(prevState => ({ ...prevState, success: prevState.success + 1, failed: prevState.failed - 1 }))
-      break
-    }
-    case 'correct': {
-      setCount(prevState => ({ ...prevState, failed: prevState.failed + 1, success: prevState.success - 1 }))
-    }
+  if (currentCard.index < databaseLength) {
+    dispatch({ type: RESET_CARD, isRecto: defaultView.isRecto })
+    setResponseStatus(setDatabase, currentCard.id, false)
+    setIndexNextCard(setCurrentCard, currentCard.index, databaseLength)
+    // updateCount inclue aussi la copie de la carte courante dans failedCards. Faire une fonction séparée car pas claire?
+    updateCount(currentCard.response, 'wrong', setCount, currentCard, setFailedCards)
   }
-  setResponseStatus(setDatabase, currentCard.id, false)
-  setIndexNextCard(setCurrentCard, currentCard.index)
 }
 
 export default setAsFailed
