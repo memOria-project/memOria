@@ -1,5 +1,5 @@
 import { LOG_IN, UPDATE_USER, GET_USER, DELETE_TOKEN, DISCONNECT, UPDATE_SESSION, CHECK_TOKEN, SUBSCRIBE, UPDATE_PROFILE, REQUEST_SUCCESS } from '../actions'
-
+import { cleanObject } from '../functions/DOMPurify'
 const auth = (store) => (next) => (action) => {
   const { email, password } = store.getState().user
   const back = store.getState().back.url
@@ -11,13 +11,13 @@ const auth = (store) => (next) => (action) => {
         password,
         email
       }
-
+      console.log(cleanObject(login))
       const options = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(login)
+        body: JSON.stringify(cleanObject(login))
       }
-      console.log('LOGIN', JSON.stringify(login))
+      console.log('LOGIN', JSON.stringify(cleanObject(login)))
 
       const getToken = async () => {
         try {
@@ -109,7 +109,7 @@ const auth = (store) => (next) => (action) => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(form)
+        body: JSON.stringify(cleanObject(form))
       }
       const postUser = async () => {
         try {
@@ -145,7 +145,7 @@ const auth = (store) => (next) => (action) => {
           Authorization: token
 
         },
-        body: JSON.stringify(form)
+        body: JSON.stringify(cleanObject(form))
       }
       const updateUser = async () => {
         try {
