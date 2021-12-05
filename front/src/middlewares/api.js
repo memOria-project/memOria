@@ -2,6 +2,7 @@ import {
   getAllDecks, GET_CARD, FETCH_DECKS, FETCH_CARDS, getCurrentDeckContent, POST_CARD, SET_AS_MODIFIED, DELETE_CARD, DELAY_CARD, CREATE_DECK, CHECK_TOKEN
   , FETCH_USER_DECKS, UPDATE_USER, UPDATE_USER_DECKS, SET_CURRENT_DECK_CONTENT
 } from '../actions'
+import { clean, cleanObject } from '../functions/DOMPurify'
 
 const api = (store) => (next) => (action) => {
   const token = localStorage.getItem('token')
@@ -86,6 +87,7 @@ const api = (store) => (next) => (action) => {
         deckId,
         id: action.cardId
       }
+      console.log(cleanObject(newCard))
       const options =
       {
         method: 'POST',
@@ -93,8 +95,9 @@ const api = (store) => (next) => (action) => {
           'Content-Type': 'application/json',
           Authorization: token
         },
-        body: JSON.stringify(newCard)
+        body: JSON.stringify(cleanObject(newCard))
       }
+      console.log('post', JSON.stringify(cleanObject(newCard)))
       const postCard = async () => {
         try {
           const request = await fetch(`${back}/card`, options)
