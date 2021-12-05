@@ -6,7 +6,10 @@ import { useSelector, useDispatch } from 'react-redux'
 import Next from './Next'
 import { motion } from 'framer-motion'
 import classNames from 'classnames'
-// import { useSwipeable } from 'react-swipeable'
+import { useSwipeable } from 'react-swipeable'
+import setAsSuccessful from './setAsSuccessful'
+import setAsFailed from './setAsFailed'
+import setDelay from './setDelay'
 
 const ShowCards = ({ hideButtons, showHotkeys, setDatabase, database, failedCards, setFailedCards, setCurrentCard, currentCard, count, setCount }) => {
   const { deckId } = useParams()
@@ -26,12 +29,11 @@ const ShowCards = ({ hideButtons, showHotkeys, setDatabase, database, failedCard
   }
 
   // ? swiper. Il faut aussi activer ...handlers dans les divs, et import handleClickFail/handleClickNext
-  // const handlers = useSwipeable({
-
-  //   onSwipedDown: handleClickFail,
-  //   onSwipedUp: handleClickNext,
-  //   // trackMouse:true
-  // })
+  const handlers = useSwipeable({
+    onSwipedDown: (event) => setAsFailed(setFailedCards, setCount, currentCard, setDatabase, setCurrentCard, database.length, dispatch),
+    onSwipedUp: (event) => setAsSuccessful(setDelay, setDatabase, currentCard, setCurrentCard, setCount, database.length, dispatch),
+    trackMouse: true
+  })
   // ? fin swiper
 
   const cardClass = classNames({
@@ -43,7 +45,7 @@ const ShowCards = ({ hideButtons, showHotkeys, setDatabase, database, failedCard
   return <>
 {isRecto
   ? <motion.div
-  // {...handlers}
+  {...handlers}
     className={cardClass}
     onClick={handleClickReturn}
     >
@@ -52,7 +54,7 @@ const ShowCards = ({ hideButtons, showHotkeys, setDatabase, database, failedCard
     </pre>
   </motion.div>
   : <motion.div
-  // {...handlers}
+  {...handlers}
   animate={{ rotateY: 180 }}
   className={cardClass} onClick={handleClickReturn}>
     <motion.pre
