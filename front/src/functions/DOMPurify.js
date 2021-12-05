@@ -1,10 +1,11 @@
 import DOMPurify from 'dompurify'
-
+// pour les strings
 export const clean = (dirty) => {
   const cleant = DOMPurify.sanitize(dirty)
   console.log(cleant)
   return cleant
 }
+// pour les objets
 export const cleanObject = (object = ({ login: 'login', password: 'password <script></script>' })) => {
   const mappedObject = Object.entries(object).map(([key, value]) => {
     const cleantValue = clean(value)
