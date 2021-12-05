@@ -123,7 +123,7 @@ const auth = (store) => (next) => (action) => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(form)
+        body: JSON.stringify(cleanObject(form))
       }
       const postUser = async () => {
         try {
@@ -159,7 +159,7 @@ const auth = (store) => (next) => (action) => {
           Authorization: token
 
         },
-        body: JSON.stringify(form)
+        body: JSON.stringify(cleanObject(form))
       }
       const updateUser = async () => {
         try {
