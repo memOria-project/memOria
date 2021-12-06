@@ -12,7 +12,7 @@ import setDelay from './setDelay'
 import setAsFailed from './setAsFailed'
 import { AnimatePresence, motion } from 'framer-motion'
 
-const Next = ({ showHotkeys, setDatabase, deckId, deckLength, currentCard, setCurrentCard, count, setCount, setFailedCards }) => {
+const Next = ({ database, showHotkeys, setDatabase, deckId, deckLength, currentCard, setCurrentCard, count, setCount, setFailedCards }) => {
   const dispatch = useDispatch()
   const { defaultView } = useSelector((state) => state.options)
   const { isConnected } = useSelector((state) => state.user)
@@ -38,6 +38,9 @@ const Next = ({ showHotkeys, setDatabase, deckId, deckLength, currentCard, setCu
       }
     }
   }
+
+  const numberOfSuccess = database.filter((card) => card.response === 'correct').length
+  const numberOfWrong = database.filter((card) => card.response === 'wrong').length
 
   return (
   <div>
@@ -70,7 +73,7 @@ const Next = ({ showHotkeys, setDatabase, deckId, deckLength, currentCard, setCu
             }
                         </AnimatePresence>
           <span style={{ paddingLeft: '5px' }}>
-            {count.success}
+            {numberOfSuccess}
           </span>
 
           </NavLink>
@@ -98,7 +101,7 @@ const Next = ({ showHotkeys, setDatabase, deckId, deckLength, currentCard, setCu
               </motion.span>
               }
               </AnimatePresence>
-               <span style={{ paddingLeft: '5px' }}>{count.failed}</span>
+               <span style={{ paddingLeft: '5px' }}>{numberOfWrong}</span>
               </NavLink>
           </button>
           <button className="discrete" onClick={() => { setIndexNextCard(setCurrentCard, currentCard.index, deckLength); dispatch({ type: RESET_CARD, isRecto: defaultView.isRecto }) }}>

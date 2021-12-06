@@ -145,9 +145,11 @@ const api = (store) => (next) => (action) => {
       const cardToBeDelayed = {
         id: action.id
       }
+      const method = action.method === 'post' ? 'POST' : 'DELETE'
+
       const options =
       {
-        method: 'POST',
+        method,
         headers: {
           'Content-Type': 'application/json',
           Authorization: token

@@ -9,7 +9,7 @@ const setAsSuccessful = (setDelay, setDatabase, currentCard, setCurrentCard, set
   if (currentCard.index < databaseLength) {
     dispatch({ type: RESET_CARD, isRecto: defaultView.isRecto })
     if (isConnected) {
-      setDelay(currentCard, dispatch)
+      setDelay(currentCard, 'post', dispatch)
     }
     setResponseStatus(setDatabase, currentCard.id, true)
     setIndexNextCard(setCurrentCard, currentCard.index, databaseLength)

@@ -63,7 +63,7 @@ const ShowCards = ({ hideButtons, showHotkeys, setDatabase, database, failedCard
     </motion.pre>
   </motion.div>
 }
-  {!hideButtons && <><Next count={count} showHotkeys={showHotkeys} setFailedCards={setFailedCards} setDatabase={setDatabase} setCount={setCount} failedCards={failedCards} database={database} currentCard={currentCard} setCurrentCard={setCurrentCard} deckId={deckId} deckLength={database.length} />
+  {!hideButtons && <><Next database={database} count={count} showHotkeys={showHotkeys} setFailedCards={setFailedCards} setDatabase={setDatabase} setCount={setCount} failedCards={failedCards} database={database} currentCard={currentCard} setCurrentCard={setCurrentCard} deckId={deckId} deckLength={database.length} />
   <p style={{ fontSize: '1.5em' }}> Cartes restantes: {database.length - currentCard.index - 1}</p></>}
   </>
 }
