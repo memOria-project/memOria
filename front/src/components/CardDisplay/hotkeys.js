@@ -7,7 +7,7 @@ import { RETURN_CARD } from '../../actions'
 import store from '../../store'
 import { faDatabase } from '@fortawesome/free-solid-svg-icons'
 
-const hotkeys = (event, database, setShowHotkeys, setCurrentCard, currentCardIndex, setDatabase, currentCard, setFailedCards, dispatch) => {
+const hotkeys = (event, database, setShowHotkeys, setCurrentCard, currentCardIndex, setDatabase, currentCard, failedCards, setFailedCards, dispatch) => {
   console.log(currentCardIndex)
   setShowHotkeys(true)
   const { currentView } = store.getState().options
@@ -31,7 +31,7 @@ const hotkeys = (event, database, setShowHotkeys, setCurrentCard, currentCardInd
     }
     // arrow down
     case 40: {
-      setAsFailed(setFailedCards, currentCard, setDatabase, setCurrentCard, database.length, dispatch)
+      setAsFailed(failedCards, setFailedCards, currentCard, setDatabase, setCurrentCard, database.length, dispatch)
       break
     }
     // 0

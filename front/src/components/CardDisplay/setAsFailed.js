@@ -5,8 +5,10 @@ import store from '../../store'
 import setDelay from './setDelay'
 import addFailedCards from './addFailedCards'
 
-const setAsFailed = (setFailedCards, currentCard, setDatabase, setCurrentCard, databaseLength, dispatch) => {
+const setAsFailed = (failedCards, setFailedCards, currentCard, setDatabase, setCurrentCard, databaseLength, dispatch) => {
   const { defaultView } = store.getState().options
+  const isFailedAlready = failedCards.some((card) => card.recto === currentCard.recto && card.verso === currentCard.verso)
+
   if (currentCard.index < databaseLength) {
     dispatch({ type: RESET_CARD, isRecto: defaultView.isRecto })
     if (currentCard.response === 'correct') {
@@ -14,7 +16,7 @@ const setAsFailed = (setFailedCards, currentCard, setDatabase, setCurrentCard, d
     }
     setResponseStatus(setDatabase, currentCard.id, false)
     setIndexNextCard(setCurrentCard, currentCard.index, databaseLength)
-    if (currentCard.response === 'notPicked' || currentCard.response === 'correct') {
+    if (!isFailedAlready) {
       addFailedCards(currentCard, setFailedCards)
     }
   }
