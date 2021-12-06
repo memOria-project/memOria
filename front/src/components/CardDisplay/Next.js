@@ -12,7 +12,7 @@ import setDelay from './setDelay'
 import setAsFailed from './setAsFailed'
 import { AnimatePresence, motion } from 'framer-motion'
 
-const Next = ({ database, showHotkeys, setDatabase, deckId, deckLength, currentCard, setCurrentCard, count, setCount, setFailedCards }) => {
+const Next = ({ database, showHotkeys, setDatabase, deckId, deckLength, currentCard, setCurrentCard, setFailedCards }) => {
   const dispatch = useDispatch()
   const { defaultView } = useSelector((state) => state.options)
   const { isConnected } = useSelector((state) => state.user)
@@ -50,7 +50,7 @@ const Next = ({ database, showHotkeys, setDatabase, deckId, deckLength, currentC
           setIndexPreviousCard(setCurrentCard, currentCard.index); dispatch({ type: RESET_CARD, isRecto: defaultView.isRecto })
         }} style={{ visibility: isFirstCard ? 'hidden' : 'visible' }}>
 &#11164;</button>
-        <button className={setActiveClass('confirm', 'correct', currentCard.response)} onClick={() => setAsSuccessful(setDelay, setDatabase, currentCard, setCurrentCard, setCount, deckLength, dispatch)}>
+        <button className={setActiveClass('confirm', 'correct', currentCard.response)} onClick={() => setAsSuccessful(setDelay, setDatabase, currentCard, setCurrentCard, deckLength, dispatch)}>
 
           <NavLink to={nextCardURL} >
           <AnimatePresence>
@@ -79,7 +79,7 @@ const Next = ({ database, showHotkeys, setDatabase, deckId, deckLength, currentC
           </NavLink>
 
         </button>
-          <button className={setActiveClass('warning', 'wrong', currentCard.response)} onClick={() => setAsFailed(setFailedCards, setCount, currentCard, setDatabase, setCurrentCard, deckLength, dispatch)}>
+          <button className={setActiveClass('warning', 'wrong', currentCard.response)} onClick={() => setAsFailed(setFailedCards, currentCard, setDatabase, setCurrentCard, deckLength, dispatch)}>
             <NavLink to={nextCardURL} >
             <AnimatePresence>
             {showHotkeys

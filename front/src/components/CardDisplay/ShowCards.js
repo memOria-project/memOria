@@ -11,7 +11,7 @@ import setAsSuccessful from './setAsSuccessful'
 import setAsFailed from './setAsFailed'
 import setDelay from './setDelay'
 
-const ShowCards = ({ hideButtons, showHotkeys, setDatabase, database, failedCards, setFailedCards, setCurrentCard, currentCard, count, setCount }) => {
+const ShowCards = ({ hideButtons, showHotkeys, setDatabase, database, failedCards, setFailedCards, setCurrentCard, currentCard }) => {
   const { deckId } = useParams()
   const dispatch = useDispatch()
   const { currentView } = useSelector((state) => state.options)
@@ -29,8 +29,8 @@ const ShowCards = ({ hideButtons, showHotkeys, setDatabase, database, failedCard
 
   // ? swiper. Il faut aussi activer ...handlers dans les divs, et import handleClickFail/handleClickNext
   const handlers = useSwipeable({
-    onSwipedDown: (event) => setAsFailed(setFailedCards, setCount, currentCard, setDatabase, setCurrentCard, database.length, dispatch),
-    onSwipedUp: (event) => setAsSuccessful(setDelay, setDatabase, currentCard, setCurrentCard, setCount, database.length, dispatch),
+    onSwipedDown: (event) => setAsFailed(setFailedCards, currentCard, setDatabase, setCurrentCard, database.length, dispatch),
+    onSwipedUp: (event) => setAsSuccessful(setDelay, setDatabase, currentCard, setCurrentCard, database.length, dispatch),
     trackMouse: true
   })
   // ? fin swiper
@@ -63,7 +63,7 @@ const ShowCards = ({ hideButtons, showHotkeys, setDatabase, database, failedCard
     </motion.pre>
   </motion.div>
 }
-  {!hideButtons && <><Next database={database} count={count} showHotkeys={showHotkeys} setFailedCards={setFailedCards} setDatabase={setDatabase} setCount={setCount} failedCards={failedCards} database={database} currentCard={currentCard} setCurrentCard={setCurrentCard} deckId={deckId} deckLength={database.length} />
+  {!hideButtons && <><Next database={database} showHotkeys={showHotkeys} setFailedCards={setFailedCards} setDatabase={setDatabase} failedCards={failedCards} currentCard={currentCard} setCurrentCard={setCurrentCard} deckId={deckId} deckLength={database.length} />
   <p style={{ fontSize: '1.5em' }}> Cartes restantes: {database.length - currentCard.index - 1}</p></>}
   </>
 }

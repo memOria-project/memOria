@@ -2,8 +2,8 @@ import { RESET_CARD } from '../../actions'
 import store from '../../store'
 import setResponseStatus from './setResponseStatus'
 import setIndexNextCard from './setIndexNextCard'
-import { updateCount } from './updateCount'
-const setAsSuccessful = (setDelay, setDatabase, currentCard, setCurrentCard, setCount, databaseLength, dispatch) => {
+
+const setAsSuccessful = (setDelay, setDatabase, currentCard, setCurrentCard, databaseLength, dispatch) => {
   const { defaultView } = store.getState().options
   const { isConnected } = store.getState().user
   if (currentCard.index < databaseLength) {
@@ -13,7 +13,6 @@ const setAsSuccessful = (setDelay, setDatabase, currentCard, setCurrentCard, set
     }
     setResponseStatus(setDatabase, currentCard.id, true)
     setIndexNextCard(setCurrentCard, currentCard.index, databaseLength)
-    updateCount(currentCard.response, 'correct', setCount)
   }
 }
 export default setAsSuccessful

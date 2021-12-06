@@ -39,9 +39,6 @@ const CardDisplay = () => {
   const [database, setDatabase] = useState([initialFirstCardState])
   const [currentCard, setCurrentCard] = useState(initialFirstCardState)
   const [failedCards, setFailedCards] = useState([])
-  // count.restart est uniquement là pour forcer le re-render quand l'utilisateur décide de rejouer au même mode de jeu.
-  // dans ce cas précis, sans count.restart, la database appropriée ne serait pas re-sélectionné
-  const [count, setCount] = useState({ success: 0, failed: 0, restart: 0 })
   const myFocus = useRef()
   if (myFocus.current) {
     myFocus.current.focus()
@@ -104,13 +101,10 @@ const CardDisplay = () => {
     if (allCards) {
       selectDatabase(databaseSelector)
     }
-  }, [allCards, databaseSelector, order, count.restart])
+  }, [allCards, databaseSelector, order])
 
   // * ↓ fonctions utilisées dans l'initalisation (à modulariser à l'avenir) ↓
 
-  const resetCount = () => {
-    setCount(prevState => ({ ...prevState, success: 0, failed: 0 }))
-  }
   const initResponseStatus = () => {
     setDatabase(prevState => prevState.map((card) => ({ ...card, response: 'notPicked' })))
     setDatabase((state) => {
@@ -132,7 +126,6 @@ const CardDisplay = () => {
         setCurrentCard(prevState => ({ ...prevState, index: 0 }))
 
         setFailedCards([])
-        resetCount()
         break
       }
 
@@ -140,7 +133,6 @@ const CardDisplay = () => {
         setDatabase(delayedCards)
         setDatabase(prevState => (pickOrder(prevState, order)))
 
-        resetCount()
         setCurrentCard(prevState => ({ ...prevState, index: 0 }))
         setDatabase((state) => {
           console.log('la database suivante est séléctionnée(2. cartes delayed):', state)
@@ -156,7 +148,6 @@ const CardDisplay = () => {
         setDatabase(prevState => (pickOrder(prevState, order)))
         setCurrentCard(prevState => ({ ...prevState, index: 0 }))
 
-        resetCount()
         setDatabase((state) => {
           console.log(`la database suivante est séléctionnée(3. toutes les cartes, par défaut, ordre ${order}):, state`)
           return state
@@ -189,7 +180,7 @@ C'est mauvais question visibilité. Piste pour éviter ça
   return (<div
   ref={myFocus}
   tabIndex="-1"
-            onKeyDown={(event) => hotkeys(event, database, setShowHotkeys, setCurrentCard, currentCard.index, setDatabase, setCount, currentCard, setFailedCards, dispatch)}
+            onKeyDown={(event) => hotkeys(event, database, setShowHotkeys, setCurrentCard, currentCard.index, setDatabase, currentCard, setFailedCards, dispatch)}
             onKeyUp={() => setShowHotkeys(false)
             }
             >
@@ -209,11 +200,11 @@ C'est mauvais question visibilité. Piste pour éviter ça
                   currentCard.index <= database.length - 1 &&
             (<>
             <p className="deck__title">{deckTitle} <button className="icon__options"><FontAwesomeIcon icon={faCog} onClick={() => setShowOptions(true)} size="2x"/></button> </p>
-            <ShowCards showHotkeys={showHotkeys} setDatabase={setDatabase} count={count} setCount={setCount} currentCard={currentCard} setCurrentCard={setCurrentCard} hideButtons={false} cardId={cardId} database={database} setFailedCards={setFailedCards} failedCards={failedCards} />
+            <ShowCards showHotkeys={showHotkeys} setDatabase={setDatabase} currentCard={currentCard} setCurrentCard={setCurrentCard} hideButtons={false} cardId={cardId} database={database} setFailedCards={setFailedCards} failedCards={failedCards} />
             </>),
 
                   isOver &&
-            <NextGame setCount={setCount} setFailedCards={setFailedCards} failedCards={failedCards} currentCard={currentCard} setCurrentCard={setCurrentCard} database={database} />,
+            <NextGame setFailedCards={setFailedCards} failedCards={failedCards} currentCard={currentCard} setCurrentCard={setCurrentCard} database={database} />,
 
                   loading &&
             <Loading />

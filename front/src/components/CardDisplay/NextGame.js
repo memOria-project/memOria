@@ -4,7 +4,7 @@ import { NavLink, useParams } from 'react-router-dom'
 import setIndexPreviousCard from './setIndexPreviousCard'
 import handleClickCheckFail from './handleClickFail'
 
-const NextGame = ({ failedCards, currentCard, setCurrentCard, database, setFailedCards, setCount }) => {
+const NextGame = ({ failedCards, currentCard, setCurrentCard, database, setFailedCards }) => {
   const { cardId, deckId } = useParams()
 
   const handleClickRestart = () => {
@@ -35,7 +35,7 @@ const NextGame = ({ failedCards, currentCard, setCurrentCard, database, setFaile
     <button className="confirm" onClick={() => handleClickRestart()}>Revoir toutes les cartes</button> <br />
 
     {check &&
-    <button className="warning" onClick={() => handleClickCheckFail(database, setCount, setCurrentCard, dispatch)} >
+    <button className="warning" onClick={() => handleClickCheckFail(database, setCurrentCard, dispatch)} >
       <NavLink to={firstCardURL} >Voir les {failedCards.length} cartes non apprises</NavLink>
     </button>
     }<br />
