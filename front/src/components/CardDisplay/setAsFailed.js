@@ -11,7 +11,7 @@ const setAsFailed = (setFailedCards, setCount, currentCard, setDatabase, setCurr
   if (currentCard.index < databaseLength) {
     dispatch({ type: RESET_CARD, isRecto: defaultView.isRecto })
     if (currentCard.response === 'correct') {
-      setDelay(currentCard.id, 'delete', dispatch)
+      setDelay(currentCard, 'delete', dispatch)
     }
     setResponseStatus(setDatabase, currentCard.id, false)
     setIndexNextCard(setCurrentCard, currentCard.index, databaseLength)

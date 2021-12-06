@@ -146,7 +146,7 @@ const api = (store) => (next) => (action) => {
         id: action.id
       }
       const method = action.method === 'post' ? 'POST' : 'DELETE'
-
+      console.log({ cardToBeDelayed, method })
       const options =
       {
         method,
