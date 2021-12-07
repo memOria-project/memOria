@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { CREATE_DECK } from '../../actions'
 
 const NewDeckForm = ({ handleClick, setShowNewDeck, isEdit }) => {
-  const { title, tags } = useSelector((state) => state.currentDeck)
+  const { title, tags, id } = useSelector((state) => state.currentDeck)
 
-  const { register, handleSubmit, watch, getValues, formState: { errors, isValid, isSubmitted, isSubmitSuccessful } } = useForm({ mode: 'onChange', defaultValues: { name: isEdit ? title : '', tags: isEdit ? tags : '' } })
+  const { register, handleSubmit, watch, getValues, formState: { errors, isValid, isSubmitted, isSubmitSuccessful } } = useForm({ mode: 'onChange', defaultValues: { name: isEdit ? title : '', tags: isEdit ? tags : '', id: isEdit ? id : null } })
 
   if (isSubmitted) {
     setShowNewDeck(false)

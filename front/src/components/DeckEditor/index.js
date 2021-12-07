@@ -96,6 +96,7 @@ const DeckEditor = ({ value }) => {
               <FontAwesomeIcon icon={faEye} size="2x"/>
             </NavLink>
             <ExportDeck cards={cards} title={currentDeck.title} />
+            <Delete isDeck={true} size="1x"/>
           </div>
         </div>
         <div className="header__newCard header__newCard__recto">

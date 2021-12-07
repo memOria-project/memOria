@@ -37,7 +37,11 @@ button {
   color: vars.$color-main;
   cursor: pointer;
 }
-
+.smallButton {
+  margin: 0.5em;
+  padding: 0.5em 1em;
+  // font-size: 0.6rem;
+}
 button:hover {
   transform: scale(0.95);
   transition: transform 0.5s;
