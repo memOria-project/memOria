@@ -129,7 +129,7 @@ const DeckEditor = ({ value }) => {
           ))}
         {!cards?.length && !loading && <div style={{ marginTop: '2em', fontSize: '2em' }}> Ce paquet est vide! Vite, <NavLink to={`/cardEditor/${id}/new`}> ajoutez une carte!</NavLink> </div>}
         {loading && <Loading />}
-        {showDeckModal && <NewDeckForm handleClick={() => setShowDeckModal((state) => !state)} setShowNewDeck={setShowDeckModal}/>}
+        {showDeckModal && <NewDeckForm handleClick={() => setShowDeckModal((state) => !state)} setShowNewDeck={setShowDeckModal} isEdit={true} />}
     </div>
       : loading ? <Loading /> : <NoMatch reason="deck" />
   )
