@@ -30,7 +30,7 @@ const ShowCards = ({ hideButtons, showHotkeys, setDatabase, database, failedCard
   // ? swiper. Il faut aussi activer ...handlers dans les divs, et import handleClickFail/handleClickNext
   const handlers = useSwipeable({
     onSwipedDown: (event) => setAsFailed(failedCards, setFailedCards, currentCard, setDatabase, setCurrentCard, database.length, dispatch),
-    onSwipedUp: (event) => setAsSuccessful(setDelay, setDatabase, currentCard, setCurrentCard, database.length, dispatch),
+    onSwipedUp: (event) => setAsSuccessful(setDelay, setDatabase, currentCard, setCurrentCard, database.length, failedCards, setFailedCards, dispatch),
     trackMouse: true
   })
   // ? fin swiper

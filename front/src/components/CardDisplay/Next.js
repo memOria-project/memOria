@@ -50,7 +50,7 @@ const Next = ({ database, showHotkeys, setDatabase, deckId, deckLength, currentC
           setIndexPreviousCard(setCurrentCard, currentCard.index); dispatch({ type: RESET_CARD, isRecto: defaultView.isRecto })
         }} style={{ visibility: isFirstCard ? 'hidden' : 'visible' }}>
 &#11164;</button>
-        <button className={setActiveClass('confirm', 'correct', currentCard.response)} onClick={() => setAsSuccessful(setDelay, setDatabase, currentCard, setCurrentCard, deckLength, dispatch)}>
+        <button className={setActiveClass('confirm', 'correct', currentCard.response)} onClick={() => setAsSuccessful(setDelay, setDatabase, currentCard, setCurrentCard, deckLength, failedCards, setFailedCards, dispatch)}>
 
           <NavLink to={nextCardURL} >
           <AnimatePresence>
