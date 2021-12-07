@@ -1,5 +1,5 @@
 
-import { GET_CARD, DELETE_CARD } from '../../actions'
+import { GET_CARD, DELETE_CARD, DELETE_DECK } from '../../actions'
 import store from '../../store'
 
 export const handleClickEdit = (event) => {
@@ -27,7 +27,7 @@ export const handleClickEdit = (event) => {
   }
 }
 
-export const handleClickDelete = (event, isClicked, setIsClicked) => {
+export const handleClickDelete = (event, isDeck, isClicked, setIsClicked) => {
   // confirmations status
   setIsClicked(state => !state)
   // récupération de l'id
@@ -35,11 +35,15 @@ export const handleClickDelete = (event, isClicked, setIsClicked) => {
   const idTakenFromButton = event.target.id
   const cardIdString = idTakenFromButton || idTakenFromIcon
   const cardId = parseInt(cardIdString, 10)
-
+  const deckId = store.getState().currentDeck.id
   // suppression si l'utilisateur en est à son deuxième clique.
   // si c'est le premier, on reset après qq secondes
   if (isClicked) {
-    store.dispatch({ type: DELETE_CARD, cardId })
+    if (isDeck) {
+      store.dispatch({ type: DELETE_DECK, deckId })
+    } else {
+      store.dispatch({ type: DELETE_CARD, cardId })
+    }
   } else {
     setTimeout(() => setIsClicked(state => !state), 5000)
   }

@@ -1,6 +1,6 @@
 import {
   getAllDecks, GET_CARD, FETCH_DECKS, FETCH_CARDS, getCurrentDeckContent, POST_CARD, SET_AS_MODIFIED, DELETE_CARD, DELAY_CARD, CREATE_DECK, CHECK_TOKEN
-  , FETCH_USER_DECKS, UPDATE_USER, UPDATE_USER_DECKS, SET_CURRENT_DECK_CONTENT
+  , FETCH_USER_DECKS, UPDATE_USER, UPDATE_USER_DECKS, SET_CURRENT_DECK_CONTENT, DELETE_DECK
 } from '../actions'
 import { clean, cleanObject } from '../functions/DOMPurify'
 
@@ -168,11 +168,12 @@ const api = (store) => (next) => (action) => {
     }
 
     case CREATE_DECK: {
-      const { name, tags } = action.data
+      const { name, tags, id } = action.data
       const title = name
       const newDeck = {
         title,
-        tag: [tags]
+        tag: [tags],
+        id
       }
       const options =
       {
@@ -196,6 +197,32 @@ const api = (store) => (next) => (action) => {
         } catch (error) { console.log(error) }
       }
       createDeck()
+      break
+    }
+    case DELETE_DECK: {
+      const deckToBeDeleted = {
+        id: action.deckId
+      }
+      const options =
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token
+        },
+        body: JSON.stringify(deckToBeDeleted)
+      }
+      const deleteDeck = async () => {
+        try {
+          const request = await fetch(`${back}/deck`, options)
+          const response = await request.status
+          if (response === 200) {
+            console.log(`deck supprimé: ${response}`)
+          }
+          store.dispatch({ type: FETCH_USER_DECKS })
+        } catch (error) { console.log(error) }
+      }
+      deleteDeck()
       break
     }
     default:
