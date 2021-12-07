@@ -31,7 +31,7 @@ const CardDisplay = () => {
   const [showError, setShowError] = useState(false)
   const [delayedCards, setDelayedCards] = useState([])
   const [showOptions, setShowOptions] = useState(true)
-  const [showHotkeys, setShowHotkeys] = useState(true)
+  const [showHotkeys, setShowHotkeys] = useState(false)
 
   const [loading, setLoading] = useState(true)
   const [checkIfExist, setCheckIfExist] = useState('no timeout yet')

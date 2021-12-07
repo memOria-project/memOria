@@ -58,16 +58,18 @@ const Next = ({ database, showHotkeys, setDatabase, deckId, deckLength, currentC
             {showHotkeys
               ? <motion.span
               key={1}
-              initial={{ opacity: 0, x: -10, y: -5 }}
-              animate={{ opacity: 1, x: -10, y: -5 }}
-              exit={{ opacity: 0, x: -10, y: -5, transition: { duration: 1.5 }, position: 'absolute' }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0, transition: { duration: 1.5 }, position: 'absolute' }}
               className="keyUp">&#11165;
               </motion.span>
               : <motion.span
               animate={{ opacity: [0, 1] }}
+              initial={false}
               transition={{ delay: 1.5 }}
               >
-                <FontAwesomeIcon key={2}
+                <FontAwesomeIcon
+                // key={2}
               icon={faCheckCircle}/>
               </motion.span>
             }
@@ -85,13 +87,14 @@ const Next = ({ database, showHotkeys, setDatabase, deckId, deckLength, currentC
             {showHotkeys
               ? <motion.span
               key={1}
-              initial={{ opacity: 0, x: -10, y: -5 }}
+              initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0, transition: { duration: 1.5 }, position: 'absolute' }}
               className="keyUp">&#11167;
               </motion.span>
               : <motion.span
               animate={{ opacity: [0, 1] }}
+              initial={false}
               transition={{ delay: 1.5 }}
               >
                 <FontAwesomeIcon
