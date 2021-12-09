@@ -156,8 +156,7 @@ class Deck {
       }
     } catch (error) {
       // on relance l'erreur pour que le contrôleur puisse l'attraper et la retransférer au front
-      // throw new Error(error.detail ? error.detail : error.message)
-      console.log("je suis dans le model remove")
+       throw new Error(error.detail ? error.detail : error.message)
     }
   }
 }
