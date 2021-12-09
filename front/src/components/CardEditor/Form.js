@@ -6,6 +6,7 @@ import { GET_CARD } from '../../actions'
 import './CardEditor.scss'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
+import { clean, cleanObject } from '../../functions/DOMPurify'
 
 const Form = ({ isRecto, preview, textArea }) => {
   const { recto, verso } = useSelector((state) => state.currentDeck.currentCard)
@@ -33,7 +34,7 @@ const Form = ({ isRecto, preview, textArea }) => {
     <pre
 
     className="card__content" style={{ textAlign: 'center' }}>
-      <MDEditor.Markdown source={isRecto ? unescape(recto) : unescape(verso)} />
+      <MDEditor.Markdown source={isRecto ? clean(recto) : clean(verso)} />
       </pre>
 
     </div>

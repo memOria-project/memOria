@@ -2,28 +2,20 @@ import { RESET_CARD } from '../../actions'
 import store from '../../store'
 import setResponseStatus from './setResponseStatus'
 import setIndexNextCard from './setIndexNextCard'
+import removeFailedCard from './removeFailedCards'
 
-const setAsSuccessful = (setDelay, setDatabase, currentCard, setCurrentCard, setCount, dispatch) => {
+const setAsSuccessful = (setDelay, setDatabase, currentCard, setCurrentCard, databaseLength, failedCards, setFailedCards, dispatch) => {
   const { defaultView } = store.getState().options
   const { isConnected } = store.getState().user
-  dispatch({ type: RESET_CARD, isRecto: defaultView.isRecto })
-
-  if (isConnected) {
-    setDelay(currentCard, dispatch)
-  }
-  setResponseStatus(setDatabase, currentCard.id, true)
-  setIndexNextCard(setCurrentCard, currentCard.index)
-  switch (currentCard.response) {
-    case 'notPicked': {
-      setCount(prevState => ({ ...prevState, success: prevState.success + 1 }))
-      break
+  if (currentCard.index < databaseLength) {
+    dispatch({ type: RESET_CARD, isRecto: defaultView.isRecto })
+    if (isConnected) {
+      setDelay(currentCard, 'post', dispatch)
     }
-    case 'wrong': {
-      setCount(prevState => ({ ...prevState, success: prevState.success + 1, failed: prevState.failed - 1 }))
-      break
-    }
-    case 'correct': {
-      console.log('card response confirmed')
+    setResponseStatus(setDatabase, currentCard.id, true)
+    setIndexNextCard(setCurrentCard, currentCard.index, databaseLength)
+    if (currentCard.response === 'wrong') {
+      removeFailedCard(currentCard, failedCards, setFailedCards)
     }
   }
 }

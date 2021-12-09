@@ -15,6 +15,7 @@ import ExportDeck from './ExportDeck'
 import Delete from './Delete'
 import Edit from './Edit'
 import NoMatch from '../NoMatch'
+import NewDeckForm from '../Profile/NewDeckForm'
 
 const DeckEditor = ({ value }) => {
   const deckIdFromParams = parseInt(useParams().deckId, 10)
@@ -22,6 +23,7 @@ const DeckEditor = ({ value }) => {
   const editedCardId = location.state?.editedCardId
 
   const [loading, setLoading] = useState(true)
+  const [showDeckModal, setShowDeckModal] = useState(false)
   const { id } = useSelector((state) => state.currentDeck)
   const { currentDeck } = useSelector((state) => state)
   const { cards } = currentDeck
@@ -86,7 +88,7 @@ const DeckEditor = ({ value }) => {
           <div className="header__deckTitleBlock">
             <h2 className="header__title">{currentDeck.title}</h2>
             <div className="header__icon">
-              <FontAwesomeIcon icon={faEdit} />
+              <FontAwesomeIcon icon={faEdit} onClick={() => setShowDeckModal(true)} />
             </div>
           </div>
           <div className="header__undertitleBlock">
@@ -94,6 +96,7 @@ const DeckEditor = ({ value }) => {
               <FontAwesomeIcon icon={faEye} size="2x"/>
             </NavLink>
             <ExportDeck cards={cards} title={currentDeck.title} />
+            <Delete isDeck={true} size="1x"/>
           </div>
         </div>
         <div className="header__newCard header__newCard__recto">
@@ -127,6 +130,7 @@ const DeckEditor = ({ value }) => {
           ))}
         {!cards?.length && !loading && <div style={{ marginTop: '2em', fontSize: '2em' }}> Ce paquet est vide! Vite, <NavLink to={`/cardEditor/${id}/new`}> ajoutez une carte!</NavLink> </div>}
         {loading && <Loading />}
+        {showDeckModal && <NewDeckForm handleClick={() => setShowDeckModal((state) => !state)} setShowNewDeck={setShowDeckModal} isEdit={true} />}
     </div>
       : loading ? <Loading /> : <NoMatch reason="deck" />
   )

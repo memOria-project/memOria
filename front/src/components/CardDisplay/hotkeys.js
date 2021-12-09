@@ -7,7 +7,7 @@ import { RETURN_CARD } from '../../actions'
 import store from '../../store'
 import { faDatabase } from '@fortawesome/free-solid-svg-icons'
 
-const hotkeys = (event, database, setShowHotkeys, setCurrentCard, currentCardIndex, setDatabase, setCount, currentCard, setFailedCards, dispatch) => {
+const hotkeys = (event, database, setShowHotkeys, setCurrentCard, currentCardIndex, setDatabase, currentCard, failedCards, setFailedCards, dispatch) => {
   console.log(currentCardIndex)
   setShowHotkeys(true)
   const { currentView } = store.getState().options
@@ -20,22 +20,18 @@ const hotkeys = (event, database, setShowHotkeys, setCurrentCard, currentCardInd
     // arrow right
     case 39: {
       if (currentCard.index < database.length) {
-        setIndexNextCard(setCurrentCard, currentCardIndex)
+        setIndexNextCard(setCurrentCard, currentCardIndex, database.length)
       }
       break
     }
     // arrow up
     case 38: {
-      if (currentCard.index < database.length) {
-        setAsSuccessful(setDelay, setDatabase, currentCard, setCurrentCard, setCount, dispatch)
-      }
+      setAsSuccessful(setDelay, setDatabase, currentCard, setCurrentCard, database.length, failedCards, setFailedCards, dispatch)
       break
     }
     // arrow down
     case 40: {
-      if (currentCard.index < database.length) {
-        setAsFailed(setFailedCards, setCount, currentCard, setDatabase, setCurrentCard, dispatch)
-      }
+      setAsFailed(failedCards, setFailedCards, currentCard, setDatabase, setCurrentCard, database.length, dispatch)
       break
     }
     // 0

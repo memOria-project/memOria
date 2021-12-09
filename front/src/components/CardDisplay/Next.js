@@ -12,7 +12,7 @@ import setDelay from './setDelay'
 import setAsFailed from './setAsFailed'
 import { AnimatePresence, motion } from 'framer-motion'
 
-const Next = ({ showHotkeys, setDatabase, deckId, deckLength, currentCard, setCurrentCard, count, setCount, setFailedCards }) => {
+const Next = ({ database, showHotkeys, setDatabase, deckId, deckLength, currentCard, setCurrentCard, failedCards, setFailedCards }) => {
   const dispatch = useDispatch()
   const { defaultView } = useSelector((state) => state.options)
   const { isConnected } = useSelector((state) => state.user)
@@ -39,6 +39,9 @@ const Next = ({ showHotkeys, setDatabase, deckId, deckLength, currentCard, setCu
     }
   }
 
+  const numberOfSuccess = database.filter((card) => card.response === 'correct').length
+  const numberOfWrong = database.filter((card) => card.response === 'wrong').length
+
   return (
   <div>
     {deckLength > 0 &&
@@ -47,7 +50,7 @@ const Next = ({ showHotkeys, setDatabase, deckId, deckLength, currentCard, setCu
           setIndexPreviousCard(setCurrentCard, currentCard.index); dispatch({ type: RESET_CARD, isRecto: defaultView.isRecto })
         }} style={{ visibility: isFirstCard ? 'hidden' : 'visible' }}>
 &#11164;</button>
-        <button className={setActiveClass('confirm', 'correct', currentCard.response)} onClick={() => setAsSuccessful(setDelay, setDatabase, currentCard, setCurrentCard, setCount, dispatch)}>
+        <button className={setActiveClass('confirm', 'correct', currentCard.response)} onClick={() => setAsSuccessful(setDelay, setDatabase, currentCard, setCurrentCard, deckLength, failedCards, setFailedCards, dispatch)}>
 
           <NavLink to={nextCardURL} >
           <AnimatePresence>
@@ -55,40 +58,43 @@ const Next = ({ showHotkeys, setDatabase, deckId, deckLength, currentCard, setCu
             {showHotkeys
               ? <motion.span
               key={1}
-              initial={{ opacity: 0, x: -10, y: -5 }}
-              animate={{ opacity: 1, x: -10, y: -5 }}
-              exit={{ opacity: 0, x: -10, y: -5, transition: { duration: 1.5 }, position: 'absolute' }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0, transition: { duration: 1.5 }, position: 'absolute' }}
               className="keyUp">&#11165;
               </motion.span>
               : <motion.span
               animate={{ opacity: [0, 1] }}
+              initial={false}
               transition={{ delay: 1.5 }}
               >
-                <FontAwesomeIcon key={2}
+                <FontAwesomeIcon
+                // key={2}
               icon={faCheckCircle}/>
               </motion.span>
             }
                         </AnimatePresence>
           <span style={{ paddingLeft: '5px' }}>
-            {count.success}
+            {numberOfSuccess}
           </span>
 
           </NavLink>
 
         </button>
-          <button className={setActiveClass('warning', 'wrong', currentCard.response)} onClick={() => setAsFailed(setFailedCards, setCount, currentCard, setDatabase, setCurrentCard, dispatch)}>
+          <button className={setActiveClass('warning', 'wrong', currentCard.response)} onClick={() => setAsFailed(failedCards, setFailedCards, currentCard, setDatabase, setCurrentCard, deckLength, dispatch)}>
             <NavLink to={nextCardURL} >
             <AnimatePresence>
             {showHotkeys
               ? <motion.span
               key={1}
-              initial={{ opacity: 0, x: -10, y: -5 }}
+              initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0, transition: { duration: 1.5 }, position: 'absolute' }}
               className="keyUp">&#11167;
               </motion.span>
               : <motion.span
               animate={{ opacity: [0, 1] }}
+              initial={false}
               transition={{ delay: 1.5 }}
               >
                 <FontAwesomeIcon
@@ -98,10 +104,10 @@ const Next = ({ showHotkeys, setDatabase, deckId, deckLength, currentCard, setCu
               </motion.span>
               }
               </AnimatePresence>
-               <span style={{ paddingLeft: '5px' }}>{count.failed}</span>
+               <span style={{ paddingLeft: '5px' }}>{numberOfWrong}</span>
               </NavLink>
           </button>
-          <button className="discrete" onClick={() => { setIndexNextCard(setCurrentCard, currentCard.index); dispatch({ type: RESET_CARD, isRecto: defaultView.isRecto }) }}>
+          <button className="discrete" onClick={() => { setIndexNextCard(setCurrentCard, currentCard.index, deckLength); dispatch({ type: RESET_CARD, isRecto: defaultView.isRecto }) }}>
             &#10148; </button>
       </div>)
  }
