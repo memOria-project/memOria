@@ -143,19 +143,21 @@ class Deck {
   /**
    * Add a deck to the database
    */
-  async delete () {
+  static async delete(deckId, userId) {
+
     try {
-      const statusdeck = await db.query('SELECT is_deck_owner($1, $2)', [this.id, this.userId])
+      const statusdeck = await db.query('SELECT is_deck_owner($1, $2)', [deckId, userId])
       if (!statusdeck.rows[0].is_deck_owner) {
         throw new Error('User is not allowed to delete this deck')
       }
-      const { rows } = await db.query('DELETE FROM deck WHERE id=$1', [this.id])
+      const { rows } = await db.query('DELETE FROM deck WHERE id=$1', [deckId])
       if (rows) {
-        return { id: this.id, status: 'deleted' }
+        return { id: deckId, status: 'deleted' }
       }
     } catch (error) {
       // on relance l'erreur pour que le contrôleur puisse l'attraper et la retransférer au front
-      throw new Error(error.detail ? error.detail : error.message)
+      // throw new Error(error.detail ? error.detail : error.message)
+      console.log("je suis dans le model remove")
     }
   }
 }

@@ -1,5 +1,5 @@
-# @baseUrl=http://localhost:3500/v1
-@baseUrl=https://memoriapo.herokuapp.com/v1
+@baseUrl=http://localhost:3500/v1
+## @baseUrl=https://memoriapo.herokuapp.com/v1
 @host=http://localhost:3500
 
 @auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTYzNDE0MjcwOCwiZXhwIjoxNjM0MTQzOTA4fQ.yFisqForxRrVEFWq4AvUt99vH1l3ZNSQvh8xXALi7eY
@@ -9,7 +9,13 @@ GET {{baseUrl}}/decks
 
 
 ### Get all cards from deck
-GET {{baseUrl}}/deck/24/cards
+GET {{baseUrl}}/deck/2
+
+
+### delete deck
+DELETE {{baseUrl}}/deck/16   
+content-type: "application/json"
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTYzOTA0MzQ4MiwiZXhwIjoxNjM5MDg2NjgyfQ.YRptNRHvGqCUV_IY13Z9m80REa8V0-BAeGeV_kvw_zw
 
 #-----------  USERS CRUD -------------------------------
 
@@ -19,7 +25,7 @@ Content-Type: application/json
 
 {
   "email" : "toti@s.fr",
-  "password" : "memoria!"
+  "password" : "toti"
 }
 
 ### login Tutu
@@ -82,9 +88,9 @@ POST {{baseUrl}}/signup
 Content-Type: application/json
 
 {
-  "name": "Nicoclock",
-  "email" : "nico@clo.ck",
-  "password" : "Nicocratie"
+  "name": "Coulibaly",
+  "email" : "s.coulibaly@gmail.com",
+  "password" : "souley92"
 }
 
 
@@ -126,11 +132,11 @@ Authorization: {{auth}}
 
 ### Add a card
 POST {{baseUrl}}/card
-Authorization: {{auth}}
-Content-Type: application/json
+content-type: "application/json"
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTYzOTA3NDU3MywiZXhwIjoxNjM5MTE3NzczfQ.Z9UzhlR1RCsTsg9uchm8Nv_5JuWykNrOX52BvNzeByU
 
 {
-    "deckId" : 7,
+    "deckId" : 18,
     "recto": "Une carte à faible durée de vie...",
     "verso": "...est amenée à disparaître mais pas tout de suite"
 }
@@ -160,10 +166,10 @@ Content-Type: application/json
 ### Add a DECK
 POST {{baseUrl}}/deck
 Content-Type: application/json
-Authorization: {{auth}}
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTYzOTA3NDU3MywiZXhwIjoxNjM5MTE3NzczfQ.Z9UzhlR1RCsTsg9uchm8Nv_5JuWykNrOX52BvNzeByU
 
 {
-    "title" : "Nouveau Deck Test",
+    "title" : "Deck coul5",
     "tag": ["last chance", "test"]
 }
 

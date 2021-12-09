@@ -1,3 +1,4 @@
+
 -- Add to database 'memoria' some items
 BEGIN;
 

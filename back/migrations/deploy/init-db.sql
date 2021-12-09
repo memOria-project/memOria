@@ -23,6 +23,7 @@ CREATE TABLE "card" (
     "verso" TEXT NOT NULL,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT now(),
     "deck_id" INT REFERENCES "deck"(id) NOT NULL
+    --"deck_id" INT REFERENCES "deck"(id) ON DELETE CASCADE NOT NULL
 );
 
 CREATE TABLE "delay" (

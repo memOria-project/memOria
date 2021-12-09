@@ -17,6 +17,7 @@ const deckController = {
       const deck = await Deck.findAllCardsFromDeck(parseInt(request.params.id, 10))
       if (deck.cards) {
         response.status(200).json(deck)
+        return;
       }
       response.status(204).json(deck)
     } catch (error) {
@@ -46,7 +47,20 @@ const deckController = {
       console.log('deck controller error message:', error.message)
       response.status(500).json(error.message)
     }
-  }
+  },
+
+
+  remove: async (request, response) => {
+    try {
+      const deck = await Deck.delete(request.params.id, request.userId)
+      //console.log('deck controller error message:', error.message)
+      response.json(deck)
+      return
+    }catch (error) {
+      console.log(error.message)
+      response.status(500).json(error.message)
+    }
+  },
 
 }
 

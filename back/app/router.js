@@ -15,9 +15,10 @@ const router = Router()
  * @returns {string} 500 - Server error
  */
 router.get('/decks', deckController.getAllDecks) // Afficher tous les paquet
-router.get('/deck/:id/cards', deckController.getCardsFromDeck) // Displays cards of a deck
+router.get('/deck/:id/', deckController.getCardsFromDeck) // Displays cards of a deck
 
-router.post('/deck', checkJwt, sanitizer, deckController.save)
+router.post('/deck', checkJwt, deckController.save)
+router.delete('/deck/:id', checkJwt, deckController.remove) // supprime un paquet
 
 /** Création  de compte utilisateur
  * Respond with all cards of the connected user
