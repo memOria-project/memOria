@@ -16,6 +16,7 @@ import TestFocus from './components/testFocus'
 import { checkSession } from './components/CheckSession/checkSession'
 import { SET_CURRENT_DECK_CONTENT } from './actions'
 import ResetCard from './components/ResetCard'
+import { Helmet } from 'react-helmet'
 
 function App () {
   checkSession()
@@ -30,34 +31,61 @@ function App () {
           <Home />
         </Route>
         <Route path="/signin">
+          <Helmet>
+            <title>memOria - Se connecter</title>
+          </Helmet>
           <SignIn />
         </Route>
         <Route path="/deck/:deckId/:cardId">
           <ResetCard />
+          <Helmet>
+            <title>memOria - Parcours</title>
+          </Helmet>
           <CardDisplay />
         </Route>
         <Route path="/profile/:deckId/new">
+          <Helmet>
+            <title>memOria - Editeur</title>
+          </Helmet>
           <CardEditor />
         </Route>
         <Route path="/cardEditor/:deckId/new">
+          <Helmet>
+            <title>memOria - Editeur</title>
+          </Helmet>
           <CardEditor />
         </Route>
         <Route path="/cardEditor/:deckId/:cardId">
+          <Helmet>
+            <title>memOria - Editeur</title>
+          </Helmet>
           <CardEditor />
         </Route>
 
         <Route path="/subscribe">
+          <Helmet>
+            <title>memOria - S'inscrire</title>
+          </Helmet>
           <Subscribe />
         </Route>
         <Route path="/profile">
+          <Helmet>
+            <title>memOria - Votre Profil</title>
+          </Helmet>
           <Profile />
         </Route>
 
         <Route path="/deckEditor/:deckId">
+          <Helmet>
+            <title>memOria - Editeur</title>
+          </Helmet>
           <DeckEditor />
         </Route>
 
         <Route path="/team">
+          <Helmet>
+            <title>memOria - Equipe</title>
+          </Helmet>
           <Team />
         </Route>
         {/* Route par défaut (404)  */}
@@ -65,6 +93,9 @@ function App () {
           <TestFocus />
         </Route>
         <Route path="*">
+          <Helmet>
+            <title>memOria - Erreur</title>
+          </Helmet>
           <NoMatch />
         </Route>
       </Switch>
