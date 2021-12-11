@@ -32,7 +32,7 @@ const SignIn = () => {
         : (<form className='formSignin' onSubmit={handleSubmit}>
         <div className= 'form__signIn-container'>
           <div className= 'form__image-section imageSection'>
-            <img src={monimage2} alt="code expressjs" />
+            <img src={monimage2} alt="book on coding" />
           </div>
 
           <div className= 'form__profil-section formSection'>
