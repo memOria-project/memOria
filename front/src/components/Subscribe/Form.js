@@ -9,60 +9,56 @@ import Loading from '../Loading'
 import monimage from '../../assets/javascript.jpg'
 import classNames from 'classnames'
 
-const Form = ({isInProfile}) => {
-  const {name, email} = useSelector((state)=>state.user)
-  const {isSuccessful} = useSelector((state)=>state.back)
-  const { register, handleSubmit, watch, getValues, formState: { errors, isValid, isSubmitted, isSubmitSuccessful } } = useForm({ mode: 'onChange'})
-  const dispatch = useDispatch();
+const Form = ({ isInProfile }) => {
+  const { name, email } = useSelector((state) => state.user)
+  const { isSuccessful } = useSelector((state) => state.back)
+  const { register, handleSubmit, watch, getValues, formState: { errors, isValid, isSubmitted, isSubmitSuccessful } } = useForm({ mode: 'onChange' })
+  const dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
 
   const redirect = () => {
-    if(isSubmitted) {
+    if (isSubmitted) {
       setLoading(true)
-      console.log("is Submitted")
+      console.log('is Submitted')
       return <span>argh</span>
-
-    }
-
-    else if(isSuccessful) {
+    } else if (isSuccessful) {
       setLoading(false)
       return <Redirect to="/profile" />
-
     }
   }
   const submitButton = classNames({
-    valid:  isValid,
+    valid: isValid,
     notValid: !isValid
   })
 
   const loginButton = classNames({
     information: true,
-    valid:  !isValid,
+    valid: !isValid,
     notValid: isValid
   })
 
   useEffect(() => {
     console.log(isSuccessful)
-    redirect();
+    redirect()
   }, [isSubmitted, isSuccessful])
 
-  return (loading?<Loading />:
-  <form className='userForm' onSubmit = {handleSubmit((data) => {
-    if (isInProfile)
-      {
-    dispatch({ type: UPDATE_PROFILE, data })
+  return (loading
+    ? <Loading />
+    : <form className='userForm' onSubmit = {handleSubmit((data) => {
+      if (isInProfile) {
+        dispatch({ type: UPDATE_PROFILE, data })
       } else {
-    dispatch({ type: SUBSCRIBE, data })
+        dispatch({ type: SUBSCRIBE, data })
       }
     })}>
 
     <div className= 'form__signUp-container'>
       <div className= 'form__image-section imageSection'>
-        <img src={monimage} alt="code expressjs" />
+        <img src={monimage} alt="books on coding" />
       </div>
 
       <div className= 'form__profil-section formSection'>
-        <h1 class="infoPersoTitle">Créer un compte</h1>
+        <h1 className="infoPersoTitle">Créer un compte</h1>
 
         <div className= 'form__info-profil infoPersoLeft'>
           <div className= 'form__username inputRow'>
@@ -73,10 +69,10 @@ const Form = ({isInProfile}) => {
                     required: 'Nom requis',
                     minLength: { value: 4, message: '4 caractères minimum! ' },
                     maxLength: { value: 15, message: '15 caractères maximum! ' }
-                  })} 
+                  })}
                 defaultValue={name}
               />
-            
+
               <ErrorMessage errors ={errors} render={({ message }) => <span className='label--error'>{message}</span>} name="name" />
         </div>
 
@@ -95,7 +91,7 @@ const Form = ({isInProfile}) => {
                 defaultValue={email}
 
               />
-            
+
             <ErrorMessage errors ={errors} render={({ message }) => <span className='label--error'>{message}</span>} name="email" />
           </div>
 
@@ -123,7 +119,7 @@ const Form = ({isInProfile}) => {
                   })
                 }
               />
-            
+
             <ErrorMessage errors ={errors} render={({ message }) => <span className='label--error'>{message}</span>} name="password" />
           </div>
 
@@ -140,32 +136,28 @@ const Form = ({isInProfile}) => {
                   })
                 }
                 />
-            
 
             <ErrorMessage errors ={errors} render={({ message }) => <span className='label--error'>{message}</span>} name="confirmPassword" />
           </div>
 
-        
-
-          {isInProfile&&
+          {isInProfile &&
           <label className='form__label inputName'> <strong> Veuillez indiquer le Mot de passe actuel</strong>
             <input {...register('oldpassword')}/>
           </label>
           }
 
           <div className= 'login-button'>
-              {!isInProfile&&<Link to="/signin">J'ai déjà un compte</Link>}
-              {isInProfile?<button type="submit" disabled={!isValid}>Mettre à jour</button>
-              :
-              <button type="submit" disabled={!isValid} className={submitButton}>S'inscrire</button>
+              {!isInProfile && <Link to="/signin">J'ai déjà un compte</Link>}
+              {isInProfile
+                ? <button type="submit" disabled={!isValid}>Mettre à jour</button>
+                : <button type="submit" disabled={!isValid} className={submitButton}>S'inscrire</button>
               }
           </div>
 
-        </div> 
+        </div>
       </div>
-    </div> 
+    </div>
 
   </form>)
 }
 export default Form
-
