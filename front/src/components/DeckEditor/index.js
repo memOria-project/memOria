@@ -88,7 +88,7 @@ const DeckEditor = ({ value }) => {
           <div className="header__deckTitleBlock">
             <h2 className="header__title">{currentDeck.title}</h2>
             <div className="header__icon">
-              <FontAwesomeIcon icon={faEdit} onClick={() => setShowDeckModal(true)} />
+              <FontAwesomeIcon icon={faEdit} onClick={() => setShowDeckModal(true)} style={{ cursor: 'pointer' }} />
             </div>
           </div>
           <div className="header__undertitleBlock">
