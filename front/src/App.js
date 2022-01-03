@@ -28,6 +28,9 @@ function App () {
       <Switch>
         {/* Route de l'accueil. Notez l'utilisation de "exact path" - sans lui, n'importe quel path commençant par "/" pourrait match!  */}
         <Route exact path="/">
+        <Helmet>
+            <title>memOria</title>
+          </Helmet>
           <Home />
         </Route>
         <Route path="/signin">
