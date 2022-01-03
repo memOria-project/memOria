@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form'
 import { ErrorMessage } from '@hookform/error-message'
-import { SUBSCRIBE, UPDATE_PROFILE } from '../../actions'
+import { SET_ERROR, SUBSCRIBE, UPDATE_PROFILE } from '../../actions'
 import { Link, Redirect } from 'react-router-dom'
 import './subscribe.scss'
 import { useDispatch, useSelector } from 'react-redux'
@@ -8,9 +8,9 @@ import { useEffect, useState } from 'react'
 import Loading from '../Loading'
 import monimage from '../../assets/javascript.jpg'
 import classNames from 'classnames'
-
+import Error from '../ErrorMessage'
 const Form = ({ isInProfile }) => {
-  const { name, email } = useSelector((state) => state.user)
+  const { name, email, error } = useSelector((state) => state.user)
   const { isSuccessful } = useSelector((state) => state.back)
   const { register, handleSubmit, watch, getValues, formState: { errors, isValid, isSubmitted, isSubmitSuccessful } } = useForm({ mode: 'onChange' })
   const dispatch = useDispatch()
@@ -38,19 +38,33 @@ const Form = ({ isInProfile }) => {
   })
 
   useEffect(() => {
+    dispatch({ type: SET_ERROR, message: false })
     console.log(isSuccessful)
     redirect()
   }, [isSubmitted, isSuccessful])
 
+  useEffect(() => {
+    dispatch({ type: SET_ERROR, message: false })
+  }, [])
+
+  useEffect(() => {
+    if (error) {
+      setLoading(false)
+    }
+  }, [error])
+
   return (loading
     ? <Loading />
-    : <form className='userForm' onSubmit = {handleSubmit((data) => {
-      if (isInProfile) {
-        dispatch({ type: UPDATE_PROFILE, data })
-      } else {
-        dispatch({ type: SUBSCRIBE, data })
-      }
-    })}>
+    : <div>
+          {error && <Error message={error} />}
+
+      <form className='userForm' onSubmit = {handleSubmit((data) => {
+        if (isInProfile) {
+          dispatch({ type: UPDATE_PROFILE, data })
+        } else {
+          dispatch({ type: SUBSCRIBE, data })
+        }
+      })}>
 
     <div className= 'form__signUp-container'>
       <div className= 'form__image-section imageSection'>
@@ -158,6 +172,8 @@ const Form = ({ isInProfile }) => {
       </div>
     </div>
 
-  </form>)
+  </form>
+
+      </div>)
 }
 export default Form

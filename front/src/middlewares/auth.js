@@ -118,13 +118,14 @@ const auth = (store) => (next) => (action) => {
       const postUser = async () => {
         try {
           const request = await fetch(`${back}/signup`, options)
-          const response = await request
-          console.log(response)
-          if (response.status === 204 || response.status === 201 || response.status === 200) {
+          const response = await request.json()
+          if (request.status === 204 || request.status === 201 || request.status === 200) {
             store.dispatch({ type: UPDATE_USER, password, email, name })
             store.dispatch({ type: REQUEST_SUCCESS, isSuccessful: true })
             // supprimer LOG_IN si on souhaite éviter le login automatique après l'inscription pour raison de sécu
             store.dispatch({ type: LOG_IN })
+          } else {
+            store.dispatch({ type: SET_ERROR, message: response })
           }
         } catch (error) { console.log(error) }
       }
