@@ -41,7 +41,7 @@ const SignIn = () => {
             <div className='form__info-profil infoPersoLeft'>
               <div className='form__email inputRow'>
                   <label className='form__label inputName'> Email </label>
-                  <input id="login" onChange={(event) => handleChange(event, 'email')} id="email" type="email" value={email}/>
+                  <input onChange={(event) => handleChange(event, 'email')} id="email" type="email" value={email}/>
               </div>
 
               <div className='form__password inputRow'>

@@ -25,6 +25,7 @@ export const UPDATE_USER_DECKS = 'UPDATE_USER_DECKS'
 export const SET_CURRENT_DECK_CONTENT = 'SET_CURRENT_DECK_CONTENT'
 export const PICK_ORDER = 'PICK_ORDER'
 export const DELETE_DECK = 'DELETE_DECK'
+export const SET_ERROR = 'SET_ERROR'
 export const getAllDecks = (decks) => {
   return {
     type: GET_DECKS,
