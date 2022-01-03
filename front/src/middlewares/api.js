@@ -172,9 +172,10 @@ const api = (store) => (next) => (action) => {
       const title = name
       const newDeck = {
         title,
-        tag: [tags],
+        tag: tags,
         id
       }
+      console.log(tags)
       const options =
       {
         method: 'POST',
@@ -188,8 +189,11 @@ const api = (store) => (next) => (action) => {
       const createDeck = async () => {
         try {
           const request = await fetch(`${back}/deck/`, options)
-          const response = await request
-          if (response.status === 201) {
+          const response = await request.status
+          const { deckId, status } = await request.json()
+          console.log(response)
+          if (response === 201 || response === 200) {
+            console.log(`deck ${deckId} ${status}`)
             store.dispatch({ type: FETCH_USER_DECKS })
           } else {
             console.log('no deck for you')

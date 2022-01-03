@@ -13,6 +13,7 @@ const NewDeckForm = ({ handleClick, setShowNewDeck, isEdit }) => {
     setShowNewDeck(false)
   }
   const dispatch = useDispatch()
+  console.log(watch('tags'))
   return (
   <div className="modal">
     <div className="modal__container">
