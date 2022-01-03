@@ -1,18 +1,20 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { LOG_IN, UPDATE_LOGIN } from '../../actions'
+import { LOG_IN, SET_ERROR, UPDATE_LOGIN } from '../../actions'
 import { Redirect } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Loading from '../Loading'
+import ErrorMessage from '../ErrorMessage'
 import '../Subscribe/subscribe.scss'
 import monimage2 from '../../assets/javascript.jpg'
 
 const SignIn = () => {
-  const { password, email, isConnected } = useSelector((state) => (state.user))
+  const { password, email, isConnected, error } = useSelector((state) => (state.user))
   const dispatch = useDispatch()
   const [isLoading, setIsLoading] = useState(false)
   const handleSubmit = (event) => {
     event.preventDefault()
     setIsLoading((state) => !state)
+    dispatch({ type: SET_ERROR, message: false })
     dispatch({ type: LOG_IN })
   }
 
@@ -23,7 +25,17 @@ const SignIn = () => {
       field
     })
   }
+  // reset du message d'erreur au montage
+  useEffect(() => {
+    dispatch({ type: SET_ERROR, message: false })
+  }, [])
 
+  // affichage de l'erreur
+  useEffect(() => {
+    if (error) {
+      setIsLoading(false)
+    }
+  }, [error])
   return (<div>
     {isConnected
       ? <Redirect from="/signin" to="/profile" />
@@ -50,12 +62,13 @@ const SignIn = () => {
               </div>
 
               <button className="btn__submit" type="submit">Se Connecter</button>
-
             </div>
           </div>
       </div>
 
       </form>) }
+      {error && <ErrorMessage message={error} />}
+
     </div>
   )
 }
