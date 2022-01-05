@@ -1,20 +1,31 @@
 import { useForm } from 'react-hook-form'
 import { ErrorMessage } from '@hookform/error-message'
-import { SET_ERROR, SUBSCRIBE, UPDATE_PROFILE } from '../../actions'
-import { Link, Redirect } from 'react-router-dom'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { Redirect } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
-import Loading from '../Loading'
-import monimage from '../../assets/javascript.jpg'
+import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import Error from '../ErrorMessage'
 import * as yup from 'yup'
-import { yupResolver } from '@hookform/resolvers/yup'
+
+import { SET_ERROR, UPDATE_PROFILE } from '../../actions'
+
+import Loading from '../Loading'
+import Error from '../ErrorMessage'
+
+import monimage from '../../assets/javascript.jpg'
 import './UpdateForm.scss'
+
 const UpdateForm = ({ setShowUpdateForm }) => {
+  //! ↓ STATE ↓
+
   const { name, email, error } = useSelector((state) => state.user)
   const { isSuccessful } = useSelector((state) => state.back)
   const [showPassword, setShowPassword] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const dispatch = useDispatch()
+
+  //! ↓ FORMULAIRE ↓
   const schema = yup.object().shape({
     name: yup.string().min(4, 'Au moins 4 caractères').max(15, 'Moins de 15 caractères').required(),
     email: yup.string().email('Email non valide').required(),
@@ -28,12 +39,12 @@ const UpdateForm = ({ setShowUpdateForm }) => {
     }),
     oldpassword: yup.string().required()
   })
-  // string().default(undefined).matches(/(?=.*[!?@#$%^&-+=()])/, 'Veuillez inclure au moins un caractère spécial(!?@#$%&*()-+=^)').notRequired()
 
-  const { register, handleSubmit, watch, getValues, formState: { errors, isValid, isSubmitted, isSubmitSuccessful } } = useForm({ mode: 'onChange', resolver: yupResolver(schema) })
-  const dispatch = useDispatch()
-  const [loading, setLoading] = useState(false)
+  const { register, handleSubmit, formState: { errors, isValid, isSubmitted } } = useForm({ mode: 'onChange', resolver: yupResolver(schema) })
 
+  //! ↓ AUTRES↓
+
+  // ? doit être reformatté, mais fonctione
   const redirect = () => {
     if (isSubmitted) {
       setLoading(true)
@@ -44,11 +55,13 @@ const UpdateForm = ({ setShowUpdateForm }) => {
       return <Redirect to="/profile" />
     }
   }
+
   const submitButton = classNames({
     valid: isValid,
     notValid: !isValid
   })
 
+  //! ↓ EFFETS DE BORD ↓
   // reset du message d'erreur
   useEffect(() => {
     dispatch({ type: SET_ERROR, message: false })
@@ -66,33 +79,35 @@ const UpdateForm = ({ setShowUpdateForm }) => {
     redirect()
   }, [isSubmitted, isSuccessful])
 
+  //! ↓ RETURN ↓
+
   return (loading
     ? <Loading />
     : <div className="updateForm__modal">
-          {error && <Error message={error} />}
+      {error && <Error message={error} />}
 
       <form className='userForm' onSubmit = {handleSubmit((data) => {
         dispatch({ type: UPDATE_PROFILE, data })
       })}>
 
-    <div className= 'form__signUp-container'>
-      <div className= 'form__image-section imageSection'>
-        <img src={monimage} alt="books on coding" />
-      </div>
-
-      <div className= 'form__profil-section formSection'>
-        <h1 className="infoPersoTitle">Mettre à jour vos informations personnelles</h1>
-
-        <div className= 'form__info-profil infoPersoLeft'>
-          <div className= 'form__username inputRow'>
-              <label className='form__label inputName '> Nom d'utilisateur </label>
-              <input type="text" id="username" name="username"
-                {...register('name')}
-                defaultValue={name}
-              />
-
-              <ErrorMessage errors ={errors} render={({ message }) => <span className='label--error'>{message}</span>} name="name" />
+      <div className= 'form__signUp-container'>
+        <div className= 'form__image-section imageSection'>
+          <img src={monimage} alt="books on coding" />
         </div>
+
+        <div className= 'form__profil-section formSection'>
+          <h1 className="infoPersoTitle">Mettre à jour vos informations personnelles</h1>
+
+          <div className= 'form__info-profil infoPersoLeft'>
+            <div className= 'form__username inputRow'>
+                <label className='form__label inputName '> Nom </label>
+                <input type="text" id="username" name="username"
+                  {...register('name')}
+                  defaultValue={name}
+                />
+
+                <ErrorMessage errors ={errors} render={({ message }) => <span className='label--error'>{message}</span>} name="name" />
+          </div>
 
           <div className= 'form__email inputRow'>
             <label className='form__label inputName'> Email </label>
@@ -106,37 +121,41 @@ const UpdateForm = ({ setShowUpdateForm }) => {
           </div>
           {showPassword
             ? <>
-            <button className="buttonLink" onClick={() => setShowPassword((state) => !state)}> retour </button>
-            <div className= 'form__password inputRow'>
-              <label className='form__label inputName'> Nouveau Mot de passe </label>
-                <input type="password" id="password" name="password"
-                  {...register('password')
-                  }
-                />
-
-            <ErrorMessage errors ={errors} render={({ message }) => <span className='label--error'>{message}</span>} name="password" />
-
-            </div>
-            <br />
-            <div className= 'form__password-confirm inputRow'>
-              <label className='form__label inputName'> Confirmez le nouveau mot de passe </label>
-                <input
-                  type="password"
-                  id="password-confirm"
-                  name="password-confirm"
-                  {...register('confirmPassword')}
+              <button className="buttonLink" onClick={() => setShowPassword((state) => !state)}> retour </button>
+              <div className= 'form__password inputRow'>
+                <label className='form__label inputName'> Nouveau Mot de passe </label>
+                  <input type="password" id="password" name="password"
+                    {...register('password')
+                    }
                   />
 
-              <ErrorMessage errors ={errors} render={({ message }) => <span className='label--error'>{message}</span>} name="confirmPassword" />
-            </div>
+              <ErrorMessage errors ={errors} render={({ message }) => <span className='label--error'>{message}</span>} name="password" />
 
-          </>
+              </div>
+              <br />
+              <div className= 'form__password-confirm inputRow'>
+                <label className='form__label inputName'> Confirmez le nouveau mot de passe </label>
+                  <input
+                    type="password"
+                    id="password-confirm"
+                    name="password-confirm"
+                    {...register('confirmPassword')}
+                    />
+
+                <ErrorMessage errors ={errors} render={({ message }) => <span className='label--error'>{message}</span>} name="confirmPassword" />
+              </div>
+            </>
             : <button className="buttonLink" onClick={() => setShowPassword((state) => !state)}> Modifier le mot de passe?</button>
           }
 
           <label>
             <strong style={{ color: 'red', fontSize: '20px' }}> Mot de passe actuel</strong>
-            <input style={{ border: '1px solid red', borderRadius: '10px' }} type="password" id="oldpassword" name="oldpassword" {...register('oldpassword')}/>
+            <input
+              style={{ border: '1px solid red', borderRadius: '10px' }}
+              type="password"
+              id="oldpassword"
+              name="oldpassword"
+              {...register('oldpassword')}/>
           </label>
 
           <div className= 'login-button'>
@@ -148,8 +167,12 @@ const UpdateForm = ({ setShowUpdateForm }) => {
       </div>
     </div>
 
-  </form>
+    </form>
 
-      </div>)
+  </div>)
 }
 export default UpdateForm
+
+UpdateForm.propTypes = {
+  setShowUpdateForm: PropTypes.func
+}
