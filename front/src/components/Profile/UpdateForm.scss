@@ -1,0 +1,6 @@
+@use "../../styles/vars.scss";
+@use "../../styles/mixinsModal";
+
+.updateForm__modal {
+  @include mixinsModal.modal;
+}

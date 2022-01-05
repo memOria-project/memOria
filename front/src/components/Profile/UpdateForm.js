@@ -10,7 +10,7 @@ import classNames from 'classnames'
 import Error from '../ErrorMessage'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-
+import './UpdateForm.scss'
 const UpdateForm = ({ setShowUpdateForm }) => {
   const { name, email, error } = useSelector((state) => state.user)
   const { isSuccessful } = useSelector((state) => state.back)
@@ -68,7 +68,7 @@ const UpdateForm = ({ setShowUpdateForm }) => {
 
   return (loading
     ? <Loading />
-    : <div>
+    : <div className="updateForm__modal">
           {error && <Error message={error} />}
 
       <form className='userForm' onSubmit = {handleSubmit((data) => {
@@ -107,32 +107,36 @@ const UpdateForm = ({ setShowUpdateForm }) => {
           {showPassword
             ? <>
             <button className="buttonLink" onClick={() => setShowPassword((state) => !state)}> retour </button>
-          <div className= 'form__password inputRow'>
-            <label className='form__label inputName'> Nouveau Mot de passe </label>
-              <input type="password" id="password" name="password"
-                {...register('password')
-                }
-              />
-
-            <ErrorMessage errors ={errors} render={({ message }) => <span className='label--error'>{message}</span>} name="password" />
-            <div className= 'form__password-confirm inputRow'>
-            <label className='form__label inputName'> Confirmez le nouveau mot de passe </label>
-              <input
-                type="password"
-                id="password-confirm"
-                name="password-confirm"
-                {...register('confirmPassword')}
+            <div className= 'form__password inputRow'>
+              <label className='form__label inputName'> Nouveau Mot de passe </label>
+                <input type="password" id="password" name="password"
+                  {...register('password')
+                  }
                 />
 
-            <ErrorMessage errors ={errors} render={({ message }) => <span className='label--error'>{message}</span>} name="confirmPassword" />
-          </div>
-          </div>
+            <ErrorMessage errors ={errors} render={({ message }) => <span className='label--error'>{message}</span>} name="password" />
+
+            </div>
+            <br />
+            <div className= 'form__password-confirm inputRow'>
+              <label className='form__label inputName'> Confirmez le nouveau mot de passe </label>
+                <input
+                  type="password"
+                  id="password-confirm"
+                  name="password-confirm"
+                  {...register('confirmPassword')}
+                  />
+
+              <ErrorMessage errors ={errors} render={({ message }) => <span className='label--error'>{message}</span>} name="confirmPassword" />
+            </div>
+
           </>
-            : <button className="buttonLink" onClick={() => setShowPassword((state) => !state)}> Modifer le mot de passe?</button>
+            : <button className="buttonLink" onClick={() => setShowPassword((state) => !state)}> Modifier le mot de passe?</button>
           }
 
-          <label className='form__label inputName'> <strong> Veuillez indiquer le Mot de passe actuel</strong>
-            <input type="password" id="oldpassword" name="oldpassword" {...register('oldpassword')}/>
+          <label>
+            <strong style={{ color: 'red', fontSize: '20px' }}> Mot de passe actuel</strong>
+            <input style={{ border: '1px solid red', borderRadius: '10px' }} type="password" id="oldpassword" name="oldpassword" {...register('oldpassword')}/>
           </label>
 
           <div className= 'login-button'>

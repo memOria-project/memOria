@@ -85,7 +85,6 @@ const Profile = () => {
           {showUpdateForm
             ? <>
             <UpdateForm setShowUpdateForm={setShowUpdateForm} />
-            <button onClick={handleClick}>retour</button>
           </>
             : <button className="confirm" onClick={handleClick}>Infos personnelles</button>
           }
