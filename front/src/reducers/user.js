@@ -1,10 +1,12 @@
-import { DISCONNECT, UPDATE_LOGIN, UPDATE_USER, UPDATE_SESSION, UPDATE_USER_DECKS } from '../actions'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { DISCONNECT, UPDATE_LOGIN, UPDATE_USER, UPDATE_SESSION, UPDATE_USER_DECKS, SET_ERROR } from '../actions'
 
 const initialState = {
   isConnected: false,
   name: '',
   email: '',
   password: '',
+  error: false,
   decks: [],
   delayedCards: []
 }
@@ -41,7 +43,14 @@ const reducer = (state = initialState, action = {}) => {
 
       }
     }
-
+    case SET_ERROR: {
+      const { message } = action
+      console.log({ message })
+      return {
+        ...state,
+        error: message
+      }
+    }
     case UPDATE_USER_DECKS: {
       const { decks } = action
       return {
