@@ -133,6 +133,11 @@ a > svg {
   background-color: vars.$color-critic;
 }
 
+.buttonLink {
+  border: none;
+  color: vars.$color-text-alt;
+  background-color: inherit;
+}
 .scaleDown {
   transition: background-color 0.75s 0.5s, transform 0.5s, color 0.75s 0.5s,
     filter 0.75s 0.5s;

@@ -14,7 +14,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 const UpdateForm = ({ setShowUpdateForm }) => {
   const { name, email, error } = useSelector((state) => state.user)
   const { isSuccessful } = useSelector((state) => state.back)
-
+  const [showPassword, setShowPassword] = useState(false)
   const schema = yup.object().shape({
     name: yup.string().min(4, 'Au moins 4 caractères').max(15, 'Moins de 15 caractères').required(),
     email: yup.string().email('Email non valide').required(),
@@ -49,12 +49,6 @@ const UpdateForm = ({ setShowUpdateForm }) => {
     notValid: !isValid
   })
 
-  const loginButton = classNames({
-    information: true,
-    valid: !isValid,
-    notValid: isValid
-  })
-
   // reset du message d'erreur
   useEffect(() => {
     dispatch({ type: SET_ERROR, message: false })
@@ -87,7 +81,7 @@ const UpdateForm = ({ setShowUpdateForm }) => {
       </div>
 
       <div className= 'form__profil-section formSection'>
-        <h1 className="infoPersoTitle">Créer un compte</h1>
+        <h1 className="infoPersoTitle">Mettre à jour vos informations personnelles</h1>
 
         <div className= 'form__info-profil infoPersoLeft'>
           <div className= 'form__username inputRow'>
@@ -110,19 +104,19 @@ const UpdateForm = ({ setShowUpdateForm }) => {
 
             <ErrorMessage errors ={errors} render={({ message }) => <span className='label--error'>{message}</span>} name="email" />
           </div>
-
+          {showPassword
+            ? <>
+            <button className="buttonLink" onClick={() => setShowPassword((state) => !state)}> retour </button>
           <div className= 'form__password inputRow'>
-            <label className='form__label inputName'> Mot de passe </label>
+            <label className='form__label inputName'> Nouveau Mot de passe </label>
               <input type="password" id="password" name="password"
                 {...register('password')
                 }
               />
 
             <ErrorMessage errors ={errors} render={({ message }) => <span className='label--error'>{message}</span>} name="password" />
-          </div>
-
-          <div className= 'form__password-confirm inputRow'>
-            <label className='form__label inputName'> Confirmez le mot de passe </label>
+            <div className= 'form__password-confirm inputRow'>
+            <label className='form__label inputName'> Confirmez le nouveau mot de passe </label>
               <input
                 type="password"
                 id="password-confirm"
@@ -132,13 +126,17 @@ const UpdateForm = ({ setShowUpdateForm }) => {
 
             <ErrorMessage errors ={errors} render={({ message }) => <span className='label--error'>{message}</span>} name="confirmPassword" />
           </div>
+          </div>
+          </>
+            : <button className="buttonLink" onClick={() => setShowPassword((state) => !state)}> Modifer le mot de passe?</button>
+          }
 
           <label className='form__label inputName'> <strong> Veuillez indiquer le Mot de passe actuel</strong>
             <input type="password" id="oldpassword" name="oldpassword" {...register('oldpassword')}/>
           </label>
 
           <div className= 'login-button'>
-                <button onClick={() => setShowUpdateForm(false)}>retour</button>
+                <button className="information" onClick={() => setShowUpdateForm(false)}>retour</button>
                 <button type="submit" className={submitButton} disabled={!isValid}>Mettre à jour</button>
           </div>
 
