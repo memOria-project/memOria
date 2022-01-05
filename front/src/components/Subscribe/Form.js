@@ -9,7 +9,8 @@ import Loading from '../Loading'
 import monimage from '../../assets/javascript.jpg'
 import classNames from 'classnames'
 import Error from '../ErrorMessage'
-const Form = ({ isInProfile }) => {
+
+const Form = () => {
   const { name, email, error } = useSelector((state) => state.user)
   const { isSuccessful } = useSelector((state) => state.back)
   const { register, handleSubmit, watch, getValues, formState: { errors, isValid, isSubmitted, isSubmitSuccessful } } = useForm({ mode: 'onChange' })
@@ -60,13 +61,8 @@ const Form = ({ isInProfile }) => {
           {error && <Error message={error} />}
 
       <form className='userForm' onSubmit = {handleSubmit((data) => {
-        if (isInProfile) {
-          dispatch({ type: UPDATE_PROFILE, data })
-        } else {
-          dispatch({ type: SUBSCRIBE, data })
-        }
+        dispatch({ type: SUBSCRIBE, data })
       })}>
-
     <div className= 'form__signUp-container'>
       <div className= 'form__image-section imageSection'>
         <img src={monimage} alt="books on coding" />
@@ -115,7 +111,7 @@ const Form = ({ isInProfile }) => {
               <input type="password" id="password" name="password"
                 {...register('password',
                   {
-                    required: isInProfile ? false : 'Mot de passe requis',
+                    required: 'Mot de passe requis',
                     maxLength:
                       {
                         value: 20,
@@ -146,7 +142,7 @@ const Form = ({ isInProfile }) => {
                 name="password-confirm"
                 {...register('confirmPassword',
                   {
-                    required: isInProfile ? false : 'Retapez votre mot de passe',
+                    required: 'Retapez votre mot de passe',
                     validate: v => v === getValues('password') || 'Ne correspond pas'
                   })
                 }
@@ -155,18 +151,10 @@ const Form = ({ isInProfile }) => {
             <ErrorMessage errors ={errors} render={({ message }) => <span className='label--error'>{message}</span>} name="confirmPassword" />
           </div>
 
-          {isInProfile &&
-          <label className='form__label inputName'> <strong> Veuillez indiquer le Mot de passe actuel</strong>
-            <input {...register('oldpassword')}/>
-          </label>
-          }
-
           <div className= 'login-button'>
-              {!isInProfile && <Link to="/signin">J'ai déjà un compte</Link>}
-              {isInProfile
-                ? <button type="submit" disabled={!isValid}>Mettre à jour</button>
-                : <button type="submit" disabled={!isValid} className={submitButton}>S'inscrire</button>
-              }
+               <Link to="/signin">J'ai déjà un compte</Link>
+
+              <button type="submit" disabled={!isValid} className={submitButton}>S'inscrire</button>
           </div>
 
         </div>
