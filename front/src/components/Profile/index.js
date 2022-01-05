@@ -17,7 +17,7 @@ const Profile = () => {
   const { name, email } = user
   const isConnected = useSelector((state) => state.user.isConnected)
   const personalizedDecks = useSelector((state) => (state.user.decks))
-  const [showForm, setShowForm] = useState(false)
+  const [showUpdateForm, setShowUpdateForm] = useState(false)
   const [showNewDeck, setShowNewDeck] = useState(false)
   const [loading, setLoading] = useState(true)
   const dispatch = useDispatch()
@@ -33,7 +33,7 @@ const Profile = () => {
     if (event.target.name === 'newDeck' || event.target.className === 'deck deck--new' || event.target.viewportElement?.parentNode.name === 'newDeck' || event.target.parentNode.name === 'newDeck') {
       setShowNewDeck((state) => !state)
     } else {
-      setShowForm((state) => !state)
+      setShowUpdateForm((state) => !state)
     }
   }
 
@@ -44,7 +44,7 @@ const Profile = () => {
   }, [personalizedDecks])
 
   useEffect(() => {
-    setShowForm(false)
+    setShowUpdateForm(false)
   }, [user.name, user.email, user.password])
 
   if (!isConnected) {
@@ -82,9 +82,9 @@ const Profile = () => {
           </div>
 
           </div>
-          {showForm
+          {showUpdateForm
             ? <>
-            <UpdateForm />
+            <UpdateForm setShowUpdateForm={setShowUpdateForm} />
             <button onClick={handleClick}>retour</button>
           </>
             : <button className="confirm" onClick={handleClick}>Infos personnelles</button>

@@ -11,18 +11,10 @@ import Error from '../ErrorMessage'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-const UpdateForm = () => {
+const UpdateForm = ({ setShowUpdateForm }) => {
   const { name, email, error } = useSelector((state) => state.user)
   const { isSuccessful } = useSelector((state) => state.back)
 
-  // Yup.match = function (key, message, func) {
-  //   message = message || 'Values do not match'
-  //   func = func || function (value) {
-  //     return value === this.options.context[key]
-  //   }
-
-  //   return Yup.mixed().test('match', message, func)
-  // }
   const schema = yup.object().shape({
     name: yup.string().min(4, 'Au moins 4 caractères').max(15, 'Moins de 15 caractères').required(),
     email: yup.string().email('Email non valide').required(),
@@ -146,7 +138,8 @@ const UpdateForm = () => {
           </label>
 
           <div className= 'login-button'>
-                <button type="submit" disabled={!isValid}>Mettre à jour</button>
+                <button onClick={() => setShowUpdateForm(false)}>retour</button>
+                <button type="submit" className={submitButton} disabled={!isValid}>Mettre à jour</button>
           </div>
 
         </div>
