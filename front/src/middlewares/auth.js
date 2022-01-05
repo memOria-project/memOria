@@ -134,7 +134,7 @@ const auth = (store) => (next) => (action) => {
     }
     case UPDATE_PROFILE: {
       const { name, email, password, oldpassword } = action.data
-      const newPassword = password
+      const newPassword = password || oldpassword
       const currentPassword = oldpassword
       const form = {
         name,

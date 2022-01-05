@@ -2,17 +2,43 @@ import { useForm } from 'react-hook-form'
 import { ErrorMessage } from '@hookform/error-message'
 import { SET_ERROR, SUBSCRIBE, UPDATE_PROFILE } from '../../actions'
 import { Link, Redirect } from 'react-router-dom'
-import './subscribe.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import Loading from '../Loading'
 import monimage from '../../assets/javascript.jpg'
 import classNames from 'classnames'
 import Error from '../ErrorMessage'
-const Form = ({ isInProfile }) => {
+import * as yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
+
+const UpdateForm = () => {
   const { name, email, error } = useSelector((state) => state.user)
   const { isSuccessful } = useSelector((state) => state.back)
-  const { register, handleSubmit, watch, getValues, formState: { errors, isValid, isSubmitted, isSubmitSuccessful } } = useForm({ mode: 'onChange' })
+
+  // Yup.match = function (key, message, func) {
+  //   message = message || 'Values do not match'
+  //   func = func || function (value) {
+  //     return value === this.options.context[key]
+  //   }
+
+  //   return Yup.mixed().test('match', message, func)
+  // }
+  const schema = yup.object().shape({
+    name: yup.string().min(4, 'Au moins 4 caractères').max(15, 'Moins de 15 caractères').required(),
+    email: yup.string().email('Email non valide').required(),
+    password: yup.lazy((value) => {
+      if (value === '') return yup.string().notRequired()
+      else return yup.string().min(8, 'Au moins 8 caractères').max(20, 'Pas plus de 20 caractères').matches(/(?=.*[!?@#$%^&-+=()])/, 'Veuillez inclure au moins un caractère spécial(!?@#$%&*()-+=^)')
+    }),
+    confirmPassword: yup.lazy((value, options) => {
+      if (options.parent.password) return yup.string().oneOf([options.parent.password], 'ne correspond pas')
+      else return yup.string().notRequired()
+    }),
+    oldpassword: yup.string().required()
+  })
+  // string().default(undefined).matches(/(?=.*[!?@#$%^&-+=()])/, 'Veuillez inclure au moins un caractère spécial(!?@#$%&*()-+=^)').notRequired()
+
+  const { register, handleSubmit, watch, getValues, formState: { errors, isValid, isSubmitted, isSubmitSuccessful } } = useForm({ mode: 'onChange', resolver: yupResolver(schema) })
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
 
@@ -60,11 +86,7 @@ const Form = ({ isInProfile }) => {
           {error && <Error message={error} />}
 
       <form className='userForm' onSubmit = {handleSubmit((data) => {
-        if (isInProfile) {
-          dispatch({ type: UPDATE_PROFILE, data })
-        } else {
-          dispatch({ type: SUBSCRIBE, data })
-        }
+        dispatch({ type: UPDATE_PROFILE, data })
       })}>
 
     <div className= 'form__signUp-container'>
@@ -79,12 +101,7 @@ const Form = ({ isInProfile }) => {
           <div className= 'form__username inputRow'>
               <label className='form__label inputName '> Nom d'utilisateur </label>
               <input type="text" id="username" name="username"
-                {...register('name',
-                  {
-                    required: 'Nom requis',
-                    minLength: { value: 4, message: '4 caractères minimum! ' },
-                    maxLength: { value: 15, message: '15 caractères maximum! ' }
-                  })}
+                {...register('name')}
                 defaultValue={name}
               />
 
@@ -94,15 +111,7 @@ const Form = ({ isInProfile }) => {
           <div className= 'form__email inputRow'>
             <label className='form__label inputName'> Email </label>
               <input type="email" id="email" name="email"
-                {...register('email',
-                  {
-                    required: 'Email requis',
-                    pattern: {
-                      value: /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/,
-                      message: 'Email non valide'
-                    }
-                  })
-                }
+                {...register('email')}
                 defaultValue={email}
 
               />
@@ -113,25 +122,7 @@ const Form = ({ isInProfile }) => {
           <div className= 'form__password inputRow'>
             <label className='form__label inputName'> Mot de passe </label>
               <input type="password" id="password" name="password"
-                {...register('password',
-                  {
-                    required: isInProfile ? false : 'Mot de passe requis',
-                    maxLength:
-                      {
-                        value: 20,
-                        message: 'Trop long! 8 à 20 caractères uniquement'
-                      },
-                    minLength:
-                      {
-                        value: 8,
-                        message: 'Trop court! 8 à 20 caractères uniquement'
-                      },
-                    pattern: {
-                      value: /(?=.*[!?@#$%^&-+=()])/,
-                      message: 'Veuillez inclure au moins un caractère spécial(!?@#$%&*()-+=^)'
-                    }
-
-                  })
+                {...register('password')
                 }
               />
 
@@ -144,29 +135,18 @@ const Form = ({ isInProfile }) => {
                 type="password"
                 id="password-confirm"
                 name="password-confirm"
-                {...register('confirmPassword',
-                  {
-                    required: isInProfile ? false : 'Retapez votre mot de passe',
-                    validate: v => v === getValues('password') || 'Ne correspond pas'
-                  })
-                }
+                {...register('confirmPassword')}
                 />
 
             <ErrorMessage errors ={errors} render={({ message }) => <span className='label--error'>{message}</span>} name="confirmPassword" />
           </div>
 
-          {isInProfile &&
           <label className='form__label inputName'> <strong> Veuillez indiquer le Mot de passe actuel</strong>
-            <input {...register('oldpassword')}/>
+            <input type="password" id="oldpassword" name="oldpassword" {...register('oldpassword')}/>
           </label>
-          }
 
           <div className= 'login-button'>
-              {!isInProfile && <Link to="/signin">J'ai déjà un compte</Link>}
-              {isInProfile
-                ? <button type="submit" disabled={!isValid}>Mettre à jour</button>
-                : <button type="submit" disabled={!isValid} className={submitButton}>S'inscrire</button>
-              }
+                <button type="submit" disabled={!isValid}>Mettre à jour</button>
           </div>
 
         </div>
@@ -177,4 +157,4 @@ const Form = ({ isInProfile }) => {
 
       </div>)
 }
-export default Form
+export default UpdateForm

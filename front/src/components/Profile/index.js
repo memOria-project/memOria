@@ -4,6 +4,7 @@ import { useEffect, useState, Fragment } from 'react'
 import PersonalisedDeck from '../Deck/PersonalisedDeck'
 import Loading from '../Loading'
 import Form from '../Subscribe/Form'
+import UpdateForm from './UpdateForm'
 import NewDeckForm from './NewDeckForm'
 import './Profile.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -40,8 +41,11 @@ const Profile = () => {
     if (personalizedDecks || personalizedDecks?.length === 0) {
       setLoading(false)
     }
+  }, [personalizedDecks])
+
+  useEffect(() => {
     setShowForm(false)
-  }, [personalizedDecks, user])
+  }, [user.name, user.email, user.password])
 
   if (!isConnected) {
     console.log('redirect')
@@ -80,7 +84,7 @@ const Profile = () => {
           </div>
           {showForm
             ? <>
-            <Form isInProfile={true} />
+            <UpdateForm />
             <button onClick={handleClick}>retour</button>
           </>
             : <button className="confirm" onClick={handleClick}>Infos personnelles</button>

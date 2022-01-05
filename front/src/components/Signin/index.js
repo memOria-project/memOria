@@ -30,7 +30,7 @@ const SignIn = () => {
     dispatch({ type: SET_ERROR, message: false })
   }, [])
 
-  // affichage de l'erreur
+  // suppression du spinner pour afficher l'erreur et le formulaire
   useEffect(() => {
     if (error) {
       setIsLoading(false)
