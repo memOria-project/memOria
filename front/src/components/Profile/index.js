@@ -27,7 +27,7 @@ const Profile = () => {
     if (!personalizedDecks) {
       dispatch({ type: FETCH_USER_DECKS })
     }
-  }, [])
+  }, [user])
   const handleClick = (event) => {
     console.log(event)
     if (event.target.name === 'newDeck' || event.target.className === 'deck deck--new' || event.target.viewportElement?.parentNode.name === 'newDeck' || event.target.parentNode.name === 'newDeck') {
