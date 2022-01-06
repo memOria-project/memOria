@@ -32,17 +32,15 @@ const Profile = () => {
       setShowUpdateForm((state) => !state)
     }
   }
-
+  const styleLoading = classNames({
+    modal: loading
+  })
   //! ↓ EFFETS DE BORD ↓
 
   if (!isConnected) {
     console.log('redirect')
     return <Redirect to="/signin" />
   }
-
-  const styleLoading = classNames({
-    modal: loading
-  })
 
   useEffect(() => {
     dispatch({ type: SET_LOADING, status: true })
@@ -55,12 +53,14 @@ const Profile = () => {
     }
   }, [user])
 
+  // enlève le spinner si le chargement réussi
   useEffect(() => {
     if (decks || decks?.length === 0) {
       dispatch({ type: SET_LOADING, status: false })
     }
   }, [decks])
 
+  // cache le formulaire si les modifications ont réussi
   useEffect(() => {
     setShowUpdateForm(false)
   }, [user.name, user.email, user.password])
@@ -90,7 +90,6 @@ const Profile = () => {
           }
           <div className={styleLoading}>
           {loading && <Loading />}
-
           </div>
         </>
   )

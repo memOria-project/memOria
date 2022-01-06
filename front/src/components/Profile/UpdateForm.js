@@ -43,19 +43,6 @@ const UpdateForm = ({ setShowUpdateForm }) => {
 
   //! ↓ AUTRES ↓
 
-  // ? inutile?
-  const redirect = () => {
-    if (isSubmitted) {
-      dispatch({ type: SET_ERROR, message: false })
-      dispatch({ type: SET_LOADING, status: true })
-      console.log('is Submitted')
-      return <span>argh</span>
-    } else if (isSuccessful) {
-      dispatch({ type: SET_LOADING, status: false })
-      return <Redirect to="/profile" />
-    }
-  }
-
   const submitButton = classNames({
     valid: isValid,
     notValid: !isValid
@@ -76,7 +63,6 @@ const UpdateForm = ({ setShowUpdateForm }) => {
   useEffect(() => {
     // reset du message d'erreur
     dispatch({ type: SET_ERROR, message: false })
-    redirect()
   }, [isSubmitted, isSuccessful])
 
   //! ↓ RETURN ↓
