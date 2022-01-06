@@ -1,33 +1,28 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { useEffect, useState, Fragment } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+
 import PersonalisedDeck from '../Deck/PersonalisedDeck'
 import Loading from '../Loading'
-import Form from '../Subscribe/Form'
 import UpdateForm from './UpdateForm'
 import NewDeckForm from './NewDeckForm'
-import './Profile.scss'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FETCH_USER_DECKS } from '../../actions'
 
+import './Profile.scss'
+
 const Profile = () => {
+  //! ↓ STATE ↓
   const { user } = useSelector((state) => state)
-  const { name, email } = user
   const isConnected = useSelector((state) => state.user.isConnected)
   const personalizedDecks = useSelector((state) => (state.user.decks))
   const [showUpdateForm, setShowUpdateForm] = useState(false)
   const [showNewDeck, setShowNewDeck] = useState(false)
   const [loading, setLoading] = useState(true)
   const dispatch = useDispatch()
-  console.log(personalizedDecks)
-  useEffect(() => {
-    // la conditionnelle vise à réduire les appels à l'API. Elle peut être enlevée si besoin.
-    if (!personalizedDecks) {
-      dispatch({ type: FETCH_USER_DECKS })
-    }
-  }, [user])
+
+  //! ↓ AUTRE ↓
   const handleClick = (event) => {
     console.log(event)
     if (event.target.name === 'newDeck' || event.target.className === 'deck deck--new' || event.target.viewportElement?.parentNode.name === 'newDeck' || event.target.parentNode.name === 'newDeck') {
@@ -36,6 +31,20 @@ const Profile = () => {
       setShowUpdateForm((state) => !state)
     }
   }
+
+  //! ↓ EFFETS DE BORD ↓
+
+  if (!isConnected) {
+    console.log('redirect')
+    return <Redirect to="/signin" />
+  }
+
+  useEffect(() => {
+    // la conditionnelle vise à réduire les appels à l'API. Elle peut être enlevée si besoin.
+    if (!personalizedDecks) {
+      dispatch({ type: FETCH_USER_DECKS })
+    }
+  }, [user])
 
   useEffect(() => {
     if (personalizedDecks || personalizedDecks?.length === 0) {
@@ -47,20 +56,7 @@ const Profile = () => {
     setShowUpdateForm(false)
   }, [user.name, user.email, user.password])
 
-  if (!isConnected) {
-    console.log('redirect')
-    return <Redirect to="/signin" />
-  }
-
   return (<>
-        <div>
-          {/* <h2>Bienvenue {name}</h2> */}
-        </div>
-
-        {/* <div className="profileEdit">
-          <p><strong>Adresse Email</strong>: {email}</p>
-
-        </div> */}
         <div className="personalizedDecksDisplay">
           <h1 className="personalizedDecksDisplay__title">Tes paquets</h1>
 
