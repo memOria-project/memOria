@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import * as yup from 'yup'
 
-import { SET_ERROR, UPDATE_PROFILE } from '../../actions'
+import { SET_ERROR, UPDATE_PROFILE, SET_LOADING } from '../../actions'
 
 import Loading from '../Loading'
 import Error from '../ErrorMessage'
@@ -19,10 +19,9 @@ import './UpdateForm.scss'
 const UpdateForm = ({ setShowUpdateForm }) => {
   //! ↓ STATE ↓
 
-  const { name, email, error } = useSelector((state) => state.user)
+  const { name, email, error, loading } = useSelector((state) => state.user)
   const { isSuccessful } = useSelector((state) => state.back)
   const [showPassword, setShowPassword] = useState(false)
-  const [loading, setLoading] = useState(false)
   const dispatch = useDispatch()
 
   //! ↓ FORMULAIRE ↓
@@ -44,14 +43,15 @@ const UpdateForm = ({ setShowUpdateForm }) => {
 
   //! ↓ AUTRES↓
 
-  // ? doit être reformatté, mais fonctione
+  // ? inutile?
   const redirect = () => {
     if (isSubmitted) {
-      setLoading(true)
+      dispatch({ type: SET_ERROR, message: false })
+      dispatch({ type: SET_LOADING, status: true })
       console.log('is Submitted')
       return <span>argh</span>
     } else if (isSuccessful) {
-      setLoading(false)
+      dispatch({ type: SET_LOADING, status: false })
       return <Redirect to="/profile" />
     }
   }
@@ -69,7 +69,7 @@ const UpdateForm = ({ setShowUpdateForm }) => {
 
   useEffect(() => {
     if (error) {
-      setLoading(false)
+      dispatch({ type: SET_LOADING, status: false })
     }
   }, [error])
 
@@ -87,6 +87,8 @@ const UpdateForm = ({ setShowUpdateForm }) => {
       {error && <Error message={error} />}
 
       <form className='userForm' onSubmit = {handleSubmit((data) => {
+        dispatch({ type: SET_ERROR, message: false })
+        dispatch({ type: SET_LOADING, status: true })
         dispatch({ type: UPDATE_PROFILE, data })
       })}>
 

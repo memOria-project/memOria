@@ -1,5 +1,5 @@
 import { fas } from '@fortawesome/free-solid-svg-icons'
-import { DISCONNECT, UPDATE_LOGIN, UPDATE_USER, UPDATE_SESSION, UPDATE_USER_DECKS, SET_ERROR } from '../actions'
+import { DISCONNECT, UPDATE_LOGIN, UPDATE_USER, UPDATE_SESSION, UPDATE_USER_DECKS, SET_ERROR, SET_LOADING } from '../actions'
 
 const initialState = {
   isConnected: false,
@@ -45,10 +45,16 @@ const reducer = (state = initialState, action = {}) => {
     }
     case SET_ERROR: {
       const { message } = action
-      console.log({ message })
       return {
         ...state,
         error: message
+      }
+    }
+    case SET_LOADING: {
+      const { status } = action
+      return {
+        ...state,
+        loading: status
       }
     }
     case UPDATE_USER_DECKS: {

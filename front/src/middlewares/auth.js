@@ -1,4 +1,4 @@
-import { LOG_IN, UPDATE_USER, GET_USER, DELETE_TOKEN, DISCONNECT, UPDATE_SESSION, CHECK_TOKEN, SUBSCRIBE, UPDATE_PROFILE, REQUEST_SUCCESS, SET_ERROR } from '../actions'
+import { LOG_IN, UPDATE_USER, GET_USER, DELETE_TOKEN, DISCONNECT, UPDATE_SESSION, CHECK_TOKEN, SUBSCRIBE, UPDATE_PROFILE, REQUEST_SUCCESS, SET_ERROR, SET_LOADING } from '../actions'
 import { cleanObject } from '../functions/DOMPurify'
 const auth = (store) => (next) => (action) => {
   const { email, password } = store.getState().user
@@ -127,6 +127,7 @@ const auth = (store) => (next) => (action) => {
           } else {
             store.dispatch({ type: SET_ERROR, message: response })
           }
+          store.dispatch({ type: SET_LOADING, status: false })
         } catch (error) { console.log(error) }
       }
       postUser()
@@ -164,6 +165,7 @@ const auth = (store) => (next) => (action) => {
           } else {
             store.dispatch({ type: SET_ERROR, message: response })
           }
+          store.dispatch({ type: SET_LOADING, status: false })
         } catch (error) { console.log(error) }
       }
       updateUser()
