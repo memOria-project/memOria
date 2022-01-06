@@ -41,7 +41,7 @@ const UpdateForm = ({ setShowUpdateForm }) => {
 
   const { register, handleSubmit, formState: { errors, isValid, isSubmitted } } = useForm({ mode: 'onChange', resolver: yupResolver(schema) })
 
-  //! ↓ AUTRES↓
+  //! ↓ AUTRES ↓
 
   // ? inutile?
   const redirect = () => {

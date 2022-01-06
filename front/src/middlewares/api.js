@@ -172,7 +172,7 @@ const api = (store) => (next) => (action) => {
       const title = name
       const newDeck = {
         title,
-        tag: tags,
+        tag: [tags],
         id
       }
       console.log(tags)
