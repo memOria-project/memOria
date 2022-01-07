@@ -4,7 +4,7 @@
 
 @include mixinsDecks.deckMobile;
 
-.personalizedDecksDisplay__title {
+.userDecks__title {
   margin: vars.$margin-main;
   margin-top: 2em;
   margin-bottom: 1.5em;
@@ -14,22 +14,12 @@
   background-color: inherit;
 }
 
-.personalizedDecksDisplay__decks-container {
+.userDecks__container {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
   justify-content: center;
 }
-
-// .deck-container,
-// .personalDecks__new {
-//   display: flex;
-//   flex-direction: column;
-//   padding: 3em 1em;
-//   width: 6em;
-//   height: 5em;
-//   text-align: center;
-// }
 
 .personalDecks__new {
   border: 2px dotted black;
@@ -53,11 +43,6 @@
   margin-top: -150px;
 }
 
-// .modal__content h1,
-// h2 {
-//   margin-bottom: 30px;
-//   font-size: 2em;
-// }
 .deck--new {
   font-weight: 600;
   justify-content: center;

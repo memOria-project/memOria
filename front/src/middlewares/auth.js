@@ -1,4 +1,4 @@
-import { LOG_IN, UPDATE_USER, GET_USER, DELETE_TOKEN, DISCONNECT, UPDATE_SESSION, CHECK_TOKEN, SUBSCRIBE, UPDATE_PROFILE, REQUEST_SUCCESS, SET_ERROR } from '../actions'
+import { LOG_IN, UPDATE_USER, GET_USER, DELETE_TOKEN, DISCONNECT, UPDATE_SESSION, CHECK_TOKEN, SUBSCRIBE, UPDATE_PROFILE, REQUEST_SUCCESS, SET_ERROR, SET_LOADING } from '../actions'
 import { cleanObject } from '../functions/DOMPurify'
 const auth = (store) => (next) => (action) => {
   const { email, password } = store.getState().user
@@ -127,6 +127,7 @@ const auth = (store) => (next) => (action) => {
           } else {
             store.dispatch({ type: SET_ERROR, message: response })
           }
+          store.dispatch({ type: SET_LOADING, status: false })
         } catch (error) { console.log(error) }
       }
       postUser()
@@ -134,7 +135,7 @@ const auth = (store) => (next) => (action) => {
     }
     case UPDATE_PROFILE: {
       const { name, email, password, oldpassword } = action.data
-      const newPassword = password
+      const newPassword = password || oldpassword
       const currentPassword = oldpassword
       const form = {
         name,
@@ -155,15 +156,16 @@ const auth = (store) => (next) => (action) => {
       const updateUser = async () => {
         try {
           const request = await fetch(`${back}/user/update`, options)
-          const response = await request
+          const response = await request.json()
           console.log()
-          if (response.status === 204 || response.status === 201 || response.status === 200) {
+          if (request.status === 204 || request.status === 201 || request.status === 200) {
             console.log('user mis à jour')
             store.dispatch({ type: CHECK_TOKEN })
             // supprimer LOG_IN si on souhaite éviter le login automatique après l'inscription pour raison de sécu
           } else {
-            console.log('erreur')
+            store.dispatch({ type: SET_ERROR, message: response })
           }
+          store.dispatch({ type: SET_LOADING, status: false })
         } catch (error) { console.log(error) }
       }
       updateUser()
