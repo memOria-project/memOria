@@ -63,7 +63,7 @@ const CardDisplay = () => {
       if (checkIfExist === 'no timeout yet') {
         setCheckIfExist(setTimeout(() => {
           setLoading(false); setShowError(true)
-        }, 1000))
+        }, 2000))
         console.log('timeout créé')
       }
     }
