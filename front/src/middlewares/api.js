@@ -218,7 +218,7 @@ const api = (store) => (next) => (action) => {
       }
       const deleteDeck = async () => {
         try {
-          const request = await fetch(`${back}/deck`, options)
+          const request = await fetch(`${back}/deck/${action.deckId}`, options)
           const response = await request.status
           if (response === 200) {
             console.log(`deck supprimé: ${response}`)
