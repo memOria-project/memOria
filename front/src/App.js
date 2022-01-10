@@ -17,6 +17,7 @@ import { checkSession } from './components/CheckSession/checkSession'
 import { SET_CURRENT_DECK_CONTENT } from './actions'
 import ResetCard from './components/ResetCard'
 import { Helmet } from 'react-helmet'
+import Footer from './components/Footer'
 
 function App () {
   checkSession()
@@ -102,7 +103,7 @@ function App () {
           <NoMatch />
         </Route>
       </Switch>
-
+    <Footer/>
     </div>
   )
 }
