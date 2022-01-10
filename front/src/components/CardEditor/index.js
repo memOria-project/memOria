@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState, useRef } from 'react'
-import { useParams, Redirect } from 'react-router-dom'
+import { useParams, Redirect, NavLink } from 'react-router-dom'
 import Form from './Form.js'
 import { GET_CARD, POST_CARD, SET_AS_MODIFIED, SET_CURRENT_DECK_ID } from '../../actions/index.js'
 
@@ -25,6 +25,7 @@ const CardEditor = () => {
   const [isSubmit, setIsSubmit] = useState(false)
   const [isFocusOnRecto, setIsFocusOnRecto] = useState(true)
   const [areHotkeysVisible, setAreHotKeyVisibile] = useState(false)
+  const toDeck = `/deckEditor/${deckId}`
 
   const dispatch = useDispatch()
 
@@ -118,7 +119,7 @@ const CardEditor = () => {
       (isSubmit && isModified.state && cardId ? <Redirect to={{ pathname: path, state: { editedCardId: cardId } }}/> : <></>)
       }
 
-        <h1 className="cardEditor__title"> {cardId ? 'Editer' : 'Créer'} une carte ({title})</h1>
+        <h1 className="cardEditor__title"> {cardId ? 'Editer' : 'Créer'} une carte (<NavLink to={toDeck} style={{ textDecoration: 'none' }}>{title}</NavLink>)</h1>
         <form
           id="recto"
           onSubmit={handleSubmit}
@@ -143,6 +144,7 @@ const CardEditor = () => {
           </div>
           <div className="cardEditor__forms__submission">
             <div className="submission__buttons">
+
               <button className="information" onClick={handleClick}> {preview ? 'Retour éditeur' : 'Aperçu'}</button>
               <button type="submit" className="confirm">Créer</button>
             </div>
