@@ -13,7 +13,7 @@ const SignIn = () => {
   const [isLoading, setIsLoading] = useState(false)
   const handleSubmit = (event) => {
     event.preventDefault()
-    setIsLoading((state) => !state)
+    setIsLoading(true)
     dispatch({ type: SET_ERROR, message: false })
     dispatch({ type: LOG_IN })
   }
