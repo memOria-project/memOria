@@ -36,7 +36,7 @@ const api = (store) => (next) => (action) => {
       }
       const getCurrentDeck = async () => {
         try {
-          const request = await fetch(`${back}/deck/${deckId}/cards`, fetchCardsOptions)
+          const request = await fetch(`${back}/deck/${deckId}/`, fetchCardsOptions)
           store.dispatch(
             { type: SET_CURRENT_DECK_CONTENT, currentDeckContent: false })
           const response = await request.json()
