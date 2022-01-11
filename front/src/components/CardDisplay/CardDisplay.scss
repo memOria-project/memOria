@@ -11,6 +11,9 @@
   @include mixinsModal.modal;
 }
 
+.cardDisplay__position .card {
+  margin: 15px auto;
+}
 .icon__options {
   color: vars.$color-text-alt;
   margin: 0;
