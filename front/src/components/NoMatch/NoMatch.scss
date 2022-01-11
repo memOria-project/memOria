@@ -1,11 +1,11 @@
 @use "../../styles/mixinsCards";
 
 .NoMatch__container {
-  @include mixinsCards.cardMobile(75%, 450px);
+  // @include mixinsCards.cardMobile(75%, 450px);
 }
 
-@media all and (min-width: 481px){
+@media all and (min-width: 481px) {
   .NoMatch__container {
-    @include mixinsCards.cardMobile(60%, 75vh );
+    // @include mixinsCards.cardMobile(60%, 75vh );
   }
 }
