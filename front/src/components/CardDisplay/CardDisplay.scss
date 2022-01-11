@@ -53,7 +53,6 @@
 .deckOptions__buttons .discrete {
   flex: 0;
   padding: 0.15em;
-  margin: 0.25em;
 }
 
 .deckOptions__buttons .information {
@@ -61,11 +60,24 @@
   width: 250px;
 }
 
-.deckOptions__buttons .discrete {
-  // position: absolute;
-  // left: 30%;
-}
-
 .deckOptions__buttons {
   height: 90px;
+}
+
+.info-div {
+  margin: auto;
+  padding: 0.1em;
+  width: 50%;
+  // border-width: 2px;
+  // border-style: solid;
+  border: none;
+  border-radius: 5px;
+  background-color: white;
+  font-size: clamp(1em, 1.2vw, 2em);
+  font-weight: 600;
+  color: vars.$color-main;
+  background-color: vars.$color-information;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

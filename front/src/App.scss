@@ -156,7 +156,7 @@ a > svg {
   background-color: transparent;
   color: vars.$color-confirm-light;
   font-weight: 800;
-  font-size: 2em;
+  font-size: clamp(1em, 1.2vw, 2em);
   text-transform: uppercase;
 }
 

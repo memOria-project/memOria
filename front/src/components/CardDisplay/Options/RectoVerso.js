@@ -20,14 +20,15 @@ const RectoVerso = ({ firstCard }) => {
   }
 
   return <div style={{ visibility: 'visible' }} className="deckOptions__buttons">
+    <div className="info-div" id="recto">
     <button className="discrete" onClick={handleClickNext} >
-&#11164;</button>
+    &#x2B9C;</button>
     {isRecto
-      ? <button id="recto" className={setClassName(isRecto)} onClick={handleClick} id="recto">Recto</button>
-      : <button id="verso" className={setClassName(!isRecto)} onClick={handleClick} id="verso">Verso</button>
+      ? 'Recto'
+      : 'Verso'
 }
 <button className="discrete" onClick={handleClickNext}>&#10148; </button>
-
+</div>
 </div>
 }
 export default RectoVerso
