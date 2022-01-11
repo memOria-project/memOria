@@ -1,0 +1,17 @@
+@use "../../styles/vars";
+
+@media all and (min-width: 481px) {
+  .footer {
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    box-shadow: 0 0px 10px #bdc3c7;
+  }
+
+  .footer a {
+    color: vars.$color-text-alt;
+    text-decoration: none;
+  }
+}
