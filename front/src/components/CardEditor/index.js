@@ -1,19 +1,22 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState, useRef } from 'react'
-import { useParams, Redirect } from 'react-router-dom'
-import Form from './Form.js'
-import { GET_CARD, POST_CARD, SET_AS_MODIFIED, SET_CURRENT_DECK_ID } from '../../actions/index.js'
-
-import Confirmation from './Confirmation.js'
-import './CardEditor.scss'
-import './CardEditor_Desktop.scss'
-import { switchFocusTextArea } from './switchFocusTextArea.js'
+import { useParams, Redirect, NavLink } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames'
 import { motion, AnimatePresence } from 'framer-motion'
 
+import Form from './Form.js'
+import Confirmation from './Confirmation.js'
+import { switchFocusTextArea } from './switchFocusTextArea.js'
+import { GET_CARD, POST_CARD, SET_AS_MODIFIED, SET_CURRENT_DECK_ID } from '../../actions/index.js'
+
+import './CardEditor.scss'
+import './CardEditor_Desktop.scss'
+
 const CardEditor = () => {
+  //! ↓ STATE AND VARIABLES ↓
+
   let { deckId, cardId } = useParams()
   deckId = parseInt(deckId, 10)
   cardId = parseInt(cardId, 10)
@@ -25,8 +28,14 @@ const CardEditor = () => {
   const [isSubmit, setIsSubmit] = useState(false)
   const [isFocusOnRecto, setIsFocusOnRecto] = useState(true)
   const [areHotkeysVisible, setAreHotKeyVisibile] = useState(false)
+  const toDeck = `/deckEditor/${deckId}`
+  // sont utilisés pour les switch de focus (hotkey et resets)
+  const textAreaRecto = useRef()
+  const textAreaVerso = useRef()
 
   const dispatch = useDispatch()
+
+  //! ↓ EFFETS DE BORD ↓
 
   // Au montage du composant:
   // - reset le contenu de la carte (si creation) OU charge le contenu de la carte (si edit)
@@ -59,17 +68,21 @@ const CardEditor = () => {
     }
   }, [isModified.count])
 
-  const path = `/deckEditor/${deckId}`
+  // reset le focus sur le recto quand on quitte le mode preview.
+  useEffect(() => {
+    if (!preview && isSubmit && textAreaRecto.current.commandOrchestrator) {
+      setIsFocusOnRecto(true)
+      textAreaRecto.current.commandOrchestrator.textArea.focus()
+    }
+  }, [preview])
+
+  //! ↓ AUTRES ↓
 
   // handleClick du preview
   const handleClick = (event) => {
     event.preventDefault()
     setPreview((state) => !state)
   }
-
-  // sont utilisés pour les switch de focus (hotkey et resets)
-  const textAreaRecto = useRef()
-  const textAreaVerso = useRef()
 
   // envoie la carte
   const handleSubmit = (event) => {
@@ -92,19 +105,12 @@ const CardEditor = () => {
     'hotkey__key--highlight': areHotkeysVisible
   })
 
-  // reset le focus sur le recto quand on quitte le mode preview.
-  useEffect(() => {
-    if (!preview && isSubmit && textAreaRecto.current.commandOrchestrator) {
-      setIsFocusOnRecto(true)
-      textAreaRecto.current.commandOrchestrator.textArea.focus()
-    }
-  }, [preview])
-
   const classSwitchFocus = classNames({
     cardEditor__forms__hotkey: true,
     cardEditor__forms__firstRender: true,
     displayNone: preview
   })
+
   return (
     <div
     onKeyDown={(event) => switchFocusTextArea(event, textAreaRecto, textAreaVerso, isFocusOnRecto, setIsFocusOnRecto, handleSubmit, handleClick, setAreHotKeyVisibile)}
@@ -115,10 +121,10 @@ const CardEditor = () => {
       /* redirection vers le deck SEULEMENT SI on edite une carte existante, et que la modification a fonctionné
       le ? est utilisé car isSubmit && isModified.state && cardId &&<Redirect /> affiche "NaN"(valeur de cardId) quand elle renvoie falsy - pas idéal, mais fonctionne
       */
-      (isSubmit && isModified.state && cardId ? <Redirect to={{ pathname: path, state: { editedCardId: cardId } }}/> : <></>)
+      (isSubmit && isModified.state && cardId ? <Redirect to={{ pathname: toDeck, state: { editedCardId: cardId } }}/> : <></>)
       }
 
-        <h1 className="cardEditor__title"> {cardId ? 'Editer' : 'Créer'} une carte ({title})</h1>
+        <h1 className="cardEditor__title"> {cardId ? 'Editer' : 'Créer'} une carte (<NavLink to={toDeck} style={{ textDecoration: 'none' }}>{title}</NavLink>)</h1>
         <form
           id="recto"
           onSubmit={handleSubmit}
@@ -143,6 +149,7 @@ const CardEditor = () => {
           </div>
           <div className="cardEditor__forms__submission">
             <div className="submission__buttons">
+
               <button className="information" onClick={handleClick}> {preview ? 'Retour éditeur' : 'Aperçu'}</button>
               <button type="submit" className="confirm">Créer</button>
             </div>

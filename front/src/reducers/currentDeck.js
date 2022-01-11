@@ -26,9 +26,10 @@ const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case SET_CURRENT_DECK_ID:
     {
+      const deckId = parseInt(action.deckId, 10)
       return {
         ...state,
-        deckId: action.deckId
+        deckId: deckId
       }
     }
 
