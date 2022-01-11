@@ -41,15 +41,17 @@
     margin: 4px 0;
   }
 
+  .deckProfile__title {
+    font-size: 1.1em;
+  }
   .deck a {
-    color: vars.$color-text;
+    font-weight: 600;
+    text-decoration: none;
+    color: vars.$color-text-alt;
     font-size: 0.8em;
     line-height: 1rem;
     font-weight: 600;
     text-decoration: none;
-  }
-  .deckProfile__title {
-    font-size: 1.1em;
   }
 }
 
@@ -62,7 +64,11 @@
     font-size: 1.8em;
   }
   .deck a {
-    color: vars.$color-text-alt;
+    font-weight: 600;
+    text-decoration: none;
+    color: vars.$color-text;
+    font-size: 0.8em;
+    line-height: 1rem;
     font-weight: 600;
     text-decoration: none;
   }

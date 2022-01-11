@@ -1,15 +1,16 @@
 @use "../../styles/_vars";
 @use "../../styles/mixinsCards";
+@use "../../styles/mixinsDecks";
 
 @include mixinsCards.cardMobile;
-
+@include mixinsDecks.deckMobile;
 .main-content__presentation-container {
-  padding: 1em vars.$margin-big;
   font-size: 0.8em;
   line-height: 1.6em;
   text-align: justify;
-  max-width: 500px;
-  margin: 0 auto;
+  width: 100%;
+  margin: 0;
+  margin-top: 20px;
 }
 
 .deck-display__title {
@@ -23,4 +24,9 @@
 .main-content h2 {
   font-size: 2em;
   padding-bottom: 0.5em;
+}
+
+.main-content__presentation-container .card {
+  margin: auto;
+  margin-bottom: 10px;
 }
