@@ -70,4 +70,7 @@
   font-size: initial;
   color: vars.$color-text-alt;
 }
+.rectoVersoView .card {
+  margin-bottom: 20px;
+}
 @include mixinsCards.cardMobile;

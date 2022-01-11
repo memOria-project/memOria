@@ -89,5 +89,5 @@
 //   }
 // }
 .cardEditor__forms .card {
-  margin: 10px clamp(8px, 1.25vw, 120px);
+  margin: clamp(8px, 1.25vw, 120px) 10px;
 }

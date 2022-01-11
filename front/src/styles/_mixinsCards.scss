@@ -102,12 +102,12 @@
     .wmde-markdown.wmde-markdown {
       white-space: pre-wrap;
 
-      font-size: clamp(1.5rem, 5vw, 2rem);
+      font-size: clamp(1.5rem, 7vw, 2rem);
     }
 
     .wmde-markdown.wmde-markdown pre,
     .wmde-markdown.wmde-markdown p {
-      margin: 0;
+      margin: -30px 0;
       padding: 0;
     }
     .wmde-markdown.wmde-markdown pre code {
@@ -147,6 +147,7 @@
     }
     .wmde-markdown.wmde-markdown pre code {
       // min-width: 18em;
+      font-size: clamp(1.5rem, 5vw, 2rem);
       padding: 0.2em;
       margin: 0;
     }
