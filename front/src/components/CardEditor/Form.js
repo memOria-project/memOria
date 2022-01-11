@@ -24,7 +24,7 @@ const Form = ({ isRecto, preview, textArea }) => {
   })
 
   return (
-    <div>
+    <>
 
     {preview
       ? <div
@@ -38,7 +38,8 @@ const Form = ({ isRecto, preview, textArea }) => {
       </pre>
 
     </div>
-      : <MDEditor
+      : <label>
+        <MDEditor
         ref={textArea}
         autoFocus={isRecto}
         onChange={(val) => handleChange(val)}
@@ -124,8 +125,9 @@ const Form = ({ isRecto, preview, textArea }) => {
           // ),
         ]}
       />
+      </label>
     }
-  </div>
+  </>
   )
 }
 export default Form

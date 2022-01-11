@@ -133,9 +133,7 @@ const CardEditor = () => {
           <div className="cardEditor__forms"
             /* onKeyDown permet l'utilisation du hotkey ctrl+M */
           >
-            <label>
             <Form isRecto={true} preview={preview} textArea={textAreaRecto} />
-            </label>
             <div className={classSwitchFocus}>
               <FontAwesomeIcon icon={faArrowRight} size="2x" className="arrow__icons" />
               <p className={classAltKey}>Alt</p>
@@ -143,9 +141,7 @@ const CardEditor = () => {
               <p className="hotkey__key">M</p>
               <FontAwesomeIcon icon={faArrowLeft} size="2x" className="arrow__icons" />
             </div>
-            <label>
             <Form isRecto={false} preview={preview} textArea={textAreaVerso} />
-            </label>
           </div>
           <div className="cardEditor__forms__submission">
             <div className="submission__buttons">
