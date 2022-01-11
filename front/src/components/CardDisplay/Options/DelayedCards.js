@@ -1,7 +1,6 @@
-import classNames from 'classnames'
 import { useDispatch, useSelector } from 'react-redux'
 import optionSwitch from './optionSwitch'
-import setClassName from './setClassName'
+import PropTypes from 'prop-types'
 
 const DelayedCards = ({ handleClick, delayedCards }) => {
   const { databaseSelector } = useSelector((state) => state.options)
@@ -36,3 +35,8 @@ const DelayedCards = ({ handleClick, delayedCards }) => {
   )
 }
 export default DelayedCards
+
+DelayedCards.propTypes = {
+  handleClick: PropTypes.func,
+  delayedCards: PropTypes.array
+}

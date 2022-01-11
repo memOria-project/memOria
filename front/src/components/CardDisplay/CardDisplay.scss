@@ -72,11 +72,11 @@
   // border-style: solid;
   border: none;
   border-radius: 5px;
-  background-color: white;
   font-size: clamp(1em, 1.2vw, 2em);
   font-weight: 600;
-  color: vars.$color-main;
-  background-color: vars.$color-information;
+  color: vars.$color-text;
+  // background-color: lighten(vars.$color-information, 40%);
+  background-color: vars.$color-main-alt;
   display: flex;
   justify-content: center;
   align-items: center;

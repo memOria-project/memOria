@@ -33,6 +33,7 @@
   }
   & h2 {
     font-size: clamp(1.2em, 1.5vw, 3em);
+    color: vars.$color-warning;
   }
   & h1,
   h2 {

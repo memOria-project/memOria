@@ -43,13 +43,18 @@ const DeckOrder = ({ handleClick }) => {
   return (
   <div className="deckOptions__buttons">
     <div className="info-div">
-      <button className="discrete" onClick={handleClickBack} >
+      <button className="discrete" onClick={handleClickBack}>
       &#x2B9C;
       </button>
+      <div style={{ marginLeft: 'auto' }}> </div>
+
       {allButtons[optionIndex]}
+      <div style={{ marginRight: 'auto' }}> </div>
+
       <button className="discrete" onClick={handleClickNext}>
         &#10148;
       </button>
+
     </div>
   </div>
   )
