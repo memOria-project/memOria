@@ -9,7 +9,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Form from './Form.js'
 import Confirmation from './Confirmation.js'
 import { switchFocusTextArea } from './switchFocusTextArea.js'
-import { GET_CARD, POST_CARD, SET_AS_MODIFIED, SET_CURRENT_DECK_ID } from '../../actions/index.js'
+import { GET_CARD, POST_CARD, SET_AS_MODIFIED, SET_CURRENT_DECK_ID, SET_ERROR, SET_LOADING } from '../../actions/index.js'
 
 import './CardEditor.scss'
 import './CardEditor_Desktop.scss'
@@ -43,6 +43,8 @@ const CardEditor = () => {
 
   useEffect(() => {
     dispatch({ type: SET_AS_MODIFIED, state: false })
+    dispatch({ type: SET_LOADING, status: false })
+    dispatch({ type: SET_ERROR, message: false })
     dispatch({ type: SET_CURRENT_DECK_ID, deckId })
     if (!cardId) {
       console.log('reset card')
@@ -87,6 +89,7 @@ const CardEditor = () => {
   // envoie la carte
   const handleSubmit = (event) => {
     event.preventDefault()
+    dispatch({ type: SET_LOADING, status: true })
     dispatch({ type: POST_CARD, cardId })
     setIsSubmit(true)
     // reset le focus sur le recto quand la carte est soumise en mode éditeur (preview est falsy)

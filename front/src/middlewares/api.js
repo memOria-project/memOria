@@ -1,6 +1,6 @@
 import {
   getAllDecks, GET_CARD, FETCH_DECKS, FETCH_CARDS, getCurrentDeckContent, POST_CARD, SET_AS_MODIFIED, DELETE_CARD, DELAY_CARD, CREATE_DECK, CHECK_TOKEN
-  , FETCH_USER_DECKS, UPDATE_USER, UPDATE_USER_DECKS, SET_CURRENT_DECK_CONTENT, DELETE_DECK
+  , FETCH_USER_DECKS, UPDATE_USER, UPDATE_USER_DECKS, SET_CURRENT_DECK_CONTENT, DELETE_DECK, SET_LOADING, SET_ERROR
 } from '../actions'
 import { clean, cleanObject } from '../functions/DOMPurify'
 
@@ -97,17 +97,20 @@ const api = (store) => (next) => (action) => {
         },
         body: JSON.stringify(cleanObject(newCard))
       }
-      console.log('post', JSON.stringify(cleanObject(newCard)))
       const postCard = async () => {
         try {
           const request = await fetch(`${back}/card`, options)
-          const response = await request.status
-          if (response === 200 || response === 201) {
+          const response = await request.json()
+
+          store.dispatch({ type: SET_LOADING, status: false })
+          if (request.status === 200 || request.status === 201) {
             store.dispatch({ type: SET_AS_MODIFIED, isModified: true })
             store.dispatch({ type: GET_CARD, field: [{ field: 'recto', value: '' }, { field: 'verso', value: '' }] })
             console.log('new card' + response)
           } else {
+            console.log(response)
             store.dispatch({ type: SET_AS_MODIFIED, isModified: false })
+            store.dispatch({ type: SET_ERROR, message: response })
           }
         } catch (error) { console.log(error) }
       }
