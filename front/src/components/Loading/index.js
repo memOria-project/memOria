@@ -1,12 +1,12 @@
 import './Loading.scss'
 
 const Loading = () => {
-  console.log("loading")
+  console.log('loading')
 
-return (
+  return (
   // <div className="loading__container">
-    <div class="spin"></div>
+    <div className="spin"></div>
   // </div>
   )
 }
-export default Loading 
+export default Loading
