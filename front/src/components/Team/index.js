@@ -42,10 +42,10 @@ const Team = () => {
   }
 
   return <>
-         <h1 style={{ fontSize: '2.5em', marginTop: '1.5em' }}> L'équipe memOria</h1>
+         <h1 style={{ fontSize: '2.5em', marginTop: '20px' }}> L'équipe memOria</h1>
          <ShowCards hideButtons={true} currentCard={currentCard[cardId]} database={database} failedCards={failedCards} />
-         <button onClick={handleClickBack}>Précédent</button>
-         <button onClick={handleClick}>Suivant</button>
+         <button className="discrete" style={{ fontSize: '3rem', margin: '0.5rem', padding: '0.5rem' }} onClick={handleClickBack}>&#x2B9C;</button>
+         <button className="discrete" style={{ fontSize: '3rem', margin: '0.5rem', padding: '0.5rem' }} onClick={handleClick}>&#x2B9E;</button>
 
       </>
 }
