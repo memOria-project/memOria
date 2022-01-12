@@ -1,5 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import './Footer.scss'
+import './Footer_Desktop.scss'
+
 const Footer = () => {
   return (
   <footer className="footer">

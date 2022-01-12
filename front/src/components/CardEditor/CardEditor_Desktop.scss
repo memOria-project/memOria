@@ -100,4 +100,8 @@
     font-size: 1.2em;
     font-weight: 800;
   }
+  .cardEditor__forms .card {
+    margin-left: clamp(20px, 1vw, 120px);
+    margin-right: clamp(20px, 1vw, 120px);
+  }
 }

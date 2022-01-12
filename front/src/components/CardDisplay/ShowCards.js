@@ -41,7 +41,7 @@ const ShowCards = ({ hideButtons, showHotkeys, setDatabase, database, failedCard
     card__verso: !isRecto
   })
 
-  return <>
+  return <div className="cardDisplay__position">
 {isRecto
   ? <motion.div
   {...handlers}
@@ -65,6 +65,6 @@ const ShowCards = ({ hideButtons, showHotkeys, setDatabase, database, failedCard
 }
   {!hideButtons && <><Next database={database} showHotkeys={showHotkeys} setFailedCards={setFailedCards} setDatabase={setDatabase} failedCards={failedCards} currentCard={currentCard} setCurrentCard={setCurrentCard} deckId={deckId} deckLength={database.length} />
   <p style={{ fontSize: '1.5em' }}> Cartes restantes: {database.length - currentCard.index - 1}</p></>}
-  </>
+  </div>
 }
 export default ShowCards

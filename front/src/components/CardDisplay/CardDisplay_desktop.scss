@@ -9,7 +9,11 @@
   }
   .cardDisplay__nextButtons .warning,
   .cardDisplay__nextButtons .confirm {
-    width: 115px;
+    // width: 115px;
     height: 60px;
+    font-size: 1.2em;
+  }
+  .cardDisplay__nextButtons .discrete {
+    font-size: 2rem;
   }
 }

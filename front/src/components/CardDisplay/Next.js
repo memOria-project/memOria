@@ -108,7 +108,8 @@ const Next = ({ database, showHotkeys, setDatabase, deckId, deckLength, currentC
               </NavLink>
           </button>
           <button className="discrete" onClick={() => { setIndexNextCard(setCurrentCard, currentCard.index, deckLength); dispatch({ type: RESET_CARD, isRecto: defaultView.isRecto }) }}>
-            &#10148; </button>
+          &#x2B9E;
+ </button>
       </div>)
  }
 

@@ -11,6 +11,9 @@
   @include mixinsModal.modal;
 }
 
+.cardDisplay__position .card {
+  margin: 15px auto;
+}
 .icon__options {
   color: vars.$color-text-alt;
   margin: 0;
@@ -21,7 +24,7 @@
   outline: none;
   color: white;
   font-size: 1.5em;
-  margin: 30px;
+  margin: 15px;
 }
 
 .btn__submit:hover {
@@ -50,19 +53,42 @@
 .deckOptions__buttons .discrete {
   flex: 0;
   padding: 0.15em;
-  margin: 0.25em;
+  margin: 0.5em;
 }
-
+.cardDisplay__nextButtons .discrete {
+  font-size: 1rem;
+}
 .deckOptions__buttons .information {
   margin: 0.5em;
   width: 250px;
 }
 
-.deckOptions__buttons .discrete {
-  // position: absolute;
-  // left: 30%;
+.deckOptions__buttons {
+  margin-bottom: 30px;
 }
 
-.deckOptions__buttons {
-  height: 90px;
+.info-div {
+  margin: auto;
+  padding: 0.1em;
+  width: 50%;
+  // border-width: 2px;
+  // border-style: solid;
+  border: none;
+  border-radius: 5px;
+  font-size: clamp(1em, 1.2vw, 2em);
+  font-weight: 600;
+  color: vars.$color-text;
+  // background-color: lighten(vars.$color-information, 40%);
+  background-color: vars.$color-main-alt;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  justify-items: stretch;
+}
+
+.cardDisplay__nextButtons .warning,
+.cardDisplay__nextButtons .confirm {
+  // width: 115px;
+  height: 60px;
+  font-size: inherit;
 }

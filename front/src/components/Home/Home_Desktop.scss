@@ -1,8 +1,10 @@
 @use "../../styles/_vars";
 @use "../../styles/mixinsCards";
+@use "../../styles/mixinsDecks";
 
 @media all and (min-width: 481px) {
   @include mixinsCards.cardDesktop;
+  @include mixinsDecks.deckDesktop;
 
   .main-content__presentation-container {
     text-align: center;

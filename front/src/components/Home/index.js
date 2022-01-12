@@ -71,7 +71,7 @@ const Home = () => {
                 </motion.pre>
             </motion.div>
             <motion.div
-                animate={{ y: [0, 10, 0] }}
+                animate={{ y: [0, 8, 0] }}
                 transition={{ ease: 'easeOut', duration: 0.8, repeat: Infinity }}
                 style={{ textAlign: 'center' }}
                 >

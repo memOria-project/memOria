@@ -88,3 +88,6 @@
 //     transform: scale(1.5);
 //   }
 // }
+.cardEditor__forms .card {
+  margin: clamp(8px, 1.25vw, 120px) 10px;
+}
