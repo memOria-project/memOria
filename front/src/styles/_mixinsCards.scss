@@ -122,6 +122,13 @@
       // height: clamp(20%, 20%, 20%);
       object-fit: contain;
     }
+    // sur Netlify, des svg wrappé dans des divs ".copied" et ".anchor" sont parfois affichés. Je ne comprend pas pourquoi. Voilà un fix en attendant.
+    body .card .wmde-markdown .copied {
+      display: none;
+    }
+    body .card .wmde-markdown .anchor {
+      display: none;
+    }
     // &__content {
     //   // white-space: pre-wrap;
     // }
