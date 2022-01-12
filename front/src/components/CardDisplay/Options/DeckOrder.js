@@ -2,6 +2,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useState } from 'react'
 import PropTypes from 'prop-types'
 import optionSwitch from './optionSwitch'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons'
 
 const DeckOrder = ({ handleClick }) => {
   const { order } = useSelector((state) => state.options)
@@ -43,14 +46,10 @@ const DeckOrder = ({ handleClick }) => {
   return (
   <div className="deckOptions__buttons">
     <div className="info-div">
-      <button className="discrete" onClick={handleClickBack}>
-      &#x2B9C;
-      </button>
+      <FontAwesomeIcon icon={faCaretLeft} className="discrete" onClick={handleClickBack}/>
 
       <p>{allButtons[optionIndex]}</p>
-      <button className="discrete" onClick={handleClickNext}>
-      &#x2B9E;
-      </button>
+      <FontAwesomeIcon icon={faCaretRight} className="discrete" onClick={handleClickNext}/>
 
     </div>
   </div>

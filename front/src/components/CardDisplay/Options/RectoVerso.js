@@ -2,6 +2,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { PICK_DEFAULT_CARD_SIDE } from '../../../actions'
 import setClassName from './setClassName'
 import PropTypes from 'prop-types'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons'
 
 const RectoVerso = ({ firstCard }) => {
   const { defaultView } = useSelector((state) => state.options)
@@ -22,9 +24,8 @@ const RectoVerso = ({ firstCard }) => {
 
   return <div style={{ visibility: 'visible' }} className="deckOptions__buttons">
     <div className="info-div" id="recto">
+    <FontAwesomeIcon icon={faCaretLeft} className="discrete" onClick={handleClickNext} style={{ cursor: 'pointer' }}/>
 
-    <button className="discrete" onClick={handleClickNext} >
-    &#x2B9C;</button>
     <div style={{ marginLeft: 'auto' }}> </div>
 
     {isRecto
@@ -32,9 +33,8 @@ const RectoVerso = ({ firstCard }) => {
       : 'Verso'
 }
 <div style={{ marginRight: 'auto' }}> </div>
-<button className="discrete" onClick={handleClickNext}>
-  &#x2B9E;
- </button>
+<FontAwesomeIcon icon={faCaretRight} className="discrete" onClick={handleClickNext} style={{ cursor: 'pointer' }}/>
+
 </div>
 </div>
 }

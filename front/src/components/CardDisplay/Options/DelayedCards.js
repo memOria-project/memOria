@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux'
 import optionSwitch from './optionSwitch'
 import PropTypes from 'prop-types'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons'
 
 const DelayedCards = ({ handleClick, delayedCards }) => {
   const { databaseSelector } = useSelector((state) => state.options)
@@ -21,15 +23,12 @@ const DelayedCards = ({ handleClick, delayedCards }) => {
   return (
   <div className="deckOptions__buttons">
     <div className="info-div">
-      <button className="discrete" onClick={handleClickNext} style={{ visibility: showArrows }}>
-      &#x2B9C;
-      </button>
+      <FontAwesomeIcon icon={faCaretLeft} className="discrete" onClick={handleClickNext} style={{ visibility: showArrows, cursor: 'pointer' }}/>
 
-      {isDelayedReviewOn ? 'Juste les non maitrisées' : 'Toutes les cartes'}
+      <p>{isDelayedReviewOn ? 'Juste les non maitrisées' : 'Toutes les cartes'}</p>
 
-      <button className="discrete" onClick={handleClickNext} style={{ visibility: showArrows }}>
-      &#x2B9E;
-      </button>
+      <FontAwesomeIcon icon={faCaretRight} className="discrete" onClick={handleClickNext} style={{ visibility: showArrows, cursor: 'pointer' }}/>
+
     </div>
   </div>
   )

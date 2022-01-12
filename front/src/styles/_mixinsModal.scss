@@ -17,13 +17,13 @@
     position: absolute;
     background-color: vars.$color-main;
     border-radius: 25px;
-    width: clamp(300px, 80%, 481px);
+    width: clamp(300px, 90vw, 500px);
     top: 5%;
     left: 0;
     right: 0;
     margin-left: auto;
     margin-right: auto;
-    padding: clamp(0.5em, 1em, 2em);
+    padding: clamp(0.5rem, 0.75rem, 1em);
     overflow: hidden;
     align-items: center;
     filter: drop-shadow(0px 8px 8px lighten(black, 50%));

@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, useParams } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimesCircle, faCalendarCheck, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { faTimesCircle, faCalendarCheck, faCheckCircle, faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons'
 import { FETCH_CARDS, RESET_CARD, PICK_NEW_GAME, DELAY_CARD } from '../../actions'
 import { useRef, useState, useEffect } from 'react'
 import setResponseStatus from './setResponseStatus'
@@ -48,8 +48,8 @@ const Next = ({ database, showHotkeys, setDatabase, deckId, deckLength, currentC
       (<div className="cardDisplay__nextButtons">
         <button className="discrete" onClick={() => {
           setIndexPreviousCard(setCurrentCard, currentCard.index); dispatch({ type: RESET_CARD, isRecto: defaultView.isRecto })
-        }} style={{ visibility: isFirstCard ? 'hidden' : 'visible' }}>
-&#11164;</button>
+        }} style={{ marginRight: '0', visibility: isFirstCard ? 'hidden' : 'visible' }}>
+<FontAwesomeIcon icon={faCaretLeft} size="2x" /></button>
         <button className={setActiveClass('confirm', 'correct', currentCard.response)} onClick={() => setAsSuccessful(setDelay, setDatabase, currentCard, setCurrentCard, deckLength, failedCards, setFailedCards, dispatch)}>
 
           <NavLink to={nextCardURL} >
@@ -107,8 +107,8 @@ const Next = ({ database, showHotkeys, setDatabase, deckId, deckLength, currentC
                <span style={{ paddingLeft: '5px' }}>{numberOfWrong}</span>
               </NavLink>
           </button>
-          <button className="discrete" onClick={() => { setIndexNextCard(setCurrentCard, currentCard.index, deckLength); dispatch({ type: RESET_CARD, isRecto: defaultView.isRecto }) }}>
-          &#x2B9E;
+          <button className="discrete" style={{ marginLeft: '0' }} onClick={() => { setIndexNextCard(setCurrentCard, currentCard.index, deckLength); dispatch({ type: RESET_CARD, isRecto: defaultView.isRecto }) }}>
+          <FontAwesomeIcon icon={faCaretRight} size="2x" />
  </button>
       </div>)
  }

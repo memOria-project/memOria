@@ -4,9 +4,6 @@
 @media all and (min-width: 481px) {
   @include mixinsCards.cardDesktop;
 
-  .cardDisplay__modal__container {
-    width: 480px;
-  }
   .cardDisplay__nextButtons .warning,
   .cardDisplay__nextButtons .confirm {
     // width: 115px;
