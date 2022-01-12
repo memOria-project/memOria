@@ -20,8 +20,9 @@ const CardEditor = () => {
   let { deckId, cardId } = useParams()
   deckId = parseInt(deckId, 10)
   cardId = parseInt(cardId, 10)
-
+  // j'ai essayé de supprimer isModified en le remplaçant par !error, mais ça ne marche pas pour stopper la redirection lors d'un échec d'édit de carte...
   const isModified = useSelector((state) => state.currentDeck.isModified)
+  const { loading } = useSelector((state) => state.user)
   const title = useSelector((state) => state.currentDeck.title)
 
   const [preview, setPreview] = useState(false)
@@ -68,7 +69,7 @@ const CardEditor = () => {
         setIsSubmit(true)
       }, 50)
     }
-  }, [isModified.count])
+  }, [loading])
 
   // reset le focus sur le recto quand on quitte le mode preview.
   useEffect(() => {
@@ -192,7 +193,7 @@ const CardEditor = () => {
         </form>
         {isSubmit
 
-          ? <Confirmation isSuccess={isModified.state} deckId={deckId} />
+          ? <Confirmation deckId={deckId} />
           : console.log('première soumission')
 
 }

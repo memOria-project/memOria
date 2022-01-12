@@ -1,16 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, useParams } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimesCircle, faCalendarCheck, faCheckCircle, faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons'
-import { FETCH_CARDS, RESET_CARD, PICK_NEW_GAME, DELAY_CARD } from '../../actions'
-import { useRef, useState, useEffect } from 'react'
-import setResponseStatus from './setResponseStatus'
+import { faTimesCircle, faCheckCircle, faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons'
+import { useState, useEffect } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import PropTypes from 'prop-types'
+
 import setIndexPreviousCard from './setIndexPreviousCard'
 import setIndexNextCard from './setIndexNextCard'
 import setAsSuccessful from './setAsSuccessful'
 import setDelay from './setDelay'
 import setAsFailed from './setAsFailed'
-import { AnimatePresence, motion } from 'framer-motion'
+import { RESET_CARD } from '../../actions'
 
 const Next = ({ database, showHotkeys, setDatabase, deckId, deckLength, currentCard, setCurrentCard, failedCards, setFailedCards }) => {
   const dispatch = useDispatch()
@@ -117,3 +118,15 @@ const Next = ({ database, showHotkeys, setDatabase, deckId, deckLength, currentC
   )
 }
 export default Next
+
+Next.propTypes = {
+  database: PropTypes.array,
+  showHotkeys: PropTypes.bool,
+  setDatabase: PropTypes.func,
+  deckId: PropTypes.string,
+  deckLength: PropTypes.number,
+  currentCard: PropTypes.object,
+  setCurrentCard: PropTypes.func,
+  failedCards: PropTypes.array,
+  setFailedCards: PropTypes.func
+}

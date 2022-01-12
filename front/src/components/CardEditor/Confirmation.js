@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import { PropTypes } from 'prop-types'
 import { useSelector } from 'react-redux'
 import Loading from '../Loading'
-const Confirmation = ({ isSuccess, deckId }) => {
+const Confirmation = ({ deckId }) => {
   const path = `/deckEditor/${deckId}`
   const { loading, error } = useSelector((state) => state.user)
 
@@ -32,6 +32,5 @@ const Confirmation = ({ isSuccess, deckId }) => {
 export default Confirmation
 
 Confirmation.propTypes = {
-  isSuccess: PropTypes.bool,
   deckId: PropTypes.number
 }

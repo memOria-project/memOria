@@ -109,8 +109,9 @@ const api = (store) => (next) => (action) => {
             console.log('new card' + response)
           } else {
             console.log(response)
-            store.dispatch({ type: SET_AS_MODIFIED, isModified: false })
             store.dispatch({ type: SET_ERROR, message: response })
+            //  utilisé pour stopper la redirection lors d'un échec d'édit de carte
+            store.dispatch({ type: SET_AS_MODIFIED, isModified: false })
           }
         } catch (error) { console.log(error) }
       }
