@@ -107,7 +107,7 @@
 
     .wmde-markdown.wmde-markdown pre,
     .wmde-markdown.wmde-markdown p {
-      margin: -30px 0;
+      margin: -25px 0;
       padding: 0;
     }
     .wmde-markdown.wmde-markdown pre code {
@@ -126,7 +126,8 @@
     svg,
     iframe {
       width: clamp(200px, 400px, 470px);
-      height: clamp(20%, 80%, 90%);
+      // height: clamp(20%, 20%, 20%);
+      object-fit: contain;
     }
   }
 }
@@ -155,7 +156,7 @@
     svg,
     iframe {
       width: clamp(300px, 500px, 650px);
-      height: clamp(200px, 350px, 400px);
+      height: clamp(200px, 325px, 400px);
     }
   }
 }
