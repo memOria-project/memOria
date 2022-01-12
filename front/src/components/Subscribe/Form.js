@@ -57,9 +57,8 @@ const Form = () => {
 
   return (loading
     ? <Loading />
-    : <div>
-          {error && <Error message={error} />}
-
+    : <div className="subscribe__container">
+      {error && <Error message={error} />}
       <form className='userForm' onSubmit = {handleSubmit((data) => {
         dispatch({ type: SUBSCRIBE, data })
       })}>
@@ -69,11 +68,15 @@ const Form = () => {
       </div>
 
       <div className= 'form__profil-section formSection'>
-        <h1 className="infoPersoTitle">Créer un compte</h1>
+        <h1 className="infoPersoTitle">
+          Créer un compte
+        </h1>
 
         <div className= 'form__info-profil infoPersoLeft'>
           <div className= 'form__username inputRow'>
-              <label className='form__label inputName '> Nom d'utilisateur </label>
+              <label className='form__label inputName '>
+                Nom d'utilisateur
+              </label>
               <input type="text" id="username" name="username"
                 {...register('name',
                   {
@@ -85,58 +88,62 @@ const Form = () => {
               />
 
               <ErrorMessage errors ={errors} render={({ message }) => <span className='label--error'>{message}</span>} name="name" />
-        </div>
+          </div>
 
           <div className= 'form__email inputRow'>
-            <label className='form__label inputName'> Email </label>
-              <input type="email" id="email" name="email"
-                {...register('email',
-                  {
-                    required: 'Email requis',
-                    pattern: {
-                      value: /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/,
-                      message: 'Email non valide'
-                    }
-                  })
-                }
-                defaultValue={email}
+            <label className='form__label inputName'>
+              Email
+            </label>
+            <input type="email" id="email" name="email"
+              {...register('email',
+                {
+                  required: 'Email requis',
+                  pattern: {
+                    value: /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/,
+                    message: 'Email non valide'
+                  }
+                })
+              }
+              defaultValue={email}
 
               />
-
             <ErrorMessage errors ={errors} render={({ message }) => <span className='label--error'>{message}</span>} name="email" />
           </div>
 
           <div className= 'form__password inputRow'>
-            <label className='form__label inputName'> Mot de passe </label>
-              <input type="password" id="password" name="password"
-                {...register('password',
-                  {
-                    required: 'Mot de passe requis',
-                    maxLength:
-                      {
-                        value: 20,
-                        message: 'Trop long! 8 à 20 caractères uniquement'
-                      },
-                    minLength:
-                      {
-                        value: 8,
-                        message: 'Trop court! 8 à 20 caractères uniquement'
-                      },
-                    pattern: {
-                      value: /(?=.*[!?@#$%^&-+=()])/,
-                      message: 'Veuillez inclure au moins un caractère spécial(!?@#$%&*()-+=^)'
-                    }
+            <label className='form__label inputName'>
+              Mot de passe
+            </label>
+            <input type="password" id="password" name="password"
+              {...register('password',
+                {
+                  required: 'Mot de passe requis',
+                  maxLength:
+                    {
+                      value: 20,
+                      message: 'Trop long! Choisir 8 à 20 caractères'
+                    },
+                  minLength:
+                    {
+                      value: 8,
+                      message: 'Trop court! Choisir 8 à 20 caractères'
+                    },
+                  pattern: {
+                    value: /(?=.*[!?@#$%^&-+=()])/,
+                    message: 'Ajoutez un caractère spécial(!?@#$%&*()-+=^)'
+                  }
 
-                  })
-                }
+                })
+              }
               />
-
             <ErrorMessage errors ={errors} render={({ message }) => <span className='label--error'>{message}</span>} name="password" />
           </div>
 
           <div className= 'form__password-confirm inputRow'>
-            <label className='form__label inputName'> Confirmez le mot de passe </label>
-              <input
+            <label className='form__label inputName'>
+              Confirmez le mot de passe
+            </label>
+            <input
                 type="password"
                 id="password-confirm"
                 name="password-confirm"
@@ -146,21 +153,17 @@ const Form = () => {
                     validate: v => v === getValues('password') || 'Ne correspond pas'
                   })
                 }
-                />
-
+              />
             <ErrorMessage errors ={errors} render={({ message }) => <span className='label--error'>{message}</span>} name="confirmPassword" />
           </div>
 
           <div className= 'login-button'>
                <Link to="/signin">J'ai déjà un compte</Link>
-
               <button type="submit" disabled={!isValid} className={submitButton}>S'inscrire</button>
           </div>
-
         </div>
       </div>
     </div>
-
   </form>
 
       </div>)

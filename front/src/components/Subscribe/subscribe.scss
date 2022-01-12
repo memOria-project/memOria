@@ -12,6 +12,7 @@
   display: block;
   color: vars.$color-critic;
   text-align: right;
+  padding: 0.2em;
 }
 
 .form__signUp-container {
@@ -31,7 +32,7 @@
 .form__signIn-container {
   display: flex;
   width: 100%;
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   height: 80vh;
   justify-content: center;
 }
@@ -154,8 +155,11 @@ input[type="password"] {
 }
 /*---------Media Query----------*/
 @media all and (min-width: 481px) {
+  .subscribe__container {
+    width: 100vw;
+  }
   .userForm {
-    margin: 50%;
+    // margin: 50%;
   }
 
   .form__signUp-container {
@@ -187,7 +191,7 @@ input[type="password"] {
 
   .form__signIn-container,
   .form__signUp-container {
-    font-size: 1rem;
+    font-size: 0.75rem;
   }
 
   .infoPersoTitle {
