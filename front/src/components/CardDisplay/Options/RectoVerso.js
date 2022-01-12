@@ -32,7 +32,9 @@ const RectoVerso = ({ firstCard }) => {
       : 'Verso'
 }
 <div style={{ marginRight: 'auto' }}> </div>
-<button className="discrete" onClick={handleClickNext}>&#10148; </button>
+<button className="discrete" onClick={handleClickNext}>
+  &#x2B9E;
+ </button>
 </div>
 </div>
 }

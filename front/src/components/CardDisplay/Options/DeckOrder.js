@@ -46,13 +46,10 @@ const DeckOrder = ({ handleClick }) => {
       <button className="discrete" onClick={handleClickBack}>
       &#x2B9C;
       </button>
-      <div style={{ marginLeft: 'auto' }}> </div>
 
-      {allButtons[optionIndex]}
-      <div style={{ marginRight: 'auto' }}> </div>
-
+      <p>{allButtons[optionIndex]}</p>
       <button className="discrete" onClick={handleClickNext}>
-        &#10148;
+      &#x2B9E;
       </button>
 
     </div>

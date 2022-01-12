@@ -28,7 +28,7 @@ const DelayedCards = ({ handleClick, delayedCards }) => {
       {isDelayedReviewOn ? 'Juste les non maitrisées' : 'Toutes les cartes'}
 
       <button className="discrete" onClick={handleClickNext} style={{ visibility: showArrows }}>
-        &#10148;
+      &#x2B9E;
       </button>
     </div>
   </div>

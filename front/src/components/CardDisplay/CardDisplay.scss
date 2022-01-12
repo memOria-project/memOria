@@ -24,7 +24,7 @@
   outline: none;
   color: white;
   font-size: 1.5em;
-  margin: 30px;
+  margin: 15px;
 }
 
 .btn__submit:hover {
@@ -53,6 +53,7 @@
 .deckOptions__buttons .discrete {
   flex: 0;
   padding: 0.15em;
+  margin: 0.5em;
 }
 .cardDisplay__nextButtons .discrete {
   font-size: 1rem;
@@ -63,7 +64,7 @@
 }
 
 .deckOptions__buttons {
-  height: 90px;
+  margin-bottom: 30px;
 }
 
 .info-div {
@@ -80,8 +81,9 @@
   // background-color: lighten(vars.$color-information, 40%);
   background-color: vars.$color-main-alt;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  justify-items: stretch;
 }
 
 .cardDisplay__nextButtons .warning,

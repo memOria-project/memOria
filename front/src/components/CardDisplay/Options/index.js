@@ -44,11 +44,12 @@ const Options = ({ setShowOptions, delayedCards, firstCard }) => {
           <DelayedCards handleClick={handleClick} delayedCards={delayedCards.length} />
         </>
         }
-    <h2> Aperçu </h2>
+
+        <button className="btn__submit" id="start" type="submit" onClick={handleClick}>Continuer </button>
+        <h3> Vous verrez: </h3>
         {isRecto
           ? <div>"{firstCard.recto.substring(0, 30)}..." </div>
           : <div>"{firstCard.verso.substring(0, 30)}..." </div>}
-        <button className="btn__submit" id="start" type="submit" onClick={handleClick}>Continuer </button>
      </div>
   )
 }
