@@ -57,7 +57,7 @@ const Form = () => {
 
   return (loading
     ? <Loading />
-    : <div className="subscribe__container">
+    : <div>
       {error && <Error message={error} />}
       <form className='userForm' onSubmit = {handleSubmit((data) => {
         dispatch({ type: SUBSCRIBE, data })

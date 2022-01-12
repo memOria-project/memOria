@@ -18,7 +18,7 @@
     background-color: vars.$color-main;
     border-radius: 25px;
     width: clamp(300px, 90vw, 500px);
-    top: 5%;
+    top: clamp(100px, 15%, 400px);
     left: 0;
     right: 0;
     margin-left: auto;

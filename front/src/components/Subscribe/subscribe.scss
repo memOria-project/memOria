@@ -4,8 +4,11 @@
   margin: auto;
   width: 100%;
 }
-.userForm {
-  text-align: center;
+.userForm,
+.formSignin {
+  width: 100vw;
+  height: 80vh;
+  position: relative;
 }
 
 .label--error {
@@ -155,13 +158,6 @@ input[type="password"] {
 }
 /*---------Media Query----------*/
 @media all and (min-width: 481px) {
-  .subscribe__container {
-    width: 100vw;
-  }
-  .userForm {
-    // margin: 50%;
-  }
-
   .form__signUp-container {
     display: flex;
     width: 50%;
