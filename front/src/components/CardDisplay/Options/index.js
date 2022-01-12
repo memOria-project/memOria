@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect, useState } from 'react'
-import { PICK_NEW_GAME, PICK_ORDER } from '../../../actions'
+import PropTypes from 'prop-types'
+
 import RectoVerso from './RectoVerso'
 import DelayedCards from './DelayedCards'
 import DeckOrder from './DeckOrder'
@@ -11,23 +11,12 @@ const Options = ({ setShowOptions, delayedCards, firstCard }) => {
   const { defaultView: { isRecto } } = useSelector((state) => state.options)
 
   const dispatch = useDispatch()
-  const [preview, setPreview] = useState()
   const handleClick = (event) => {
     optionSwitch(event.target.id, dispatch)
     if (event.target.id === 'start') {
       setShowOptions((state) => !state)
     }
   }
-
-  useEffect(() => {
-    if (isRecto) {
-      setPreview(<div>"{firstCard.recto.substring(0, 25)}..." </div>)
-      console.log('recto')
-    } else {
-      setPreview(<div>"{firstCard.verso.substring(0, 25)}..." </div>)
-      console.log('verso')
-    }
-  }, [isRecto])
 
   return (
     <div>
@@ -50,7 +39,13 @@ const Options = ({ setShowOptions, delayedCards, firstCard }) => {
         {isRecto
           ? <div>"{firstCard.recto.substring(0, 30)}..." </div>
           : <div>"{firstCard.verso.substring(0, 30)}..." </div>}
-     </div>
+    </div>
   )
 }
 export default Options
+
+Options.propTypes = {
+  setShowOptions: PropTypes.func,
+  delayedCards: PropTypes.array,
+  firstCard: PropTypes.object
+}

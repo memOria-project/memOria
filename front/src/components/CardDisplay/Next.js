@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { NavLink, useParams } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle, faCheckCircle, faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons'
 import { useState, useEffect } from 'react'
@@ -16,8 +16,6 @@ import { RESET_CARD } from '../../actions'
 const Next = ({ database, showHotkeys, setDatabase, deckId, deckLength, currentCard, setCurrentCard, failedCards, setFailedCards }) => {
   const dispatch = useDispatch()
   const { defaultView } = useSelector((state) => state.options)
-  const { isConnected } = useSelector((state) => state.user)
-  const { cardId } = useParams()
   const [isFirstCard, setIsFirstCard] = useState()
 
   const nextCardURL = `/deck/${deckId}/${currentCard.id}`

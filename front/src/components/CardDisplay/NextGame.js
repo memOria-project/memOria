@@ -1,11 +1,13 @@
-import { FETCH_CARDS, PICK_NEW_GAME, CHECK_TOKEN } from '../../actions'
 import { useDispatch } from 'react-redux'
+import PropTypes from 'prop-types'
+
+import { FETCH_CARDS, PICK_NEW_GAME, CHECK_TOKEN } from '../../actions'
 import { NavLink, useParams } from 'react-router-dom'
 import setIndexPreviousCard from './setIndexPreviousCard'
 import handleClickCheckFail from './handleClickFail'
 
 const NextGame = ({ failedCards, currentCard, setCurrentCard, database, setFailedCards }) => {
-  const { cardId, deckId } = useParams()
+  const { deckId } = useParams()
 
   const handleClickRestart = () => {
     dispatch({ type: FETCH_CARDS, deckId })
@@ -46,3 +48,11 @@ const NextGame = ({ failedCards, currentCard, setCurrentCard, database, setFaile
   </div>)
 }
 export default NextGame
+
+NextGame.propTypes = {
+  failedCards: PropTypes.array,
+  currentCard: PropTypes.object,
+  setCurrentCard: PropTypes.func,
+  database: PropTypes.array,
+  setFailedCards: PropTypes.func
+}

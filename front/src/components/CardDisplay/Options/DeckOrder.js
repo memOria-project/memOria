@@ -46,10 +46,10 @@ const DeckOrder = ({ handleClick }) => {
   return (
   <div className="deckOptions__buttons">
     <div className="info-div">
-      <FontAwesomeIcon icon={faCaretLeft} className="discrete" onClick={handleClickBack}/>
+      <FontAwesomeIcon icon={faCaretLeft} className="discrete" style={{ cursor: 'pointer' }} onClick={handleClickBack}/>
 
       <p>{allButtons[optionIndex]}</p>
-      <FontAwesomeIcon icon={faCaretRight} className="discrete" onClick={handleClickNext}/>
+      <FontAwesomeIcon icon={faCaretRight} className="discrete" style={{ cursor: 'pointer' }} onClick={handleClickNext}/>
 
     </div>
   </div>
