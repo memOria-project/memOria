@@ -54,7 +54,9 @@
   flex: 0;
   padding: 0.15em;
 }
-
+.cardDisplay__nextButtons .discrete {
+  font-size: 1rem;
+}
 .deckOptions__buttons .information {
   margin: 0.5em;
   width: 250px;
@@ -80,4 +82,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.cardDisplay__nextButtons .warning,
+.cardDisplay__nextButtons .confirm {
+  // width: 115px;
+  height: 60px;
+  font-size: inherit;
 }
