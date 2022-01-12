@@ -37,5 +37,5 @@ export default DelayedCards
 
 DelayedCards.propTypes = {
   handleClick: PropTypes.func,
-  delayedCards: PropTypes.array
+  delayedCards: PropTypes.number
 }
