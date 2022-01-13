@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { PropTypes } from 'prop-types'
 import { useSelector } from 'react-redux'
 import Loading from '../Loading'
+
 const Confirmation = ({ deckId }) => {
   const path = `/deckEditor/${deckId}`
   const { loading, error } = useSelector((state) => state.user)
@@ -17,7 +18,7 @@ const Confirmation = ({ deckId }) => {
         animate={{ y: 5 }}
         transition={{ ease: 'easeIn' }}
           className="confirmation--error">
-        <FontAwesomeIcon icon={faTimes} /> <strong>Carte non créée.  </strong> <br /> "{error}". <br /> Veuillez vous connecter et essayer à nouveau.
+        <FontAwesomeIcon icon={faTimes} /> <strong>Carte non créée.  </strong> <br /> &quot;{error}&quot;. <br /> Veuillez vous connecter et essayer à nouveau.
       </motion.div>
         : <motion.div
             animate={{ y: 5 }}
