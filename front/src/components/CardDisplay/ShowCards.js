@@ -12,6 +12,8 @@ import classNames from 'classnames'
 import setAsSuccessful from './setAsSuccessful'
 import setAsFailed from './setAsFailed'
 import setDelay from './setDelay'
+import setIndexNextCard from './setIndexNextCard'
+import setIndexPreviousCard from './setIndexPreviousCard'
 
 const ShowCards = ({ hideButtons, showHotkeys, setDatabase, database, failedCards, setFailedCards, setCurrentCard, currentCard }) => {
   const { deckId } = useParams()
@@ -33,7 +35,8 @@ const ShowCards = ({ hideButtons, showHotkeys, setDatabase, database, failedCard
   const handlers = useSwipeable({
     onSwipedDown: (event) => setAsFailed(failedCards, setFailedCards, currentCard, setDatabase, setCurrentCard, database.length, dispatch),
     onSwipedUp: (event) => setAsSuccessful(setDelay, setDatabase, currentCard, setCurrentCard, database.length, failedCards, setFailedCards, dispatch),
-    trackMouse: true
+    onSwipeLeft: (event) => setIndexPreviousCard(setCurrentCard, currentCard.index),
+    onSwipeRight: (event) => setIndexNextCard(setCurrentCard, currentCard.index, database.length)
   })
   // ? fin swiper
 
