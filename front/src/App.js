@@ -16,6 +16,8 @@ import { checkSession } from './components/CheckSession/checkSession'
 import ResetCard from './components/ResetCard'
 import { Helmet } from 'react-helmet'
 import Footer from './components/Footer'
+import Copyrights from './components/Copyrights'
+import Contact from './components/Contact'
 
 function App () {
   checkSession()
@@ -93,6 +95,18 @@ function App () {
         {/* Route par défaut (404)  */}
         <Route path="/test">
           <TestFocus />
+        </Route>
+        <Route path="/rights">
+          <Helmet>
+            <title>memOria - Droit</title>
+          </Helmet>
+          <Copyrights />
+        </Route>
+        <Route path="/Contact">
+          <Helmet>
+            <title>memOria - Contact</title>
+          </Helmet>
+          <Contact />
         </Route>
         <Route path="*">
           <Helmet>
