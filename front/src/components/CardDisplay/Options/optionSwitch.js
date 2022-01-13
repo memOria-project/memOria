@@ -1,4 +1,3 @@
-import { useDispatch } from 'react-redux'
 import { PICK_ORDER, PICK_NEW_GAME } from '../../../actions'
 
 const optionSwitch = (userChoice, dispatch) => {

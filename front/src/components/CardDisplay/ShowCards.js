@@ -1,12 +1,14 @@
-import { RETURN_CARD } from '../../actions'
+import PropTypes from 'prop-types'
 import MDEditor from '@uiw/react-md-editor'
+import { useSwipeable } from 'react-swipeable'
+
+import { RETURN_CARD } from '../../actions'
 import { useParams } from 'react-router-dom'
-import { useEffect, useState, useRef } from 'react'
+import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import Next from './Next'
 import { motion } from 'framer-motion'
 import classNames from 'classnames'
-import { useSwipeable } from 'react-swipeable'
 import setAsSuccessful from './setAsSuccessful'
 import setAsFailed from './setAsFailed'
 import setDelay from './setDelay'
@@ -68,3 +70,14 @@ const ShowCards = ({ hideButtons, showHotkeys, setDatabase, database, failedCard
   </div>
 }
 export default ShowCards
+
+ShowCards.propTypes = {
+  hideButtons: PropTypes.bool,
+  showHotkeys: PropTypes.bool,
+  setDatabase: PropTypes.func,
+  database: PropTypes.array,
+  failedCards: PropTypes.array,
+  setFailedCards: PropTypes.func,
+  setCurrentCard: PropTypes.func,
+  currentCard: PropTypes.object
+}

@@ -84,7 +84,7 @@ const auth = (store) => (next) => (action) => {
         try {
           const request = await fetch(`${back}/user/infos`, optionsGetUser)
           const response = await request.json()
-          const { name, email, decks, delayedCards } = response
+          const { name, email, delayedCards } = response
 
           console.log('Token has been checked')
           console.log('CHECK_TOKEN', response)

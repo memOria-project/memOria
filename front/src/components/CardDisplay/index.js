@@ -2,20 +2,20 @@
 import { useParams } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { SET_CURRENT_DECK_ID, FETCH_CARDS, CHECK_TOKEN, PICK_NEW_GAME } from '../../actions'
+import { faCog } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import ShowCards from './ShowCards'
 import Loading from '../Loading'
 import Options from './Options'
 import NextGame from './NextGame'
+import NoMatch from '../NoMatch'
+import hotkeys from './hotkeys'
+import { pickOrder } from './Options/pickOrder'
+import { SET_CURRENT_DECK_ID, FETCH_CARDS, CHECK_TOKEN, PICK_NEW_GAME } from '../../actions'
 
 import './CardDisplay.scss'
 import './CardDisplay_desktop.scss'
-import { faCog } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import NoMatch from '../NoMatch'
-import { pickOrder } from './Options/pickOrder'
-import hotkeys from './hotkeys'
 
 const CardDisplay = () => {
   const dispatch = useDispatch()
@@ -40,9 +40,7 @@ const CardDisplay = () => {
   const [currentCard, setCurrentCard] = useState(initialFirstCardState)
   const [failedCards, setFailedCards] = useState([])
   const myFocus = useRef()
-  if (myFocus.current) {
-    myFocus.current.focus()
-  }
+
   // * ↓ Initialisation (récup et traitement des données) ↓
   // récupère toutes les cartes du paquet concerné, les infos utilisateurs, et reset le mode de parcours (pour qu'il soit par défaut)
   useEffect(() => {
@@ -53,6 +51,12 @@ const CardDisplay = () => {
     setTimeout(() => setShowHotkeys(false), 2000)
   }, [])
 
+  // vérifie que le focus est bien sur le container de la carte, afin que les hotkeys fonctionnent
+  useEffect(() => {
+    if (myFocus.current) {
+      myFocus.current.focus()
+    }
+  })
   // vérifie que le paquet existe / que l'utilisateur a le droit de l'utiliser
   useEffect(() => {
     if (allCards) {

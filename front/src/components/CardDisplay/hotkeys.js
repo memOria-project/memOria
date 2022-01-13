@@ -5,7 +5,6 @@ import setDelay from './setDelay'
 import setAsFailed from './setAsFailed'
 import { RETURN_CARD } from '../../actions'
 import store from '../../store'
-import { faDatabase } from '@fortawesome/free-solid-svg-icons'
 
 const hotkeys = (event, database, setShowHotkeys, setCurrentCard, currentCardIndex, setDatabase, currentCard, failedCards, setFailedCards, dispatch) => {
   console.log(currentCardIndex)

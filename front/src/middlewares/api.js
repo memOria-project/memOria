@@ -1,8 +1,8 @@
 import {
-  getAllDecks, GET_CARD, FETCH_DECKS, FETCH_CARDS, getCurrentDeckContent, POST_CARD, SET_AS_MODIFIED, DELETE_CARD, DELAY_CARD, CREATE_DECK, CHECK_TOKEN
-  , FETCH_USER_DECKS, UPDATE_USER, UPDATE_USER_DECKS, SET_CURRENT_DECK_CONTENT, DELETE_DECK, SET_LOADING, SET_ERROR
+  getAllDecks, GET_CARD, FETCH_DECKS, FETCH_CARDS, POST_CARD, SET_AS_MODIFIED, DELETE_CARD, DELAY_CARD, CREATE_DECK
+  , FETCH_USER_DECKS, UPDATE_USER_DECKS, SET_CURRENT_DECK_CONTENT, DELETE_DECK, SET_LOADING, SET_ERROR
 } from '../actions'
-import { clean, cleanObject } from '../functions/DOMPurify'
+import { cleanObject } from '../functions/DOMPurify'
 
 const api = (store) => (next) => (action) => {
   const token = localStorage.getItem('token')
@@ -40,8 +40,7 @@ const api = (store) => (next) => (action) => {
           store.dispatch(
             { type: SET_CURRENT_DECK_CONTENT, currentDeckContent: false })
           const response = await request.json()
-          if (request.status === 204) // le paquet est vide ou n'existe pas
-          {
+          if (request.status === 204) { // le paquet est vide ou n'existe pas
             store.dispatch({ type: SET_CURRENT_DECK_CONTENT, currentDeckContent: false })
             console.log('pas de paquets')
           } else {
@@ -56,7 +55,6 @@ const api = (store) => (next) => (action) => {
     }
     case FETCH_USER_DECKS:
     {
-      const { deckId } = store.getState().currentDeck
       const options = {
         method: 'GET',
         headers: {
@@ -109,8 +107,9 @@ const api = (store) => (next) => (action) => {
             console.log('new card' + response)
           } else {
             console.log(response)
-            store.dispatch({ type: SET_AS_MODIFIED, isModified: false })
             store.dispatch({ type: SET_ERROR, message: response })
+            //  utilisé pour stopper la redirection lors d'un échec d'édit de carte
+            store.dispatch({ type: SET_AS_MODIFIED, isModified: false })
           }
         } catch (error) { console.log(error) }
       }

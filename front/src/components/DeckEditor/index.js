@@ -17,7 +17,7 @@ import Edit from './Edit'
 import NoMatch from '../NoMatch'
 import NewDeckForm from '../Profile/NewDeckForm'
 
-const DeckEditor = ({ value }) => {
+const DeckEditor = () => {
   const deckIdFromParams = parseInt(useParams().deckId, 10)
   const location = useLocation()
   const editedCardId = location.state?.editedCardId

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { PropTypes } from 'prop-types'
+import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faTrashRestoreAlt } from '@fortawesome/free-solid-svg-icons'
 import { handleClickDelete } from './handleClick'
@@ -28,5 +28,7 @@ const Delete = ({ card, isDeck, size = '2x' }) => {
 export default Delete
 
 Delete.propTypes = {
-  card: PropTypes.Object
+  card: PropTypes.object,
+  isDeck: PropTypes.bool,
+  size: PropTypes.string
 }
