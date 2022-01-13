@@ -1,2 +1,5 @@
 @use "../../styles/_mixinsDecks";
 @include mixinsDecks.deckMobile;
+.decks-container {
+  position: relative;
+}
