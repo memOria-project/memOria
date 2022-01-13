@@ -46,6 +46,6 @@ exporté depuis memOria (${url} - ${new Date(Date.now())}
 export default ExportDeck
 
 ExportDeck.propTypes = {
-  cards: PropTypes.Array,
+  cards: PropTypes.array,
   title: PropTypes.string
 }

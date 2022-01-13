@@ -15,7 +15,7 @@ const Delete = ({ card, isDeck, size = '2x' }) => {
     'btn-doubleCheck': isClicked,
     smallButton: isDeck
   })
-
+  // la props cardId provoque un warning React, mais semble nécessaire pour handleClickDelete
   return (
   <button className={buttonClass} id={id} onClick={(event) => handleClickDelete(event, isDeck, isClicked, setIsClicked)}>
   {isClicked

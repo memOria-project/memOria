@@ -6,16 +6,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faEye, faPlus } from '@fortawesome/free-solid-svg-icons'
 
 import Loading from '../Loading'
-import { FETCH_USER_DECKS, SET_CURRENT_DECK_CONTENT } from '../../actions'
-
-import './DeckEditor.scss'
-import './DeckEditor_desktop.scss'
-
 import ExportDeck from './ExportDeck'
 import Delete from './Delete'
 import Edit from './Edit'
 import NoMatch from '../NoMatch'
 import NewDeckForm from '../Profile/NewDeckForm'
+import { FETCH_USER_DECKS, SET_CURRENT_DECK_CONTENT } from '../../actions'
+
+import './DeckEditor.scss'
+import './DeckEditor_desktop.scss'
 
 const DeckEditor = () => {
   const deckIdFromParams = parseInt(useParams().deckId, 10)
@@ -111,14 +110,10 @@ const DeckEditor = () => {
             return (
             <p key={card.id} tabIndex="0" id={card.id} className="rectoVersoView">
               <div className="card card__recto">
-              <pre className="card__content">
                 <MDEditor.Markdown source={card.recto} />
-                </pre>
               </div>
               <div className="card card__verso">
-              <pre className="card__content">
                   <MDEditor.Markdown source={card.verso} />
-                  </pre>
               </div>
               <div className="card__title">
                 <p ><strong>Carte n°{cards.indexOf(card) + 1}/{cards.length}</strong></p>
