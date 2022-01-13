@@ -17,12 +17,12 @@ const Delete = ({ card, isDeck, size = '2x' }) => {
   })
 
   return (
-   <button className={buttonClass} id={id} onClick={(event) => handleClickDelete(event, isDeck, isClicked, setIsClicked)}>
-     {isClicked
-       ? <FontAwesomeIcon className="btn-doubleCheck" icon={faTrashRestoreAlt} size={size} />
-       : <FontAwesomeIcon cardId={id} icon={faTrash} size={size} style={{ cursor: 'pointer' }} />
-     }
-   </button>
+  <button className={buttonClass} id={id} onClick={(event) => handleClickDelete(event, isDeck, isClicked, setIsClicked)}>
+  {isClicked
+    ? <FontAwesomeIcon className="btn-doubleCheck" icon={faTrashRestoreAlt} size={size} />
+    : <FontAwesomeIcon cardId={id} icon={faTrash} size={size} style={{ cursor: 'pointer' }} />
+    }
+  </button>
   )
 }
 export default Delete
