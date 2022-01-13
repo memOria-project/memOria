@@ -1,4 +1,6 @@
 @use "../../styles/mixinsCards";
+@use "../../styles/mixinsModal";
+
 @use "../../styles/vars";
 .rectoVersoView {
   display: flex;
@@ -72,5 +74,8 @@
 }
 .rectoVersoView .card {
   margin-bottom: 20px;
+}
+.deleteModal {
+  @include mixinsModal.modal;
 }
 @include mixinsCards.cardMobile;

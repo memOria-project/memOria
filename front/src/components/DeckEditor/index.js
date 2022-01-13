@@ -8,6 +8,7 @@ import { faEdit, faEye, faPlus } from '@fortawesome/free-solid-svg-icons'
 import Loading from '../Loading'
 import ExportDeck from './ExportDeck'
 import Delete from './Delete'
+import DeleteModal from './DeleteModal'
 import Edit from './Edit'
 import NoMatch from '../NoMatch'
 import NewDeckForm from '../Profile/NewDeckForm'
@@ -21,6 +22,7 @@ const DeckEditor = () => {
   const location = useLocation()
   const editedCardId = location.state?.editedCardId
 
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [loading, setLoading] = useState(true)
   const [showDeckModal, setShowDeckModal] = useState(false)
   const { id } = useSelector((state) => state.currentDeck)
@@ -95,7 +97,7 @@ const DeckEditor = () => {
               <FontAwesomeIcon icon={faEye} size="2x"/>
             </NavLink>
             <ExportDeck cards={cards} title={currentDeck.title} />
-            <Delete isDeck={true} size="1x"/>
+            <Delete isDeck={true} size="1x" showModal={showDeleteModal} setShowModal={setShowDeleteModal} />
           </div>
         </div>
         <div className="header__newCard header__newCard__recto">
@@ -125,6 +127,7 @@ const DeckEditor = () => {
           ))}
         {!cards?.length && !loading && <div style={{ marginTop: '2em', fontSize: '2em' }}> Ce paquet est vide! Vite, <NavLink to={`/cardEditor/${id}/new`}> ajoutez une carte!</NavLink> </div>}
         {loading && <Loading />}
+        {showDeleteModal && <DeleteModal isDeck={true} setShowModal={setShowDeleteModal}/>}
         {showDeckModal && <NewDeckForm handleClick={() => setShowDeckModal((state) => !state)} setShowNewDeck={setShowDeckModal} isEdit={true} />}
     </div>
       : loading ? <Loading /> : <NoMatch reason="deck" />
