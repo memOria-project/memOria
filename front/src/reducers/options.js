@@ -1,4 +1,4 @@
-import { PICK_DEFAULT_CARD_SIDE, RETURN_CARD, RESET_CARD, GET_CARD, PICK_NEW_GAME, PICK_ORDER } from '../actions'
+import { PICK_DEFAULT_CARD_SIDE, RETURN_CARD, RESET_CARD, PICK_NEW_GAME, PICK_ORDER } from '../actions'
 
 export const initialState = {
   defaultView: {

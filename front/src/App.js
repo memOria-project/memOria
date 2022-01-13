@@ -8,13 +8,11 @@ import SignIn from './components/Signin'
 import CardDisplay from './components/CardDisplay'
 import DeckEditor from './components/DeckEditor'
 import Profile from './components/Profile'
-import store from './store'
 import CardEditor from './components/CardEditor'
 import Subscribe from './components/Subscribe'
 import Team from './components/Team'
 import TestFocus from './components/testFocus'
 import { checkSession } from './components/CheckSession/checkSession'
-import { SET_CURRENT_DECK_CONTENT } from './actions'
 import ResetCard from './components/ResetCard'
 import { Helmet } from 'react-helmet'
 import Footer from './components/Footer'
@@ -68,7 +66,7 @@ function App () {
 
         <Route path="/subscribe">
           <Helmet>
-            <title>memOria - S'inscrire</title>
+            <title>memOria - S&apos;inscrire</title>
           </Helmet>
           <Subscribe />
         </Route>

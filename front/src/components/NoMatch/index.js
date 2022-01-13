@@ -11,8 +11,6 @@ const NoMatch = ({ reason }) => {
   const handleClick = () => {
     setTurnCard((state) => !state)
   }
-  //   const rectoPres = "# 404\nCeci n'est pas une carte"
-  //   const versoPres = "Vous avez trouvé mug O'Clock\n![](https://img.freepik.com/photos-gratuite/tasse-vintage-cassee-table-bois-vue-dessus_172251-380.jpg)"
 
   const [rectoPres, versoPres] = setReason(reason)
 

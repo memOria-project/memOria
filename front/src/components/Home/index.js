@@ -1,20 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { FETCH_DECKS, GET_USER } from '../../actions'
+import { FETCH_DECKS } from '../../actions'
 import ListDecks from '../ListDecks'
-import { NavLink } from 'react-router-dom'
-import { motion, MotionConfigContext } from 'framer-motion'
+import { motion } from 'framer-motion'
 import MDEditor from '@uiw/react-md-editor'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { library } from '@fortawesome/fontawesome-svg-core'
-// import { fab } from '@fortawesome/free-brands-svg-icons'
 import { faArrowCircleDown } from '@fortawesome/free-solid-svg-icons'
-import iconArrow from '../../assets/circle-down-solid.svg'
 
 import './Home.scss'
 import './Home_Desktop.scss'
-
-// library.add(fa)
 
 const Home = () => {
   const dispatch = useDispatch()
@@ -65,7 +59,7 @@ const Home = () => {
                 // onMouseLeave={handleClick}
                 >
                 <motion.pre
-                     animate={{ rotateY: 180 }}
+                    animate={{ rotateY: 180 }}
                     className="card__content" style={{ textAlign: 'center' }}>
                 <MDEditor.Markdown source={versoPres} />
                 </motion.pre>
@@ -78,12 +72,10 @@ const Home = () => {
                 <FontAwesomeIcon icon={faArrowCircleDown} size='10x' style={{ boxShadow: '1 10px 10px black' }}/>
             </motion.div>
             </>
-
-}
-
+            }
             </div>
             <div className="main-content__deck-display">
-                <ListDecks />
+              <ListDecks />
             </div>
         </div>
   )

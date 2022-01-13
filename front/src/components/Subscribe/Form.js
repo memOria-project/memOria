@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form'
 import { ErrorMessage } from '@hookform/error-message'
-import { SET_ERROR, SUBSCRIBE, UPDATE_PROFILE } from '../../actions'
+import { SET_ERROR, SUBSCRIBE } from '../../actions'
 import { Link, Redirect } from 'react-router-dom'
 import './subscribe.scss'
 import { useDispatch, useSelector } from 'react-redux'
@@ -13,7 +13,7 @@ import Error from '../ErrorMessage'
 const Form = () => {
   const { name, email, error } = useSelector((state) => state.user)
   const { isSuccessful } = useSelector((state) => state.back)
-  const { register, handleSubmit, watch, getValues, formState: { errors, isValid, isSubmitted, isSubmitSuccessful } } = useForm({ mode: 'onChange' })
+  const { register, handleSubmit, getValues, formState: { errors, isValid, isSubmitted } } = useForm({ mode: 'onChange' })
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
 
@@ -32,11 +32,11 @@ const Form = () => {
     notValid: !isValid
   })
 
-  const loginButton = classNames({
-    information: true,
-    valid: !isValid,
-    notValid: isValid
-  })
+  // const loginButton = classNames({
+  //   information: true,
+  //   valid: !isValid,
+  //   notValid: isValid
+  // })
 
   // reset du message d'erreur
   useEffect(() => {
@@ -75,7 +75,7 @@ const Form = () => {
         <div className= 'form__info-profil infoPersoLeft'>
           <div className= 'form__username inputRow'>
               <label className='form__label inputName '>
-                Nom d'utilisateur
+                Nom d&apos;utilisateur
               </label>
               <input type="text" id="username" name="username"
                 {...register('name',
@@ -158,8 +158,8 @@ const Form = () => {
           </div>
 
           <div className= 'login-button'>
-               <Link to="/signin">J'ai déjà un compte</Link>
-              <button type="submit" disabled={!isValid} className={submitButton}>S'inscrire</button>
+              <Link to="/signin">J&apos;ai déjà un compte</Link>
+              <button type="submit" disabled={!isValid} className={submitButton}>S&apos;inscrire</button>
           </div>
         </div>
       </div>

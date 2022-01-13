@@ -37,8 +37,8 @@ const Options = ({ setShowOptions, delayedCards, firstCard }) => {
         <button className="btn__submit" id="start" type="submit" onClick={handleClick}>Continuer </button>
         <h3> Vous verrez: </h3>
         {isRecto
-          ? <div>"{firstCard.recto.substring(0, 30)}..." </div>
-          : <div>"{firstCard.verso.substring(0, 30)}..." </div>}
+          ? <div>&quot;{firstCard.recto.substring(0, 30)}...&quot; </div>
+          : <div>&quot;{firstCard.verso.substring(0, 30)}...&quot; </div>}
     </div>
   )
 }

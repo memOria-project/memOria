@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { motion } from 'framer-motion'
 import './ErrorMessage.scss'
+import PropTypes from 'prop-types'
 
 const ErrorMessage = ({ message }) => {
   return (
@@ -16,3 +17,7 @@ const ErrorMessage = ({ message }) => {
 }
 
 export default ErrorMessage
+
+ErrorMessage.propTypes = {
+  message: PropTypes.string
+}

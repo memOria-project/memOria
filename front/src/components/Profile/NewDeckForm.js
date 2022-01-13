@@ -1,13 +1,13 @@
 import { useForm } from 'react-hook-form'
 import { ErrorMessage } from '@hookform/error-message'
-import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { CREATE_DECK } from '../../actions'
+import PropTypes from 'prop-types'
 
 const NewDeckForm = ({ handleClick, setShowNewDeck, isEdit }) => {
   const { title, tags, id } = useSelector((state) => state.currentDeck)
 
-  const { register, handleSubmit, watch, getValues, formState: { errors, isValid, isSubmitted, isSubmitSuccessful } } = useForm({ mode: 'onChange', defaultValues: { name: isEdit ? title : '', tags: isEdit ? tags : '', id: isEdit ? id : null } })
+  const { register, handleSubmit, watch, formState: { errors, isSubmitted } } = useForm({ mode: 'onChange', defaultValues: { name: isEdit ? title : '', tags: isEdit ? tags : '', id: isEdit ? id : null } })
 
   if (isSubmitted) {
     setShowNewDeck(false)
@@ -38,7 +38,7 @@ const NewDeckForm = ({ handleClick, setShowNewDeck, isEdit }) => {
               <option value="oclock">oClock</option>
           </select>
         </label> <br />
-         <button className="confirm" name="newDeck" type="submit">{isEdit ? 'Editer' : 'Créer'}</button>
+        <button className="confirm" name="newDeck" type="submit">{isEdit ? 'Editer' : 'Créer'}</button>
       </form>
       <button name="newDeck" className="information" onClick={handleClick}>retour</button>
     </div>
@@ -46,3 +46,9 @@ const NewDeckForm = ({ handleClick, setShowNewDeck, isEdit }) => {
   )
 }
 export default NewDeckForm
+
+NewDeckForm.propTypes = {
+  handleClick: PropTypes.func,
+  setShowNewDeck: PropTypes.func,
+  isEdit: PropTypes.bool
+}
