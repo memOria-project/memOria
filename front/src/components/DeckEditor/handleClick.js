@@ -37,17 +37,17 @@ export const handleClickDelete = (event, isDeck, isClicked, setIsClicked, setSho
   const idTakenFromButton = event.target.id
   const cardIdString = idTakenFromButton || idTakenFromIcon
   const cardId = parseInt(cardIdString, 10)
-  const deckId = store.getState().currentDeck.id
   // suppression si l'utilisateur en est à son deuxième clique.
   // si c'est le premier, on reset après qq secondes
   if (isClicked) {
     if (isDeck) {
       setShowModal(true)
+      setIsClicked(false)
     } else {
       store.dispatch({ type: DELETE_CARD, cardId })
     }
   } else {
-    setTimeout(() => setIsClicked(state => !state), 5000)
+    setTimeout(() => setIsClicked(false), 3000)
   }
 }
 
