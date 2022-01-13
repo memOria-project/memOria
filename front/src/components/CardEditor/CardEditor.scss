@@ -91,3 +91,8 @@
 .cardEditor__forms .card {
   margin: clamp(8px, 1.25vw, 120px) 10px;
 }
+
+// désactive le style "actif" de la toolbar, qui est inutile dans notre cas et qui crée un div fantome qui perturbe le layout
+.w-md-editor-toolbar-child.active {
+  display: none;
+}
