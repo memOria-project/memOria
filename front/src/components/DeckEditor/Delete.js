@@ -31,5 +31,6 @@ export default Delete
 Delete.propTypes = {
   card: PropTypes.object,
   isDeck: PropTypes.bool,
-  size: PropTypes.string
+  size: PropTypes.string,
+  setShowModal: PropTypes.func
 }

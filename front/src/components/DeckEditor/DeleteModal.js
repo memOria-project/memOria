@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux'
 import { handleClickDeleteDeck, handleClickExport } from './handleClick'
+import PropTypes from 'prop-types'
 
 const DeleteModal = ({ isDeck, setShowModal }) => {
   const { cards, title, id } = useSelector((state) => state.currentDeck)
@@ -21,3 +22,8 @@ const DeleteModal = ({ isDeck, setShowModal }) => {
 </div>
 }
 export default DeleteModal
+
+DeleteModal.propTypes = {
+  isDeck: PropTypes.bool,
+  setShowModal: PropTypes.func
+}
