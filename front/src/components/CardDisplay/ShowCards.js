@@ -50,19 +50,17 @@ const ShowCards = ({ hideButtons, showHotkeys, setDatabase, database, failedCard
     className={cardClass}
     onClick={handleClickReturn}
     >
-    <pre className="card__content">
       <MDEditor.Markdown source={currentCard.recto} />
-    </pre>
   </motion.div>
   : <motion.div
   {...handlers}
   animate={{ rotateY: 180 }}
   className={cardClass} onClick={handleClickReturn}>
-    <motion.pre
-    className="card__content"
-    animate={{ rotateY: 180 }}>
+      <motion.span
+        animate={{ rotateY: 180 }}
+        >
       <MDEditor.Markdown source={currentCard.verso} />
-    </motion.pre>
+      </motion.span>
   </motion.div>
 }
   {!hideButtons && <><Next database={database} showHotkeys={showHotkeys} setFailedCards={setFailedCards} setDatabase={setDatabase} failedCards={failedCards} currentCard={currentCard} setCurrentCard={setCurrentCard} deckId={deckId} deckLength={database.length} />
