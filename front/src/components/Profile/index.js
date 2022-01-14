@@ -69,9 +69,9 @@ const Profile = () => {
     ? <div className={styleLoading}>
                 {loading && <Loading />}
               </div>
-    : error
-      ? <ErrorMessage message={error} />
-      : <>
+    : <>
+        {error && <ErrorMessage message={error} />}
+
           <h1 className="userDecks__title">Tes paquets</h1>
 
           <div className="userDecks__container">

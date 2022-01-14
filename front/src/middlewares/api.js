@@ -201,20 +201,23 @@ const api = (store) => (next) => (action) => {
       const createDeck = async () => {
         try {
           const request = await fetch(`${back}/deck/`, options)
-          const response = await request.status
-          const { deckId, status } = await request.json()
-          console.log(response)
-          if (response === 201 || response === 200) {
+          const response = await request.json()
+          const { deckId, status } = response
+          if (request.status === 201 || request.status === 200) {
             console.log(`deck ${deckId} ${status}`)
             store.dispatch({ type: FETCH_USER_DECKS })
           } else {
-            console.log('no deck for you')
+            throw response
           }
-        } catch (error) { console.log(error) }
+        } catch (error) {
+          console.log('no deck for you!')
+          store.dispatch({ type: SET_ERROR, message: error })
+        }
       }
       createDeck()
       break
     }
+
     case DELETE_DECK: {
       const deckToBeDeleted = {
         id: action.deckId
