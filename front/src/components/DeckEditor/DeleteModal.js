@@ -1,6 +1,8 @@
 import { useSelector } from 'react-redux'
 import { handleClickDeleteDeck, handleClickExport } from './handleClick'
 import PropTypes from 'prop-types'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faDownload, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 const DeleteModal = ({ isDeck, setShowModal }) => {
   const { cards, title, id } = useSelector((state) => state.currentDeck)
@@ -13,10 +15,10 @@ const DeleteModal = ({ isDeck, setShowModal }) => {
       annuler
     </button>
     <button className="warning" onClick={() => { handleClickExport(cards, title); handleClickDeleteDeck(setShowModal, id) }}>
-      Sauvegarder les cartes puis supprimer le paquet
+        <FontAwesomeIcon icon={faDownload} /> puis <FontAwesomeIcon icon={faTrash} />
     </button>
     <button className="critic" onClick={() => handleClickDeleteDeck(setShowModal, id) }>
-      Supprimer sans sauvegarder
+      <FontAwesomeIcon icon={faTrash} />
     </button>
   </div>
 </div>
