@@ -146,7 +146,7 @@ const UpdateForm = ({ setShowUpdateForm }) => {
           </label>
 
           <div className= 'login-button'>
-                <button className="information" onClick={() => setShowUpdateForm(false)}>retour</button>
+                <button className="information" onClick={() => { setShowUpdateForm(false); if (error) { dispatch({ type: SET_ERROR, message: false }) } }}>retour</button>
                 <button type="submit" className={submitButton} disabled={!isValid}>Mettre à jour</button>
           </div>
 

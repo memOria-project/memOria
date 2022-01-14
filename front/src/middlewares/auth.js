@@ -31,7 +31,7 @@ const auth = (store) => (next) => (action) => {
           //  }
           // // Le token est inscrit dans le local storage
           localStorage.setItem('token', token)
-          if (request.status === 200) {
+          if (request.ok) {
             store.dispatch({ type: UPDATE_USER, email, name, decks, delayedCards })
           } else {
             console.log(response)
@@ -119,7 +119,7 @@ const auth = (store) => (next) => (action) => {
         try {
           const request = await fetch(`${back}/signup`, options)
           const response = await request.json()
-          if (request.status === 204 || request.status === 201 || request.status === 200) {
+          if (request.ok) {
             store.dispatch({ type: UPDATE_USER, password, email, name })
             store.dispatch({ type: REQUEST_SUCCESS, isSuccessful: true })
             // supprimer LOG_IN si on souhaite éviter le login automatique après l'inscription pour raison de sécu
@@ -158,7 +158,7 @@ const auth = (store) => (next) => (action) => {
           const request = await fetch(`${back}/user/update`, options)
           const response = await request.json()
           console.log()
-          if (request.status === 204 || request.status === 201 || request.status === 200) {
+          if (request.ok) {
             console.log('user mis à jour')
             store.dispatch({ type: CHECK_TOKEN })
             // supprimer LOG_IN si on souhaite éviter le login automatique après l'inscription pour raison de sécu

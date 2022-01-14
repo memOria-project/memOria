@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import { Redirect, useHistory } from 'react-router-dom'
 import { useEffect, useState, Fragment } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
@@ -9,18 +9,19 @@ import PersonalisedDeck from '../Deck/PersonalisedDeck'
 import Loading from '../Loading'
 import UpdateForm from './UpdateForm'
 import NewDeckForm from './NewDeckForm'
-import { FETCH_USER_DECKS, SET_LOADING } from '../../actions'
+import { FETCH_USER_DECKS, SET_LOADING, SET_LAST_ACTION } from '../../actions'
 
 import './Profile.scss'
+import ErrorMessage from '../ErrorMessage'
 
 const Profile = () => {
   //! ↓ STATE ↓
   const { user } = useSelector((state) => state)
   const isConnected = useSelector((state) => state.user.isConnected)
-  const { decks } = useSelector((state) => (state.user))
+  const { decks, loading, error } = useSelector((state) => (state.user))
   const [showUpdateForm, setShowUpdateForm] = useState(false)
   const [showNewDeck, setShowNewDeck] = useState(false)
-  const { loading } = useSelector((state) => state.user)
+  const history = useHistory()
   const dispatch = useDispatch()
 
   //! ↓ AUTRE ↓
@@ -32,23 +33,24 @@ const Profile = () => {
       setShowUpdateForm((state) => !state)
     }
   }
-  const styleLoading = classNames({
-    modal: loading
-  })
-  //! ↓ EFFETS DE BORD ↓
 
-  if (!isConnected) {
-    console.log('redirect')
-    return <Redirect to="/signin" />
-  }
+  //! ↓ EFFETS DE BORD ↓
 
   useEffect(() => {
     dispatch({ type: SET_LOADING, status: true })
+    dispatch({ type: SET_LAST_ACTION, lastAction: '' })
   }, [])
+
+  // redirige si utilisateur non connecté
+  useEffect(() => {
+    if (!isConnected) {
+      history.push('/signin')
+    }
+  }, [isConnected])
 
   useEffect(() => {
     // la conditionnelle vise à réduire les appels à l'API. Elle peut être enlevée si besoin.
-    if (!decks) {
+    if (!decks && !error) {
       dispatch({ type: FETCH_USER_DECKS })
     }
   }, [user])
@@ -66,6 +68,8 @@ const Profile = () => {
   }, [user.name, user.email, user.password])
 
   return (<>
+        {error && <ErrorMessage message={error} />}
+
           <h1 className="userDecks__title">Tes paquets</h1>
 
           <div className="userDecks__container">
@@ -88,9 +92,7 @@ const Profile = () => {
           </>
             : <button className="confirm" onClick={handleClick}>Infos personnelles</button>
           }
-          <div className={styleLoading}>
-          {loading && <Loading />}
-          </div>
+          {loading && <Loading showModal={true}/> }
         </>
   )
 }

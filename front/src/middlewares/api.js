@@ -1,6 +1,6 @@
 import {
   getAllDecks, GET_CARD, FETCH_DECKS, FETCH_CARDS, POST_CARD, SET_AS_MODIFIED, DELETE_CARD, DELAY_CARD, CREATE_DECK
-  , FETCH_USER_DECKS, UPDATE_USER_DECKS, SET_CURRENT_DECK_CONTENT, DELETE_DECK, SET_LOADING, SET_ERROR
+  , FETCH_USER_DECKS, UPDATE_USER_DECKS, SET_CURRENT_DECK_CONTENT, DELETE_DECK, SET_LOADING, SET_ERROR, DISCONNECT, SET_LAST_ACTION
 } from '../actions'
 import { cleanObject } from '../functions/DOMPurify'
 
@@ -66,10 +66,21 @@ const api = (store) => (next) => (action) => {
         try {
           const request = await fetch(`${back}/user/cards/`, options)
           const response = await request.json()
-          if (request.status === 200) {
+          if (request.ok) {
             store.dispatch({ type: UPDATE_USER_DECKS, decks: response })
-          } else { console.log(`UPDATE_USER_DECKS failed: ${request.status}, ${response}`) }
-        } catch (error) { console.log(error) }
+          } else {
+            console.log(
+              `UPDATE_USER_DECKS failed: ${request.status}, ${response}`)
+            if (response == 'jwt malformed') {
+              window.location.reload(true)
+            } else {
+              store.dispatch({ type: SET_LOADING, status: false })
+              store.dispatch({ type: SET_ERROR, message: response })
+            }
+          }
+        } catch (error) {
+          console.log(error)
+        }
       }
       getUserDecks()
       break
@@ -101,7 +112,7 @@ const api = (store) => (next) => (action) => {
           const response = await request.json()
 
           store.dispatch({ type: SET_LOADING, status: false })
-          if (request.status === 200 || request.status === 201) {
+          if (request.ok) {
             store.dispatch({ type: SET_AS_MODIFIED, isModified: true })
             store.dispatch({ type: GET_CARD, field: [{ field: 'recto', value: '' }, { field: 'verso', value: '' }] })
             console.log('new card' + response)
@@ -133,8 +144,8 @@ const api = (store) => (next) => (action) => {
       const deleteCard = async () => {
         try {
           const request = await fetch(`${back}/card`, options)
-          const response = await request.status
-          if (response === 200) {
+          const response = await request.json()
+          if (request.ok) {
             console.log(`carte supprimée: ${response}`)
           }
           store.dispatch({ type: FETCH_USER_DECKS })
@@ -162,7 +173,6 @@ const api = (store) => (next) => (action) => {
         try {
           const request = await fetch(`${back}/card/delay`, options)
           const response = await request.json()
-          console.log(response)
         } catch (error) { console.log(error) }
       }
       delayCard()
@@ -191,20 +201,23 @@ const api = (store) => (next) => (action) => {
       const createDeck = async () => {
         try {
           const request = await fetch(`${back}/deck/`, options)
-          const response = await request.status
-          const { deckId, status } = await request.json()
-          console.log(response)
-          if (response === 201 || response === 200) {
+          const response = await request.json()
+          const { deckId, status } = response
+          if (request.ok) {
             console.log(`deck ${deckId} ${status}`)
             store.dispatch({ type: FETCH_USER_DECKS })
           } else {
-            console.log('no deck for you')
+            throw response
           }
-        } catch (error) { console.log(error) }
+        } catch (error) {
+          console.log('no deck for you!')
+          store.dispatch({ type: SET_ERROR, message: error })
+        }
       }
       createDeck()
       break
     }
+
     case DELETE_DECK: {
       const deckToBeDeleted = {
         id: action.deckId
@@ -221,9 +234,11 @@ const api = (store) => (next) => (action) => {
       const deleteDeck = async () => {
         try {
           const request = await fetch(`${back}/deck/${action.deckId}`, options)
-          const response = await request.status
-          if (response === 200) {
+          const response = await request.json()
+          console.log(request.ok)
+          if (request.ok) {
             console.log(`deck supprimé: ${response}`)
+            store.dispatch({ type: SET_LAST_ACTION, lastAction: DELETE_DECK })
           }
           store.dispatch({ type: FETCH_USER_DECKS })
         } catch (error) { console.log(error) }
