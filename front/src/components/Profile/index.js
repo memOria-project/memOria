@@ -9,7 +9,7 @@ import PersonalisedDeck from '../Deck/PersonalisedDeck'
 import Loading from '../Loading'
 import UpdateForm from './UpdateForm'
 import NewDeckForm from './NewDeckForm'
-import { FETCH_USER_DECKS, SET_LOADING } from '../../actions'
+import { FETCH_USER_DECKS, SET_LOADING, SET_LAST_ACTION } from '../../actions'
 
 import './Profile.scss'
 import ErrorMessage from '../ErrorMessage'
@@ -42,6 +42,7 @@ const Profile = () => {
 
   useEffect(() => {
     dispatch({ type: SET_LOADING, status: true })
+    dispatch({ type: SET_LAST_ACTION, lastAction: '' })
   }, [])
 
   useEffect(() => {
