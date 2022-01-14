@@ -66,19 +66,20 @@ const api = (store) => (next) => (action) => {
         try {
           const request = await fetch(`${back}/user/cards/`, options)
           const response = await request.json()
-          if (request.status === 200) {
+          if (request.ok) {
             store.dispatch({ type: UPDATE_USER_DECKS, decks: response })
+          } else {
+            console.log(
+              `UPDATE_USER_DECKS failed: ${request.status}, ${response}`)
+            if (response == 'jwt malformed') {
+              window.location.reload(true)
+            } else {
+              store.dispatch({ type: SET_LOADING, status: false })
+              store.dispatch({ type: SET_ERROR, message: response })
+            }
           }
         } catch (error) {
-          console.log(
-          `UPDATE_USER_DECKS failed: ${request.status}, ${error}`)
-          if (error == 'jwt malformed') {
-            console.log('malformed!')
-            window.location.reload(true)
-          } else {
-            store.dispatch({ type: SET_LOADING, status: false })
-            store.dispatch({ type: SET_ERROR, message: error })
-          }
+          console.log(error)
         }
       }
       getUserDecks()
@@ -111,7 +112,7 @@ const api = (store) => (next) => (action) => {
           const response = await request.json()
 
           store.dispatch({ type: SET_LOADING, status: false })
-          if (request.status === 200 || request.status === 201) {
+          if (request.ok) {
             store.dispatch({ type: SET_AS_MODIFIED, isModified: true })
             store.dispatch({ type: GET_CARD, field: [{ field: 'recto', value: '' }, { field: 'verso', value: '' }] })
             console.log('new card' + response)
@@ -143,8 +144,8 @@ const api = (store) => (next) => (action) => {
       const deleteCard = async () => {
         try {
           const request = await fetch(`${back}/card`, options)
-          const response = await request.status
-          if (response === 200) {
+          const response = await request.json()
+          if (request.ok) {
             console.log(`carte supprimée: ${response}`)
           }
           store.dispatch({ type: FETCH_USER_DECKS })
@@ -172,7 +173,6 @@ const api = (store) => (next) => (action) => {
         try {
           const request = await fetch(`${back}/card/delay`, options)
           const response = await request.json()
-          console.log(response)
         } catch (error) { console.log(error) }
       }
       delayCard()
@@ -203,7 +203,7 @@ const api = (store) => (next) => (action) => {
           const request = await fetch(`${back}/deck/`, options)
           const response = await request.json()
           const { deckId, status } = response
-          if (request.status === 201 || request.status === 200) {
+          if (request.ok) {
             console.log(`deck ${deckId} ${status}`)
             store.dispatch({ type: FETCH_USER_DECKS })
           } else {
@@ -234,8 +234,9 @@ const api = (store) => (next) => (action) => {
       const deleteDeck = async () => {
         try {
           const request = await fetch(`${back}/deck/${action.deckId}`, options)
-          const response = await request.status
-          if (response === 200) {
+          const response = await request.json()
+          console.log(request.ok)
+          if (request.ok) {
             console.log(`deck supprimé: ${response}`)
             store.dispatch({ type: SET_LAST_ACTION, lastAction: DELETE_DECK })
           }
