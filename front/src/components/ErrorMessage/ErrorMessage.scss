@@ -1,6 +1,6 @@
 @use "../../styles/vars";
-
-.errorMessage__body {
+// first of type et last of type sont là pour éviter un doublon du même message d'erreur
+.errorMessage__body:first-of-type {
   z-index: 10;
   position: relative;
   background-color: vars.$color-critic;
@@ -14,4 +14,7 @@
   & a {
     color: vars.$color-main;
   }
+}
+.errorMessage__body:last-of-type {
+  display: none;
 }

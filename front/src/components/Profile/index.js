@@ -32,9 +32,7 @@ const Profile = () => {
       setShowUpdateForm((state) => !state)
     }
   }
-  const styleLoading = classNames({
-    modal: loading
-  })
+
   //! ↓ EFFETS DE BORD ↓
 
   if (!isConnected) {
@@ -65,11 +63,7 @@ const Profile = () => {
     setShowUpdateForm(false)
   }, [user.name, user.email, user.password])
 
-  return (loading
-    ? <div className={styleLoading}>
-                {loading && <Loading />}
-              </div>
-    : <>
+  return (<>
         {error && <ErrorMessage message={error} />}
 
           <h1 className="userDecks__title">Tes paquets</h1>
@@ -94,7 +88,7 @@ const Profile = () => {
           </>
             : <button className="confirm" onClick={handleClick}>Infos personnelles</button>
           }
-
+          {loading && <Loading showModal={true}/> }
         </>
   )
 }

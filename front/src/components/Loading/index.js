@@ -1,10 +1,20 @@
 import './Loading.scss'
+import PropTypes from 'prop-types'
+import classNames from 'classnames'
 
-const Loading = () => {
+const Loading = ({ showModal = false }) => {
   console.log('loading')
+  const modalClass = classNames({
 
+  })
   return (
-    <div className="spin"></div>
+    <div className={showModal ? 'modal' : ''}>
+      <div className="spin"></div>
+    </div>
   )
 }
 export default Loading
+
+Loading.propTypes = {
+  showModal: PropTypes.bool
+}
