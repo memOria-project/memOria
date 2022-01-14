@@ -12,15 +12,15 @@ import NewDeckForm from './NewDeckForm'
 import { FETCH_USER_DECKS, SET_LOADING } from '../../actions'
 
 import './Profile.scss'
+import ErrorMessage from '../ErrorMessage'
 
 const Profile = () => {
   //! ↓ STATE ↓
   const { user } = useSelector((state) => state)
   const isConnected = useSelector((state) => state.user.isConnected)
-  const { decks } = useSelector((state) => (state.user))
+  const { decks, loading, error } = useSelector((state) => (state.user))
   const [showUpdateForm, setShowUpdateForm] = useState(false)
   const [showNewDeck, setShowNewDeck] = useState(false)
-  const { loading } = useSelector((state) => state.user)
   const dispatch = useDispatch()
 
   //! ↓ AUTRE ↓
@@ -48,7 +48,7 @@ const Profile = () => {
 
   useEffect(() => {
     // la conditionnelle vise à réduire les appels à l'API. Elle peut être enlevée si besoin.
-    if (!decks) {
+    if (!decks && !error) {
       dispatch({ type: FETCH_USER_DECKS })
     }
   }, [user])
@@ -65,7 +65,13 @@ const Profile = () => {
     setShowUpdateForm(false)
   }, [user.name, user.email, user.password])
 
-  return (<>
+  return (loading
+    ? <div className={styleLoading}>
+                {loading && <Loading />}
+              </div>
+    : error
+      ? <ErrorMessage message={error} />
+      : <>
           <h1 className="userDecks__title">Tes paquets</h1>
 
           <div className="userDecks__container">
@@ -88,9 +94,7 @@ const Profile = () => {
           </>
             : <button className="confirm" onClick={handleClick}>Infos personnelles</button>
           }
-          <div className={styleLoading}>
-          {loading && <Loading />}
-          </div>
+
         </>
   )
 }

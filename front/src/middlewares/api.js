@@ -1,6 +1,6 @@
 import {
   getAllDecks, GET_CARD, FETCH_DECKS, FETCH_CARDS, POST_CARD, SET_AS_MODIFIED, DELETE_CARD, DELAY_CARD, CREATE_DECK
-  , FETCH_USER_DECKS, UPDATE_USER_DECKS, SET_CURRENT_DECK_CONTENT, DELETE_DECK, SET_LOADING, SET_ERROR
+  , FETCH_USER_DECKS, UPDATE_USER_DECKS, SET_CURRENT_DECK_CONTENT, DELETE_DECK, SET_LOADING, SET_ERROR, DISCONNECT
 } from '../actions'
 import { cleanObject } from '../functions/DOMPurify'
 
@@ -68,7 +68,17 @@ const api = (store) => (next) => (action) => {
           const response = await request.json()
           if (request.status === 200) {
             store.dispatch({ type: UPDATE_USER_DECKS, decks: response })
-          } else { console.log(`UPDATE_USER_DECKS failed: ${request.status}, ${response}`) }
+          } else {
+            console.log(
+            `UPDATE_USER_DECKS failed: ${request.status}, ${response}`)
+            if (response == 'jwt malformed') {
+              console.log('malformed!')
+              window.location.reload(true)
+            } else {
+              store.dispatch({ type: SET_LOADING, status: false })
+              store.dispatch({ type: SET_ERROR, message: response })
+            }
+          }
         } catch (error) { console.log(error) }
       }
       getUserDecks()
