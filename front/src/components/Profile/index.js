@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import { Redirect, useHistory } from 'react-router-dom'
 import { useEffect, useState, Fragment } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
@@ -21,6 +21,7 @@ const Profile = () => {
   const { decks, loading, error } = useSelector((state) => (state.user))
   const [showUpdateForm, setShowUpdateForm] = useState(false)
   const [showNewDeck, setShowNewDeck] = useState(false)
+  const history = useHistory()
   const dispatch = useDispatch()
 
   //! ↓ AUTRE ↓
@@ -35,15 +36,17 @@ const Profile = () => {
 
   //! ↓ EFFETS DE BORD ↓
 
-  if (!isConnected) {
-    console.log('redirect')
-    return <Redirect to="/signin" />
-  }
-
   useEffect(() => {
     dispatch({ type: SET_LOADING, status: true })
     dispatch({ type: SET_LAST_ACTION, lastAction: '' })
   }, [])
+
+  // redirige si utilisateur non connecté
+  useEffect(() => {
+    if (!isConnected) {
+      history.push('/signin')
+    }
+  }, [isConnected])
 
   useEffect(() => {
     // la conditionnelle vise à réduire les appels à l'API. Elle peut être enlevée si besoin.
