@@ -1,6 +1,6 @@
 import {
   getAllDecks, GET_CARD, FETCH_DECKS, FETCH_CARDS, POST_CARD, SET_AS_MODIFIED, DELETE_CARD, DELAY_CARD, CREATE_DECK
-  , FETCH_USER_DECKS, UPDATE_USER_DECKS, SET_CURRENT_DECK_CONTENT, DELETE_DECK, SET_LOADING, SET_ERROR, DISCONNECT
+  , FETCH_USER_DECKS, UPDATE_USER_DECKS, SET_CURRENT_DECK_CONTENT, DELETE_DECK, SET_LOADING, SET_ERROR, DISCONNECT, SET_LAST_ACTION
 } from '../actions'
 import { cleanObject } from '../functions/DOMPurify'
 
@@ -237,6 +237,7 @@ const api = (store) => (next) => (action) => {
           const response = await request.status
           if (response === 200) {
             console.log(`deck supprimé: ${response}`)
+            store.dispatch({ type: SET_LAST_ACTION, lastAction: DELETE_DECK })
           }
           store.dispatch({ type: FETCH_USER_DECKS })
         } catch (error) { console.log(error) }

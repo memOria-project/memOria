@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect, useState, useRef } from 'react'
-import { NavLink, useParams, useLocation } from 'react-router-dom'
+import { NavLink, useParams, useLocation, Redirect, useHistory } from 'react-router-dom'
 import MDEditor from '@uiw/react-md-editor'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faEye, faPlus } from '@fortawesome/free-solid-svg-icons'
@@ -12,7 +12,7 @@ import DeleteModal from './DeleteModal'
 import Edit from './Edit'
 import NoMatch from '../NoMatch'
 import NewDeckForm from '../Profile/NewDeckForm'
-import { FETCH_USER_DECKS, SET_CURRENT_DECK_CONTENT } from '../../actions'
+import { DELETE_DECK, FETCH_USER_DECKS, SET_CURRENT_DECK_CONTENT, SET_LAST_ACTION } from '../../actions'
 
 import './DeckEditor.scss'
 import './DeckEditor_desktop.scss'
@@ -28,11 +28,11 @@ const DeckEditor = () => {
   const { id } = useSelector((state) => state.currentDeck)
   const { currentDeck } = useSelector((state) => state)
   const { cards } = currentDeck
-
+  const history = useHistory()
   const dispatch = useDispatch()
 
   const toView = `/deck/${id}/0`
-  const { decks, isConnected } = useSelector((state) => state.user)
+  const { decks, isConnected, lastAction } = useSelector((state) => state.user)
   const cardRef = useRef([])
   console.log(cardRef)
   const resetDeck = {
@@ -42,13 +42,12 @@ const DeckEditor = () => {
   useEffect(() => {
     dispatch({ type: FETCH_USER_DECKS })
     dispatch({ type: SET_CURRENT_DECK_CONTENT, currentDeckContent: resetDeck })
-
+    dispatch({ type: SET_LAST_ACTION, lastAction: '' })
     // set focus if the card has been deleted or edited.
     const myCard = document.getElementById(editedCardId)
     if (myCard) {
       myCard.focus()
     }
-    // console.log(editedCardId)
   }
   , [])
 
@@ -66,6 +65,14 @@ const DeckEditor = () => {
       }
     }
   }, [decks])
+
+  // redirection si paquet supprimé
+  useEffect(() => {
+    console.log('last action modifié')
+    if (lastAction === DELETE_DECK) {
+      history.push('/profile')
+    }
+  }, [lastAction])
 
   // classement des cartes par id croissant
   if (cards) {

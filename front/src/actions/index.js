@@ -27,7 +27,7 @@ export const PICK_ORDER = 'PICK_ORDER'
 export const DELETE_DECK = 'DELETE_DECK'
 export const SET_ERROR = 'SET_ERROR'
 export const SET_LOADING = 'SET_LOADING'
-
+export const SET_LAST_ACTION = 'SET_LAST_ACTION'
 export const getAllDecks = (decks) => {
   return {
     type: GET_DECKS,

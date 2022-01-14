@@ -1,5 +1,5 @@
 import { fas } from '@fortawesome/free-solid-svg-icons'
-import { DISCONNECT, UPDATE_LOGIN, UPDATE_USER, UPDATE_SESSION, UPDATE_USER_DECKS, SET_ERROR, SET_LOADING } from '../actions'
+import { DISCONNECT, UPDATE_LOGIN, UPDATE_USER, UPDATE_SESSION, UPDATE_USER_DECKS, SET_ERROR, SET_LOADING, SET_LAST_ACTION } from '../actions'
 
 const initialState = {
   isConnected: false,
@@ -7,6 +7,7 @@ const initialState = {
   email: '',
   password: '',
   error: false,
+  lastAction: '',
   decks: [],
   delayedCards: []
 }
@@ -68,6 +69,13 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         isConnected: action.isConnected
+      }
+    }
+    case SET_LAST_ACTION: {
+      const { lastAction } = action
+      return {
+        ...state,
+        lastAction
       }
     }
     default:
