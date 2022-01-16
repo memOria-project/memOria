@@ -48,7 +48,7 @@ const UpdateForm = ({ setShowUpdateForm }) => {
   })
 
   //! ↓ EFFETS DE BORD ↓
-  // reset du message d'erreur
+  // reset du message d'erreur, set du focus
   useEffect(() => {
     dispatch({ type: SET_ERROR, message: false })
   }, [])
@@ -108,7 +108,7 @@ const UpdateForm = ({ setShowUpdateForm }) => {
           </div>
           {showPassword
             ? <>
-              <button className="buttonLink" onClick={() => setShowPassword((state) => !state)}> retour </button>
+              <button className="buttonLink" type="button" onClick={() => setShowPassword((state) => !state)}> retour </button>
               <div className= 'form__password inputRow'>
                 <label className='form__label inputName'> Nouveau Mot de passe </label>
                   <input type="password" id="password" name="password"
@@ -132,7 +132,7 @@ const UpdateForm = ({ setShowUpdateForm }) => {
                 <ErrorMessage errors ={errors} render={({ message }) => <span className='label--error'>{message}</span>} name="confirmPassword" />
               </div>
             </>
-            : <button className="buttonLink" onClick={() => setShowPassword((state) => !state)}> Modifier le mot de passe?</button>
+            : <button className="buttonLink" type="button" onClick={() => setShowPassword((state) => !state)}> Modifier le mot de passe?</button>
           }
 
           <label>
@@ -146,8 +146,8 @@ const UpdateForm = ({ setShowUpdateForm }) => {
           </label>
 
           <div className= 'login-button'>
-                <button className="information" onClick={() => { setShowUpdateForm(false); if (error) { dispatch({ type: SET_ERROR, message: false }) } }}>retour</button>
-                <button type="submit" className={submitButton} disabled={!isValid}>Mettre à jour</button>
+                <button type="button" className="information" onClick={() => { setShowUpdateForm(false); if (error) { dispatch({ type: SET_ERROR, message: false }) } }}>retour</button>
+                <button type="submit" id ="btn_update" className={submitButton} disabled={!isValid}>Mettre à jour</button>
           </div>
 
         </div>
