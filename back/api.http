@@ -1,21 +1,20 @@
-@baseUrl=http://localhost:3500/v1
-## @baseUrl=https://memoriapo.herokuapp.com/v1
-@host=http://localhost:3500
+# @baseUrl=http://localhost:3500/v1
+@baseUrl=https://memoriapo.herokuapp.com/v1
 
-@auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTYzNDE0MjcwOCwiZXhwIjoxNjM0MTQzOTA4fQ.yFisqForxRrVEFWq4AvUt99vH1l3ZNSQvh8xXALi7eY
+@auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQ0LCJleHAiOjE2NDc3NzE5NTcsImlhdCI6MTY0NzY4NTU1N30.Z-brF0rQU1y8gd5C7UPdrc6TMP6XWiPPOIo-ZP0t7sM
 
 ### Get all decks
 GET {{baseUrl}}/decks
 
 
 ### Get all cards from deck
-GET {{baseUrl}}/deck/2
+GET {{baseUrl}}/deck/126
 
 
 ### delete deck
-DELETE {{baseUrl}}/deck/16   
+DELETE {{baseUrl}}/deck/16
 content-type: "application/json"
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTYzOTA0MzQ4MiwiZXhwIjoxNjM5MDg2NjgyfQ.YRptNRHvGqCUV_IY13Z9m80REa8V0-BAeGeV_kvw_zw
+Authorization: {{auth}}
 
 #-----------  USERS CRUD -------------------------------
 
@@ -74,13 +73,13 @@ Content-Type: application/json
 }
 
 
-### login souleymane
+### login Miss Lélé
 POST {{baseUrl}}/login
 Content-Type: application/json
 
 {
-  "email" : "s.coulibaly@gmail.com",
-  "password" : "souley92"
+  "email" : "lea.mm@pm.me",
+  "password" : "misslélé90@"
 }
 
 ### Subscribe
@@ -132,22 +131,22 @@ Authorization: {{auth}}
 
 ### Add a card
 POST {{baseUrl}}/card
-content-type: "application/json"
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTYzOTA3NDU3MywiZXhwIjoxNjM5MTE3NzczfQ.Z9UzhlR1RCsTsg9uchm8Nv_5JuWykNrOX52BvNzeByU
+Authorization: {{auth}}
+Content-Type: application/json
 
 {
-    "deckId" : 18,
-    "recto": "Une carte à faible durée de vie...",
-    "verso": "...est amenée à disparaître mais pas tout de suite"
+    "deckId" : 126,
+    "recto": "test recto>",
+    "verso": "test verso"
 }
 
-### Add a card
+### Delete a card
 DELETE {{baseUrl}}/card
 Authorization: {{auth}}
 Content-Type: application/json
 
 {
-    "id" : 14
+    "id" : 1003
 }
 
 
@@ -166,10 +165,10 @@ Content-Type: application/json
 ### Add a DECK
 POST {{baseUrl}}/deck
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTYzOTA3NDU3MywiZXhwIjoxNjM5MTE3NzczfQ.Z9UzhlR1RCsTsg9uchm8Nv_5JuWykNrOX52BvNzeByU
+Authorization: {{auth}}
 
 {
-    "title" : "Deck coul5",
+    "title" : "TP27 bis",
     "tag": ["last chance", "test"]
 }
 
