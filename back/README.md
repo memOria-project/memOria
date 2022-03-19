@@ -1,8 +1,8 @@
 # Memoria - Backend local development setup
 
-Ce sous-dépôt est destiné à l'API de memori.
+Ce sous-dépôt est destiné à l'API de memoria.
 
-Ce projet est une API REST pour gérer les appels du front et l'alimenter (paquets publics, authetification, gestion du compte, gestion des paquets perso et des cartes qui les composent) 
+Ce projet est une API REST pour gérer les appels du front et l'alimenter (paquets publics, authentification, gestion du compte, gestion des paquets perso et des cartes qui les composent)
 
 ## Stack technique
 
@@ -35,7 +35,7 @@ Copier le fichier .env.example, le renommer en .env et adapter les informations.
 
 Copier le fichier `.sqitch.conf.example`
 
-Le renommer en `sqitch.conf` 
+Le renommer en `sqitch.conf`
 
 Modifier ou rajouter la ligne avec
 ```
@@ -56,7 +56,7 @@ sqitch deploy
 
 Vous serez peut être amener à configurer PostgreSQL (ou fournir les variables d'environnement nécéssaires) pour que les commandes `createdb` et `sqitch` puissent s'exécuter.
 
-## Lancement 
+## Lancement
 
 ```bash
 npm run dev (node-dev)
