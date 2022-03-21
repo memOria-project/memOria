@@ -1,11 +1,12 @@
-const sanitizeHtml = require('sanitize-html');
+const createDOMPurify = require('dompurify');
+const { JSDOM } = require('jsdom');
 
 module.exports = (request, response, next) => {
+  const window = new JSDOM('').window;
+  const DOMPurify = createDOMPurify(window);
   for (const propName in request.body) {
-      // console.log(`${propName} before sanitizer ${request.body[propName]}`)
       if (propName !== "tag")
-        {request.body[propName] = sanitizeHtml(request.body[propName])}
-      // console.log(`${propName} after sanitizer ${request.body[propName]}`)
+        {request.body[propName] = DOMPurify.sanitize(request.body[propName], {USE_PROFILES: {html: true}})}
   }
   next();
 }
