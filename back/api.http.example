@@ -1,0 +1,104 @@
+@baseUrl=http://localhost:3500/v1
+
+@auth=
+
+### Get all decks
+GET {{baseUrl}}/decks
+
+
+### Get all cards from deck
+GET {{baseUrl}}/deck/4
+
+
+### delete deck
+DELETE {{baseUrl}}/deck/16
+content-type: "application/json"
+Authorization: {{auth}}
+
+#-----------  USERS CRUD -------------------------------
+
+### login Toti
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+  "email" : "fake@email.fr",
+  "password" : "password"
+}
+
+### Subscribe
+POST {{baseUrl}}/signup
+Content-Type: application/json
+
+{
+  "name": "A name",
+  "email" : "fake@email.fr",
+  "password" : "password"
+}
+
+### Update user info
+POST {{baseUrl}}/user/update
+Content-Type: application/json
+Authorization: {{auth}}
+
+{
+  "currentPassword" : "",
+  "newPassword": ""
+
+}
+
+### Get user infos
+GET {{baseUrl}}/user/infos
+# coller Authorization + token généré et founi par le serveur
+Authorization: {{auth}}
+
+
+#-----------  CARDS CRUD -------------------------------
+
+### Get user cards
+GET {{baseUrl}}/user/cards
+# coller Authorization + token généré et founi par le serveur
+Authorization: {{auth}}
+
+### Add a card
+POST {{baseUrl}}/card
+Authorization: {{auth}}
+Content-Type: application/json
+
+{
+    "deckId" : 1,
+    "recto": "Recto text",
+    "verso": "Verso text"
+}
+
+### Delete a card
+DELETE {{baseUrl}}/card
+Authorization: {{auth}}
+Content-Type: application/json
+
+{
+    "id" : 1
+}
+
+
+### Delay a card
+POST {{baseUrl}}/card/delay
+Authorization: {{auth}}
+Content-Type: application/json
+
+{
+    "id" : 1
+}
+
+// GESTION DES DECKS
+
+
+### Add a DECK
+POST {{baseUrl}}/deck
+Content-Type: application/json
+Authorization: {{auth}}
+
+{
+    "title" : "A Deck Title",
+    "tag": ["A tag", "Another tag"]
+}

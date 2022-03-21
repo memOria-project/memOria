@@ -5,7 +5,7 @@ yarn.lock
 # back
 .env
 sqitch.conf
-api.http
+back/api.http
 
 # Front
 
