@@ -1,5 +1,7 @@
 node_modules
+.wrangler/
 package-lock.json
+!front/package-lock.json
 yarn.lock
 
 # back

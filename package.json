@@ -1,0 +1,13 @@
+{
+  "name": "memoria",
+  "private": true,
+  "scripts": {
+    "front:install": "npm install --prefix front",
+    "front:build": "npm run build --prefix front",
+    "api:dev": "npx wrangler dev --config cloudflare/wrangler.jsonc",
+    "api:migrate:local": "npx wrangler d1 execute memoria --local --file cloudflare/schema.sql --config cloudflare/wrangler.jsonc",
+    "api:migrate:remote": "npx wrangler d1 execute memoria --remote --file cloudflare/schema.sql --config cloudflare/wrangler.jsonc",
+    "api:deploy": "npx wrangler deploy --config cloudflare/wrangler.jsonc",
+    "site:deploy": "npm run front:build && node cloudflare/prepare-site.mjs && npx wrangler deploy --config cloudflare/site.wrangler.jsonc"
+  }
+}

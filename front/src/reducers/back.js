@@ -3,7 +3,7 @@ import { REQUEST_SUCCESS } from '../actions'
 // const initialState="https://memoriapo.herokuapp.com/v1"
 // API ouverte en illimité :
 const initialState = {
-  url: 'https://memoriapo.herokuapp.com/v1',
+  url: process.env.REACT_APP_API_ORIGIN || 'https://memoria-api.german-fighter.workers.dev/v1',
   isSuccessful: false
 }
 
